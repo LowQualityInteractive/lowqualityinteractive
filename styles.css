@@ -52,6 +52,14 @@ a { color: inherit; }
   font-weight: 700;
 }
 
+
+img.site-logo,
+img.footer-logo {
+  max-width: 100%;
+  height: auto;
+}
+
+.site-logo {
 .site-logo {
 .brand-badge {
   width: 40px;
