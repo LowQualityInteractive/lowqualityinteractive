@@ -55,6 +55,11 @@ a { color: inherit; }
 
 img.site-logo,
 img.footer-logo {
+  display: block;
+  flex-shrink: 0;
+}
+
+.site-logo {
   max-width: 100%;
   height: auto;
 }
