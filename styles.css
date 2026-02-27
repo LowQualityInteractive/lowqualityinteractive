@@ -60,6 +60,13 @@ img.footer-logo {
 }
 
 .site-logo {
+  max-width: 100%;
+  height: auto;
+}
+
+.site-logo {
+.site-logo {
+.brand-badge {
   width: 40px;
   height: 40px;
   border-radius: 12px;
@@ -68,6 +75,11 @@ img.footer-logo {
   object-fit: cover;
   border: 1px solid #3a3f50;
   background: #11131a;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.4px;
+  border: 1px solid #3a3f50;
+  background: linear-gradient(145deg, #1b1f2a, #11131a);
 }
 
 .nav {
@@ -216,6 +228,14 @@ footer {
   object-fit: cover;
   border: 1px solid #754040;
   background: #1d1010;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-weight: 800;
+  line-height: 1;
+  color: #ffd7d7;
+  border: 1px solid #754040;
+  background: linear-gradient(145deg, #3a1717, #1d1010);
 }
 
 .footer-links h2 {
