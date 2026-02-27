@@ -199,5 +199,395 @@
       });
     }
   </script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Low Quality Interactive | Home</title>
+<link rel="icon" type="image/png" href="logo.png" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#b54343;--bg:#050505;--surface:#101010;--text:#f2f2f2;--muted:#a0a0a0;--line:#232323}
+*{margin:0;padding:0;box-sizing:border-box;cursor:none}
+body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--text)}
+a,button{cursor:none}
+
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 20% 20%,rgba(181,67,67,.18),transparent 45%);z-index:-1}
+
+.cursor{position:fixed;width:12px;height:12px;border-radius:50%;background:var(--red);pointer-events:none;transform:translate(-50%,-50%);z-index:9999;box-shadow:0 0 16px var(--red)}
+.cursor-trail{position:fixed;width:6px;height:6px;border-radius:50%;background:rgba(181,67,67,.45);pointer-events:none;z-index:9998}
+
+.topbar{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 5vw;background:rgba(7,7,7,.9);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);font-weight:700}
+.logo{width:44px;height:44px;border-radius:10px;border:1px solid #3c3c3c;background:#141414;object-fit:cover}
+.nav{display:flex;align-items:center;gap:24px}
+.nav a{text-decoration:none;color:var(--muted);font-weight:600}
+.nav a.active,.nav a:hover{color:var(--text)}
+.contact-btn{text-decoration:none;background:var(--red);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700}
+
+.main{max-width:1050px;margin:90px auto;padding:0 20px}
+h1{font-size:clamp(2rem,5vw,3.8rem);margin-bottom:14px}
+p{color:var(--muted);line-height:1.6;max-width:720px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:32px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card h2{font-size:1.2rem;margin-bottom:8px}
+.card a{color:#fff;text-decoration:none;border-bottom:1px solid transparent}
+.card a:hover{border-bottom-color:#fff}
+
+footer{text-align:center;color:#5a5a5a;padding:40px 20px}
+
+@media (max-width: 780px){
+ *{cursor:auto}
+ a,button{cursor:auto}
+ .cursor,.cursor-trail{display:none!important}
+ .topbar{flex-wrap:wrap;padding:12px 20px}
+ .nav{order:3;width:100%;justify-content:space-between;gap:10px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">
+    <img class="logo" src="logo.png" alt="Low Quality Interactive logo" />
+    <span>🏠 Home</span>
+  </a>
+  <nav class="nav">
+    <a class="active" href="index.html">Home</a>
+    <a href="games.html">Games</a>
+    <a href="blogs.html">Blogs</a>
+  </nav>
+  <a class="contact-btn" href="contact.html">Contact Us</a>
+</header>
+
+<main class="main">
+  <h1>Low Quality Interactive</h1>
+  <p>Your red/black color scheme is solid already, so this version keeps that identity and makes each section its own page. Use the nav to jump between Home, Games, Blogs (dev logs), and Contact.</p>
+
+  <section class="cards">
+    <article class="card">
+      <h2>Games</h2>
+      <p>See ERADICATION and DON POLLO OBBY in one place.</p>
+      <a href="games.html">Open games page</a>
+    </article>
+    <article class="card">
+      <h2>Blogs / Dev Logs</h2>
+      <p>Track updates for each game with an easy post format.</p>
+      <a href="blogs.html">Open blogs page</a>
+    </article>
+    <article class="card">
+      <h2>Contact</h2>
+      <p>Partnerships, feedback, and business inquiry details.</p>
+      <a href="contact.html">Open contact page</a>
+    </article>
+  </section>
+</main>
+:root{
+ --red:#b54343;
+ --bg:#050505;
+ --surface:#0f0f0f;
+ --surface-soft:#141414;
+ --text:#f2f2f2;
+ --muted:#9a9a9a;
+ --line:#212121;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ font-family:"Inter",sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ overflow-x:hidden;
+ cursor:none;
+}
+
+body::before{
+ content:"";
+ position:fixed;
+ inset:0;
+ background:
+ radial-gradient(circle at 15% 20%, rgba(181,67,67,.22), transparent 45%),
+ radial-gradient(circle at 80% 5%, rgba(181,67,67,.08), transparent 35%);
+ z-index:-2;
+}
+
+.cursor{
+ position:fixed;
+ width:12px;
+ height:12px;
+ border-radius:50%;
+ background:var(--red);
+ pointer-events:none;
+ transform:translate(-50%,-50%);
+ z-index:9999;
+ box-shadow:0 0 15px var(--red);
+}
+.cursor-trail{
+ position:fixed;
+ width:6px;
+ height:6px;
+ border-radius:50%;
+ background:rgba(181,67,67,.45);
+ pointer-events:none;
+ z-index:9998;
+}
+
+.topbar{
+ position:sticky;
+ top:0;
+ z-index:100;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:20px;
+ padding:14px 5vw;
+ background:rgba(10,10,10,.86);
+ border-bottom:1px solid var(--line);
+ backdrop-filter:blur(8px);
+}
+
+.brand{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ text-decoration:none;
+ color:var(--text);
+ font-weight:700;
+}
+
+.home-icon{
+ width:42px;
+ height:42px;
+ border-radius:12px;
+ background:var(--surface-soft);
+ border:1px solid #2b2b2b;
+ display:grid;
+ place-items:center;
+ color:#fff;
+}
+
+.nav-links{
+ display:flex;
+ align-items:center;
+ gap:28px;
+}
+.nav-links a{
+ color:var(--muted);
+ text-decoration:none;
+ font-weight:600;
+ transition:.2s ease;
+}
+.nav-links a:hover,
+.nav-links a.active{color:var(--text)}
+
+.contact-btn{
+ text-decoration:none;
+ font-weight:700;
+ color:#fff;
+ background:var(--red);
+ padding:11px 18px;
+ border-radius:999px;
+ box-shadow:0 7px 20px rgba(181,67,67,.3);
+}
+
+.hero{
+ max-width:1100px;
+ margin:90px auto 70px;
+ padding:0 20px;
+}
+.hero h1{
+ font-size:clamp(2.1rem,6vw,3.8rem);
+ line-height:1.05;
+ margin-bottom:14px;
+}
+.hero p{
+ color:var(--muted);
+ max-width:680px;
+ line-height:1.6;
+}
+
+.section{
+ max-width:1100px;
+ margin:0 auto 90px;
+ padding:0 20px;
+}
+.section h2{
+ font-size:1.9rem;
+ margin-bottom:26px;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+ gap:20px;
+}
+.card{
+ background:linear-gradient(180deg, #141414, #0f0f0f);
+ border:1px solid var(--line);
+ border-radius:14px;
+ padding:22px;
+}
+.card h3{margin-bottom:10px}
+.card p{color:var(--muted);line-height:1.5;margin-bottom:18px}
+.card a{
+ color:#fff;
+ text-decoration:none;
+ border-bottom:1px solid transparent;
+}
+.card a:hover{border-bottom-color:#fff}
+
+.tag{
+ display:inline-block;
+ margin-bottom:12px;
+ color:#f7cfcf;
+ background:rgba(181,67,67,.18);
+ border:1px solid rgba(181,67,67,.35);
+ padding:5px 9px;
+ border-radius:999px;
+ font-size:.75rem;
+ font-weight:600;
+}
+
+.contact{
+ background:var(--surface);
+ border:1px solid var(--line);
+ border-radius:16px;
+ padding:25px;
+}
+.contact p{color:var(--muted);margin-bottom:15px}
+
+footer{
+ text-align:center;
+ padding:30px 20px 50px;
+ color:#5d5d5d;
+ font-size:.9rem;
+}
+
+@media (max-width:780px){
+ .topbar{flex-wrap:wrap;padding:12px 20px}
+ .nav-links{order:3;width:100%;justify-content:space-between;gap:14px;font-size:.95rem}
+ .contact-btn{margin-left:auto}
+}
+</style>
+</head>
+<body>
+<div class="cursor"></div>
+
+<header class="topbar">
+ <a class="brand" href="#home" aria-label="Go to homepage">
+  <span class="home-icon" aria-hidden="true">
+   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 10.8L12 3l9 7.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9.5V21h14V9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </span>
+  <span>Homepage</span>
+ </a>
+
+ <nav class="nav-links">
+  <a class="active" href="#home">Home</a>
+  <a href="#games">Games</a>
+  <a href="#blogs">Blogs</a>
+ </nav>
+
+ <a class="contact-btn" href="#contact">Contact Us</a>
+</header>
+
+<section class="hero" id="home">
+ <h1>Low Quality Interactive</h1>
+ <p>Fast-moving game projects with a strong visual identity and frequent dev updates. Your color palette is already strong, so this layout keeps that style while making it easier for players to find games, read updates, and contact you.</p>
+</section>
+
+<section class="section" id="games">
+ <h2>Games</h2>
+ <div class="grid">
+  <article class="card">
+   <span class="tag">Active Project</span>
+   <h3>ERADICATION</h3>
+   <p>Tactical survival combat with intense encounters and evolving systems.</p>
+   <a href="https://www.roblox.com/games/16844978752/ERADICATION" target="_blank" rel="noopener">Play on Roblox</a>
+  </article>
+
+  <article class="card">
+   <span class="tag">Active Project</span>
+   <h3>DON POLLO OBBY</h3>
+   <p>Chaotic obstacle gameplay with meme-energy pacing and unexpected twists.</p>
+   <a href="https://www.roblox.com" target="_blank" rel="noopener">Play on Roblox</a>
+  </article>
+ </div>
+</section>
+
+<section class="section" id="blogs">
+ <h2>Blogs (Dev Logs)</h2>
+ <div class="grid">
+  <article class="card">
+   <span class="tag">ERADICATION DEV LOG</span>
+   <h3>Update Template</h3>
+   <p><strong>Version:</strong> v0.0.x<br><strong>Date:</strong> Month Day, Year<br><strong>Highlights:</strong> New weapons, balancing, map polish, bug fixes.</p>
+   <a href="#">Read update</a>
+  </article>
+
+  <article class="card">
+   <span class="tag">DON POLLO OBBY DEV LOG</span>
+   <h3>Update Template</h3>
+   <p><strong>Version:</strong> v0.0.x<br><strong>Date:</strong> Month Day, Year<br><strong>Highlights:</strong> New obby sections, sound additions, QoL changes.</p>
+   <a href="#">Read update</a>
+  </article>
+ </div>
+</section>
+
+<section class="section" id="contact">
+ <h2>Contact Us</h2>
+ <div class="contact">
+  <p>For partnerships, feedback, or creator inquiries, email us at <strong>contact@lowqualityinteractive.com</strong>.</p>
+  <a class="contact-btn" href="mailto:contact@lowqualityinteractive.com">Send Email</a>
+ </div>
+</section>
+
+<footer>© 2026 LOW QUALITY INTERACTIVE</footer>
+
+<script>
+const isMobile = window.matchMedia('(max-width: 780px), (hover: none), (pointer: coarse)').matches;
+if (!isMobile) {
+  const cursor = document.createElement('div');
+  cursor.className = 'cursor';
+  document.body.appendChild(cursor);
+
+  const trails = [];
+  for (let i = 0; i < 8; i++) {
+    const t = document.createElement('div');
+    t.className = 'cursor-trail';
+    document.body.appendChild(t);
+    trails.push(t);
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+    trails.forEach((t, i) => {
+      setTimeout(() => {
+        t.style.left = `${e.clientX}px`;
+        t.style.top = `${e.clientY}px`;
+      }, i * 15);
+    });
+  });
+}
+const cursor = document.querySelector('.cursor');
+const trailCount = 8;
+const trails = [];
+
+for(let i=0;i<trailCount;i++){
+ const t = document.createElement('div');
+ t.classList.add('cursor-trail');
+ document.body.appendChild(t);
+ trails.push(t);
+}
+
+window.addEventListener('mousemove', e=>{
+ cursor.style.left = e.clientX + 'px';
+ cursor.style.top = e.clientY + 'px';
+ trails.forEach((t,i)=>{
+  setTimeout(()=>{
+   t.style.left = e.clientX + 'px';
+   t.style.top = e.clientY + 'px';
+  }, i * 15);
+ });
+});
+</script>
 </body>
 </html>
