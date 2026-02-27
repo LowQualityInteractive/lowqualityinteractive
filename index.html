@@ -1,55 +1,227 @@
 <!DOCTYPE html>
+<!-- ============================= -->
+<!-- INDEX.HTML (MAIN LANDING) -->
+<!-- ============================= -->
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Low Quality Int. - Roblox</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Low Quality Interactive</title>
+<link rel="icon" type="image/png" href="logo.png" />
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "VideoGame",
-      "name": "Low Quality Int.",
-      "genre": "Action, Tactical Shooter",
-      "image": "https://lowqualityinteractive.com/logo.png",
-      "description": "High-octane tactical combat on the Roblox platform. Experience Shattered Fronts and our upcoming tactical shooter projects.",
-      "author": {
-        "@type": "Person",
-        "name": "Richard Hunter"
-      },
-      "gamePlatform": "Roblox (PC, Mobile, Console)",
-      "applicationCategory": "Game",
-      "playMode": "Multiplayer"
-    }
-    </script>
+<!-- Builder Sans (fallback to Inter if unavailable) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-    <style>
-        body { background-color: #0d0d0d; color: #ffffff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; text-align: center; }
-        .container { max-width: 600px; padding: 20px; }
-        .logo { width: 150px; height: 150px; margin-bottom: 20px; border-radius: 10px; }
-        h1 { font-size: 2.5rem; letter-spacing: -1px; margin: 10px 0; color: #cc3333; }
-        p { color: #888; line-height: 1.6; }
-        .btn { display: inline-block; margin-top: 25px; padding: 12px 30px; background-color: #cc3333; color: white; text-decoration: none; font-weight: bold; border-radius: 5px; transition: 0.3s; }
-        .btn:hover { background-color: #ff4444; transform: scale(1.05); }
-        .footer { margin-top: 50px; font-size: 0.8rem; color: #444; }
-    </style>
+<style>
+:root{
+ --red:#b54343;
+ --bg:#050505;
+ --card:#0e0e0e;
+ --text:#f2f2f2;
+ --muted:#777;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+ font-family:"Builder Sans", "Inter", sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ overflow-x:hidden;
+ cursor:none;
+}
+
+/* ===== Custom Cursor ===== */
+.cursor{
+ position:fixed;
+ width:12px;
+ height:12px;
+ border-radius:50%;
+ background:var(--red);
+ pointer-events:none;
+ transform:translate(-50%,-50%);
+ z-index:9999;
+ transition:transform .08s ease;
+ box-shadow:0 0 15px var(--red);
+}
+
+.cursor-trail{
+ position:fixed;
+ width:6px;
+ height:6px;
+ border-radius:50%;
+ background:rgba(181,67,67,.4);
+ pointer-events:none;
+ z-index:9998;
+}
+
+/* ===== Background subtle gradient ===== */
+body::before{
+ content:"";
+ position:fixed;
+ inset:0;
+ background:radial-gradient(circle at 30% 30%, rgba(181,67,67,.15), transparent 60%);
+ z-index:-1;
+}
+
+header{
+ text-align:center;
+ padding:90px 20px 60px;
+}
+
+.logo{
+ width:130px;
+ border-radius:16px;
+ border:2px solid var(--red);
+ box-shadow:0 0 30px rgba(181,67,67,.4);
+}
+
+h1{
+ font-size:3rem;
+ margin-top:20px;
+ letter-spacing:2px;
+ color:var(--red);
+ font-weight:800;
+}
+
+nav{
+ margin-top:30px;
+}
+nav a{
+ margin:0 18px;
+ text-decoration:none;
+ color:var(--muted);
+ font-weight:600;
+ position:relative;
+}
+nav a:hover{color:var(--text)}
+
+.section{
+ max-width:1100px;
+ margin:120px auto;
+ padding:0 20px;
+}
+
+.section h2{
+ font-size:1.8rem;
+ margin-bottom:40px;
+ border-left:4px solid var(--red);
+ padding-left:15px;
+}
+
+.games-grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+ gap:40px;
+}
+
+.game-card{
+ background:var(--card);
+ border:1px solid #1c1c1c;
+ border-radius:14px;
+ padding:30px;
+ transition:.35s;
+}
+
+.game-card:hover{
+ transform:translateY(-8px);
+ border-color:var(--red);
+}
+
+.game-card h3{
+ font-size:1.4rem;
+ margin-bottom:10px;
+}
+
+.game-card p{
+ color:var(--muted);
+ margin-bottom:20px;
+}
+
+.btn{
+ display:inline-block;
+ padding:10px 20px;
+ background:var(--red);
+ color:#fff;
+ text-decoration:none;
+ border-radius:6px;
+ font-weight:600;
+}
+
+footer{
+ text-align:center;
+ padding:80px 20px;
+ color:#444;
+ font-size:.8rem;
+}
+
+</style>
 </head>
 <body>
 
-    <div class="container">
-        <img src="logo.png" alt="Low Quality Int. Logo" class="logo">
-        
-        <h1>LOW QUALITY INT.</h1>
-        <p>Developing immersive tactical experiences and high-stakes combat simulations on the Roblox engine (lorem lipsum).</p>
-        
-        <div class="links">
-            <a href="https://www.roblox.com/groups/your-group-id" class="btn">PLAY ON ROBLOX</a>
-        </div>
-    </div>
+<div class="cursor"></div>
 
-    <div class="footer">
-        &copy; 2026 LOW QUALITY INTERACTIVE. ALL RIGHTS RESERVED.
-    </div>
+<header>
+ <img src="logo.png" class="logo" alt="Low Quality Interactive" />
+ <h1>LOW QUALITY INT.</h1>
+ <nav>
+  <a href="index.html">Home</a>
+  <a href="eradication.html">ERADICATION</a>
+  <a href="donpollo.html">DON POLLO</a>
+  <a href="studio.html">Studio</a>
+  <a href="media.html">Media</a>
+  <a href="contact.html">Contact</a>
+ </nav>
+</header>
+
+<section class="section">
+ <h2>Games</h2>
+ <div class="games-grid">
+
+  <div class="game-card">
+   <h3>ERADICATION</h3>
+   <p>Tactical survival combat. Systemic warfare mechanics and high intensity encounters.</p>
+   <a href="eradication.html" class="btn">View Game</a>
+  </div>
+
+  <div class="game-card">
+   <h3>DON POLLO OBBY</h3>
+   <p>Audio‑driven absurdity and chaotic progression design.</p>
+   <a href="donpollo.html" class="btn">View Game</a>
+  </div>
+
+ </div>
+</section>
+
+<footer>
+© 2026 LOW QUALITY INTERACTIVE
+</footer>
+
+<script>
+// Cursor logic
+const cursor = document.querySelector('.cursor');
+const trailCount = 8;
+let trails = [];
+
+for(let i=0;i<trailCount;i++){
+ const t = document.createElement('div');
+ t.classList.add('cursor-trail');
+ document.body.appendChild(t);
+ trails.push(t);
+}
+
+window.addEventListener('mousemove', e=>{
+ cursor.style.left = e.clientX+'px';
+ cursor.style.top = e.clientY+'px';
+
+ trails.forEach((t,i)=>{
+  setTimeout(()=>{
+   t.style.left = e.clientX+'px';
+   t.style.top = e.clientY+'px';
+  }, i*15);
+ });
+});
+</script>
 
 </body>
 </html>
