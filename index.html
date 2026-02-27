@@ -3,10 +3,84 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Low Quality Interactive</title>
+<title>Low Quality Interactive | Home</title>
 <link rel="icon" type="image/png" href="logo.png" />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+:root{--red:#b54343;--bg:#050505;--surface:#101010;--text:#f2f2f2;--muted:#a0a0a0;--line:#232323}
+*{margin:0;padding:0;box-sizing:border-box;cursor:none}
+body{font-family:"Inter",sans-serif;background:var(--bg);color:var(--text)}
+a,button{cursor:none}
+
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 20% 20%,rgba(181,67,67,.18),transparent 45%);z-index:-1}
+
+.cursor{position:fixed;width:12px;height:12px;border-radius:50%;background:var(--red);pointer-events:none;transform:translate(-50%,-50%);z-index:9999;box-shadow:0 0 16px var(--red)}
+.cursor-trail{position:fixed;width:6px;height:6px;border-radius:50%;background:rgba(181,67,67,.45);pointer-events:none;z-index:9998}
+
+.topbar{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 5vw;background:rgba(7,7,7,.9);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);font-weight:700}
+.logo{width:44px;height:44px;border-radius:10px;border:1px solid #3c3c3c;background:#141414;object-fit:cover}
+.nav{display:flex;align-items:center;gap:24px}
+.nav a{text-decoration:none;color:var(--muted);font-weight:600}
+.nav a.active,.nav a:hover{color:var(--text)}
+.contact-btn{text-decoration:none;background:var(--red);color:#fff;padding:10px 16px;border-radius:999px;font-weight:700}
+
+.main{max-width:1050px;margin:90px auto;padding:0 20px}
+h1{font-size:clamp(2rem,5vw,3.8rem);margin-bottom:14px}
+p{color:var(--muted);line-height:1.6;max-width:720px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:32px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card h2{font-size:1.2rem;margin-bottom:8px}
+.card a{color:#fff;text-decoration:none;border-bottom:1px solid transparent}
+.card a:hover{border-bottom-color:#fff}
+
+footer{text-align:center;color:#5a5a5a;padding:40px 20px}
+
+@media (max-width: 780px){
+ *{cursor:auto}
+ a,button{cursor:auto}
+ .cursor,.cursor-trail{display:none!important}
+ .topbar{flex-wrap:wrap;padding:12px 20px}
+ .nav{order:3;width:100%;justify-content:space-between;gap:10px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">
+    <img class="logo" src="logo.png" alt="Low Quality Interactive logo" />
+    <span>🏠 Home</span>
+  </a>
+  <nav class="nav">
+    <a class="active" href="index.html">Home</a>
+    <a href="games.html">Games</a>
+    <a href="blogs.html">Blogs</a>
+  </nav>
+  <a class="contact-btn" href="contact.html">Contact Us</a>
+</header>
+
+<main class="main">
+  <h1>Low Quality Interactive</h1>
+  <p>Your red/black color scheme is solid already, so this version keeps that identity and makes each section its own page. Use the nav to jump between Home, Games, Blogs (dev logs), and Contact.</p>
+
+  <section class="cards">
+    <article class="card">
+      <h2>Games</h2>
+      <p>See ERADICATION and DON POLLO OBBY in one place.</p>
+      <a href="games.html">Open games page</a>
+    </article>
+    <article class="card">
+      <h2>Blogs / Dev Logs</h2>
+      <p>Track updates for each game with an easy post format.</p>
+      <a href="blogs.html">Open blogs page</a>
+    </article>
+    <article class="card">
+      <h2>Contact</h2>
+      <p>Partnerships, feedback, and business inquiry details.</p>
+      <a href="contact.html">Open contact page</a>
+    </article>
+  </section>
+</main>
 :root{
  --red:#b54343;
  --bg:#050505;
@@ -270,6 +344,31 @@ footer{
 <footer>© 2026 LOW QUALITY INTERACTIVE</footer>
 
 <script>
+const isMobile = window.matchMedia('(max-width: 780px), (hover: none), (pointer: coarse)').matches;
+if (!isMobile) {
+  const cursor = document.createElement('div');
+  cursor.className = 'cursor';
+  document.body.appendChild(cursor);
+
+  const trails = [];
+  for (let i = 0; i < 8; i++) {
+    const t = document.createElement('div');
+    t.className = 'cursor-trail';
+    document.body.appendChild(t);
+    trails.push(t);
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+    trails.forEach((t, i) => {
+      setTimeout(() => {
+        t.style.left = `${e.clientX}px`;
+        t.style.top = `${e.clientY}px`;
+      }, i * 15);
+    });
+  });
+}
 const cursor = document.querySelector('.cursor');
 const trailCount = 8;
 const trails = [];
