@@ -4,48 +4,70 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Low Quality Interactive | Games</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root { --red:#b54343; --bg:#050505; --surface:#101010; --text:#f2f2f2; --muted:#a0a0a0; --line:#252525; }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    body { font-family:Inter,sans-serif; background:var(--bg); color:var(--text); }
-    .topbar { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 5vw; border-bottom:1px solid var(--line); background:#0a0a0a; }
-    .brand { display:flex; align-items:center; gap:10px; color:var(--text); text-decoration:none; font-weight:700; }
-    .logo-badge { width:42px;height:42px;border-radius:10px;border:1px solid #3b3b3b;display:grid;place-items:center;background:#141414;font-size:11px;font-weight:800;line-height:1;text-align:center; }
-    .nav { display:flex; gap:24px; }
-    .nav a { color:var(--muted); text-decoration:none; font-weight:600; }
-    .nav a.active,.nav a:hover { color:var(--text); }
-    .contact-btn { text-decoration:none; color:#fff; background:var(--red); padding:10px 16px; border-radius:999px; font-weight:700; }
-    .main { max-width:1080px; margin:70px auto; padding:0 20px; }
-    h1 { margin-bottom:20px; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
-    .card { border:1px solid var(--line); border-radius:14px; background:var(--surface); padding:22px; }
-    .card p { color:var(--muted); margin-top:8px; line-height:1.6; }
-    @media (max-width:780px){ .topbar{flex-wrap:wrap;padding:12px 20px}.nav{width:100%;justify-content:space-between;order:3} }
-  </style>
+  <meta name="description" content="Games by Low Quality Interactive." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="index.html"><span class="logo-badge">LQ<br>INT</span><span>🏠 Home</span></a>
-    <nav class="nav"><a href="index.html">Home</a><a class="active" href="games.html">Games</a><a href="blogs.html">Blogs</a></nav>
-    <a class="contact-btn" href="contact.html">Contact Us</a>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="index.html">
+        <span class="brand-badge">LQ<br />INT</span>
+        <span>Low Quality Interactive</span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="games.html" aria-current="page">Games</a>
+        <a class="nav-link" href="blogs.html">Blogs</a>
+        <a class="button primary" href="contact.html">Contact</a>
+      </nav>
+    </div>
   </header>
-  <main class="main">
-    <h1>Games</h1>
-    <section class="grid">
-      <article class="card"><h2>ERADICATION</h2><p>Tactical survival combat with high-intensity encounters and evolving systems.</p></article>
-      <article class="card"><h2>DON POLLO OBBY</h2><p>Chaotic obby gameplay with meme-energy pacing and constant updates.</p></article>
-    </section>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <span class="kicker">Current titles</span>
+        <h1>Games in development and live support</h1>
+        <p class="lead">Everything currently tracked by the studio, including core genre and focus area.</p>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <span class="pill">Action Survival</span>
+          <h2>ERADICATION</h2>
+          <p>A hostile-wave survival game with escalating tension, resource pressure, and short intense sessions.</p>
+        </article>
+        <article class="card">
+          <span class="pill">Platformer / Obby</span>
+          <h2>DON POLLO OBBY</h2>
+          <p>A meme-fueled obstacle challenge featuring rhythmic jumps, risky routes, and chaos-first design.</p>
+        </article>
+      </section>
+    </div>
   </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <section class="footer-brand" aria-label="Company info">
+        <div class="footer-logo">LQ<br />INT</div>
+        <p>Copyright © 2026 Low Quality Interactive.<br />All rights reserved.</p>
+      </section>
+      <section class="footer-links" aria-label="Site links">
+        <h2>Site</h2>
+        <a href="games.html">Games</a>
+        <a href="blogs.html">Developer Blogs</a>
+      </section>
+      <section class="footer-links" aria-label="Connect links">
+        <h2>Connect</h2>
+        <a href="mailto:contact@lowqualityinteractive.com">Contact Us</a>
+        <a href="https://twitter.com" target="_blank" rel="noreferrer">Twitter</a>
+        <a href="https://discord.com" target="_blank" rel="noreferrer">Discord</a>
+        <a href="https://youtube.com" target="_blank" rel="noreferrer">YouTube</a>
+      </section>
+    </div>
+  </footer>
 </body>
 </html>
-<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Low Quality Interactive | Games</title>
-<link rel="icon" type="image/png" href="logo.png" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>body{margin:0;font-family:Inter,sans-serif;background:#050505;color:#f2f2f2}*{box-sizing:border-box}a{text-decoration:none}.topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 5vw;border-bottom:1px solid #232323;background:#0a0a0a}.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700}.logo{width:40px;height:40px;border-radius:10px}.nav{display:flex;gap:24px}.nav a{color:#a0a0a0;font-weight:600}.nav a.active,.nav a:hover{color:#fff}.contact-btn{background:#b54343;color:#fff;padding:10px 16px;border-radius:999px;font-weight:700}.main{max-width:1050px;margin:70px auto;padding:0 20px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}.card{border:1px solid #232323;background:#101010;border-radius:14px;padding:22px}.card p{color:#a0a0a0;line-height:1.5}</style>
-</head>
-<body>
-<header class="topbar"><a class="brand" href="index.html"><img class="logo" src="logo.png" alt="Logo"><span>🏠 Home</span></a><nav class="nav"><a href="index.html">Home</a><a class="active" href="games.html">Games</a><a href="blogs.html">Blogs</a></nav><a class="contact-btn" href="contact.html">Contact Us</a></header>
-<main class="main"><h1>Games</h1><div class="grid"><article class="card"><h2>ERADICATION</h2><p>Tactical survival combat with high-intensity encounters and system depth.</p></article><article class="card"><h2>DON POLLO OBBY</h2><p>Chaotic obby pacing, meme energy, and loud creative design choices.</p></article></div></main>
-</body></html>
