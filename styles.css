@@ -191,3 +191,51 @@ footer {
 
   .nav { gap: 0.8rem; }
 }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.7fr 0.7fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.footer-brand p {
+  line-height: 1.6;
+  margin: 0.9rem 0 0;
+}
+
+.footer-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-weight: 800;
+  line-height: 1;
+  color: #ffd7d7;
+  border: 1px solid #754040;
+  background: linear-gradient(145deg, #3a1717, #1d1010);
+}
+
+.footer-links h2 {
+  color: var(--text);
+  margin: 0 0 0.65rem;
+  font-size: 1.35rem;
+}
+
+.footer-links a {
+  display: block;
+  color: var(--muted);
+  text-decoration: none;
+  margin: 0.35rem 0;
+}
+
+.footer-links a:hover { color: var(--text); }
+
+@media (max-width: 760px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+}
