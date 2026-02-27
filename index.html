@@ -1,37 +1,42 @@
 <!DOCTYPE html>
-<!-- ============================= -->
-<!-- INDEX.HTML (MAIN LANDING) -->
-<!-- ============================= -->
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Low Quality Interactive</title>
 <link rel="icon" type="image/png" href="logo.png" />
-
-<!-- Builder Sans (fallback to Inter if unavailable) -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
  --red:#b54343;
  --bg:#050505;
- --card:#0e0e0e;
+ --surface:#0f0f0f;
+ --surface-soft:#141414;
  --text:#f2f2f2;
- --muted:#777;
+ --muted:#9a9a9a;
+ --line:#212121;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
-
+html{scroll-behavior:smooth}
 body{
- font-family:"Builder Sans", "Inter", sans-serif;
+ font-family:"Inter",sans-serif;
  background:var(--bg);
  color:var(--text);
  overflow-x:hidden;
  cursor:none;
 }
 
-/* ===== Custom Cursor ===== */
+body::before{
+ content:"";
+ position:fixed;
+ inset:0;
+ background:
+ radial-gradient(circle at 15% 20%, rgba(181,67,67,.22), transparent 45%),
+ radial-gradient(circle at 80% 5%, rgba(181,67,67,.08), transparent 35%);
+ z-index:-2;
+}
+
 .cursor{
  position:fixed;
  width:12px;
@@ -41,167 +46,233 @@ body{
  pointer-events:none;
  transform:translate(-50%,-50%);
  z-index:9999;
- transition:transform .08s ease;
  box-shadow:0 0 15px var(--red);
 }
-
 .cursor-trail{
  position:fixed;
  width:6px;
  height:6px;
  border-radius:50%;
- background:rgba(181,67,67,.4);
+ background:rgba(181,67,67,.45);
  pointer-events:none;
  z-index:9998;
 }
 
-/* ===== Background subtle gradient ===== */
-body::before{
- content:"";
- position:fixed;
- inset:0;
- background:radial-gradient(circle at 30% 30%, rgba(181,67,67,.15), transparent 60%);
- z-index:-1;
+.topbar{
+ position:sticky;
+ top:0;
+ z-index:100;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:20px;
+ padding:14px 5vw;
+ background:rgba(10,10,10,.86);
+ border-bottom:1px solid var(--line);
+ backdrop-filter:blur(8px);
 }
 
-header{
- text-align:center;
- padding:90px 20px 60px;
-}
-
-.logo{
- width:130px;
- border-radius:16px;
- border:2px solid var(--red);
- box-shadow:0 0 30px rgba(181,67,67,.4);
-}
-
-h1{
- font-size:3rem;
- margin-top:20px;
- letter-spacing:2px;
- color:var(--red);
- font-weight:800;
-}
-
-nav{
- margin-top:30px;
-}
-nav a{
- margin:0 18px;
+.brand{
+ display:flex;
+ align-items:center;
+ gap:12px;
  text-decoration:none;
- color:var(--muted);
- font-weight:600;
- position:relative;
+ color:var(--text);
+ font-weight:700;
 }
-nav a:hover{color:var(--text)}
+
+.home-icon{
+ width:42px;
+ height:42px;
+ border-radius:12px;
+ background:var(--surface-soft);
+ border:1px solid #2b2b2b;
+ display:grid;
+ place-items:center;
+ color:#fff;
+}
+
+.nav-links{
+ display:flex;
+ align-items:center;
+ gap:28px;
+}
+.nav-links a{
+ color:var(--muted);
+ text-decoration:none;
+ font-weight:600;
+ transition:.2s ease;
+}
+.nav-links a:hover,
+.nav-links a.active{color:var(--text)}
+
+.contact-btn{
+ text-decoration:none;
+ font-weight:700;
+ color:#fff;
+ background:var(--red);
+ padding:11px 18px;
+ border-radius:999px;
+ box-shadow:0 7px 20px rgba(181,67,67,.3);
+}
+
+.hero{
+ max-width:1100px;
+ margin:90px auto 70px;
+ padding:0 20px;
+}
+.hero h1{
+ font-size:clamp(2.1rem,6vw,3.8rem);
+ line-height:1.05;
+ margin-bottom:14px;
+}
+.hero p{
+ color:var(--muted);
+ max-width:680px;
+ line-height:1.6;
+}
 
 .section{
  max-width:1100px;
- margin:120px auto;
+ margin:0 auto 90px;
  padding:0 20px;
 }
-
 .section h2{
- font-size:1.8rem;
- margin-bottom:40px;
- border-left:4px solid var(--red);
- padding-left:15px;
+ font-size:1.9rem;
+ margin-bottom:26px;
 }
 
-.games-grid{
+.grid{
  display:grid;
- grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
- gap:40px;
+ grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+ gap:20px;
 }
-
-.game-card{
- background:var(--card);
- border:1px solid #1c1c1c;
+.card{
+ background:linear-gradient(180deg, #141414, #0f0f0f);
+ border:1px solid var(--line);
  border-radius:14px;
- padding:30px;
- transition:.35s;
+ padding:22px;
 }
-
-.game-card:hover{
- transform:translateY(-8px);
- border-color:var(--red);
-}
-
-.game-card h3{
- font-size:1.4rem;
- margin-bottom:10px;
-}
-
-.game-card p{
- color:var(--muted);
- margin-bottom:20px;
-}
-
-.btn{
- display:inline-block;
- padding:10px 20px;
- background:var(--red);
+.card h3{margin-bottom:10px}
+.card p{color:var(--muted);line-height:1.5;margin-bottom:18px}
+.card a{
  color:#fff;
  text-decoration:none;
- border-radius:6px;
+ border-bottom:1px solid transparent;
+}
+.card a:hover{border-bottom-color:#fff}
+
+.tag{
+ display:inline-block;
+ margin-bottom:12px;
+ color:#f7cfcf;
+ background:rgba(181,67,67,.18);
+ border:1px solid rgba(181,67,67,.35);
+ padding:5px 9px;
+ border-radius:999px;
+ font-size:.75rem;
  font-weight:600;
 }
 
+.contact{
+ background:var(--surface);
+ border:1px solid var(--line);
+ border-radius:16px;
+ padding:25px;
+}
+.contact p{color:var(--muted);margin-bottom:15px}
+
 footer{
  text-align:center;
- padding:80px 20px;
- color:#444;
- font-size:.8rem;
+ padding:30px 20px 50px;
+ color:#5d5d5d;
+ font-size:.9rem;
 }
 
+@media (max-width:780px){
+ .topbar{flex-wrap:wrap;padding:12px 20px}
+ .nav-links{order:3;width:100%;justify-content:space-between;gap:14px;font-size:.95rem}
+ .contact-btn{margin-left:auto}
+}
 </style>
 </head>
 <body>
-
 <div class="cursor"></div>
 
-<header>
- <img src="logo.png" class="logo" alt="Low Quality Interactive" />
- <h1>LOW QUALITY INT.</h1>
- <nav>
-  <a href="index.html">Home</a>
-  <a href="eradication.html">ERADICATION</a>
-  <a href="donpollo.html">DON POLLO</a>
-  <a href="studio.html">Studio</a>
-  <a href="media.html">Media</a>
-  <a href="contact.html">Contact</a>
+<header class="topbar">
+ <a class="brand" href="#home" aria-label="Go to homepage">
+  <span class="home-icon" aria-hidden="true">
+   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 10.8L12 3l9 7.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9.5V21h14V9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </span>
+  <span>Homepage</span>
+ </a>
+
+ <nav class="nav-links">
+  <a class="active" href="#home">Home</a>
+  <a href="#games">Games</a>
+  <a href="#blogs">Blogs</a>
  </nav>
+
+ <a class="contact-btn" href="#contact">Contact Us</a>
 </header>
 
-<section class="section">
+<section class="hero" id="home">
+ <h1>Low Quality Interactive</h1>
+ <p>Fast-moving game projects with a strong visual identity and frequent dev updates. Your color palette is already strong, so this layout keeps that style while making it easier for players to find games, read updates, and contact you.</p>
+</section>
+
+<section class="section" id="games">
  <h2>Games</h2>
- <div class="games-grid">
-
-  <div class="game-card">
+ <div class="grid">
+  <article class="card">
+   <span class="tag">Active Project</span>
    <h3>ERADICATION</h3>
-   <p>Tactical survival combat. Systemic warfare mechanics and high intensity encounters.</p>
-   <a href="eradication.html" class="btn">View Game</a>
-  </div>
+   <p>Tactical survival combat with intense encounters and evolving systems.</p>
+   <a href="https://www.roblox.com/games/16844978752/ERADICATION" target="_blank" rel="noopener">Play on Roblox</a>
+  </article>
 
-  <div class="game-card">
+  <article class="card">
+   <span class="tag">Active Project</span>
    <h3>DON POLLO OBBY</h3>
-   <p>Audio‑driven absurdity and chaotic progression design.</p>
-   <a href="donpollo.html" class="btn">View Game</a>
-  </div>
-
+   <p>Chaotic obstacle gameplay with meme-energy pacing and unexpected twists.</p>
+   <a href="https://www.roblox.com" target="_blank" rel="noopener">Play on Roblox</a>
+  </article>
  </div>
 </section>
 
-<footer>
-© 2026 LOW QUALITY INTERACTIVE
-</footer>
+<section class="section" id="blogs">
+ <h2>Blogs (Dev Logs)</h2>
+ <div class="grid">
+  <article class="card">
+   <span class="tag">ERADICATION DEV LOG</span>
+   <h3>Update Template</h3>
+   <p><strong>Version:</strong> v0.0.x<br><strong>Date:</strong> Month Day, Year<br><strong>Highlights:</strong> New weapons, balancing, map polish, bug fixes.</p>
+   <a href="#">Read update</a>
+  </article>
+
+  <article class="card">
+   <span class="tag">DON POLLO OBBY DEV LOG</span>
+   <h3>Update Template</h3>
+   <p><strong>Version:</strong> v0.0.x<br><strong>Date:</strong> Month Day, Year<br><strong>Highlights:</strong> New obby sections, sound additions, QoL changes.</p>
+   <a href="#">Read update</a>
+  </article>
+ </div>
+</section>
+
+<section class="section" id="contact">
+ <h2>Contact Us</h2>
+ <div class="contact">
+  <p>For partnerships, feedback, or creator inquiries, email us at <strong>contact@lowqualityinteractive.com</strong>.</p>
+  <a class="contact-btn" href="mailto:contact@lowqualityinteractive.com">Send Email</a>
+ </div>
+</section>
+
+<footer>© 2026 LOW QUALITY INTERACTIVE</footer>
 
 <script>
-// Cursor logic
 const cursor = document.querySelector('.cursor');
 const trailCount = 8;
-let trails = [];
+const trails = [];
 
 for(let i=0;i<trailCount;i++){
  const t = document.createElement('div');
@@ -211,17 +282,15 @@ for(let i=0;i<trailCount;i++){
 }
 
 window.addEventListener('mousemove', e=>{
- cursor.style.left = e.clientX+'px';
- cursor.style.top = e.clientY+'px';
-
+ cursor.style.left = e.clientX + 'px';
+ cursor.style.top = e.clientY + 'px';
  trails.forEach((t,i)=>{
   setTimeout(()=>{
-   t.style.left = e.clientX+'px';
-   t.style.top = e.clientY+'px';
-  }, i*15);
+   t.style.left = e.clientX + 'px';
+   t.style.top = e.clientY + 'px';
+  }, i * 15);
  });
 });
 </script>
-
 </body>
 </html>
