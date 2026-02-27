@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Low Quality Interactive | Games</title>
-  <meta name="description" content="Games by Low Quality Interactive." />
+  <meta name="description" content="Current and upcoming games by Low Quality Interactive." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -13,10 +13,8 @@
 <body>
   <header class="site-header">
     <div class="container header-row">
-      <a class="brand" href="index.html">
+      <a class="brand" href="index.html" aria-label="Low Quality Interactive home">
         <img class="site-logo" src="assets/logo.svg" alt="Low Quality Interactive logo" width="40" height="40" />
-        <img class="site-logo" src="assets/logo.svg" alt="Low Quality Interactive logo" />
-        <span class="brand-badge">LQ<br />INT</span>
         <span>Low Quality Interactive</span>
       </a>
       <nav class="nav" aria-label="Primary navigation">
@@ -31,55 +29,59 @@
   <main>
     <div class="container">
       <section class="hero">
-        <span class="kicker">Current titles</span>
-        <h1>Games in development and live support</h1>
-        <p class="lead">Everything currently tracked by the studio, including core genre and focus area.</p>
+        <span class="kicker">Now shipping</span>
+        <h1>Active games and in-progress projects</h1>
+        <p class="lead">A quick snapshot of what we're currently building and supporting across the studio.</p>
       </section>
 
-      <section class="grid">
+      <section class="grid" aria-label="Game list">
         <article class="card">
-          <span class="pill">Action Survival</span>
+          <span class="pill">Action survival</span>
           <h2>ERADICATION</h2>
-          <p>A hostile-wave survival game with escalating tension, resource pressure, and short intense sessions.</p>
+          <p>Wave-based combat with escalating threat patterns, scarce resources, and high-pressure survival loops.</p>
         </article>
+
         <article class="card">
           <span class="pill">Platformer / Obby</span>
           <h2>DON POLLO OBBY</h2>
-          <p>A meme-fueled obstacle challenge featuring rhythmic jumps, risky routes, and chaos-first design.</p>
+          <p>Meme-powered obstacle chaos with intentionally unpredictable routes and speedrun-friendly pacing.</p>
+        </article>
+
+        <article class="card">
+          <span class="pill">Prototype</span>
+          <h2>??? (Working Title)</h2>
+          <p>An unrevealed experiment focused on short, replayable sessions and social co-op mechanics.</p>
         </article>
       </section>
     </div>
   </main>
 
   <footer>
-    <div class="container footer-grid">
-      <section class="footer-brand" aria-label="Company info">
-        <img class="footer-logo" src="assets/logo.svg" alt="Low Quality Interactive logo" width="64" height="64" />
-        <p>© 2026 Low Quality Interactive. All rights reserved.</p>
-        <img class="footer-logo" src="assets/logo.svg" alt="Low Quality Interactive logo" />
-        <p>© 2026 Low Quality Interactive. All rights reserved.</p>
-        <div class="footer-logo">LQ<br />INT</div>
-        <p>Copyright © 2026 Low Quality Interactive.<br />All rights reserved.</p>
-      </section>
-      <section class="footer-links" aria-label="Site links">
-        <h2>Site</h2>
-        <a href="games.html">Games</a>
-        <a href="blogs.html">Developer Blogs</a>
-      </section>
-      <section class="footer-links" aria-label="Connect links">
-        <h2>Connect</h2>
-        <a href="mailto:contact@lowqualityinteractive.com">Contact Us</a>
-        <a href="https://x.com/LowQualityInt" target="_blank" rel="noreferrer">X</a>
-        <a href="https://discord.gg/G2J9rP5fBg" target="_blank" rel="noreferrer">Discord</a>
-        <a href="https://www.youtube.com/@LowQualityInteractive" target="_blank" rel="noreferrer">YouTube</a>
-      </section>
+    <div class="container">
+      <div class="footer-grid">
+        <section>
+          <a class="brand" href="index.html">
+            <img class="site-logo" src="assets/logo.svg" alt="Low Quality Interactive logo" width="40" height="40" />
+            <span>Low Quality Interactive</span>
+          </a>
+        </section>
+        <section class="footer-links" aria-label="Site links">
+          <h2>Site</h2>
+          <a href="index.html">Home</a>
+          <a href="games.html">Games</a>
+          <a href="blogs.html">Blogs</a>
+          <a href="contact.html">Contact</a>
+        </section>
+        <section class="footer-links" aria-label="Social links">
+          <h2>Connect</h2>
+          <a href="mailto:contact@lowqualityinteractive.com">Email</a>
+          <a href="https://x.com/LowQualityInt" target="_blank" rel="noreferrer">X</a>
+          <a href="https://discord.gg/G2J9rP5fBg" target="_blank" rel="noreferrer">Discord</a>
+          <a href="https://www.youtube.com/@LowQualityInteractive" target="_blank" rel="noreferrer">YouTube</a>
+        </section>
+      </div>
+      <p class="copyright">© 2026 Low Quality Interactive. All rights reserved.</p>
     </div>
-        <a href="https://twitter.com" target="_blank" rel="noreferrer">Twitter</a>
-        <a href="https://discord.com" target="_blank" rel="noreferrer">Discord</a>
-        <a href="https://youtube.com" target="_blank" rel="noreferrer">YouTube</a>
-      </section>
-    </div>
-    <div class="container">© 2026 Low Quality Interactive. All rights reserved.</div>
   </footer>
 </body>
 </html>
