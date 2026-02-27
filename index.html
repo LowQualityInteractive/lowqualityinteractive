@@ -1,6 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Low Quality Interactive | Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #b54343;
+      --bg: #050505;
+      --surface: #101010;
+      --text: #f2f2f2;
+      --muted: #a0a0a0;
+      --line: #252525;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Inter, sans-serif; background: var(--bg); color: var(--text); }
+
+    html.custom-cursor-enabled, html.custom-cursor-enabled * { cursor: none !important; }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(circle at 18% 18%, rgba(181, 67, 67, 0.2), transparent 40%);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 5vw;
+      border-bottom: 1px solid var(--line);
+      background: rgba(9, 9, 9, 0.92);
+      backdrop-filter: blur(8px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      border: 1px solid #3b3b3b;
+      display: grid;
+      place-items: center;
+      background: #141414;
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .nav { display: flex; align-items: center; gap: 24px; }
+    .nav a { color: var(--muted); text-decoration: none; font-weight: 600; }
+    .nav a:hover, .nav a.active { color: var(--text); }
+
+    .contact-btn {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 700;
+      background: var(--red);
+      padding: 10px 16px;
+      border-radius: 999px;
+    }
+
+    .main { max-width: 1080px; margin: 90px auto; padding: 0 20px; }
+    h1 { font-size: clamp(2rem, 5vw, 3.8rem); margin-bottom: 12px; }
+    .intro { color: var(--muted); line-height: 1.6; max-width: 760px; }
+
+    .cards {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+      padding: 22px;
+    }
+    .card h2 { margin-bottom: 8px; }
+    .card p { color: var(--muted); margin-bottom: 12px; line-height: 1.5; }
+    .card a { color: #fff; text-decoration: none; font-weight: 600; }
+
+    footer { text-align: center; color: #626262; padding: 36px 20px; }
+
+    .cursor {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 16px var(--red);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+    }
+
+    .cursor-trail {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(181, 67, 67, 0.45);
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    @media (max-width: 780px) {
+      .topbar { flex-wrap: wrap; padding: 12px 20px; }
+      .nav { width: 100%; justify-content: space-between; order: 3; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Homepage">
+      <span class="logo-badge">LQ<br>INT</span>
+      <span>🏠 Home</span>
+    </a>
+    <nav class="nav">
+      <a class="active" href="index.html">Home</a>
+      <a href="games.html">Games</a>
+      <a href="blogs.html">Blogs</a>
+    </nav>
+    <a class="contact-btn" href="contact.html">Contact Us</a>
+  </header>
+
+  <main class="main">
+    <h1>Low Quality Interactive</h1>
+    <p class="intro">Clean multi-page layout with your red/black identity. Use Games for titles, Blogs for update logs, and Contact for inquiries.</p>
+
+    <section class="cards">
+      <article class="card">
+        <h2>Games</h2>
+        <p>ERADICATION and DON POLLO OBBY overview page.</p>
+        <a href="games.html">Open games page</a>
+      </article>
+      <article class="card">
+        <h2>Blogs / Dev Logs</h2>
+        <p>Update posts for each game release and patch.</p>
+        <a href="blogs.html">Open blogs page</a>
+      </article>
+      <article class="card">
+        <h2>Contact</h2>
+        <p>Business, creator, and partnership inquiries.</p>
+        <a href="contact.html">Open contact page</a>
+      </article>
+    </section>
+  </main>
+
+  <footer>© 2026 LOW QUALITY INTERACTIVE</footer>
+
+  <script>
+    const enableCustomCursor = !window.matchMedia('(max-width: 780px), (hover: none), (pointer: coarse)').matches;
+
+    if (enableCustomCursor) {
+      document.documentElement.classList.add('custom-cursor-enabled');
+
+      const cursor = document.createElement('div');
+      cursor.className = 'cursor';
+      document.body.appendChild(cursor);
+
+      const trails = [];
+      for (let i = 0; i < 8; i += 1) {
+        const t = document.createElement('div');
+        t.className = 'cursor-trail';
+        document.body.appendChild(t);
+        trails.push(t);
+      }
+
+      window.addEventListener('mousemove', (e) => {
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
+
+        trails.forEach((t, i) => {
+          setTimeout(() => {
+            t.style.left = `${e.clientX}px`;
+            t.style.top = `${e.clientY}px`;
+          }, i * 15);
+        });
+      });
+    }
+  </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Low Quality Interactive | Home</title>

@@ -1,6 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Low Quality Interactive | Contact</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --red:#b54343; --bg:#050505; --surface:#101010; --text:#f2f2f2; --muted:#a0a0a0; --line:#252525; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:Inter,sans-serif; background:var(--bg); color:var(--text); }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 5vw; border-bottom:1px solid var(--line); background:#0a0a0a; }
+    .brand { display:flex; align-items:center; gap:10px; color:var(--text); text-decoration:none; font-weight:700; }
+    .logo-badge { width:42px;height:42px;border-radius:10px;border:1px solid #3b3b3b;display:grid;place-items:center;background:#141414;font-size:11px;font-weight:800;line-height:1;text-align:center; }
+    .nav { display:flex; gap:24px; }
+    .nav a { color:var(--muted); text-decoration:none; font-weight:600; }
+    .nav a:hover { color:var(--text); }
+    .contact-btn { text-decoration:none; color:#fff; background:var(--red); padding:10px 16px; border-radius:999px; font-weight:700; }
+    .main { max-width:860px; margin:70px auto; padding:0 20px; }
+    .box { border:1px solid var(--line); border-radius:14px; background:var(--surface); padding:22px; margin-top:20px; }
+    .box p { color:var(--muted); line-height:1.6; margin-bottom:14px; }
+    @media (max-width:780px){ .topbar{flex-wrap:wrap;padding:12px 20px}.nav{width:100%;justify-content:space-between;order:3} }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="logo-badge">LQ<br>INT</span><span>🏠 Home</span></a>
+    <nav class="nav"><a href="index.html">Home</a><a href="games.html">Games</a><a href="blogs.html">Blogs</a></nav>
+    <a class="contact-btn" href="contact.html">Contact Us</a>
+  </header>
+  <main class="main">
+    <h1>Contact Us</h1>
+    <section class="box">
+      <p>For partnerships, feedback, business inquiries, and creator collabs, contact us here:</p>
+      <a class="contact-btn" href="mailto:contact@lowqualityinteractive.com">contact@lowqualityinteractive.com</a>
+    </section>
+  </main>
+</body>
+</html>
 <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Low Quality Interactive | Contact</title>
 <link rel="icon" type="image/png" href="logo.png" />
