@@ -24,8 +24,6 @@ body {
   line-height: 1.55;
 }
 
-
-
 .js-site {
   opacity: 0;
   filter: saturate(0.94);
@@ -40,13 +38,6 @@ body {
 .js-site.is-leaving {
   opacity: 0;
   filter: saturate(0.9);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  body,
-  body * {
-    cursor: none !important;
-  }
 }
 
 .page-loader {
@@ -233,33 +224,6 @@ body::before {
   pointer-events: none;
 }
 
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 50%), rgba(181, 67, 67, 0.12), transparent 210px);
-  pointer-events: none;
-}
-
-.cursor-fx {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 30px;
-  height: 30px;
-  border: 1px solid rgba(181, 67, 67, 0.65);
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0;
-  transform: translate3d(var(--cursor-fx-x, 0px), var(--cursor-fx-y, 0px), 0) translate(-50%, -50%);
-  transition: width 160ms ease, height 160ms ease, border-color 180ms ease, opacity 140ms ease;
-  will-change: transform;
-  z-index: 40;
-}
-.cursor-fx.is-visible { opacity: 1; }
-.cursor-fx.is-active { width: 54px; height: 54px; border-color: var(--brand); }
-
 a { color: inherit; }
 .container { width: min(1100px, 92vw); margin: 0 auto; }
 
@@ -329,7 +293,6 @@ footer { border-top:1px solid rgba(181,67,67,.2); padding:2rem 0 2.4rem; }
   .header-row{flex-direction:column;justify-content:center;padding:.8rem 0;}
   .hero{padding:1.5rem;}
   .game-showcase{min-height:220px;}
-  .cursor-fx{display:none;}
 }
 
 .game-devlog-buttons,
@@ -424,7 +387,6 @@ footer { border-top:1px solid rgba(181,67,67,.2); padding:2rem 0 2.4rem; }
   margin: 0;
   padding-left: 1.2rem;
 }
-
 
 @media (prefers-reduced-motion: reduce) {
   .js-site,
