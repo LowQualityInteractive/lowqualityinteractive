@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Prototype Landscape</title>
+  <desc id="desc">A mysterious purple-blue alien world with glowing fog.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1c1344" />
+      <stop offset="55%" stop-color="#2f1f72" />
+      <stop offset="100%" stop-color="#071a37" />
+    </linearGradient>
+    <radialGradient id="nebula" cx="0.7" cy="0.2" r="0.7">
+      <stop offset="0%" stop-color="#5ef3ff" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#5ef3ff" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#sky)" />
+  <rect width="1200" height="675" fill="url(#nebula)" />
+  <g fill="#ffffff" fill-opacity="0.75">
+    <circle cx="170" cy="100" r="2" />
+    <circle cx="220" cy="140" r="1.5" />
+    <circle cx="560" cy="90" r="2" />
+    <circle cx="720" cy="125" r="1.8" />
+    <circle cx="980" cy="70" r="1.6" />
+    <circle cx="1060" cy="160" r="2.2" />
+  </g>
+  <ellipse cx="320" cy="505" rx="260" ry="78" fill="#3f2487" fill-opacity="0.75" />
+  <ellipse cx="840" cy="545" rx="340" ry="95" fill="#26134d" fill-opacity="0.88" />
+  <circle cx="760" cy="230" r="82" fill="#8bf0ff" fill-opacity="0.24" />
+  <rect x="742" y="312" width="36" height="140" fill="#a4f8ff" fill-opacity="0.45" />
+</svg>
