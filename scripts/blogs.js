@@ -43,7 +43,7 @@
   };
 
   try {
-    const response = await fetch('data/devlogs.json', { cache: 'no-store' });
+    const response = await fetch('/data/devlogs.json', { cache: 'no-store' });
     if (!response.ok) throw new Error('Bad response');
 
     const payload = await response.json();
