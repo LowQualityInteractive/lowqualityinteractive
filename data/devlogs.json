@@ -1,0 +1,22 @@
+{
+  "posts": [
+    {
+      "id": "eradication-update",
+      "tag": "ERADICATION update",
+      "title": "Enemy pacing pass v1.6",
+      "summary": "Spawn timing was retuned, FX readability improved, and a new late-wave ammo drop rule was added."
+    },
+    {
+      "id": "donpollo-update",
+      "tag": "DON POLLO OBBY update",
+      "title": "Route shuffle patch v2.1",
+      "summary": "Checkpoint spacing was smoothed and two bonus shortcut paths were added for advanced players."
+    },
+    {
+      "id": "prototype-update",
+      "tag": "Prototype update",
+      "title": "Co-op test build notes",
+      "summary": "Session join flow has been stabilized and player objective markers now sync correctly in test lobbies."
+    }
+  ]
+}
