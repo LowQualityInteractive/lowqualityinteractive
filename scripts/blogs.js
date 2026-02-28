@@ -4,6 +4,7 @@
   if (!gameButtonsContainer || !viewer) return;
 
   const CHANGELOG_SECTIONS = ['new', 'changes', 'bugs', 'removals', 'misc'];
+  const USE_BULLET_LISTS = false;
 
   const renderError = () => {
     gameButtonsContainer.innerHTML = '<p>Could not load games.</p>';
@@ -106,8 +107,16 @@
 
       if (lines.length === 0) {
         valueCell.textContent = '—';
-      } else if (lines.length === 1) {
-        valueCell.textContent = lines[0];
+      } else if (lines.length === 1 || !USE_BULLET_LISTS) {
+        valueCell.innerHTML = '';
+        lines.forEach((line, index) => {
+          const textLine = document.createElement('div');
+          textLine.textContent = line;
+          valueCell.appendChild(textLine);
+          if (index < lines.length - 1) {
+            valueCell.appendChild(document.createElement('br'));
+          }
+        });
       } else {
         const list = document.createElement('ul');
         lines.forEach((line) => {
