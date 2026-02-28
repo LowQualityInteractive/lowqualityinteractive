@@ -286,6 +286,9 @@
         image.loading = 'lazy';
         image.src = resolveAssetPath(currentUpdate.image);
         image.alt = currentUpdate.imageAlt || `${currentGame.name} update image`;
+        image.addEventListener('error', () => {
+          image.remove();
+        });
         body.appendChild(image);
       }
 
