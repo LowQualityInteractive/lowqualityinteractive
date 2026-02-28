@@ -65,8 +65,8 @@
     body.style.setProperty('--cursor-x', x);
     body.style.setProperty('--cursor-y', y);
     if (cursorFx) {
-      cursorFx.style.left = x;
-      cursorFx.style.top = y;
+      cursorFx.style.setProperty('--cursor-fx-x', x);
+      cursorFx.style.setProperty('--cursor-fx-y', y);
       cursorFx.classList.add('is-visible');
     }
   };
