@@ -131,3 +131,49 @@ footer { border-top:1px solid rgba(181,67,67,.2); padding:2rem 0 2.4rem; }
   .game-showcase{min-height:220px;}
   .cursor-fx{display:none;}
 }
+
+.game-devlog-buttons,
+.devlog-jump-list,
+.devlog-nav-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 0.9rem;
+}
+
+.devlog-game-button[aria-pressed="true"],
+.devlog-jump-list .button[aria-pressed="true"] {
+  border-color: rgba(181,67,67,.9);
+  background: rgba(181,67,67,.12);
+}
+
+.devlog-viewer {
+  margin-top: 1rem;
+}
+
+.devlog-meta {
+  color: var(--muted);
+  margin-top: 0;
+}
+
+.devlog-position {
+  align-self: center;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.devlog-body {
+  margin-top: 1rem;
+}
+
+.devlog-image {
+  width: 100%;
+  max-height: 380px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid var(--panel-border);
+}
+
+.devlog-body p {
+  line-height: 1.6;
+}

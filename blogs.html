@@ -32,14 +32,19 @@
       <section class="hero">
         <span class="kicker">Development updates</span>
         <h1>Studio notes, patch summaries, and roadmaps</h1>
-        <p class="lead">Latest updates for each game are pinned below so game cards can link directly to the newest post.</p>
+        <p class="lead">Pick a game below to open its devlog. Each update supports long-form text, images, and quick previous/next navigation.</p>
       </section>
 
-      <section class="grid" aria-label="Recent blog posts" id="devlog-list">
-        <article class="card">
-          <h2>Loading latest dev logs…</h2>
-          <p>If this message stays here, make sure <code>data/devlogs.json</code> is reachable from your host.</p>
-        </article>
+      <section class="card" aria-label="Choose a game devlog">
+        <h2>Game devlogs</h2>
+        <div class="game-devlog-buttons" id="devlog-game-buttons">
+          <p>Loading games…</p>
+        </div>
+      </section>
+
+      <section class="card devlog-viewer" id="devlog-viewer" aria-live="polite">
+        <h2>Loading latest dev logs…</h2>
+        <p>If this message stays here, make sure <code>data/devlogs.json</code> is reachable from your host.</p>
       </section>
     </div>
   </main>
