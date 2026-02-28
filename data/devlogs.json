@@ -1,22 +1,78 @@
 {
-  "posts": [
+  "games": [
     {
-      "id": "eradication-update",
+      "id": "eradication",
+      "name": "ERADICATION",
       "tag": "ERADICATION update",
-      "title": "v4.0.6.2",
-      "summary": "???"
+      "updates": [
+        {
+          "id": "eradication-v4062",
+          "version": "v4.0.6.2",
+          "headline": "Map pass and progression polish",
+          "date": "2026-01-22",
+          "summary": "This patch focuses on mid-game pacing and map readability while preserving the high-pressure survival feel.",
+          "image": "assets/eradication-landscape.svg",
+          "imageAlt": "ERADICATION update screenshot",
+          "content": [
+            "We made a full pass on combat flow between wave 6 and wave 14. Enemy spawn timing now ramps with fewer sudden spikes, so players have more room to react while still being challenged. The intent is to reward cleaner movement and smarter positioning instead of pure luck.",
+            "Objective readability has also been improved. Radar pings now use stronger contrast, beacon effects remain visible in heavy particle scenes, and event notifications stay on-screen longer during extraction phases. This should help squads keep track of priorities without stopping to scan the entire HUD.",
+            "Progression was tuned so newer players can unlock their first meaningful loadout upgrade sooner. Currency rewards from early contracts were increased, and duplicate drop protection is now stronger when opening supply caches.",
+            "Known issue: one arena still has a clipping edge near the upper platform. A hotfix is already in testing and will be shipped in the next micro update."
+          ]
+        },
+        {
+          "id": "eradication-v4059",
+          "version": "v4.0.5.9",
+          "headline": "Hotfix for match crashes",
+          "date": "2026-01-11",
+          "summary": "Stability fix for long sessions and reconnect logic.",
+          "image": "assets/eradication-landscape.svg",
+          "imageAlt": "ERADICATION hotfix art",
+          "content": "Crash rate in sessions over 35 minutes has been reduced significantly. We also resolved an edge case where party members could reconnect into a stale match state after a regional host migration."
+        }
+      ]
     },
     {
-      "id": "donpollo-update",
+      "id": "donpollo-obby",
+      "name": "DON POLLO OBBY",
       "tag": "DON POLLO OBBY update",
-      "title": "v1.1.0",
-      "summary": "Checkpoint spacing was smoothed and two bonus shortcut paths were added for advanced players."
+      "updates": [
+        {
+          "id": "donpollo-v110",
+          "version": "v1.1.0",
+          "headline": "Route upgrades and checkpoint polish",
+          "date": "2026-01-18",
+          "summary": "Checkpoint spacing was smoothed and two bonus shortcut paths were added for advanced players.",
+          "image": "assets/donpollo-landscape.svg",
+          "imageAlt": "DON POLLO OBBY update screenshot",
+          "content": [
+            "Several obstacle corridors were rebuilt to make momentum-based movement feel more consistent. Players should now be able to recover from small mistakes without restarting entire sections.",
+            "We added two optional speedrunner routes with tighter jumps and faster completion potential. These are intentionally higher risk and are marked with gold trim in-world.",
+            "Camera collision in narrow hallways was refined to avoid abrupt zoom-ins during wall contact."
+          ]
+        }
+      ]
     },
     {
-      "id": "prototype-update",
+      "id": "crowns-of-steel",
+      "name": "Crowns of Steel",
       "tag": "Crowns of Steel update",
-      "title": "???",
-      "summary": "Session join flow has been stabilized and player objective markers now sync correctly in test lobbies."
+      "updates": [
+        {
+          "id": "prototype-v020",
+          "version": "v0.2.0",
+          "headline": "Session sync and objective updates",
+          "date": "2026-01-09",
+          "summary": "Session join flow has been stabilized and player objective markers now sync correctly in test lobbies.",
+          "image": "assets/prototype-landscape.svg",
+          "imageAlt": "Crowns of Steel devlog image",
+          "content": [
+            "Lobby state now replicates in deterministic order, which eliminates the random objective mismatch some test groups reported after reconnecting.",
+            "Marker ownership, color assignment, and visibility conditions were rewritten so objective pings now remain accurate during rapid role swaps.",
+            "We also improved AI commander target selection in defensive rounds. Bots now prioritize exposed siege points before chasing decoy units."
+          ]
+        }
+      ]
     }
   ]
 }
