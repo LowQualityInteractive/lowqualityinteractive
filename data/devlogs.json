@@ -3,19 +3,24 @@
     {
       "id": "eradication-update",
       "tag": "ERADICATION update",
-      "title": "Enemy pacing pass v1.6",
-      "summary": "Spawn timing was retuned, FX readability improved, and a new late-wave ammo drop rule was added."
+      "title": "v4.0.6.2",
+      "summary": "NEW
+      • Added a SkyDrop variant: Aviation (98R$)
+• Added helicopter: MH-60 Blackhawk (transport)
+
+BUGS
+• Fixed callout enabling"
     },
     {
       "id": "donpollo-update",
       "tag": "DON POLLO OBBY update",
-      "title": "Route shuffle patch v2.1",
+      "title": "v1.1.0",
       "summary": "Checkpoint spacing was smoothed and two bonus shortcut paths were added for advanced players."
     },
     {
       "id": "prototype-update",
-      "tag": "Prototype update",
-      "title": "Co-op test build notes",
+      "tag": "Crowns of Steel update",
+      "title": "???",
       "summary": "Session join flow has been stabilized and player objective markers now sync correctly in test lobbies."
     }
   ]
