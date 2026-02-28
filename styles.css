@@ -43,8 +43,8 @@ body {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .js-site,
-  .js-site * {
+  body,
+  body * {
     cursor: none !important;
   }
 }
