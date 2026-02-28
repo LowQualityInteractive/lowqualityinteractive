@@ -8,31 +8,55 @@
         {
           "id": "eradication-v4062",
           "version": "v4.0.6.2",
-          "headline": "Map pass and progression polish",
           "date": "2/25/26",
-          "summary": "This patch focuses on mid-game pacing and map readability while preserving the high-pressure survival feel.",
           "image": "assets/eradication-landscape.svg",
           "imageAlt": "ERADICATION update screenshot",
-          "content": [
-            "We made a full pass on combat flow between wave 6 and wave 14. Enemy spawn timing now ramps with fewer sudden spikes, so players have more room to react while still being challenged. The intent is to reward cleaner movement and smarter positioning instead of pure luck.",
-            "Objective readability has also been improved. Radar pings now use stronger contrast, beacon effects remain visible in heavy particle scenes, and event notifications stay on-screen longer during extraction phases. This should help squads keep track of priorities without stopping to scan the entire HUD.",
-            "Progression was tuned so newer players can unlock their first meaningful loadout upgrade sooner. Currency rewards from early contracts were increased, and duplicate drop protection is now stronger when opening supply caches.",
-            "Known issue: one arena still has a clipping edge near the upper platform. A hotfix is already in testing and will be shipped in the next micro update."
-          ]
+          "contents": {
+            "new": [
+              "Added stronger radar ping contrast for objective markers.",
+              "Added longer on-screen event notifications during extraction phases."
+            ],
+            "changes": [
+              "Combat flow from wave 6 to wave 14 was retuned to reduce sudden spawn spikes while keeping late-wave pressure.",
+              "Beacon effects remain visible during heavy particle scenes.",
+              "Early contract rewards were increased to unlock first major loadout upgrades sooner.",
+              "Duplicate drop protection is now stronger when opening supply caches."
+            ],
+            "bugs": [
+              "Known issue: one arena still has a clipping edge near the upper platform."
+            ],
+            "removals": [],
+            "misc": [
+              "A hotfix for the clipping edge is already in testing for the next micro update."
+            ],
+            "footnotes": [
+              "Design intent remains focused on rewarding positioning and movement over RNG survivability."
+            ]
+          }
         },
         {
           "id": "eradication-v4061",
           "version": "v4.0.6.1",
-          "headline": "Hotfix for match crashes",
           "date": "2/22/26",
-          "summary": "Stability fix for long sessions and reconnect logic.",
           "image": "assets/eradication-landscape.svg",
           "imageAlt": "ERADICATION hotfix art",
-          "content": "Crash rate in sessions over 35 minutes has been reduced significantly. We also resolved an edge case where party members could reconnect into a stale match state after a regional host migration."
+          "contents": {
+            "new": [],
+            "changes": [
+              "Reconnect logic now restores players into the correct match state after regional host migration."
+            ],
+            "bugs": [
+              "Reduced crash rate in sessions longer than 35 minutes."
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": [
+              "This was a stability-focused hotfix release."
+            ]
+          }
         }
       ]
     },
-    
     {
       "id": "donpollo-obby",
       "name": "DON POLLO OBBY",
@@ -41,15 +65,25 @@
         {
           "id": "donpollo-v11",
           "version": "v1.1",
-          "headline": "Minimal polish",
           "date": "6/21/25",
-          "summary": "Checkpoint spacing was smoothed and two bonus shortcut paths were added for advanced players.",
           "image": "assets/donpollo-landscape.svg",
           "imageAlt": "DON POLLO OBBY update screenshot",
-          "content": "yes king"
+          "contents": {
+            "new": [
+              "Added two optional shortcut paths for advanced players."
+            ],
+            "changes": [
+              "Checkpoint spacing has been smoothed across the course."
+            ],
+            "bugs": [],
+            "removals": [],
+            "misc": [
+              "yes king"
+            ],
+            "footnotes": []
+          }
         }
       ]
     }
-    
   ]
 }
