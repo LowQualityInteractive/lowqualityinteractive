@@ -67,10 +67,13 @@
     if (cursorFx) {
       cursorFx.style.left = x;
       cursorFx.style.top = y;
+      cursorFx.classList.add('is-visible');
     }
   };
 
   window.addEventListener('pointermove', updateCursor);
+  window.addEventListener('pointerleave', () => cursorFx?.classList.remove('is-visible'));
+  window.addEventListener('blur', () => cursorFx?.classList.remove('is-visible'));
 
   const hoverTargets = document.querySelectorAll('a, button, .button, .game-showcase, [data-cursor-hover]');
   hoverTargets.forEach((element) => {
