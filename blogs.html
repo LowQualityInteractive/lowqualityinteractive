@@ -35,23 +35,10 @@
         <p class="lead">Latest updates for each game are pinned below so game cards can link directly to the newest post.</p>
       </section>
 
-      <section class="grid" aria-label="Recent blog posts">
-        <article class="card" id="eradication-update">
-          <span class="pill">ERADICATION update</span>
-          <h2>Enemy pacing pass v1.6</h2>
-          <p>Spawn timing was retuned, FX readability improved, and a new late-wave ammo drop rule was added.</p>
-        </article>
-
-        <article class="card" id="donpollo-update">
-          <span class="pill">DON POLLO OBBY update</span>
-          <h2>Route shuffle patch v2.1</h2>
-          <p>Checkpoint spacing was smoothed and two bonus shortcut paths were added for advanced players.</p>
-        </article>
-
-        <article class="card" id="prototype-update">
-          <span class="pill">Prototype update</span>
-          <h2>Co-op test build notes</h2>
-          <p>Session join flow has been stabilized and player objective markers now sync correctly in test lobbies.</p>
+      <section class="grid" aria-label="Recent blog posts" id="devlog-list">
+        <article class="card">
+          <h2>Loading latest dev logs…</h2>
+          <p>If this message stays here, make sure <code>data/devlogs.json</code> is reachable from your host.</p>
         </article>
       </section>
     </div>
@@ -98,5 +85,6 @@
       }
     });
   </script>
+  <script src="scripts/blogs.js"></script>
 </body>
 </html>
