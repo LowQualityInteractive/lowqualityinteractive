@@ -58,34 +58,6 @@
     window.addEventListener('load', hideLoader, { once: true });
   }
 
-  const cursorFx = document.querySelector('.cursor-fx');
-  const updateCursor = (event) => {
-    const x = `${event.clientX}px`;
-    const y = `${event.clientY}px`;
-    body.style.setProperty('--cursor-x', x);
-    body.style.setProperty('--cursor-y', y);
-    if (cursorFx) {
-      cursorFx.style.setProperty('--cursor-fx-x', x);
-      cursorFx.style.setProperty('--cursor-fx-y', y);
-      cursorFx.classList.add('is-visible');
-    }
-  };
-
-  window.addEventListener('pointermove', updateCursor);
-  window.addEventListener('wheel', updateCursor, { passive: true });
-  window.addEventListener('pointerleave', () => cursorFx?.classList.remove('is-visible'));
-  window.addEventListener('blur', () => cursorFx?.classList.remove('is-visible'));
-  window.addEventListener('scroll', () => {
-    cursorFx?.classList.remove('is-visible');
-    cursorFx?.classList.remove('is-active');
-  }, { passive: true });
-
-  const hoverTargets = document.querySelectorAll('a, button, .button, .game-showcase, [data-cursor-hover]');
-  hoverTargets.forEach((element) => {
-    element.addEventListener('pointerenter', () => cursorFx?.classList.add('is-active'));
-    element.addEventListener('pointerleave', () => cursorFx?.classList.remove('is-active'));
-  });
-
   document.addEventListener('click', (event) => {
     const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
     if (!link) return;
