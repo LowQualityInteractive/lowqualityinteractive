@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Builder+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
 </head>
 <body>
   <header class="site-header">
@@ -21,7 +22,7 @@
         <a class="nav-link" href="index.html">Home</a>
         <a class="nav-link" href="games.html" aria-current="page">Games</a>
         <a class="nav-link" href="blogs.html">Blogs</a>
-        <a class="button primary" href="contact.html">Contact</a>
+        <a class="button primary" href="connect.html">Connect</a>
       </nav>
     </div>
   </header>
@@ -31,35 +32,50 @@
       <section class="hero">
         <span class="kicker">Now shipping</span>
         <h1>Active games and in-progress projects</h1>
-        <p class="lead">A quick snapshot of what we're currently building and supporting across the studio.</p>
+        <p class="lead">Tap any game card to jump directly to that game's page, or use the update button to view the latest patch note.</p>
       </section>
 
       <section class="games-showcase" aria-label="Game list">
         <article class="game-showcase" data-theme="eradication">
-          <img src="assets/eradication-landscape.svg" alt="ERADICATION battlefield artwork" width="1200" height="675" />
+          <img src="assets/eradication-landscape.svg" alt="ERADICATION battlefield artwork" width="1600" height="900" />
           <div class="game-details">
             <span class="pill">Action survival</span>
             <h2>ERADICATION</h2>
             <p>Wave-based combat with escalating threat patterns, scarce resources, and high-pressure survival loops.</p>
+            <div class="game-actions">
+              <a class="button primary" href="eradication.html">Play game</a>
+              <a class="button ghost" href="blogs.html#eradication-update">Updates</a>
+            </div>
           </div>
+          <a class="stretched-link" href="eradication.html" aria-label="Open ERADICATION page"></a>
         </article>
 
         <article class="game-showcase" data-theme="donpollo">
-          <img src="assets/donpollo-landscape.svg" alt="Don Pollo Obby floating course artwork" width="1200" height="675" />
+          <img src="assets/donpollo-landscape.svg" alt="Don Pollo Obby floating course artwork" width="1600" height="900" />
           <div class="game-details">
             <span class="pill">Platformer / Obby</span>
             <h2>DON POLLO OBBY</h2>
             <p>Meme-powered obstacle chaos with intentionally unpredictable routes and speedrun-friendly pacing.</p>
+            <div class="game-actions">
+              <a class="button primary" href="donpollo-obby.html">Play game</a>
+              <a class="button ghost" href="blogs.html#donpollo-update">Updates</a>
+            </div>
           </div>
+          <a class="stretched-link" href="donpollo-obby.html" aria-label="Open DON POLLO OBBY page"></a>
         </article>
 
         <article class="game-showcase" data-theme="prototype">
-          <img src="assets/prototype-landscape.svg" alt="Working title prototype nebula world artwork" width="1200" height="675" />
+          <img src="assets/prototype-landscape.svg" alt="Working title prototype nebula world artwork" width="1600" height="900" />
           <div class="game-details">
             <span class="pill">Prototype</span>
             <h2>??? (Working Title)</h2>
             <p>An unrevealed experiment focused on short, replayable sessions and social co-op mechanics.</p>
+            <div class="game-actions">
+              <a class="button primary" href="prototype.html">View game</a>
+              <a class="button ghost" href="blogs.html#prototype-update">Updates</a>
+            </div>
           </div>
+          <a class="stretched-link" href="prototype.html" aria-label="Open prototype page"></a>
         </article>
       </section>
     </div>
@@ -79,7 +95,7 @@
           <a href="index.html">Home</a>
           <a href="games.html">Games</a>
           <a href="blogs.html">Blogs</a>
-          <a href="contact.html">Contact</a>
+          <a href="connect.html">Connect</a>
         </section>
         <section class="footer-links" aria-label="Social links">
           <h2>Connect</h2>
@@ -96,9 +112,9 @@
     const body = document.body;
     const cursorFx = document.querySelector('.cursor-fx');
     const themes = {
-      eradication: 'radial-gradient(900px 520px at 10% -10%, rgba(255, 76, 76, 0.32), transparent 60%), radial-gradient(760px 520px at 90% 0%, rgba(255, 170, 66, 0.2), transparent 62%)',
-      donpollo: 'radial-gradient(900px 520px at 12% -8%, rgba(255, 224, 102, 0.3), transparent 60%), radial-gradient(760px 520px at 88% 0%, rgba(73, 140, 255, 0.2), transparent 62%)',
-      prototype: 'radial-gradient(900px 520px at 15% -12%, rgba(169, 117, 255, 0.32), transparent 60%), radial-gradient(760px 520px at 88% 0%, rgba(67, 245, 255, 0.2), transparent 62%)'
+      eradication: 'radial-gradient(900px 520px at 10% -10%, rgba(181, 67, 67, 0.30), transparent 60%), radial-gradient(760px 520px at 90% 0%, rgba(133, 32, 32, 0.18), transparent 62%)',
+      donpollo: 'radial-gradient(900px 520px at 12% -8%, rgba(181, 67, 67, 0.28), transparent 60%), radial-gradient(760px 520px at 88% 0%, rgba(70, 22, 22, 0.15), transparent 62%)',
+      prototype: 'radial-gradient(900px 520px at 15% -12%, rgba(181, 67, 67, 0.25), transparent 60%), radial-gradient(760px 520px at 88% 0%, rgba(90, 30, 30, 0.16), transparent 62%)'
     };
 
     window.addEventListener('pointermove', (event) => {
@@ -112,15 +128,25 @@
       }
     });
 
-    document.querySelectorAll('.game-showcase').forEach((card) => {
-      card.addEventListener('mouseenter', () => {
-        body.style.setProperty('--page-glow', themes[card.dataset.theme] || '');
-        cursorFx?.classList.add('is-active');
+    const gameCards = document.querySelectorAll('.game-showcase');
+    const interactiveTargets = document.querySelectorAll('a, button, .game-showcase');
+
+    interactiveTargets.forEach((element) => {
+      element.addEventListener('pointerenter', () => cursorFx?.classList.add('is-active'));
+      element.addEventListener('pointerleave', () => cursorFx?.classList.remove('is-active'));
+    });
+
+    gameCards.forEach((card) => {
+      card.addEventListener('pointerenter', () => {
+        const nextTheme = themes[card.dataset.theme];
+        if (nextTheme) {
+          body.style.setProperty('--page-glow', nextTheme);
+        }
       });
-      card.addEventListener('mouseleave', () => {
-        body.style.removeProperty('--page-glow');
-        cursorFx?.classList.remove('is-active');
-      });
+    });
+
+    document.querySelector('.games-showcase')?.addEventListener('pointerleave', () => {
+      body.style.removeProperty('--page-glow');
     });
   </script>
 </body>

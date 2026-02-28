@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Builder+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
 </head>
 <body>
   <header class="site-header">
@@ -21,7 +22,7 @@
         <a class="nav-link" href="index.html">Home</a>
         <a class="nav-link" href="games.html">Games</a>
         <a class="nav-link" href="blogs.html" aria-current="page">Blogs</a>
-        <a class="button primary" href="contact.html">Contact</a>
+        <a class="button primary" href="connect.html">Connect</a>
       </nav>
     </div>
   </header>
@@ -31,26 +32,26 @@
       <section class="hero">
         <span class="kicker">Development updates</span>
         <h1>Studio notes, patch summaries, and roadmaps</h1>
-        <p class="lead">We use dev blogs to share process updates and explain what changed between releases.</p>
+        <p class="lead">Latest updates for each game are pinned below so game cards can link directly to the newest post.</p>
       </section>
 
       <section class="grid" aria-label="Recent blog posts">
-        <article class="card">
-          <span class="pill">Update</span>
-          <h2>Website rebuild complete</h2>
-          <p>We replaced broken duplicated markup with a full, clean static site refresh and consistent navigation.</p>
+        <article class="card" id="eradication-update">
+          <span class="pill">ERADICATION update</span>
+          <h2>Enemy pacing pass v1.6</h2>
+          <p>Spawn timing was retuned, FX readability improved, and a new late-wave ammo drop rule was added.</p>
         </article>
 
-        <article class="card">
-          <span class="pill">Patch notes</span>
-          <h2>ERADICATION tuning pass</h2>
-          <p>Enemy spawn rhythm, damage readability, and run pacing were adjusted for cleaner difficulty ramps.</p>
+        <article class="card" id="donpollo-update">
+          <span class="pill">DON POLLO OBBY update</span>
+          <h2>Route shuffle patch v2.1</h2>
+          <p>Checkpoint spacing was smoothed and two bonus shortcut paths were added for advanced players.</p>
         </article>
 
-        <article class="card">
-          <span class="pill">Roadmap</span>
-          <h2>Q3 feature targets</h2>
-          <p>Co-op testing, map iteration, and creator-focused events are our next major milestones.</p>
+        <article class="card" id="prototype-update">
+          <span class="pill">Prototype update</span>
+          <h2>Co-op test build notes</h2>
+          <p>Session join flow has been stabilized and player objective markers now sync correctly in test lobbies.</p>
         </article>
       </section>
     </div>
@@ -70,7 +71,7 @@
           <a href="index.html">Home</a>
           <a href="games.html">Games</a>
           <a href="blogs.html">Blogs</a>
-          <a href="contact.html">Contact</a>
+          <a href="connect.html">Connect</a>
         </section>
         <section class="footer-links" aria-label="Social links">
           <h2>Connect</h2>
