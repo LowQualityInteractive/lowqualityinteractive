@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Don Pollo Obby Landscape</title>
+  <desc id="desc">Colorful floating obstacle platforms over a bright sky.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#48a8ff" />
+      <stop offset="100%" stop-color="#1f3f91" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#sky)" />
+  <circle cx="1040" cy="120" r="70" fill="#fff2af" />
+  <g fill="#ffffff" fill-opacity="0.8">
+    <ellipse cx="180" cy="130" rx="120" ry="38" />
+    <ellipse cx="620" cy="180" rx="150" ry="44" />
+    <ellipse cx="880" cy="90" rx="100" ry="28" />
+  </g>
+  <g>
+    <rect x="130" y="440" width="200" height="36" rx="12" fill="#ff7b54" />
+    <rect x="390" y="390" width="200" height="36" rx="12" fill="#ffd166" />
+    <rect x="650" y="345" width="200" height="36" rx="12" fill="#72f1b8" />
+    <rect x="910" y="285" width="180" height="36" rx="12" fill="#e08bff" />
+  </g>
+  <path d="M0 580C180 520 330 640 540 565C760 490 1000 630 1200 560V675H0Z" fill="#132251" fill-opacity="0.86" />
+</svg>

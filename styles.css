@@ -22,7 +22,7 @@ body {
 }
 
 body {
-  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-family: "Builder Sans", "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   color: var(--text);
   background:
     radial-gradient(900px 500px at 5% -10%, rgba(255, 94, 94, 0.2), transparent 60%),
@@ -30,6 +30,49 @@ body {
     linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
   min-height: 100vh;
   line-height: 1.55;
+}
+
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: var(--page-glow,
+    radial-gradient(900px 520px at 20% -10%, rgba(255, 94, 94, 0.25), transparent 62%),
+    radial-gradient(700px 460px at 95% 0%, rgba(87, 210, 255, 0.2), transparent 58%));
+  transition: background 420ms ease;
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 50%), rgba(87, 210, 255, 0.2), transparent 210px);
+  pointer-events: none;
+}
+
+.cursor-fx {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+  transition: width 160ms ease, height 160ms ease, border-color 180ms ease;
+  z-index: 40;
+}
+
+.cursor-fx.is-active {
+  width: 54px;
+  height: 54px;
+  border-color: rgba(87, 210, 255, 0.85);
 }
 
 a {
@@ -197,6 +240,71 @@ h1 {
   color: var(--muted);
 }
 
+
+.games-showcase {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.game-showcase {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  min-height: 260px;
+  display: grid;
+  align-items: end;
+  box-shadow: var(--shadow);
+  isolation: isolate;
+}
+
+.game-showcase img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.01);
+}
+
+.game-showcase::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(5, 8, 16, 0.08) 0%, rgba(5, 8, 16, 0.82) 72%);
+  z-index: 1;
+}
+
+.game-showcase::after {
+  content: "";
+  position: absolute;
+  inset: -30% 0;
+  background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.22), transparent 80%);
+  transform: translateX(-140%);
+  transition: transform 600ms ease;
+  z-index: 2;
+}
+
+.game-showcase:hover::after {
+  transform: translateX(140%);
+}
+
+.game-details {
+  position: relative;
+  z-index: 3;
+  padding: 1.2rem;
+}
+
+.game-details h2 {
+  margin-bottom: 0.5rem;
+}
+
+.game-details p {
+  margin: 0;
+  color: #dde6ff;
+  max-width: 60ch;
+}
+
 .pill {
   display: inline-flex;
   font-size: 0.75rem;
@@ -280,5 +388,13 @@ footer {
 
   .hero {
     padding: 1.5rem;
+  }
+
+  .game-showcase {
+    min-height: 220px;
+  }
+
+  .cursor-fx {
+    display: none;
   }
 }
