@@ -13,46 +13,39 @@
           "imageAlt": "ERADICATION update screenshot",
           "contents": {
             "new": [
-              "Added stronger radar ping contrast for objective markers.",
-              "Added longer on-screen event notifications during extraction phases."
+              "Added a SkyDrop variant: Aviation (98R$)",
+              "Added helicopter: MH-60 Blackhawk (transport)"
             ],
-            "changes": [
-              "Combat flow from wave 6 to wave 14 was retuned to reduce sudden spawn spikes while keeping late-wave pressure.",
-              "Beacon effects remain visible during heavy particle scenes.",
-              "Early contract rewards were increased to unlock first major loadout upgrades sooner.",
-              "Duplicate drop protection is now stronger when opening supply caches."
-            ],
+            "changes": [],
             "bugs": [
-              "Known issue: one arena still has a clipping edge near the upper platform."
+              "Fixed callout enabling"
             ],
             "removals": [],
-            "misc": [
-              "A hotfix for the clipping edge is already in testing for the next micro update."
-            ],
-            "footnotes": [
-              "Design intent remains focused on rewarding positioning and movement over RNG survivability."
-            ]
+            "misc": [],
+            "footnotes": []
           }
         },
         {
           "id": "eradication-v4061",
           "version": "v4.0.6.1",
           "date": "2/22/26",
-          "image": "assets/eradication-landscape.svg",
-          "imageAlt": "ERADICATION hotfix art",
+          "image": "assets/eradication.png",
+          "imageAlt": "ERADICATION update screenshot",
           "contents": {
-            "new": [],
+            "new": [
+              "Added a callout menu /w settings (V)"
+            ],
             "changes": [
-              "Reconnect logic now restores players into the correct match state after regional host migration."
+              "Changed refueling visuals for aesthetics",
+              "Changed the running over logic regarding whiskorians (running over whiskorians takes away vehicle health)"
             ],
             "bugs": [
-              "Reduced crash rate in sessions longer than 35 minutes."
+              "Fixed an issue regarding damage taken in vehicles inflicted by Whiskorians",
+              "Fixed an issue regarding foreign influence over the camera while operating a vehicle"
             ],
             "removals": [],
             "misc": [],
-            "footnotes": [
-              "This was a stability-focused hotfix release."
-            ]
+            "footnotes": []
           }
         }
       ]
@@ -66,20 +59,24 @@
           "id": "donpollo-v11",
           "version": "v1.1",
           "date": "6/21/25",
-          "image": "assets/donpollo-landscape.svg",
+          "image": "assets/donpollo.png",
           "imageAlt": "DON POLLO OBBY update screenshot",
           "contents": {
             "new": [
-              "Added two optional shortcut paths for advanced players."
+              "Badge when you join the obby",
+              "Badge when you finish the obby",
+              "Rainbow Carpet at the end",
+              "Flying Cloud at the end"
             ],
             "changes": [
-              "Checkpoint spacing has been smoothed across the course."
+              "New stage cap is 51 from 50",
+              "Added some logic to the invisible map boundaries"
             ],
-            "bugs": [],
+            "bugs": [
+              "Solved a minor gamepass bug involving tools upon join"
+            ],
             "removals": [],
-            "misc": [
-              "yes king"
-            ],
+            "misc": [],
             "footnotes": []
           }
         }
