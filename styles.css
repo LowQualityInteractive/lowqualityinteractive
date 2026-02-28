@@ -177,3 +177,50 @@ footer { border-top:1px solid rgba(181,67,67,.2); padding:2rem 0 2.4rem; }
 .devlog-body p {
   line-height: 1.6;
 }
+
+.devlog-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.pill-new {
+  background: rgba(67, 181, 108, 0.26);
+  border-color: rgba(179, 255, 205, 0.5);
+  color: #f3fff7;
+}
+
+.devlog-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.devlog-table th,
+.devlog-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.devlog-table tr:last-child th,
+.devlog-table tr:last-child td {
+  border-bottom: none;
+}
+
+.devlog-table th {
+  width: 140px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+.devlog-table ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
