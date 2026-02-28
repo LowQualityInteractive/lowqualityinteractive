@@ -85,19 +85,6 @@
     </div>
   </footer>
   <div class="cursor-fx" aria-hidden="true"></div>
-  <script>
-    const body = document.body;
-    const cursorFx = document.querySelector('.cursor-fx');
-    window.addEventListener('pointermove', (event) => {
-      const x = `${event.clientX}px`;
-      const y = `${event.clientY}px`;
-      body.style.setProperty('--cursor-x', x);
-      body.style.setProperty('--cursor-y', y);
-      if (cursorFx) {
-        cursorFx.style.left = x;
-        cursorFx.style.top = y;
-      }
-    });
-  </script>
+  <script src="/scripts/site.js" defer></script>
 </body>
 </html>

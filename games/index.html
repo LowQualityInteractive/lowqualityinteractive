@@ -146,34 +146,16 @@
     </div>
   </footer>
   <div class="cursor-fx" aria-hidden="true"></div>
+  <script src="/scripts/site.js" defer></script>
   <script>
     const body = document.body;
-    const cursorFx = document.querySelector('.cursor-fx');
     const themes = {
       eradication: 'radial-gradient(900px 520px at 10% -10%, rgba(181, 67, 67, 0.30), transparent 60%), radial-gradient(760px 520px at 90% 0%, rgba(133, 32, 32, 0.18), transparent 62%)',
       donpollo: 'radial-gradient(900px 520px at 12% -8%, rgba(181, 67, 67, 0.28), transparent 60%), radial-gradient(760px 520px at 88% 0%, rgba(70, 22, 22, 0.15), transparent 62%)',
       prototype: 'radial-gradient(900px 520px at 15% -12%, rgba(181, 67, 67, 0.25), transparent 60%), radial-gradient(760px 520px at 88% 0%, rgba(90, 30, 30, 0.16), transparent 62%)'
     };
 
-    window.addEventListener('pointermove', (event) => {
-      const x = `${event.clientX}px`;
-      const y = `${event.clientY}px`;
-      body.style.setProperty('--cursor-x', x);
-      body.style.setProperty('--cursor-y', y);
-      if (cursorFx) {
-        cursorFx.style.left = x;
-        cursorFx.style.top = y;
-      }
-    });
-
     const gameCards = document.querySelectorAll('.game-showcase');
-    const interactiveTargets = document.querySelectorAll('a, button, .game-showcase');
-
-    interactiveTargets.forEach((element) => {
-      element.addEventListener('pointerenter', () => cursorFx?.classList.add('is-active'));
-      element.addEventListener('pointerleave', () => cursorFx?.classList.remove('is-active'));
-    });
-
     gameCards.forEach((card) => {
       card.addEventListener('pointerenter', () => {
         const nextTheme = themes[card.dataset.theme];
