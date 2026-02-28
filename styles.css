@@ -24,6 +24,92 @@ body {
   line-height: 1.55;
 }
 
+
+
+.js-site {
+  opacity: 0;
+  transform: translateY(12px) scale(0.995);
+  transition: opacity 280ms ease, transform 320ms ease;
+}
+
+.js-site.is-entering {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.js-site.is-leaving {
+  opacity: 0;
+  transform: translateY(8px) scale(0.994);
+}
+
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(560px 280px at 50% 0%, rgba(181, 67, 67, 0.28), transparent 70%),
+    rgba(255, 255, 252, 0.95);
+  backdrop-filter: blur(5px);
+  transition: opacity 420ms ease, visibility 420ms ease;
+}
+
+.page-loader__inner {
+  text-align: center;
+  display: grid;
+  gap: 0.8rem;
+  justify-items: center;
+}
+
+.page-loader__logo {
+  border-radius: 14px;
+  border: 1px solid rgba(181, 67, 67, 0.3);
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.72);
+  animation: loader-bob 1.2s ease-in-out infinite;
+}
+
+.page-loader__text {
+  margin: 0;
+  font-weight: 700;
+  color: var(--brand-dark);
+  letter-spacing: 0.04em;
+}
+
+.page-loader__bar {
+  width: min(220px, 58vw);
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(181, 67, 67, 0.16);
+  overflow: hidden;
+}
+
+.page-loader__bar span {
+  display: block;
+  height: 100%;
+  width: 40%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(181, 67, 67, 0.4), rgba(181, 67, 67, 0.9));
+  animation: loader-slide 1s ease-in-out infinite;
+}
+
+.js-site.is-loaded .page-loader {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes loader-slide {
+  0% { transform: translateX(-120%); }
+  60% { transform: translateX(180%); }
+  100% { transform: translateX(180%); }
+}
+
+@keyframes loader-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -223,4 +309,20 @@ footer { border-top:1px solid rgba(181,67,67,.2); padding:2rem 0 2.4rem; }
 .devlog-table ul {
   margin: 0;
   padding-left: 1.2rem;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .js-site,
+  .js-site.is-entering,
+  .js-site.is-leaving {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+
+  .page-loader__logo,
+  .page-loader__bar span {
+    animation: none;
+  }
 }
