@@ -72,8 +72,13 @@
   };
 
   window.addEventListener('pointermove', updateCursor);
+  window.addEventListener('wheel', updateCursor, { passive: true });
   window.addEventListener('pointerleave', () => cursorFx?.classList.remove('is-visible'));
   window.addEventListener('blur', () => cursorFx?.classList.remove('is-visible'));
+  window.addEventListener('scroll', () => {
+    cursorFx?.classList.remove('is-visible');
+    cursorFx?.classList.remove('is-active');
+  }, { passive: true });
 
   const hoverTargets = document.querySelectorAll('a, button, .button, .game-showcase, [data-cursor-hover]');
   hoverTargets.forEach((element) => {
