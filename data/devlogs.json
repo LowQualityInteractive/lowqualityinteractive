@@ -6,6 +6,26 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v4063",
+          "version": "v4.0.6.3",
+          "date": "2/28/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added weapon: FX-05 Xiuhcoatl (W Mexican larp)",
+              "Added helicopter: MH-60 Blackhawk (pilot minigun)"
+            ],
+            "changes": [],
+            "bugs": [
+              "Fixed helicopters' tooltips"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
           "id": "eradication-v4062",
           "version": "v4.0.6.2",
           "date": "2/25/26",
