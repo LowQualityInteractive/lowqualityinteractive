@@ -60,6 +60,8 @@
     const elapsedMs = performance.now() - loaderStartTime;
     const remainingMs = Math.max(0, FAKE_LOADING_DURATION_MS - elapsedMs);
     window.setTimeout(hideLoader, remainingMs);
+  const scheduleHideLoader = () => {
+    window.setTimeout(hideLoader, FAKE_LOADING_DURATION_MS);
   };
 
   if (document.readyState === 'complete') {
