@@ -1,4 +1,6 @@
 (() => {
+  const FAKE_LOADING_DURATION_MS = 30000;
+
   const body = document.body;
   if (!body) return;
 
@@ -52,10 +54,14 @@
     setTimeout(() => loader.remove(), 760);
   };
 
+  const scheduleHideLoader = () => {
+    window.setTimeout(hideLoader, FAKE_LOADING_DURATION_MS);
+  };
+
   if (document.readyState === 'complete') {
-    hideLoader();
+    scheduleHideLoader();
   } else {
-    window.addEventListener('load', hideLoader, { once: true });
+    window.addEventListener('load', scheduleHideLoader, { once: true });
   }
 
   document.addEventListener('click', (event) => {
