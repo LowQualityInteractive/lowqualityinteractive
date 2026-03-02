@@ -6,6 +6,30 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v407",
+          "version": "v4.0.7",
+          "date": "3/2/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added universal gyroscopic stabilization to turrets",
+              "Added more internal gun system anti-cheat"
+            ],
+            "changes": [],
+            "bugs": [
+              "Fixed aiming relative to firing (guns shoot straighter)",
+              "Fixed 'ghost driving'"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": [
+              "over 30+ optimizations"
+            ]
+          }
+        },
+        
+        {
           "id": "eradication-v4063",
           "version": "v4.0.6.3",
           "date": "2/28/26",
@@ -70,6 +94,7 @@
         }
       ]
     },
+    
     {
       "id": "donpollo-obby",
       "name": "DON POLLO OBBY",
