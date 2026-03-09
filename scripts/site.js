@@ -1,4 +1,14 @@
 (() => {
+  const { hostname, protocol, pathname, search, hash } = window.location;
+  const isSiteHost = /^(www\.)?lowqualityinteractive\.com$/i.test(hostname);
+  if (isSiteHost) {
+    const normalizedHost = hostname.replace(/^www\./i, '');
+    if (protocol !== 'https:' || normalizedHost !== hostname) {
+      window.location.replace(`https://${normalizedHost}${pathname}${search}${hash}`);
+      return;
+    }
+  }
+
   const body = document.body;
   if (!body) return;
 
