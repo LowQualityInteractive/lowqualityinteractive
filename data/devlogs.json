@@ -6,6 +6,25 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v4071",
+          "version": "v4.0.7.1",
+          "date": "3/10/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [],
+            "changes": [],
+            "bugs": [
+              "Fixed blocky ragdolls (preserving CharacterMesh after death)"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": [
+              "Resolved memory leaks and lengthened server time"
+            ]
+          }
+        },
+        {
           "id": "eradication-v407",
           "version": "v4.0.7",
           "date": "3/2/26",
@@ -28,7 +47,6 @@
             ]
           }
         },
-        
         {
           "id": "eradication-v4063",
           "version": "v4.0.6.3",
@@ -94,7 +112,6 @@
         }
       ]
     },
-    
     {
       "id": "donpollo-obby",
       "name": "DON POLLO OBBY",
