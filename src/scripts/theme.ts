@@ -27,10 +27,6 @@ export const themeScript = String.raw`
       return savedTheme;
     }
 
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return DARK;
-    }
-
     return LIGHT;
   }
 
