@@ -47,7 +47,7 @@ const projects = inWorkProjects.map((project) => {
               alt={game.artwork.alt}
               width={game.artwork.width}
               height={game.artwork.height}
-              loading="eager"
+              loading="lazy"
             />
           </a>
         </div>
@@ -59,7 +59,7 @@ const projects = inWorkProjects.map((project) => {
           <p>{game.description}</p>
         </div>
         <div class="game-card-footer">
-          <a class="button primary" target="_blank" rel="noreferrer" href={game.robloxUrl}>Play game</a>
+          <a class="button primary" target="_blank" rel="noopener noreferrer" href={game.robloxUrl}>Play game</a>
           <a class="button ghost" href={getGameUpdateHref(game)}>Updates</a>
         </div>
       </article>

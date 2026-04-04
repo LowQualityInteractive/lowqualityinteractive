@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE_NAME } from '../data/site';
+import { SITE_NAME, toAbsoluteSiteUrl } from '../data/site';
 import { themeScript } from '../scripts/theme';
 
 interface Props {
@@ -8,10 +8,21 @@ interface Props {
   description: string;
   currentPage?: 'home' | 'games' | 'blogs' | 'connect';
   jsonLd?: string;
+  ogImage?: string;
+  canonicalPath?: string;
 }
 
-const { title, description, currentPage, jsonLd } = Astro.props;
+const { title, description, currentPage, jsonLd, ogImage, canonicalPath } = Astro.props;
 const currentYear = new Date().getFullYear();
+
+const canonicalUrl = canonicalPath
+  ? toAbsoluteSiteUrl(canonicalPath)
+  : toAbsoluteSiteUrl(Astro.url.pathname);
+const ogImageUrl = ogImage ? toAbsoluteSiteUrl(ogImage) : toAbsoluteSiteUrl('/assets/logo.png');
+
+// Ensure JSON-LD cannot contain a closing script tag even if the data were ever
+// sourced from outside the static build pipeline.
+const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefined;
 ---
 
 <!DOCTYPE html>
@@ -21,8 +32,35 @@ const currentYear = new Date().getFullYear();
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
 
-  {jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd} />}
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={SITE_NAME} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={ogImageUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@LowQualityInt" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageUrl} />
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#b54343" />
+
+  <!-- Security headers (best-effort via meta; full header coverage requires a CDN/proxy layer) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+
+  {safeJsonLd && <script is:inline type="application/ld+json" set:html={safeJsonLd} />}
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,6 +70,7 @@ const currentYear = new Date().getFullYear();
   <script is:inline set:html={themeScript}></script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="site-header">
     <div class="container header-row">
       <a class="brand" href="/" aria-label="Low Quality Interactive home">
@@ -69,7 +108,7 @@ const currentYear = new Date().getFullYear();
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <div class="container">
       <slot />
     </div>
@@ -94,10 +133,11 @@ const currentYear = new Date().getFullYear();
         </div>
         <div class="footer-col">
           <h3>Connect</h3>
-          <a href="https://x.com/LowQualityInt" target="_blank" rel="noreferrer">X</a>
-          <a href="https://discord.gg/G2J9rP5fBg" target="_blank" rel="noreferrer">Discord</a>
-          <a href="https://www.youtube.com/@LowQualityInteractive" target="_blank" rel="noreferrer">YouTube</a>
-          <a href="https://www.roblox.com/communities/7489017/Low-Quality-Int#!/about" target="_blank" rel="noreferrer">Roblox</a>
+          <a href="https://x.com/LowQualityInt" target="_blank" rel="noopener noreferrer">X</a>
+          <a href="https://discord.gg/G2J9rP5fBg" target="_blank" rel="noopener noreferrer">Discord</a>
+          <a href="https://www.youtube.com/@LowQualityInteractive" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="https://www.roblox.com/communities/7489017/Low-Quality-Int#!/about" target="_blank" rel="noopener noreferrer">Roblox</a>
+          <a href="/connect">Business Inquiries</a>
         </div>
       </div>
       <div class="footer-bottom">

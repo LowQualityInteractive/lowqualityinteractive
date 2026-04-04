@@ -25,7 +25,8 @@
     if (typeof assetPath !== 'string') return '';
     const normalizedPath = assetPath.trim();
     if (!normalizedPath || /^(?:\/?assets\/)?null$/i.test(normalizedPath)) return '';
-    if (/^(https?:)?\/\//.test(normalizedPath) || normalizedPath.startsWith('/')) return normalizedPath;
+    // Only allow same-origin paths — reject any absolute URL (http://, https://, //)
+    if (/^(https?:)?\/\//i.test(normalizedPath)) return '';
     return `/${normalizedPath.replace(/^\/+/, '')}`;
   };
 
@@ -103,7 +104,7 @@
   };
 
   try {
-    const response = await fetch(DEVLOGS_URL, { cache: 'no-store' });
+    const response = await fetch(DEVLOGS_URL, { cache: 'no-store', signal: AbortSignal.timeout(8000) });
     if (!response.ok) throw new Error('Bad response');
 
     const payload = await response.json();

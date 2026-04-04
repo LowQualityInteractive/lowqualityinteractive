@@ -45,4 +45,21 @@
 
   acceptButton.addEventListener('click', function () { dismiss(true); }, { once: true });
   dismissButton.addEventListener('click', function () { dismiss(false); }, { once: true });
+
+  banner.addEventListener('keydown', function (event) {
+    if (event.key !== 'Tab') return;
+    if (event.shiftKey) {
+      if (document.activeElement === acceptButton) {
+        event.preventDefault();
+        dismissButton.focus();
+      }
+    } else {
+      if (document.activeElement === dismissButton) {
+        event.preventDefault();
+        acceptButton.focus();
+      }
+    }
+  });
+
+  acceptButton.focus();
 })();

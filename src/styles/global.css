@@ -97,6 +97,21 @@ body::before {
     radial-gradient(ellipse 50vw 40vh at -5%  30%,  rgba(181,67,67,0.06) 0%, transparent 60%);
 }
 
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 0 0 0.5rem 0.5rem;
+  text-decoration: none;
+  transition: top 0.15s;
+}
+.skip-link:focus { top: 0; }
+
 a { color: inherit; text-decoration: none; }
 
 h1, h2, h3, h4 {
@@ -558,6 +573,40 @@ main { padding-block: 3rem 5rem; }
 
 .platform-card:hover { background-color: var(--surface-2); color: var(--text); }
 .platform-card svg { width: 28px; height: 28px; color: var(--brand); }
+
+.email-contact {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.email-contact h2 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+.email-contact p { color: var(--text-2); margin-bottom: 1rem; }
+.email-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.email-address {
+  font-family: monospace;
+  font-size: 1rem;
+  color: var(--text);
+}
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-2);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background var(--t-theme) var(--ease), color var(--t-theme) var(--ease);
+}
+.copy-btn:hover { background: var(--surface-2); color: var(--text); }
+.copy-btn svg { width: 15px; height: 15px; }
 
 .footer-col a {
   display: block;
