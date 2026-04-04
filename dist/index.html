@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Low Quality Interactive | Home</title><meta name="description" content="Official website for Low Quality Interactive, a Roblox indie studio."><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://lowqualityinteractive.com/#organization","name":"Low Quality Interactive","url":"https://lowqualityinteractive.com/","logo":"https://lowqualityinteractive.com/assets/logo.png","description":"Low Quality Interactive is an independent Roblox game development studio focused on competitive multiplayer, tactical systems, and high-replayability sandbox experiences.","foundingDate":"2024","areaServed":"Worldwide","sameAs":["https://x.com/LowQualityInt","https://discord.gg/G2J9rP5fBg","https://www.youtube.com/@LowQualityInteractive","https://www.roblox.com/communities/7489017/Low-Quality-Int","https://www.roblox.com/games/16844978752/ERADICATION","https://www.roblox.com/games/133585619009566/DON-POLLO-OBBY"]},{"@type":"WebSite","@id":"https://lowqualityinteractive.com/#website","url":"https://lowqualityinteractive.com/","name":"Low Quality Interactive","publisher":{"@id":"https://lowqualityinteractive.com/#organization"},"inLanguage":"en-US"},{"@type":"VideoGame","@id":"https://lowqualityinteractive.com/#eradication","name":"ERADICATION","url":"https://www.roblox.com/games/16844978752/ERADICATION","image":"https://lowqualityinteractive.com/assets/eradication.png","description":"A team-based territory control shooter where players work to reclaim their town from Whiskorians.","gamePlatform":"Roblox","genre":["Shooter","Multiplayer","PvE","Strategy"],"creator":{"@id":"https://lowqualityinteractive.com/#organization"}},{"@type":"VideoGame","@id":"https://lowqualityinteractive.com/#donpollo-obby","name":"DON POLLO OBBY","url":"https://www.roblox.com/games/133585619009566/DON-POLLO-OBBY","image":"https://lowqualityinteractive.com/assets/donpollo.png","description":"A meme-driven obby built around Don Pollo.","gamePlatform":"Roblox","genre":["Platformer","Obby"],"creator":{"@id":"https://lowqualityinteractive.com/#organization"}}]}</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="icon" type="image/png" href="/assets/logo.png"><script>
+(() => {
+  const THEME_COOKIE = 'lqi-theme';
+  const CONSENT_COOKIE = 'lqi-ok';
+  const DARK = 'dark';
+  const LIGHT = 'light';
+  const root = document.documentElement;
+
+  function getCookie(name) {
+    const pattern = new RegExp('(?:^|; )' + name + '=([^;]*)');
+    const match = document.cookie.match(pattern);
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+
+  function setCookie(name, value, days) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+  }
+
+  function hasConsent() {
+    return getCookie(CONSENT_COOKIE) === '1';
+  }
+
+  function getPreferredTheme() {
+    const savedTheme = getCookie(THEME_COOKIE);
+    if (savedTheme === DARK || savedTheme === LIGHT) {
+      return savedTheme;
+    }
+
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return DARK;
+    }
+
+    return LIGHT;
+  }
+
+  function applyTheme(theme) {
+    if (theme === DARK) {
+      root.setAttribute('data-theme', DARK);
+      return;
+    }
+
+    root.removeAttribute('data-theme');
+  }
+
+  function getTheme() {
+    return root.getAttribute('data-theme') === DARK ? DARK : LIGHT;
+  }
+
+  function syncToggleButton() {
+    const button = document.getElementById('theme-toggle');
+    if (!button) {
+      return;
+    }
+
+    const isDark = getTheme() === DARK;
+    const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+    button.setAttribute('aria-label', label);
+    button.setAttribute('title', label);
+  }
+
+  root.classList.add('no-transition');
+  applyTheme(getPreferredTheme());
+
+  window.addEventListener('DOMContentLoaded', () => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        root.classList.remove('no-transition');
+      });
+    });
+  });
+
+  window.__lqiTheme = {
+    get() {
+      return getTheme();
+    },
+    set(theme) {
+      applyTheme(theme);
+
+      if (hasConsent()) {
+        setCookie(THEME_COOKIE, theme, 365);
+      }
+
+      syncToggleButton();
+    },
+    toggle() {
+      this.set(this.get() === DARK ? LIGHT : DARK);
+    },
+    grantConsent() {
+      setCookie(CONSENT_COOKIE, '1', 365);
+      setCookie(THEME_COOKIE, this.get(), 365);
+    },
+    hasConsent,
+    syncToggleButton,
+  };
+
+  document.addEventListener('DOMContentLoaded', syncToggleButton, { once: true });
+})();
+</script><link rel="stylesheet" href="/_astro/site.DO3PuDc7.css"></head> <body> <header class="site-header"> <div class="container header-row"> <a class="brand" href="/" aria-label="Low Quality Interactive home"> <img class="site-logo" src="/assets/logo.png" alt="Low Quality Interactive logo" width="36" height="36"> <span>Low Quality Interactive</span> </a> <nav class="nav" id="primary-navigation" aria-label="Primary navigation"> <a class="nav-link" href="/" aria-current="page">Home</a> <a class="nav-link" href="/games">Games</a> <a class="nav-link" href="/blogs">Updates</a> <a class="button primary" href="/connect">Connect</a> <button id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode" title="Switch to dark mode" type="button"> <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path> </svg> <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <circle cx="12" cy="12" r="5"></circle> <line x1="12" y1="1" x2="12" y2="3"></line> <line x1="12" y1="21" x2="12" y2="23"></line> <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line> <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line> <line x1="1" y1="12" x2="3" y2="12"></line> <line x1="21" y1="12" x2="23" y2="12"></line> <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line> <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line> </svg> </button> </nav> </div> </header> <main> <div class="container">  <section class="hero"> <span class="kicker">tuffest games oat</span> <h1>We've been proudly underdelivering since FOREVER.</h1> <p class="lead">We produce the most niche Roblox games of all time.</p> <div class="cta-row"> <a class="button primary" href="/games">Explore games</a> <a class="button ghost" href="/blogs">Read updates</a> </div> </section> <div class="stat-strip" aria-label="Studio stats"> <div class="stat-item"> <span class="stat-value">2</span> <h2>Live Games</h2> <p>Released Roblox games currently available to play.</p> </div> <div class="stat-item"> <span class="stat-value">67+</span> <h2>Updates Shipped</h2> <p>Balance passes, patch fixes, silent updates and feature drops this year.</p> </div> <div class="stat-item"> <span class="stat-value">300k+</span> <h2>Cumulative Visits</h2> <p>Adding up every single visit from every game.</p> </div> </div>  </div> </main> <footer> <div class="container"> <div class="footer-inner"> <div class="footer-brand"> <a class="brand" href="/"> <img class="site-logo" src="/assets/logo.png" alt="Low Quality Interactive logo" width="36" height="36"> <span>Low Quality Interactive</span> </a> <p>An independent Roblox studio making the most niche games of all time.</p> </div> <div class="footer-col"> <h3>Site</h3> <a href="/">Home</a> <a href="/games">Games</a> <a href="/blogs">Updates</a> <a href="/connect">Connect</a> </div> <div class="footer-col"> <h3>Connect</h3> <a href="https://x.com/LowQualityInt" target="_blank" rel="noreferrer">X</a> <a href="https://discord.gg/G2J9rP5fBg" target="_blank" rel="noreferrer">Discord</a> <a href="https://www.youtube.com/@LowQualityInteractive" target="_blank" rel="noreferrer">YouTube</a> <a href="https://www.roblox.com/communities/7489017/Low-Quality-Int#!/about" target="_blank" rel="noreferrer">Roblox</a> </div> </div> <div class="footer-bottom"> <p class="copyright">© 2026 Low Quality Interactive. All rights reserved.</p> </div> </div> </footer> <script src="/scripts/site.js" defer></script> <script src="/scripts/notice.js" defer></script>  </body></html>

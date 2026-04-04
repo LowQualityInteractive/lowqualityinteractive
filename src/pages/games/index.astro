@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  getGameHref,
+  getGameUpdateHref,
+  getGamesJsonLd,
+  getSiteTitle,
+  liveGames,
+} from '../../data/games';
+import { getRedactionSegments, inWorkProjects } from '../../data/inWorks';
+
+const projects = inWorkProjects.map((project) => {
+  const redactionSegments = getRedactionSegments(project.description, project.redact);
+
+  return {
+    ...project,
+    isFullyRedacted: redactionSegments.every((segment) => segment.kind === 'redacted'),
+    redactionSegments,
+  };
+});
+---
+
+<BaseLayout
+  title={getSiteTitle('Games')}
+  description="Current and upcoming games by Low Quality Interactive."
+  currentPage="games"
+  jsonLd={getGamesJsonLd()}
+>
+  <section class="hero">
+    <span class="kicker">Never shipping</span>
+    <h1>Dead games and trash projects</h1>
+    <p class="lead">Tap any live game card to jump directly to that game's page, or use the update button to view the latest patch note.</p>
+  </section>
+
+  <div class="section-header">
+    <h2>Live games</h2>
+    <a href="/blogs">View all updates →</a>
+  </div>
+
+  <div class="games-grid" aria-label="Game list">
+    {liveGames.map((game) => (
+      <article class="game-card">
+        <div class="game-card-image">
+          <a href={getGameHref(game)} aria-label={`View ${game.name} details`}>
+            <img
+              src={game.artwork.src}
+              alt={game.artwork.alt}
+              width={game.artwork.width}
+              height={game.artwork.height}
+              loading="eager"
+            />
+          </a>
+        </div>
+        <div class="game-card-body">
+          <span class="pill">{game.genreLabel}</span>
+          <h2>
+            <a class="game-card-title-link" href={getGameHref(game)}>{game.name}</a>
+          </h2>
+          <p>{game.description}</p>
+        </div>
+        <div class="game-card-footer">
+          <a class="button primary" target="_blank" rel="noreferrer" href={game.robloxUrl}>Play game</a>
+          <a class="button ghost" href={getGameUpdateHref(game)}>Updates</a>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <div class="section-header section-header-spaced">
+    <h2>In works</h2>
+    <span class="section-header-note">Classified</span>
+  </div>
+
+  <div class="inworks-grid" aria-label="Projects in development">
+    {projects.map((project) => (
+      <article class="inworks-card">
+        <div class="inworks-card-inner">
+          <div class="inworks-header">
+            <span class="pill pill-classified">Unannounced</span>
+            <span class="inworks-genre">{project.genre}</span>
+          </div>
+          <h2 class="inworks-title">{project.name}</h2>
+          <p class="inworks-desc" aria-label={project.isFullyRedacted ? 'Description redacted' : undefined}>
+            {project.redactionSegments.map((segment) =>
+              segment.kind === 'redacted' ? (
+                <span class="redacted" aria-hidden="true">{segment.value}</span>
+              ) : (
+                segment.value
+              ),
+            )}
+          </p>
+        </div>
+        <div class="inworks-stamp" aria-hidden="true">CLASSIFIED</div>
+      </article>
+    ))}
+  </div>
+</BaseLayout>

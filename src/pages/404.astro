@@ -1,0 +1,34 @@
+---
+import '../styles/global.css';
+import { SITE_NAME } from '../data/site';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 | {SITE_NAME}</title>
+  <meta name="description" content="Page not found on Low Quality Interactive." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+</head>
+<body>
+  <main class="not-found-main">
+    <div class="container not-found-shell">
+      <div class="not-found-card">
+        <p class="kicker">404 error</p>
+        <h1 class="not-found-title">This page does not exist.</h1>
+        <p class="not-found-copy">If you typed the URL manually, it might be incorrect. Return to the homepage or browse our games.</p>
+        <div class="cta-row not-found-actions">
+          <a class="button primary" href="/">Go home</a>
+          <a class="button ghost" href="/games">View games</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script is:inline src="/scripts/site.js" defer></script>
+</body>
+</html>

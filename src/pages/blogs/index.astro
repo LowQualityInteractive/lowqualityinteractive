@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getSiteTitle } from '../../data/games';
+---
+
+<BaseLayout
+  title={getSiteTitle('Updates')}
+  description="Development updates and patch notes from Low Quality Interactive."
+  currentPage="blogs"
+>
+  <section class="hero">
+    <span class="kicker">Dead ahh updates</span>
+    <h1>Update logs &amp; patch notes</h1>
+    <p class="lead">Pick a game below to open its devlog.</p>
+  </section>
+
+  <div class="card" aria-label="Choose a game devlog">
+    <h2>Game devlogs</h2>
+    <div class="game-devlog-buttons" id="devlog-game-buttons">
+      <p>Loading games…</p>
+    </div>
+  </div>
+
+  <div class="card devlog-viewer devlog-viewer-card" id="devlog-viewer" aria-live="polite">
+    <h2>Loading latest dev logs…</h2>
+    <p>If this message stays here, the public update feed might be unavailable for a moment.</p>
+  </div>
+
+  <script is:inline slot="scripts" src="/scripts/blogs.js" defer></script>
+</BaseLayout>

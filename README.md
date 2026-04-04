@@ -1,1 +1,1 @@
-Public deploy repo for https://lowqualityinteractive.com.
+Public deploy repo for https://lowqualityinteractive.com

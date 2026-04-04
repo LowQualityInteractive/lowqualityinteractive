@@ -1,0 +1,148 @@
+{
+  "games": [
+    {
+      "id": "eradication",
+      "name": "ERADICATION",
+      "tag": "ERADICATION update",
+      "updates": [
+        {
+          "id": "eradication-v4071",
+          "version": "v4.0.7.1",
+          "date": "3/10/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [],
+            "changes": [],
+            "bugs": [
+              "Fixed blocky ragdolls after death"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": [
+              "Performance and stability improvements"
+            ]
+          }
+        },
+        {
+          "id": "eradication-v407",
+          "version": "v4.0.7",
+          "date": "3/2/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added universal gyroscopic stabilization to turrets",
+              "Added extra gameplay integrity protections"
+            ],
+            "changes": [],
+            "bugs": [
+              "Fixed aiming relative to firing so guns shoot straighter",
+              "Fixed ghost driving"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": [
+              "Performance improvements across the update"
+            ]
+          }
+        },
+        {
+          "id": "eradication-v4063",
+          "version": "v4.0.6.3",
+          "date": "2/28/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added weapon: FX-05 Xiuhcoatl",
+              "Added helicopter: MH-60 Blackhawk (pilot minigun)"
+            ],
+            "changes": [],
+            "bugs": [
+              "Fixed helicopters' tooltips"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
+          "id": "eradication-v4062",
+          "version": "v4.0.6.2",
+          "date": "2/25/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added a SkyDrop variant: Aviation (98R$)",
+              "Added helicopter: MH-60 Blackhawk (transport)"
+            ],
+            "changes": [],
+            "bugs": [
+              "Fixed callout enabling"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
+          "id": "eradication-v4061",
+          "version": "v4.0.6.1",
+          "date": "2/22/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added a callout menu with settings (V)"
+            ],
+            "changes": [
+              "Changed refueling visuals for aesthetics",
+              "Changed how running over Whiskorians affects vehicle health"
+            ],
+            "bugs": [
+              "Fixed vehicle damage behavior caused by Whiskorians",
+              "Fixed camera interference while operating a vehicle"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "donpollo-obby",
+      "name": "DON POLLO OBBY",
+      "tag": "DON POLLO OBBY update",
+      "updates": [
+        {
+          "id": "donpollo-v11",
+          "version": "v1.1",
+          "date": "6/21/25",
+          "image": "assets/null",
+          "imageAlt": "DON POLLO OBBY update screenshot",
+          "contents": {
+            "new": [
+              "Badge when you join the obby",
+              "Badge when you finish the obby",
+              "Rainbow Carpet at the end",
+              "Flying Cloud at the end"
+            ],
+            "changes": [
+              "New stage cap is 51 from 50",
+              "Added some logic to the invisible map boundaries"
+            ],
+            "bugs": [
+              "Solved a minor gamepass bug involving tools upon join"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        }
+      ]
+    }
+  ]
+}

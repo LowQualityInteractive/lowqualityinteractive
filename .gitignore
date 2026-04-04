@@ -16,3 +16,4 @@ source-assets/
 *.kra
 *.clip
 *.blend
+node_modules

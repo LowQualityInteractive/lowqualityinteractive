@@ -1,0 +1,112 @@
+---
+import '../styles/global.css';
+import { SITE_NAME } from '../data/site';
+import { themeScript } from '../scripts/theme';
+
+interface Props {
+  title: string;
+  description: string;
+  currentPage?: 'home' | 'games' | 'blogs' | 'connect';
+  jsonLd?: string;
+}
+
+const { title, description, currentPage, jsonLd } = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+
+  {jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd} />}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <script is:inline set:html={themeScript}></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="/" aria-label="Low Quality Interactive home">
+        <img class="site-logo" src="/assets/logo.png" alt="Low Quality Interactive logo" width="36" height="36" />
+        <span>Low Quality Interactive</span>
+      </a>
+      <nav class="nav" id="primary-navigation" aria-label="Primary navigation">
+        <a class="nav-link" href="/" aria-current={currentPage === 'home' ? 'page' : undefined}>Home</a>
+        <a class="nav-link" href="/games" aria-current={currentPage === 'games' ? 'page' : undefined}>Games</a>
+        <a class="nav-link" href="/blogs" aria-current={currentPage === 'blogs' ? 'page' : undefined}>Updates</a>
+        <a class="button primary" href="/connect" aria-current={currentPage === 'connect' ? 'page' : undefined}>Connect</a>
+        <button
+          id="theme-toggle"
+          class="theme-toggle"
+          aria-label="Switch to dark mode"
+          title="Switch to dark mode"
+          type="button"
+        >
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <slot />
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a class="brand" href="/">
+            <img class="site-logo" src="/assets/logo.png" alt="Low Quality Interactive logo" width="36" height="36" />
+            <span>Low Quality Interactive</span>
+          </a>
+          <p>An independent Roblox studio making the most niche games of all time.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Site</h3>
+          <a href="/">Home</a>
+          <a href="/games">Games</a>
+          <a href="/blogs">Updates</a>
+          <a href="/connect">Connect</a>
+        </div>
+        <div class="footer-col">
+          <h3>Connect</h3>
+          <a href="https://x.com/LowQualityInt" target="_blank" rel="noreferrer">X</a>
+          <a href="https://discord.gg/G2J9rP5fBg" target="_blank" rel="noreferrer">Discord</a>
+          <a href="https://www.youtube.com/@LowQualityInteractive" target="_blank" rel="noreferrer">YouTube</a>
+          <a href="https://www.roblox.com/communities/7489017/Low-Quality-Int#!/about" target="_blank" rel="noreferrer">Roblox</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="copyright">© {currentYear} {SITE_NAME}. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script is:inline src="/scripts/site.js" defer></script>
+  <script is:inline src="/scripts/notice.js" defer></script>
+  <slot name="scripts" />
+</body>
+</html>
