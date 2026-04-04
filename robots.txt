@@ -1,48 +1,4 @@
-# robots.txt for https://lowqualityinteractive.com/
-# Purpose: maximize discoverability by search engines and AI crawlers.
-
 User-agent: *
 Allow: /
 
-# Core discovery endpoints
 Sitemap: https://lowqualityinteractive.com/sitemap.xml
-# LLM-oriented content map
-# (non-standard directive, harmless for agents that ignore unknown fields)
-LLM: https://lowqualityinteractive.com/llms.txt
-
-# Explicitly allow major AI/LLM crawlers
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Perplexity-User
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: DuckAssistBot
-Allow: /

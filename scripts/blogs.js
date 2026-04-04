@@ -2,6 +2,7 @@
   const gameButtonsContainer = document.getElementById('devlog-game-buttons');
   const viewer = document.getElementById('devlog-viewer');
   if (!gameButtonsContainer || !viewer) return;
+  const DEVLOGS_URL = '/data/public-devlogs.json';
 
   const CHANGELOG_SECTIONS = ['new', 'changes', 'bugs', 'removals', 'misc'];
   const USE_BULLET_LISTS = false;
@@ -10,7 +11,7 @@
     gameButtonsContainer.innerHTML = '<p>Could not load games.</p>';
     viewer.innerHTML = `
       <h2>Could not load dev logs</h2>
-      <p>Check that <code>data/devlogs.json</code> exists and is being served by your host.</p>
+      <p>The public update feed is unavailable right now. Please try again later.</p>
     `;
   };
 
@@ -136,7 +137,7 @@
   };
 
   try {
-    const response = await fetch('/data/devlogs.json', { cache: 'no-store' });
+    const response = await fetch(DEVLOGS_URL, { cache: 'no-store' });
     if (!response.ok) throw new Error('Bad response');
 
     const payload = await response.json();
@@ -146,7 +147,7 @@
       gameButtonsContainer.innerHTML = '<p>No game devlogs yet.</p>';
       viewer.innerHTML = `
         <h2>No dev logs yet</h2>
-        <p>Add the first game + updates in <code>data/devlogs.json</code> and they will appear here automatically.</p>
+        <p>Public update logs will show up here once they are published.</p>
       `;
       return;
     }

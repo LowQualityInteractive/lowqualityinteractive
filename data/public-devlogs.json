@@ -15,12 +15,12 @@
             "new": [],
             "changes": [],
             "bugs": [
-              "Fixed blocky ragdolls (preserving CharacterMesh after death)"
+              "Fixed blocky ragdolls after death"
             ],
             "removals": [],
             "misc": [],
             "footnotes": [
-              "Resolved memory leaks and lengthened server time"
+              "Performance and stability improvements"
             ]
           }
         },
@@ -33,17 +33,17 @@
           "contents": {
             "new": [
               "Added universal gyroscopic stabilization to turrets",
-              "Added more internal gun system anti-cheat"
+              "Added extra gameplay integrity protections"
             ],
             "changes": [],
             "bugs": [
-              "Fixed aiming relative to firing (guns shoot straighter)",
-              "Fixed 'ghost driving'"
+              "Fixed aiming relative to firing so guns shoot straighter",
+              "Fixed ghost driving"
             ],
             "removals": [],
             "misc": [],
             "footnotes": [
-              "over 30+ optimizations"
+              "Performance improvements across the update"
             ]
           }
         },
@@ -55,7 +55,7 @@
           "imageAlt": "ERADICATION update screenshot",
           "contents": {
             "new": [
-              "Added weapon: FX-05 Xiuhcoatl (W Mexican larp)",
+              "Added weapon: FX-05 Xiuhcoatl",
               "Added helicopter: MH-60 Blackhawk (pilot minigun)"
             ],
             "changes": [],
@@ -95,15 +95,15 @@
           "imageAlt": "ERADICATION update screenshot",
           "contents": {
             "new": [
-              "Added a callout menu /w settings (V)"
+              "Added a callout menu with settings (V)"
             ],
             "changes": [
               "Changed refueling visuals for aesthetics",
-              "Changed the running over logic regarding whiskorians (running over whiskorians takes away vehicle health)"
+              "Changed how running over Whiskorians affects vehicle health"
             ],
             "bugs": [
-              "Fixed an issue regarding damage taken in vehicles inflicted by Whiskorians",
-              "Fixed an issue regarding foreign influence over the camera while operating a vehicle"
+              "Fixed vehicle damage behavior caused by Whiskorians",
+              "Fixed camera interference while operating a vehicle"
             ],
             "removals": [],
             "misc": [],
