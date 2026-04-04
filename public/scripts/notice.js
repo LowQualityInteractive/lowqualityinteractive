@@ -1,5 +1,5 @@
 (function () {
-  if (document.cookie.includes('lqi-ok=1')) return;
+  if (document.cookie.includes('lqi-ok=')) return;
 
   var banner = document.createElement('div');
   banner.className = 'cookie-banner';
@@ -28,9 +28,16 @@
 
   document.body.appendChild(banner);
 
+  function setCookie(name, value, days) {
+    var expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+  }
+
   function dismiss(accept) {
     if (accept && window.__lqiTheme) {
       window.__lqiTheme.grantConsent();
+    } else {
+      setCookie('lqi-ok', '0', 365);
     }
     banner.classList.add('is-hidden');
     setTimeout(function () { banner.remove(); }, 320);

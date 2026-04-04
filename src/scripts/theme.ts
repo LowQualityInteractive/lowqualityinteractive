@@ -76,11 +76,7 @@ export const themeScript = String.raw`
     },
     set(theme) {
       applyTheme(theme);
-
-      if (hasConsent()) {
-        setCookie(THEME_COOKIE, theme, 365);
-      }
-
+      setCookie(THEME_COOKIE, theme, 365);
       syncToggleButton();
     },
     toggle() {
