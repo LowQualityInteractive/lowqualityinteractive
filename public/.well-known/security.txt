@@ -1,0 +1,4 @@
+Contact: mailto:contact@lowqualityinteractive.com
+Expires: 2027-04-04T00:00:00Z
+Preferred-Languages: en, es-MX, es-ES, de, pl, fr, af, zh, ru, hi, fa, he, tr, uk, vi, ar, pt, pt-BR
+Canonical: https://lowqualityinteractive.com/.well-known/security.txt

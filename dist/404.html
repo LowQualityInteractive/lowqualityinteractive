@@ -1,1 +1,516 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>404 | Low Quality Interactive</title><meta name="description" content="Page not found on Low Quality Interactive."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="icon" type="image/png" href="/assets/logo.png"><link rel="stylesheet" href="/_astro/site.DO3PuDc7.css"></head> <body> <main class="not-found-main"> <div class="container not-found-shell"> <div class="not-found-card"> <p class="kicker">404 error</p> <h1 class="not-found-title">This page does not exist.</h1> <p class="not-found-copy">If you typed the URL manually, it might be incorrect. Return to the homepage or browse our games.</p> <div class="cta-row not-found-actions"> <a class="button primary" href="/">Go home</a> <a class="button ghost" href="/games">View games</a> </div> </div> </div> </main> <script src="/scripts/site.js" defer></script> </body> </html>
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Low Quality Interactive | 404</title><meta name="description" content="Page not found on Low Quality Interactive."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="icon" type="image/png" href="/assets/logo.png"><link rel="alternate" type="text/plain" title="LLM Context" href="/llms.txt"><script>
+(() => {
+  const LABELS = {"toDark":"Switch to dark mode","toLight":"Switch to light mode"};
+  const THEME_COOKIE = 'lqi-theme';
+  const CONSENT_COOKIE = 'lqi-ok';
+  const DARK = 'dark';
+  const LIGHT = 'light';
+  const root = document.documentElement;
+
+  function getCookie(name) {
+    const pattern = new RegExp('(?:^|; )' + name + '=([^;]*)');
+    const match = document.cookie.match(pattern);
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+
+  function setCookie(name, value, days) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+  }
+
+  function hasConsent() {
+    return getCookie(CONSENT_COOKIE) === '1';
+  }
+
+  function getPreferredTheme() {
+    const savedTheme = getCookie(THEME_COOKIE);
+    if (savedTheme === DARK || savedTheme === LIGHT) {
+      return savedTheme;
+    }
+
+    return LIGHT;
+  }
+
+  function applyTheme(theme) {
+    if (theme === DARK) {
+      root.setAttribute('data-theme', DARK);
+      return;
+    }
+
+    root.removeAttribute('data-theme');
+  }
+
+  function getTheme() {
+    return root.getAttribute('data-theme') === DARK ? DARK : LIGHT;
+  }
+
+  function syncToggleButton() {
+    const button = document.getElementById('theme-toggle');
+    if (!button) {
+      return;
+    }
+
+    const isDark = getTheme() === DARK;
+    const label = isDark ? LABELS.toLight : LABELS.toDark;
+    button.setAttribute('aria-label', label);
+    button.setAttribute('title', label);
+  }
+
+  root.classList.add('no-transition');
+  applyTheme(getPreferredTheme());
+
+  window.addEventListener('DOMContentLoaded', () => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        root.classList.remove('no-transition');
+      });
+    });
+  });
+
+  window.__lqiTheme = {
+    get() {
+      return getTheme();
+    },
+    set(theme) {
+      applyTheme(theme);
+      setCookie(THEME_COOKIE, theme, 365);
+      syncToggleButton();
+    },
+    toggle() {
+      this.set(this.get() === DARK ? LIGHT : DARK);
+    },
+    grantConsent() {
+      setCookie(CONSENT_COOKIE, '1', 365);
+      setCookie(THEME_COOKIE, this.get(), 365);
+    },
+    hasConsent,
+    syncToggleButton,
+  };
+
+  document.addEventListener('DOMContentLoaded', syncToggleButton, { once: true });
+})();
+</script><link rel="stylesheet" href="/_astro/theme.CDEx9zHt.css"></head> <body> <main class="not-found-main"> <div class="container not-found-shell"> <div class="not-found-card"> <p class="kicker" id="not-found-kicker">404 error</p> <h1 class="not-found-title" id="not-found-heading">This page does not exist.</h1> <p class="not-found-copy" id="not-found-copy">This page underdelivered by not existing. Return to the homepage or browse our games.</p> <div class="cta-row not-found-actions"> <a class="button primary" id="not-found-home" href="/">Go home</a> <a class="button ghost" id="not-found-games" href="/games/">View games</a> </div> </div> </div> </main> <script>(() => {
+  const CONFIG = {"isDefaultLocale":false,"localeOptions":{"en":{"nativeName":"English"},"pt-BR":{"nativeName":"Português (Brasil)"},"es-MX":{"nativeName":"Español (México)"},"es-ES":{"nativeName":"Español (España)"},"ru":{"nativeName":"Русский"},"de":{"nativeName":"Deutsch"},"it":{"nativeName":"Italiano"},"fr":{"nativeName":"Français"},"ro":{"nativeName":"Română"},"el":{"nativeName":"Ελληνικά"}},"messages":{"mobileNav":{"open":"Open navigation menu","close":"Close navigation menu","label":"Primary navigation"},"localeSwitcher":{"ariaLabel":"Choose language"}},"cookieKey":"lqi-locale"};
+  const MOBILE_LABELS = CONFIG.messages.mobileNav;
+  const LOCALE_LABELS = CONFIG.messages.localeSwitcher;
+  const DEFAULT_LOCALE = 'en';
+  const SUPPORTED_LOCALES = Object.keys(CONFIG.localeOptions);
+  const NON_DEFAULT_LOCALES = SUPPORTED_LOCALES.filter((locale) => locale !== DEFAULT_LOCALE);
+  const LOCALE_COOKIE_KEY = CONFIG.cookieKey;
+
+  function getCookie(name) {
+    const pattern = new RegExp('(?:^|; )' + name + '=([^;]*)');
+    const match = document.cookie.match(pattern);
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+
+  function setCookie(name, value, days) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+  }
+
+  const normalizeLocale = (value) =>
+    typeof value === 'string' && SUPPORTED_LOCALES.includes(value) ? value : null;
+
+  const getStoredLocale = () => normalizeLocale(getCookie(LOCALE_COOKIE_KEY));
+
+  const setStoredLocale = (locale) => {
+    if (!normalizeLocale(locale)) return;
+    setCookie(LOCALE_COOKIE_KEY, locale, 365);
+  };
+
+  const getCurrentLocale = (pathname) => {
+    const normalizedPath = pathname.toLowerCase();
+    const matchedLocale = NON_DEFAULT_LOCALES.find((locale) => {
+      const localePath = '/' + locale.toLowerCase();
+      return normalizedPath === localePath || normalizedPath.startsWith(localePath + '/');
+    });
+
+    return matchedLocale || DEFAULT_LOCALE;
+  };
+
+  const stripLocalePrefix = (pathname) => {
+    const currentLocale = getCurrentLocale(pathname);
+    if (currentLocale === DEFAULT_LOCALE) {
+      return pathname;
+    }
+
+    const localePrefix = '/' + currentLocale;
+    const remainder = pathname.slice(localePrefix.length);
+    if (!remainder || remainder === '/') {
+      return '/';
+    }
+
+    return remainder.startsWith('/') ? remainder : '/' + remainder;
+  };
+
+  const buildLocalizedPath = (pathname, targetLocale) => {
+    const normalizedPath = stripLocalePrefix(pathname);
+    const pathWithoutSlashes =
+      normalizedPath === '/' ? '' : normalizedPath.replace(/^\/+|\/+$/g, '');
+
+    if (!pathWithoutSlashes) {
+      return targetLocale === DEFAULT_LOCALE ? '/' : '/' + targetLocale + '/';
+    }
+
+    return targetLocale === DEFAULT_LOCALE
+      ? '/' + pathWithoutSlashes + '/'
+      : '/' + targetLocale + '/' + pathWithoutSlashes + '/';
+  };
+
+  const mapBrowserLocale = (value) => {
+    if (typeof value !== 'string' || !value.trim()) {
+      return null;
+    }
+
+    const normalizedValue = value.trim().replace(/_/g, '-');
+    const segments = normalizedValue.split('-').filter(Boolean);
+    const language = (segments[0] || '').toLowerCase();
+    const region = (segments[1] || '').toUpperCase();
+
+    switch (language) {
+      case 'pt':
+        return 'pt-BR';
+      case 'es':
+        return region === 'ES' ? 'es-ES' : 'es-MX';
+      case 'ru':
+        return 'ru';
+      case 'de':
+        return 'de';
+      case 'it':
+        return 'it';
+      case 'fr':
+        return 'fr';
+      case 'ro':
+        return 'ro';
+      case 'el':
+        return 'el';
+      case 'en':
+        return 'en';
+      default:
+        return null;
+    }
+  };
+
+  const detectPreferredLocale = () => {
+    const candidates =
+      Array.isArray(navigator.languages) && navigator.languages.length > 0
+        ? navigator.languages
+        : [navigator.language];
+
+    for (const candidate of candidates) {
+      const mappedLocale = mapBrowserLocale(candidate);
+      if (mappedLocale && SUPPORTED_LOCALES.includes(mappedLocale)) {
+        return mappedLocale;
+      }
+    }
+
+    return DEFAULT_LOCALE;
+  };
+
+  const { hostname, protocol, pathname, search, hash } = window.location;
+  const isSiteHost = /^(www\.)?lowqualityinteractive\.com$/i.test(hostname);
+  if (isSiteHost) {
+    const normalizedHost = hostname.replace(/^www\./i, '');
+    if (protocol !== 'https:' || normalizedHost !== hostname) {
+      window.location.replace('https://' + normalizedHost + pathname + search + hash);
+      return;
+    }
+  }
+
+  // On any English page: if the user has a stored non-English locale preference,
+  // or their browser prefers a non-English locale (first visit only), redirect.
+  if (CONFIG.isDefaultLocale) {
+    const preferredLocale = getStoredLocale() || detectPreferredLocale();
+    setStoredLocale(preferredLocale);
+
+    if (preferredLocale !== DEFAULT_LOCALE) {
+      const destination = buildLocalizedPath(pathname, preferredLocale) + search + hash;
+      if (destination !== pathname + search + hash) {
+        window.location.replace(destination);
+        return;
+      }
+    }
+  }
+
+  const body = document.body;
+  if (!body) {
+    return;
+  }
+
+  const localeSwitcher = document.querySelector('[data-locale-switcher]');
+  const localeBtn = document.getElementById('locale-btn');
+  const localeListbox = document.getElementById('locale-listbox');
+  if (
+    localeSwitcher instanceof HTMLElement &&
+    localeBtn instanceof HTMLButtonElement &&
+    localeListbox instanceof HTMLElement
+  ) {
+    const options = Array.from(localeListbox.querySelectorAll('[role="option"]'));
+
+    let focusedIndex = -1;
+
+    const getOptions = () => options;
+
+    const setFocused = (index) => {
+      getOptions().forEach((opt, i) => {
+        opt.classList.toggle('is-focused', i === index);
+      });
+      focusedIndex = index;
+      if (index >= 0) (getOptions()[index]).scrollIntoView({ block: 'nearest' });
+    };
+
+    const openListbox = () => {
+      localeListbox.hidden = false;
+      localeBtn.setAttribute('aria-expanded', 'true');
+      const currentLocale = getCurrentLocale(window.location.pathname);
+      const selectedIndex = getOptions().findIndex((opt) => opt.getAttribute('data-locale') === currentLocale);
+      setFocused(selectedIndex >= 0 ? selectedIndex : 0);
+      localeListbox.setAttribute('aria-activedescendant', '');
+    };
+
+    const closeListbox = () => {
+      localeListbox.hidden = true;
+      localeBtn.setAttribute('aria-expanded', 'false');
+      setFocused(-1);
+    };
+
+    const selectLocale = (locale) => {
+      const nextLocale = normalizeLocale(locale);
+      if (!nextLocale) return;
+      setStoredLocale(nextLocale);
+      closeListbox();
+      const destination =
+        buildLocalizedPath(window.location.pathname, nextLocale) +
+        window.location.search +
+        window.location.hash;
+      if (destination !== window.location.pathname + window.location.search + window.location.hash) {
+        window.location.assign(destination);
+      }
+    };
+
+    localeBtn.addEventListener('click', () => {
+      if (localeListbox.hidden) openListbox();
+      else closeListbox();
+    });
+
+    localeListbox.addEventListener('click', (e) => {
+      const opt = e.target instanceof Element ? e.target.closest('[role="option"]') : null;
+      if (opt) selectLocale(opt.getAttribute('data-locale'));
+    });
+
+    localeListbox.addEventListener('mousemove', (e) => {
+      const opt = e.target instanceof Element ? e.target.closest('[role="option"]') : null;
+      if (opt) setFocused(getOptions().indexOf(opt));
+    });
+
+    localeBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openListbox();
+      }
+    });
+
+    localeListbox.addEventListener('keydown', (e) => {
+      const opts = getOptions();
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setFocused(Math.min(focusedIndex + 1, opts.length - 1));
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setFocused(Math.max(focusedIndex - 1, 0));
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        setFocused(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        setFocused(opts.length - 1);
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (focusedIndex >= 0) selectLocale(opts[focusedIndex].getAttribute('data-locale'));
+      } else if (e.key === 'Escape' || e.key === 'Tab') {
+        closeListbox();
+        localeBtn.focus();
+      } else if (e.key.length === 1) {
+        // Type-ahead
+        const match = opts.findIndex((opt) =>
+          (opt.textContent || '').trim().toLowerCase().startsWith(e.key.toLowerCase())
+        );
+        if (match >= 0) setFocused(match);
+      }
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!localeSwitcher.contains(e.target instanceof Element ? e.target : null)) {
+        closeListbox();
+      }
+    });
+
+    // When listbox is open, focus it so keyboard events land on it
+    const observer = new MutationObserver(() => {
+      if (!localeListbox.hidden) localeListbox.focus();
+    });
+    observer.observe(localeListbox, { attributeFilter: ['hidden'] });
+    localeListbox.setAttribute('tabindex', '-1');
+
+    window.addEventListener('pageshow', () => {
+      closeListbox();
+    });
+  }
+
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle instanceof HTMLButtonElement && window.__lqiTheme) {
+    window.__lqiTheme.syncToggleButton();
+    themeToggle.addEventListener('click', () => {
+      window.__lqiTheme?.toggle();
+    });
+  }
+
+  const nav = document.querySelector('.nav');
+  const headerRow = document.querySelector('.header-row');
+  if (nav instanceof HTMLElement && headerRow instanceof HTMLElement) {
+    const navToggle = document.createElement('button');
+    navToggle.type = 'button';
+    navToggle.className = 'nav-toggle';
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', MOBILE_LABELS.open);
+    navToggle.setAttribute('aria-controls', 'primary-navigation');
+    nav.id = 'primary-navigation';
+    nav.hidden = true;
+
+    for (let index = 0; index < 3; index += 1) {
+      navToggle.appendChild(document.createElement('span'));
+    }
+
+    headerRow.insertBefore(navToggle, nav);
+
+    const setNavOpen = (open) => {
+      nav.hidden = !open;
+      nav.classList.toggle('is-open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.setAttribute('aria-label', open ? MOBILE_LABELS.close : MOBILE_LABELS.open);
+      body.classList.toggle('nav-open', open);
+    };
+
+    const mediaQuery = window.matchMedia('(max-width: 800px)');
+    const syncNavForViewport = () => {
+      if (mediaQuery.matches) {
+        setNavOpen(false);
+      } else {
+        nav.hidden = false;
+        nav.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'true');
+        navToggle.setAttribute('aria-label', MOBILE_LABELS.label);
+        body.classList.remove('nav-open');
+      }
+    };
+
+    navToggle.addEventListener('click', () => {
+      setNavOpen(nav.hidden);
+    });
+
+    nav.addEventListener('click', (event) => {
+      if (!mediaQuery.matches) return;
+      if (!(event.target instanceof Element)) return;
+      if (!event.target.closest('a[href]')) return;
+      setNavOpen(false);
+    });
+
+    mediaQuery.addEventListener('change', syncNavForViewport);
+    syncNavForViewport();
+  }
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const getTransitionDestination = (link, event) => {
+    const href = link.getAttribute('href') || '';
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      href.startsWith('#') ||
+      href.startsWith('mailto:') ||
+      href.startsWith('tel:') ||
+      href.startsWith('javascript:') ||
+      link.target === '_blank' ||
+      link.hasAttribute('download')
+    ) {
+      return null;
+    }
+
+    const destination = new URL(link.href, window.location.href);
+    if (destination.origin !== window.location.origin) {
+      return null;
+    }
+
+    const isSamePageHashNavigation =
+      destination.pathname === window.location.pathname &&
+      destination.search === window.location.search &&
+      destination.hash;
+    if (isSamePageHashNavigation) {
+      return null;
+    }
+
+    return destination;
+  };
+
+  document.addEventListener('click', (event) => {
+    const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+    if (!(link instanceof HTMLAnchorElement)) {
+      return;
+    }
+
+    const destination = getTransitionDestination(link, event);
+    if (!destination) {
+      return;
+    }
+
+    event.preventDefault();
+    body.classList.add('is-leaving');
+    window.setTimeout(() => {
+      window.location.href = destination.href;
+    }, prefersReducedMotion.matches ? 0 : 240);
+  });
+})();</script> <script>(() => {
+  const CONTENT = {"en":{"locale":"en","title":"Low Quality Interactive | 404","description":"Page not found on Low Quality Interactive.","kicker":"404 error","heading":"This page does not exist.","copy":"This page underdelivered by not existing. Return to the homepage or browse our games.","goHome":"Go home","viewGames":"View games","homeHref":"/","gamesHref":"/games/"},"pt-BR":{"locale":"pt-BR","title":"Low Quality Interactive | 404","description":"Página não encontrada na Low Quality Interactive.","kicker":"erro 404","heading":"Essa página não existe.","copy":"Essa página entregou abaixo do prometido — não existindo. Volte para a página inicial ou veja nossos jogos.","goHome":"Ir para o início","viewGames":"Ver jogos","homeHref":"/pt-BR/","gamesHref":"/pt-BR/games/"},"es-MX":{"locale":"es-MX","title":"Low Quality Interactive | 404","description":"Página no encontrada en Low Quality Interactive.","kicker":"error 404","heading":"Esta página no existe.","copy":"Esta página incumplió las expectativas al no existir. Regresa al inicio o revisa nuestros juegos.","goHome":"Ir al inicio","viewGames":"Ver juegos","homeHref":"/es-MX/","gamesHref":"/es-MX/games/"},"es-ES":{"locale":"es-ES","title":"Low Quality Interactive | 404","description":"Página no encontrada en Low Quality Interactive.","kicker":"error 404","heading":"Esta página no existe.","copy":"Esta página incumplió las expectativas al no existir directamente. Vuelve a la página principal o mira nuestros juegos.","goHome":"Ir al inicio","viewGames":"Ver juegos","homeHref":"/es-ES/","gamesHref":"/es-ES/games/"},"ru":{"locale":"ru","title":"Low Quality Interactive | 404","description":"Страница не найдена на сайте Low Quality Interactive.","kicker":"ошибка 404","heading":"Такой страницы не существует.","copy":"Эта страница недодала — её вообще не существует. Вернитесь на главную или откройте наши игры.","goHome":"На главную","viewGames":"Смотреть игры","homeHref":"/ru/","gamesHref":"/ru/games/"},"de":{"locale":"de","title":"Low Quality Interactive | 404","description":"Seite auf Low Quality Interactive nicht gefunden.","kicker":"404-Fehler","heading":"Diese Seite existiert nicht.","copy":"Diese Seite hat weniger geliefert als versprochen – indem sie gar nicht existiert. Geh zurück zur Startseite oder schau dir unsere Spiele an.","goHome":"Zur Startseite","viewGames":"Spiele ansehen","homeHref":"/de/","gamesHref":"/de/games/"},"it":{"locale":"it","title":"Low Quality Interactive | 404","description":"Pagina non trovata su Low Quality Interactive.","kicker":"errore 404","heading":"Questa pagina non esiste.","copy":"Questa pagina ha deluso le aspettative non esistendo proprio. Torna alla home oppure dai un'occhiata ai nostri giochi.","goHome":"Vai alla home","viewGames":"Vedi i giochi","homeHref":"/it/","gamesHref":"/it/games/"},"fr":{"locale":"fr","title":"Low Quality Interactive | 404","description":"Page introuvable sur Low Quality Interactive.","kicker":"erreur 404","heading":"Cette page n'existe pas.","copy":"Cette page a sous-livré en n'existant pas. Revenez à l'accueil ou allez voir nos jeux.","goHome":"Retour à l'accueil","viewGames":"Voir les jeux","homeHref":"/fr/","gamesHref":"/fr/games/"},"ro":{"locale":"ro","title":"Low Quality Interactive | 404","description":"Pagina nu a fost găsită pe Low Quality Interactive.","kicker":"eroare 404","heading":"Pagina asta nu există.","copy":"Pagina asta a livrat sub așteptări — nu a existat deloc. Întoarce-te la pagina principală sau vezi jocurile noastre.","goHome":"Mergi acasă","viewGames":"Vezi jocurile","homeHref":"/ro/","gamesHref":"/ro/games/"},"el":{"locale":"el","title":"Low Quality Interactive | 404","description":"Η σελίδα δεν βρέθηκε στη Low Quality Interactive.","kicker":"σφάλμα 404","heading":"Αυτή η σελίδα δεν υπάρχει.","copy":"Αυτή η σελίδα δεν εκπλήρωσε τις υποσχέσεις της — αρνήθηκε να υπάρξει. Επιστρέψτε στην αρχική ή δείτε τα παιχνίδια μας.","goHome":"Πηγαίνετε στην αρχική","viewGames":"Δείτε παιχνίδια","homeHref":"/el/","gamesHref":"/el/games/"}};
+  const pathname = window.location.pathname.toLowerCase();
+  const matchedLocale =
+    Object.keys(CONTENT).find((locale) => {
+      if (locale === 'en') return false;
+      const prefix = '/' + locale.toLowerCase();
+      return pathname === prefix || pathname.startsWith(prefix + '/');
+    }) || 'en';
+
+  const content = CONTENT[matchedLocale] || CONTENT.en;
+  document.documentElement.lang = content.locale;
+  document.title = content.title;
+
+  const description = document.querySelector('meta[name="description"]');
+  if (description instanceof HTMLMetaElement) {
+    description.content = content.description;
+  }
+
+  const kicker = document.getElementById('not-found-kicker');
+  const heading = document.getElementById('not-found-heading');
+  const copy = document.getElementById('not-found-copy');
+  const homeLink = document.getElementById('not-found-home');
+  const gamesLink = document.getElementById('not-found-games');
+
+  if (kicker) kicker.textContent = content.kicker;
+  if (heading) heading.textContent = content.heading;
+  if (copy) copy.textContent = content.copy;
+
+  if (homeLink instanceof HTMLAnchorElement) {
+    homeLink.href = content.homeHref;
+    homeLink.textContent = content.goHome;
+  }
+
+  if (gamesLink instanceof HTMLAnchorElement) {
+    gamesLink.href = content.gamesHref;
+    gamesLink.textContent = content.viewGames;
+  }
+})();</script> </body> </html>

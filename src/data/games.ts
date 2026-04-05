@@ -1,51 +1,59 @@
+import { getMessages, getLocaleAbsolutePath, getLocalePath, type Locale } from '../i18n/messages';
 import {
-  ORGANIZATION_DESCRIPTION,
-  SITE_DESCRIPTION,
   SITE_NAME,
   SITE_URL,
-  SOCIAL_LINKS,
+  SOCIAL_URLS,
+  getSiteTitle,
   toAbsoluteSiteUrl,
 } from './site';
 
-export type GameStatus = 'live' | 'in-development';
+export type GameStatus = 'live' | 'in-development' | 'sunset';
 
 export interface GameArtwork {
-  src: string;
   alt: string;
-  width: number;
   height: number;
+  src: string;
+  width: number;
 }
 
 export interface Game {
-  id: string;
-  slug: string;
-  name: string;
-  status: GameStatus;
-  genreLabel: string;
-  genre: string[];
+  artwork: GameArtwork;
   description: string;
+  genre: string[];
+  genreLabel: string;
+  id: string;
+  name: string;
   pageDescription: string;
   pageLead: string;
-  artwork: GameArtwork;
   robloxUrl: string;
+  slug: string;
+  status: GameStatus;
+  universeId: string;
+  updateHash: string;
+  updateImageAlt: string;
+  updateTag: string;
+}
+
+interface GameBase {
+  artwork: Omit<GameArtwork, 'alt'>;
+  id: string;
+  name: string;
+  robloxUrl: string;
+  slug: string;
+  status: GameStatus;
+  universeId: string;
   updateHash: string;
 }
 
-export const games = [
+const GAME_CATALOG = [
   {
     id: 'eradication',
     slug: 'eradication',
     name: 'ERADICATION',
     status: 'live',
-    genreLabel: 'PvE Shooter',
-    genre: ['Shooter', 'Multiplayer', 'PvE', 'Strategy'],
-    description:
-      'A team-based territory control shooter where players work to reclaim their town from Whiskorians.',
-    pageDescription: 'ERADICATION - a team-based territory control shooter on Roblox.',
-    pageLead: 'Fight through escalating waves and survive as long as possible.',
+    universeId: '5788461409',
     artwork: {
       src: '/assets/eradication.png',
-      alt: 'ERADICATION battlefield artwork',
       width: 1600,
       height: 900,
     },
@@ -56,40 +64,58 @@ export const games = [
     id: 'donpollo-obby',
     slug: 'donpollo-obby',
     name: 'DON POLLO OBBY',
-    status: 'live',
-    genreLabel: 'Obby',
-    genre: ['Platformer', 'Obby'],
-    description: 'A meme-driven obby built around Don Pollo.',
-    pageDescription: 'DON POLLO OBBY - meme-powered obstacle chaos on Roblox.',
-    pageLead: 'Meme-powered obstacle chaos with fast restarts and speedrun routes.',
+    status: 'sunset',
+    universeId: '7915083902',
     artwork: {
       src: '/assets/donpollo.png',
-      alt: 'Don Pollo Obby floating course artwork',
       width: 1600,
       height: 900,
     },
     robloxUrl: 'https://www.roblox.com/games/133585619009566/DON-POLLO-OBBY',
     updateHash: 'donpollo-obby',
   },
-] as const satisfies readonly Game[];
+] as const satisfies readonly GameBase[];
 
-export const liveGames = games.filter((game) => game.status === 'live');
-export const liveGameCount = liveGames.length;
+export const liveGameCount = GAME_CATALOG.filter((game) => game.status === 'live' || game.status === 'sunset').length;
+export const publishedGameSlugs = GAME_CATALOG.filter((game) => game.status !== 'in-development').map(
+  (game) => game.slug,
+);
 
-export function getGameById(id: string) {
-  return games.find((game) => game.id === id);
+export function getGames(locale: Locale): Game[] {
+  const translatedGames = getMessages(locale).catalog.games;
+
+  return GAME_CATALOG.map((game) => {
+    const translation = translatedGames[game.id as keyof typeof translatedGames];
+
+    return {
+      ...game,
+      ...translation,
+      artwork: {
+        ...game.artwork,
+        alt: translation.artworkAlt,
+      },
+    };
+  });
 }
 
-export function getGameBySlug(slug: string) {
-  return games.find((game) => game.slug === slug);
+export function getLiveGames(locale: Locale) {
+  return getGames(locale).filter((game) => game.status === 'live');
 }
 
-export function getGameHref(game: Pick<Game, 'slug'>) {
-  return `/${game.slug}`;
+export function getPublishedGames(locale: Locale) {
+  return getGames(locale).filter((game) => game.status !== 'in-development');
 }
 
-export function getGameUpdateHref(game: Pick<Game, 'updateHash'>) {
-  return `/blogs#${game.updateHash}`;
+export function getGameBySlug(locale: Locale, slug: string) {
+  return getGames(locale).find((game) => game.slug === slug);
+}
+
+export function getGameHref(locale: Locale, game: Pick<Game, 'slug'>) {
+  return getLocalePath(locale, game.slug);
+}
+
+export function getGameUpdateHref(locale: Locale, game: Pick<Game, 'updateHash'>) {
+  return `${getLocalePath(locale, 'blogs')}#${game.updateHash}`;
 }
 
 function getGameSchema(game: Game) {
@@ -106,7 +132,11 @@ function getGameSchema(game: Game) {
   };
 }
 
-export function getHomeJsonLd() {
+export function getHomeJsonLd(locale: Locale) {
+  const messages = getMessages(locale);
+  const liveGames = getLiveGames(locale);
+  const localizedHomeUrl = getLocaleAbsolutePath(locale);
+
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@graph': [
@@ -116,29 +146,33 @@ export function getHomeJsonLd() {
         name: SITE_NAME,
         url: `${SITE_URL}/`,
         logo: toAbsoluteSiteUrl('/assets/logo.png'),
-        description: ORGANIZATION_DESCRIPTION,
+        description: messages.meta.organizationDescription,
         foundingDate: '2024',
         areaServed: 'Worldwide',
-        sameAs: [...SOCIAL_LINKS, ...liveGames.map((game) => game.robloxUrl)],
+        sameAs: [...SOCIAL_URLS, ...liveGames.map((game) => game.robloxUrl)],
       },
       {
         '@type': 'WebSite',
-        '@id': `${SITE_URL}/#website`,
-        url: `${SITE_URL}/`,
+        '@id': `${localizedHomeUrl}#website`,
+        url: localizedHomeUrl,
         name: SITE_NAME,
+        description: messages.meta.siteDescription,
         publisher: { '@id': `${SITE_URL}/#organization` },
-        inLanguage: 'en-US',
+        inLanguage: locale,
       },
       ...liveGames.map(getGameSchema),
     ],
   });
 }
 
-export function getGamesJsonLd() {
+export function getGamesJsonLd(locale: Locale) {
+  const liveGames = getLiveGames(locale);
+  const pageLabel = getMessages(locale).pages.games.label;
+
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: `${SITE_NAME} Games`,
+    name: `${SITE_NAME} ${pageLabel}`,
     itemListElement: liveGames.map((game, index) => ({
       '@type': 'VideoGame',
       position: index + 1,
@@ -150,16 +184,19 @@ export function getGamesJsonLd() {
   });
 }
 
-export function getGameJsonLd(game: Game) {
+export function getGameJsonLd(locale: Locale, game: Game) {
+  const localizedGameUrl = getLocaleAbsolutePath(locale, game.slug);
+
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'WebPage',
-        '@id': `${SITE_URL}${getGameHref(game)}/#webpage`,
-        name: `${SITE_NAME} | ${game.name}`,
-        url: `${SITE_URL}${getGameHref(game)}`,
+        '@id': `${localizedGameUrl}#webpage`,
+        name: getSiteTitle(game.name),
+        url: localizedGameUrl,
         description: game.pageDescription,
+        inLanguage: locale,
       },
       {
         ...getGameSchema(game),
@@ -169,9 +206,3 @@ export function getGameJsonLd(game: Game) {
     ],
   });
 }
-
-export function getSiteTitle(pageTitle: string) {
-  return `${SITE_NAME} | ${pageTitle}`;
-}
-
-export { SITE_DESCRIPTION };

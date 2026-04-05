@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "siteDescription": "Site-ul oficial Low Quality Interactive, un studio indie de Roblox.",
+    "organizationDescription": "Low Quality Interactive este un studio independent de dezvoltare pe Roblox, axat pe multiplayer competitiv, sisteme tactice și experiențe sandbox cu rejucabilitate mare.",
+    "llmContextTitle": "Context LLM"
+  },
+  "chrome": {
+    "skipLink": "Sari la conținutul principal",
+    "brandHomeAriaLabel": "Pagina principală Low Quality Interactive",
+    "brandLogoAlt": "Logo Low Quality Interactive",
+    "nav": {
+      "ariaLabel": "Navigare principală",
+      "home": "Acasă",
+      "games": "Jocuri",
+      "updates": "Update-uri",
+      "connect": "Contact"
+    },
+    "theme": {
+      "toDark": "Schimbă pe modul întunecat",
+      "toLight": "Schimbă pe modul luminos"
+    },
+    "mobileNav": {
+      "open": "Deschide meniul de navigare",
+      "close": "Închide meniul de navigare",
+      "label": "Navigare principală"
+    },
+    "localeSwitcher": {
+      "ariaLabel": "Alege limba"
+    },
+    "footer": {
+      "tagline": "Livrăm din 2024. Terminăm niciodată.",
+      "siteHeading": "Site",
+      "connectHeading": "Contact",
+      "businessInquiries": "Cereri business",
+      "allRightsReserved": "Toate drepturile rezervate."
+    },
+    "cookie": {
+      "ariaLabel": "Notificare preferințe",
+      "message": "Folosim cookies. Alea plictisitoare, nu cu bucăți de ciocolată.",
+      "accept": "Merge",
+      "dismiss": "Închide"
+    },
+    "platforms": {
+      "x": "X",
+      "discord": "Discord",
+      "youtube": "YouTube",
+      "robloxGroup": "Grup Roblox"
+    }
+  },
+  "pages": {
+    "home": {
+      "label": "Acasă",
+      "description": "Site-ul oficial Low Quality Interactive, un studio indie de Roblox.",
+      "kicker": "cele mai tari jocuri ever",
+      "heading": "Livrăm cu mândrie sub așteptări de dintotdeauna.",
+      "lead": "Facem cele mai de nișă jocuri Roblox din toate timpurile.",
+      "exploreGames": "Vezi jocurile",
+      "readUpdates": "Citește update-urile",
+      "statsAriaLabel": "Statistici studio",
+      "stats": {
+        "liveGames": {
+          "label": "Jocuri live",
+          "copy": "Amândouă. Știm."
+        },
+        "updatesShipped": {
+          "label": "Update-uri lansate",
+          "copy": "Majoritatea au stricat altceva în schimb."
+        },
+        "cumulativeVisits": {
+          "label": "Vizite cumulate",
+          "copy": "Cel puțin 12 am fost noi testând."
+        }
+      }
+    },
+    "games": {
+      "label": "Jocuri",
+      "description": "Jocurile actuale și viitoare ale Low Quality Interactive.",
+      "kicker": "tehnic jucabil",
+      "heading": "Jocuri moarte și proiecte de gunoi",
+      "lead": "Apasă pe orice card de joc live ca să intri direct pe pagina lui sau folosește butonul de update ca să vezi cea mai nouă notă de patch.",
+      "liveGamesHeading": "Jocuri live",
+      "viewAllUpdates": "Vezi toate update-urile ->",
+      "gameListAriaLabel": "Listă de jocuri",
+      "viewGameDetails": "Vezi detaliile pentru {game}",
+      "playGame": "Joacă",
+      "updates": "Update-uri",
+      "inWorksHeading": "În lucru",
+      "classified": "Clasificat",
+      "projectsAriaLabel": "Proiecte în dezvoltare",
+      "unannounced": "Neanunțat",
+      "descriptionRedacted": "Lucrăm la asta cu siguranță. Probabil.",
+      "classifiedStamp": "CLASIFICAT"
+    },
+    "blogs": {
+      "label": "Update-uri",
+      "description": "Update-uri de dezvoltare și note de patch de la Low Quality Interactive.",
+      "kicker": "update-uri cam moarte",
+      "heading": "Loguri de update și patch notes",
+      "lead": "Alege un joc de mai jos ca să-i deschizi devlog-ul.",
+      "chooseDevlogAriaLabel": "Alege devlog-ul unui joc",
+      "gameDevlogsHeading": "Updates",
+      "loadingGames": "Se încarcă jocurile…",
+      "viewerHeading": "Se încarcă ultimele devlog-uri…",
+      "viewerFallback": "Dacă mesajul ăsta rămâne aici, feed-ul public de update-uri s-ar putea să fie indisponibil pentru un moment."
+    },
+    "connect": {
+      "label": "Contact",
+      "description": "Intră în comunitatea noastră chiar azi.",
+      "kicker": "te rog nu lua legătura cu noi",
+      "heading": "Ia legătura cu noi",
+      "lead": "Citim fiecare mesaj. Răspundem la unele.",
+      "platformsAriaLabel": "Platforme de contact",
+      "businessHeading": "Cereri business",
+      "businessLead": "Pentru parteneriate, licențiere sau alte subiecte de business:",
+      "copyEmailAriaLabel": "Copiază adresa de email",
+      "copy": "Copiază",
+      "copied": "Copiat!"
+    },
+    "game": {
+      "kicker": "Pagina jocului",
+      "openGame": "Deschide jocul",
+      "latestUpdate": "Cel mai nou update",
+      "backToGames": "Înapoi la jocuri"
+    },
+    "notFound": {
+      "label": "404",
+      "description": "Pagina nu a fost găsită pe Low Quality Interactive.",
+      "kicker": "eroare 404",
+      "heading": "Pagina asta nu există.",
+      "copy": "Pagina asta a livrat sub așteptări — nu a existat deloc. Întoarce-te la pagina principală sau vezi jocurile noastre.",
+      "goHome": "Mergi acasă",
+      "viewGames": "Vezi jocurile"
+    }
+  },
+  "blogsViewer": {
+    "sections": {
+      "new": "Nou",
+      "changes": "Schimbări",
+      "bugs": "Corecții de buguri",
+      "removals": "Eliminat",
+      "misc": "Diverse",
+      "footnotes": "Note"
+    },
+    "untitled": "Fără titlu",
+    "update": "Update",
+    "versionFallback": "Update {number}",
+    "noDetails": "Nu există detalii înregistrate pentru acest update.",
+    "couldNotLoadGames": "Jocurile nu au putut fi încărcate.",
+    "feedUnavailable": "Feed-ul de update-uri nu este disponibil acum. Încearcă din nou mai târziu.",
+    "noUpdatesYet": "Încă nu există update-uri.",
+    "updatesAppearLater": "Logurile de update vor apărea aici după publicare.",
+    "versions": "Versiuni",
+    "olderUpdate": "Update mai vechi",
+    "newerUpdate": "Update mai nou",
+    "newBadge": "NOU",
+    "defaultTag": "Update",
+    "imageAlt": "Imagine update pentru {game}"
+  },
+  "catalog": {
+    "games": {
+      "eradication": {
+        "genreLabel": "Shooter PvE",
+        "genre": ["Shooter", "Multiplayer", "PvE", "Strategie"],
+        "description": "Un shooter de control teritorial pe echipe în care jucătorii luptă să-și recucerească orașul de la Whiskorians.",
+        "pageDescription": "ERADICATION - un shooter pe echipe cu control teritorial pe Roblox.",
+        "pageLead": "Treci prin valuri din ce în ce mai grele și supraviețuiește cât poți de mult.",
+        "artworkAlt": "Artwork de luptă ERADICATION",
+        "updateTag": "Update ERADICATION",
+        "updateImageAlt": "Imagine update ERADICATION"
+      },
+      "donpollo-obby": {
+        "genreLabel": "Obby",
+        "genre": ["Platformer", "Obby"],
+        "description": "Un obby propulsat de meme construit în jurul lui Don Pollo.",
+        "pageDescription": "DON POLLO OBBY - haos cu obstacole alimentat de meme pe Roblox.",
+        "pageLead": "Haos cu obstacole, restarturi rapide și trasee de speedrun.",
+        "artworkAlt": "Artwork cu traseul plutitor Don Pollo Obby",
+        "updateTag": "Update DON POLLO OBBY",
+        "updateImageAlt": "Imagine update DON POLLO OBBY"
+      }
+    },
+    "inWorks": {
+      "favela-94": {
+        "name": "Favela '94",
+        "genre": "Shooter tactic"
+      },
+      "crowns-of-steel": {
+        "name": "Crowns of Steel",
+        "genre": "Strategie"
+      }
+    }
+  }
+}

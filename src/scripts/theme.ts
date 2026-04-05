@@ -1,5 +1,12 @@
-export const themeScript = String.raw`
+interface ThemeMessages {
+  toDark: string;
+  toLight: string;
+}
+
+export function getThemeScript(messages: ThemeMessages) {
+  return String.raw`
 (() => {
+  const LABELS = ${JSON.stringify(messages)};
   const THEME_COOKIE = 'lqi-theme';
   const CONSENT_COOKIE = 'lqi-ok';
   const DARK = 'dark';
@@ -50,7 +57,7 @@ export const themeScript = String.raw`
     }
 
     const isDark = getTheme() === DARK;
-    const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+    const label = isDark ? LABELS.toLight : LABELS.toDark;
     button.setAttribute('aria-label', label);
     button.setAttribute('title', label);
   }
@@ -89,3 +96,4 @@ export const themeScript = String.raw`
   document.addEventListener('DOMContentLoaded', syncToggleButton, { once: true });
 })();
 `;
+}

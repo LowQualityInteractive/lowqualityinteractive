@@ -1,4 +1,47 @@
 User-agent: *
+Disallow: /llms.txt
 Allow: /
 
 Sitemap: https://lowqualityinteractive.com/sitemap.xml
+
+# LLM-oriented content map
+LLM: https://lowqualityinteractive.com/llms.txt
+
+# Explicitly allow major AI/LLM crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Disallow: /llms.txt
+Allow: /
+
+User-agent: Bingbot
+Disallow: /llms.txt
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /

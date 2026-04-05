@@ -1,0 +1,89 @@
+---
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getHomeJsonLd, liveGameCount } from '../data/games';
+import { getSiteTitle } from '../data/site';
+import { getLocalePath, getMessages, type Locale } from '../i18n/messages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const messages = getMessages(locale);
+const page = messages.pages.home;
+
+// Fetch Roblox stats at build time (server-side, no CORS issue)
+const UNIVERSE_IDS = '5788461409,7915083902';
+let totalVisits = 0;
+try {
+  const res = await fetch(`https://games.roblox.com/v1/games?universeIds=${UNIVERSE_IDS}`);
+  if (res.ok) {
+    const data = await res.json();
+    if (Array.isArray(data.data)) {
+      totalVisits = data.data.reduce((sum: number, g: { visits?: number }) => sum + (g.visits ?? 0), 0);
+    }
+  }
+} catch {}
+
+const formatVisits = (n: number) => {
+  if (n >= 1_000_000) return (n / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
+  if (n >= 1_000) return (n / 1_000).toFixed(1).replace(/\.0$/, '') + 'k';
+  return String(n);
+};
+
+const visitsDisplay = totalVisits > 0 ? formatVisits(totalVisits) : '—';
+
+// Count total updates from devlogs file at build time
+let totalUpdates = 0;
+try {
+  const devlogsPath = resolve('public/data/public-devlogs.json');
+  const devlogs = JSON.parse(readFileSync(devlogsPath, 'utf-8'));
+  if (Array.isArray(devlogs.games)) {
+    totalUpdates = devlogs.games.reduce(
+      (sum: number, g: { updates?: unknown[] }) => sum + (Array.isArray(g.updates) ? g.updates.length : 0),
+      0,
+    );
+  }
+} catch {}
+
+const updatesDisplay = totalUpdates > 0 ? `${totalUpdates}+` : '—';
+---
+
+<BaseLayout
+  locale={locale}
+  title={getSiteTitle(page.label)}
+  description={page.description}
+  currentPage="home"
+  routePath=""
+  jsonLd={getHomeJsonLd(locale)}
+>
+  <section class="hero">
+    <span class="kicker">{page.kicker}</span>
+    <h1>{page.heading}</h1>
+    <p class="lead">{page.lead}</p>
+    <div class="cta-row">
+      <a class="button primary" href={getLocalePath(locale, 'games')}>{page.exploreGames}</a>
+      <a class="button ghost" href={getLocalePath(locale, 'blogs')}>{page.readUpdates}</a>
+    </div>
+  </section>
+
+  <div class="stat-strip" aria-label={page.statsAriaLabel}>
+    <div class="stat-item">
+      <span class="stat-value">{liveGameCount}</span>
+      <h2>{page.stats.liveGames.label}</h2>
+      <p>{page.stats.liveGames.copy}</p>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">{updatesDisplay}</span>
+      <h2>{page.stats.updatesShipped.label}</h2>
+      <p>{page.stats.updatesShipped.copy}</p>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">{visitsDisplay}</span>
+      <h2>{page.stats.cumulativeVisits.label}</h2>
+      <p>{page.stats.cumulativeVisits.copy}</p>
+    </div>
+  </div>
+</BaseLayout>

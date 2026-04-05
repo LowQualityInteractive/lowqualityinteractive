@@ -1,7 +1,48 @@
 ---
 import '../styles/global.css';
-import { SITE_NAME } from '../data/site';
-import { themeScript } from '../scripts/theme';
+import { getSiteTitle } from '../data/site';
+import { LOCALES, LOCALE_OPTIONS, getLocalePath, getMessages, sanitizeInlineScript } from '../i18n/messages';
+import { getNotFoundScript } from '../scripts/notFound';
+import { getSiteScript } from '../scripts/site';
+import { getThemeScript } from '../scripts/theme';
+
+const english = getMessages('en');
+const page = english.pages.notFound;
+const themeScript = sanitizeInlineScript(getThemeScript(english.chrome.theme));
+const siteScript = sanitizeInlineScript(
+  getSiteScript(
+    {
+      mobileNav: english.chrome.mobileNav,
+      localeSwitcher: english.chrome.localeSwitcher,
+    },
+    LOCALE_OPTIONS,
+    false,
+  ),
+);
+const notFoundScript = sanitizeInlineScript(
+  getNotFoundScript(
+    Object.fromEntries(
+      LOCALES.map((locale) => {
+        const messages = getMessages(locale);
+        return [
+          locale,
+          {
+            locale,
+            title: getSiteTitle(messages.pages.notFound.label),
+            description: messages.pages.notFound.description,
+            kicker: messages.pages.notFound.kicker,
+            heading: messages.pages.notFound.heading,
+            copy: messages.pages.notFound.copy,
+            goHome: messages.pages.notFound.goHome,
+            viewGames: messages.pages.notFound.viewGames,
+            homeHref: getLocalePath(locale),
+            gamesHref: getLocalePath(locale, 'games'),
+          },
+        ];
+      }),
+    ),
+  ),
+);
 ---
 
 <!DOCTYPE html>
@@ -9,29 +50,30 @@ import { themeScript } from '../scripts/theme';
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>404 | {SITE_NAME}</title>
-  <meta name="description" content="Page not found on Low Quality Interactive." />
+  <title>{getSiteTitle(page.label)}</title>
+  <meta name="description" content={page.description} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="/assets/logo.png" />
-  <link rel="alternate" type="text/plain" title="LLM Context" href="/llms.txt">
+  <link rel="alternate" type="text/plain" title={english.meta.llmContextTitle} href="/llms.txt">
   <script is:inline set:html={themeScript}></script>
 </head>
 <body>
   <main class="not-found-main">
     <div class="container not-found-shell">
       <div class="not-found-card">
-        <p class="kicker">404 error</p>
-        <h1 class="not-found-title">This page does not exist.</h1>
-        <p class="not-found-copy">If you typed the URL manually, it might be incorrect. Return to the homepage or browse our games.</p>
+        <p class="kicker" id="not-found-kicker">{page.kicker}</p>
+        <h1 class="not-found-title" id="not-found-heading">{page.heading}</h1>
+        <p class="not-found-copy" id="not-found-copy">{page.copy}</p>
         <div class="cta-row not-found-actions">
-          <a class="button primary" href="/">Go home</a>
-          <a class="button ghost" href="/games">View games</a>
+          <a class="button primary" id="not-found-home" href={getLocalePath('en')}>{page.goHome}</a>
+          <a class="button ghost" id="not-found-games" href={getLocalePath('en', 'games')}>{page.viewGames}</a>
         </div>
       </div>
     </div>
   </main>
-  <script is:inline src="/scripts/site.js" defer></script>
+  <script is:inline set:html={siteScript}></script>
+  <script is:inline set:html={notFoundScript}></script>
 </body>
 </html>

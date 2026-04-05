@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "siteDescription": "Site oficial da Low Quality Interactive, um estúdio indie de Roblox.",
+    "organizationDescription": "Low Quality Interactive é um estúdio independente de desenvolvimento no Roblox focado em multiplayer competitivo, sistemas táticos e experiências sandbox com alto fator replay.",
+    "llmContextTitle": "Contexto para LLM"
+  },
+  "chrome": {
+    "skipLink": "Pular para o conteúdo principal",
+    "brandHomeAriaLabel": "Página inicial da Low Quality Interactive",
+    "brandLogoAlt": "Logo da Low Quality Interactive",
+    "nav": {
+      "ariaLabel": "Navegação principal",
+      "home": "Início",
+      "games": "Jogos",
+      "updates": "Updates",
+      "connect": "Contato"
+    },
+    "theme": {
+      "toDark": "Mudar para o modo escuro",
+      "toLight": "Mudar para o modo claro"
+    },
+    "mobileNav": {
+      "open": "Abrir menu de navegação",
+      "close": "Fechar menu de navegação",
+      "label": "Navegação principal"
+    },
+    "localeSwitcher": {
+      "ariaLabel": "Escolher idioma"
+    },
+    "footer": {
+      "tagline": "Lançando desde 2024. Terminando nunca.",
+      "siteHeading": "Site",
+      "connectHeading": "Contato",
+      "businessInquiries": "Contato comercial",
+      "allRightsReserved": "Todos os direitos reservados."
+    },
+    "cookie": {
+      "ariaLabel": "Aviso de preferências",
+      "message": "A gente usa cookies. Os chatos, não os de gotas de chocolate.",
+      "accept": "Fechou",
+      "dismiss": "Dispensar"
+    },
+    "platforms": {
+      "x": "X",
+      "discord": "Discord",
+      "youtube": "YouTube",
+      "robloxGroup": "Grupo do Roblox"
+    }
+  },
+  "pages": {
+    "home": {
+      "label": "Início",
+      "description": "Site oficial da Low Quality Interactive, um estúdio indie de Roblox.",
+      "kicker": "os jogos mais brabos da história",
+      "heading": "A gente entrega abaixo do prometido com orgulho desde SEMPRE.",
+      "lead": "A gente faz os jogos de Roblox mais de nicho de todos os tempos.",
+      "exploreGames": "Ver jogos",
+      "readUpdates": "Ler updates",
+      "statsAriaLabel": "Estatísticas do estúdio",
+      "stats": {
+        "liveGames": {
+          "label": "Jogos no ar",
+          "copy": "Os dois. A gente sabe."
+        },
+        "updatesShipped": {
+          "label": "Updates lançadas",
+          "copy": "A maioria quebrou outra coisa no processo."
+        },
+        "cumulativeVisits": {
+          "label": "Visitas acumuladas",
+          "copy": "Pelo menos 12 foram a gente testando."
+        }
+      }
+    },
+    "games": {
+      "label": "Jogos",
+      "description": "Jogos atuais e futuros da Low Quality Interactive.",
+      "kicker": "tecnicamente jogável",
+      "heading": "Jogos mortos e projetos lixo",
+      "lead": "Toca em qualquer card de jogo no ar para abrir a página dele direto, ou usa o botão de update para ver a nota de patch mais recente.",
+      "liveGamesHeading": "Jogos no ar",
+      "viewAllUpdates": "Ver todas as updates ->",
+      "gameListAriaLabel": "Lista de jogos",
+      "viewGameDetails": "Ver detalhes de {game}",
+      "playGame": "Jogar",
+      "updates": "Updates",
+      "inWorksHeading": "Em desenvolvimento",
+      "classified": "Classificado",
+      "projectsAriaLabel": "Projetos em desenvolvimento",
+      "unannounced": "Não anunciado",
+      "descriptionRedacted": "A gente tá trabalhando nisso sim. Provavelmente.",
+      "classifiedStamp": "CLASSIFICADO"
+    },
+    "blogs": {
+      "label": "Updates",
+      "description": "Updates de desenvolvimento e notas de patch da Low Quality Interactive.",
+      "kicker": "updates meio mortas",
+      "heading": "Logs de update e patch notes",
+      "lead": "Escolha um jogo abaixo para abrir o devlog dele.",
+      "chooseDevlogAriaLabel": "Escolher devlog de um jogo",
+      "gameDevlogsHeading": "Updates",
+      "loadingGames": "Carregando jogos…",
+      "viewerHeading": "Carregando os devlogs mais recentes…",
+      "viewerFallback": "Se essa mensagem continuar aqui, o feed público de updates pode estar fora por um momento."
+    },
+    "connect": {
+      "label": "Contato",
+      "description": "Entra na nossa comunidade hoje.",
+      "kicker": "por favor não fala com a gente",
+      "heading": "Fale com a gente",
+      "lead": "A gente lê todas as mensagens. A gente responde algumas.",
+      "platformsAriaLabel": "Plataformas de contato",
+      "businessHeading": "Contato comercial",
+      "businessLead": "Para parcerias, licenciamento ou outros assuntos comerciais:",
+      "copyEmailAriaLabel": "Copiar endereço de e-mail",
+      "copy": "Copiar",
+      "copied": "Copiado!"
+    },
+    "game": {
+      "kicker": "Página do jogo",
+      "openGame": "Abrir jogo",
+      "latestUpdate": "Update mais recente",
+      "backToGames": "Voltar para jogos"
+    },
+    "notFound": {
+      "label": "404",
+      "description": "Página não encontrada na Low Quality Interactive.",
+      "kicker": "erro 404",
+      "heading": "Essa página não existe.",
+      "copy": "Essa página entregou abaixo do prometido — não existindo. Volte para a página inicial ou veja nossos jogos.",
+      "goHome": "Ir para o início",
+      "viewGames": "Ver jogos"
+    }
+  },
+  "blogsViewer": {
+    "sections": {
+      "new": "Novo",
+      "changes": "Mudanças",
+      "bugs": "Correções de bugs",
+      "removals": "Removido",
+      "misc": "Extras",
+      "footnotes": "Notas"
+    },
+    "untitled": "Sem título",
+    "update": "Update",
+    "versionFallback": "Update {number}",
+    "noDetails": "Nenhum detalhe registrado para essa update.",
+    "couldNotLoadGames": "Não foi possível carregar os jogos.",
+    "feedUnavailable": "O feed de updates está indisponível agora. Tente novamente daqui a pouco.",
+    "noUpdatesYet": "Ainda não tem updates.",
+    "updatesAppearLater": "Os logs de update vão aparecer aqui quando forem publicados.",
+    "versions": "Versões",
+    "olderUpdate": "Update mais antiga",
+    "newerUpdate": "Update mais nova",
+    "newBadge": "NOVA",
+    "defaultTag": "Update",
+    "imageAlt": "Imagem da update de {game}"
+  },
+  "catalog": {
+    "games": {
+      "eradication": {
+        "genreLabel": "Shooter PvE",
+        "genre": ["Shooter", "Multiplayer", "PvE", "Estratégia"],
+        "description": "Um shooter de controle territorial em equipe onde os jogadores lutam para retomar a própria cidade dos Whiskorians.",
+        "pageDescription": "ERADICATION - um shooter tático de controle territorial no Roblox.",
+        "pageLead": "Enfrente ondas cada vez piores e sobreviva o máximo que conseguir.",
+        "artworkAlt": "Arte de combate de ERADICATION",
+        "updateTag": "Update de ERADICATION",
+        "updateImageAlt": "Imagem da update de ERADICATION"
+      },
+      "donpollo-obby": {
+        "genreLabel": "Obby",
+        "genre": ["Plataforma", "Obby"],
+        "description": "Uma obby movida a meme construída em volta do Don Pollo.",
+        "pageDescription": "DON POLLO OBBY - caos de obstáculos movido a meme no Roblox.",
+        "pageLead": "Caos de obstáculos com respawn rápido e rotas para speedrun.",
+        "artworkAlt": "Arte do percurso flutuante de Don Pollo Obby",
+        "updateTag": "Update de DON POLLO OBBY",
+        "updateImageAlt": "Imagem da update de DON POLLO OBBY"
+      }
+    },
+    "inWorks": {
+      "favela-94": {
+        "name": "Favela '94",
+        "genre": "Shooter tático"
+      },
+      "crowns-of-steel": {
+        "name": "Crowns of Steel",
+        "genre": "Estratégia"
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPublishedGames } from '../data/games';
+import { getSiteTitle } from '../data/site';
+import { getBlogsScript } from '../scripts/blogs';
+import { getMessages, sanitizeInlineScript, type Locale } from '../i18n/messages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const messages = getMessages(locale);
+const page = messages.pages.blogs;
+const localizedGames = Object.fromEntries(
+  getPublishedGames(locale).map((game) => [
+    game.id,
+    {
+      name: game.name,
+      updateTag: game.updateTag,
+      updateImageAlt: game.updateImageAlt,
+    },
+  ]),
+);
+const blogsScript = sanitizeInlineScript(
+  getBlogsScript(messages.blogsViewer, localizedGames, locale),
+);
+---
+
+<BaseLayout
+  locale={locale}
+  title={getSiteTitle(page.label)}
+  description={page.description}
+  currentPage="blogs"
+  routePath="blogs"
+>
+  <section class="hero">
+    <span class="kicker">{page.kicker}</span>
+    <h1>{page.heading}</h1>
+    <p class="lead">{page.lead}</p>
+  </section>
+
+  <div class="card" aria-label={page.chooseDevlogAriaLabel}>
+    <h2>{page.gameDevlogsHeading}</h2>
+    <div class="game-devlog-buttons" id="devlog-game-buttons">
+      <p>{page.loadingGames}</p>
+    </div>
+  </div>
+
+  <div class="card devlog-viewer devlog-viewer-card" id="devlog-viewer" aria-live="polite">
+    <h2>{page.viewerHeading}</h2>
+    <p>{page.viewerFallback}</p>
+  </div>
+
+  <script is:inline slot="scripts" set:html={blogsScript}></script>
+</BaseLayout>

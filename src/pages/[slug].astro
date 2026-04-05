@@ -1,42 +1,19 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import {
-  getGameJsonLd,
-  getGameUpdateHref,
-  getSiteTitle,
-  liveGames,
-  type Game,
-} from '../data/games';
+import { publishedGameSlugs } from '../data/games';
+import GamePage from '../views/GamePage.astro';
 
 export const getStaticPaths: GetStaticPaths = () =>
-  liveGames.map((game) => ({
-    params: { slug: game.slug },
-    props: { game },
+  publishedGameSlugs.map((slug) => ({
+    params: { slug },
+    props: { slug },
   }));
 
 interface Props {
-  game: Game;
+  slug: string;
 }
 
-const { game } = Astro.props;
+const { slug } = Astro.props;
 ---
 
-<BaseLayout
-  title={getSiteTitle(game.name)}
-  description={game.pageDescription}
-  jsonLd={getGameJsonLd(game)}
-  ogImage={game.artwork.src}
-  canonicalPath={`/${game.slug}`}
->
-  <section class="hero">
-    <span class="kicker">Game page</span>
-    <h1>{game.name}</h1>
-    <p class="lead">{game.pageLead}</p>
-    <div class="cta-row">
-      <a class="button primary" target="_blank" rel="noopener noreferrer" href={game.robloxUrl}>Open game</a>
-      <a class="button ghost" href={getGameUpdateHref(game)}>Latest update</a>
-      <a class="button ghost" href="/games">Back to games</a>
-    </div>
-  </section>
-</BaseLayout>
+<GamePage locale="en" slug={slug} />

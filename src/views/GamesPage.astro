@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  getGameHref,
+  getGameUpdateHref,
+  getGamesJsonLd,
+  getPublishedGames,
+} from '../data/games';
+import { getSiteTitle } from '../data/site';
+import { getInWorkProjects } from '../data/inWorks';
+import { getLocalePath, getMessages, interpolate, type Locale } from '../i18n/messages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const messages = getMessages(locale);
+const page = messages.pages.games;
+const statusLabels = messages.chrome.status;
+const liveGames = getPublishedGames(locale);
+const projects = getInWorkProjects(locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={getSiteTitle(page.label)}
+  description={page.description}
+  currentPage="games"
+  routePath="games"
+  jsonLd={getGamesJsonLd(locale)}
+>
+  <section class="hero">
+    <span class="kicker">{page.kicker}</span>
+    <h1>{page.heading}</h1>
+    <p class="lead">{page.lead}</p>
+  </section>
+
+  <div class="section-header">
+    <h2>{page.liveGamesHeading}</h2>
+    <a href={getLocalePath(locale, 'blogs')}>{page.viewAllUpdates}</a>
+  </div>
+
+  <div class="games-grid" aria-label={page.gameListAriaLabel}>
+    {liveGames.map((game) => (
+      <article class="game-card" data-game-id={game.id} data-game-status={game.status}>
+        <div class="game-card-image">
+          <a href={getGameHref(locale, game)} aria-label={interpolate(page.viewGameDetails, { game: game.name })}>
+            <img
+              src={game.artwork.src}
+              alt={game.artwork.alt}
+              width={game.artwork.width}
+              height={game.artwork.height}
+              loading="lazy"
+            />
+          </a>
+        </div>
+        <div class="game-card-body">
+          <div class="game-card-meta">
+            <span class="pill">{game.genreLabel}</span>
+            <span class={'game-status-dot game-status-dot--' + game.status} title={statusLabels[game.status as keyof typeof statusLabels] ?? game.status}>
+              <span class="game-status-label">{statusLabels[game.status as keyof typeof statusLabels] ?? game.status}</span>
+            </span>
+          </div>
+          <h2>
+            <a class="game-card-title-link" href={getGameHref(locale, game)}>{game.name}</a>
+          </h2>
+          <p>{game.description}</p>
+          <span class="game-player-count" hidden></span>
+        </div>
+        <div class="game-card-footer">
+          <a class="button primary button-play" target="_blank" rel="noopener noreferrer" href={game.robloxUrl}>{page.playGame}</a>
+          <a class="button ghost" href={getGameUpdateHref(locale, game)}>{page.updates}</a>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <div class="section-header section-header-spaced">
+    <h2>{page.inWorksHeading}</h2>
+    <span class="section-header-note">{page.classified}</span>
+  </div>
+
+  <div class="inworks-grid" aria-label={page.projectsAriaLabel}>
+    {projects.map((project) => (
+      <article class="inworks-card">
+        <div class="inworks-card-inner">
+          <div class="inworks-header">
+            <span class="pill pill-classified">{page.unannounced}</span>
+            <span class="inworks-genre">{project.genre}</span>
+          </div>
+          <h2 class="inworks-title">{project.name}</h2>
+          <p class="inworks-desc" aria-label={page.descriptionRedacted}>
+            <span class="redacted" aria-hidden="true">{project.redactedDescription}</span>
+          </p>
+        </div>
+        <div class="inworks-stamp" aria-hidden="true">{page.classifiedStamp}</div>
+      </article>
+    ))}
+  </div>
+</BaseLayout>

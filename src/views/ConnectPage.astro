@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONTACT_EMAIL, SOCIAL_LINKS, getSiteTitle } from '../data/site';
+import { getConnectScript } from '../scripts/connect';
+import { getMessages, sanitizeInlineScript, type Locale } from '../i18n/messages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const messages = getMessages(locale);
+const page = messages.pages.connect;
+const platformLabels = messages.chrome.platforms;
+const connectScript = sanitizeInlineScript(
+  getConnectScript(page.copy, page.copied, CONTACT_EMAIL),
+);
+
+const formatCount = (n: number) => {
+  if (n >= 1_000_000) return (n / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
+  if (n >= 1_000) return (n / 1_000).toFixed(1).replace(/\.0$/, '') + 'k';
+  return String(n);
+};
+
+let robloxGroupMembers = '';
+try {
+  const res = await fetch('https://groups.roblox.com/v1/groups/7489017');
+  if (res.ok) {
+    const data = await res.json();
+    if (typeof data.memberCount === 'number') {
+      robloxGroupMembers = formatCount(data.memberCount) + ' members';
+    }
+  }
+} catch {}
+
+let youtubeSubscribers = '';
+const youtubeApiKey = import.meta.env.YOUTUBE_API_KEY;
+if (youtubeApiKey) {
+  try {
+    const res = await fetch(
+      `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCQgaYkXMTs8BcUKute8Nolw&key=${youtubeApiKey}`
+    );
+    if (res.ok) {
+      const data = await res.json();
+      const count = data?.items?.[0]?.statistics?.subscriberCount;
+      if (count !== undefined) {
+        youtubeSubscribers = formatCount(Number(count)) + ' subscribers';
+      }
+    }
+  } catch {}
+}
+---
+
+<BaseLayout
+  locale={locale}
+  title={getSiteTitle(page.label)}
+  description={page.description}
+  currentPage="connect"
+  routePath="connect"
+>
+  <section class="hero">
+    <span class="kicker">{page.kicker}</span>
+    <h1>{page.heading}</h1>
+    <p class="lead">{page.lead}</p>
+  </section>
+
+  <div class="platform-grid" aria-label={page.platformsAriaLabel}>
+    <a class="platform-card" href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer" aria-label={platformLabels.discord}>
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+        <path d="M20.3 4.37A19.8 19.8 0 0 0 15.4 3c-.2.36-.43.84-.6 1.22a18.3 18.3 0 0 0-5.58 0c-.18-.38-.42-.86-.61-1.22-1.7.3-3.35.77-4.91 1.37C.57 9.07-.24 13.65.17 18.17a19.9 19.9 0 0 0 6.03 3.02c.49-.67.92-1.39 1.29-2.15-.7-.26-1.37-.59-2-.97.17-.12.34-.25.5-.38 3.86 1.8 8.05 1.8 11.86 0 .17.14.34.27.5.38-.63.38-1.31.71-2 .97.37.76.8 1.48 1.29 2.15a19.8 19.8 0 0 0 6.03-3.02c.49-5.24-.84-9.78-3.37-13.8ZM8.02 15.39c-1.15 0-2.09-1.05-2.09-2.34s.93-2.34 2.09-2.34c1.16 0 2.1 1.05 2.09 2.34 0 1.29-.93 2.34-2.09 2.34Zm7.96 0c-1.15 0-2.09-1.05-2.09-2.34s.93-2.34 2.09-2.34c1.16 0 2.1 1.05 2.09 2.34 0 1.29-.93 2.34-2.09 2.34Z" />
+      </svg>
+      <span>{platformLabels.discord}</span>
+      <span class="platform-live-count" data-discord-online hidden></span>
+    </a>
+    <a class="platform-card" href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer" aria-label={platformLabels.youtube}>
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+        <path d="M23.5 6.2a3.04 3.04 0 0 0-2.14-2.15C19.45 3.5 12 3.5 12 3.5s-7.45 0-9.36.55A3.04 3.04 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3.04 3.04 0 0 0 2.14 2.15c1.91.55 9.36.55 9.36.55s7.45 0 9.36-.55a3.04 3.04 0 0 0 2.14-2.15A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8ZM9.6 15.57V8.43L15.82 12 9.6 15.57Z" />
+      </svg>
+      <span>{platformLabels.youtube}</span>
+      {youtubeSubscribers && <span class="platform-live-count">{youtubeSubscribers}</span>}
+    </a>
+    <a class="platform-card" href={SOCIAL_LINKS.roblox} target="_blank" rel="noopener noreferrer" aria-label={platformLabels.robloxGroup}>
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+        <path d="M5.5 2.5L2.5 18.5L18.5 21.5L21.5 5.5L5.5 2.5Z" />
+        <path fill="var(--surface)" d="M10.5 10L9.75 13.75L13.5 14.5L14.25 10.75L10.5 10Z" />
+      </svg>
+      <span>{platformLabels.robloxGroup}</span>
+      {robloxGroupMembers && <span class="platform-live-count">{robloxGroupMembers}</span>}
+    </a>
+    <a class="platform-card" href={SOCIAL_LINKS.x} target="_blank" rel="noopener noreferrer" aria-label={platformLabels.x}>
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+        <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+      </svg>
+      <span>{platformLabels.x}</span>
+      <span class="platform-live-count">-1 follower 🥀</span>
+    </a>
+  </div>
+
+  <div class="email-contact">
+    <h2>{page.businessHeading}</h2>
+    <p>{page.businessLead}</p>
+    <div class="email-row">
+      <span class="email-address">{CONTACT_EMAIL}</span>
+      <button class="copy-btn" id="copy-email" aria-label={page.copyEmailAriaLabel}>
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" />
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+        </svg>
+        <span id="copy-label">{page.copy}</span>
+      </button>
+    </div>
+  </div>
+
+  <script is:inline slot="scripts" set:html={connectScript}></script>
+</BaseLayout>

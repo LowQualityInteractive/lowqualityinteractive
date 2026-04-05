@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "postbuild": "node scripts/generate-sitemap.mjs",
     "preview": "astro preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

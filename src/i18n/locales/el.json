@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "siteDescription": "Η επίσημη ιστοσελίδα της Low Quality Interactive, ενός indie studio στο Roblox.",
+    "organizationDescription": "Η Low Quality Interactive είναι ένα ανεξάρτητο studio ανάπτυξης στο Roblox με έμφαση στο ανταγωνιστικό multiplayer, τα tactical systems και τις sandbox εμπειρίες με υψηλή επαναληψιμότητα.",
+    "llmContextTitle": "Πλαίσιο για LLM"
+  },
+  "chrome": {
+    "skipLink": "Μετάβαση στο κύριο περιεχόμενο",
+    "brandHomeAriaLabel": "Αρχική σελίδα της Low Quality Interactive",
+    "brandLogoAlt": "Λογότυπο της Low Quality Interactive",
+    "nav": {
+      "ariaLabel": "Κύρια πλοήγηση",
+      "home": "Αρχική",
+      "games": "Παιχνίδια",
+      "updates": "Ενημερώσεις",
+      "connect": "Επικοινωνία"
+    },
+    "theme": {
+      "toDark": "Εναλλαγή σε σκοτεινή λειτουργία",
+      "toLight": "Εναλλαγή σε φωτεινή λειτουργία"
+    },
+    "mobileNav": {
+      "open": "Άνοιγμα μενού πλοήγησης",
+      "close": "Κλείσιμο μενού πλοήγησης",
+      "label": "Κύρια πλοήγηση"
+    },
+    "localeSwitcher": {
+      "ariaLabel": "Επιλογή γλώσσας"
+    },
+    "footer": {
+      "tagline": "Κάνουμε shipping από το 2024. Τελειώνουμε ποτέ.",
+      "siteHeading": "Ιστότοπος",
+      "connectHeading": "Επικοινωνία",
+      "businessInquiries": "Επαγγελματικά αιτήματα",
+      "allRightsReserved": "Με επιφύλαξη παντός δικαιώματος."
+    },
+    "cookie": {
+      "ariaLabel": "Ειδοποίηση προτιμήσεων",
+      "message": "Χρησιμοποιούμε cookies. Τα βαρετά, όχι τα με σοκολάτα.",
+      "accept": "ΟΚ",
+      "dismiss": "Κλείσιμο"
+    },
+    "platforms": {
+      "x": "X",
+      "discord": "Discord",
+      "youtube": "YouTube",
+      "robloxGroup": "Ομάδα Roblox"
+    }
+  },
+  "pages": {
+    "home": {
+      "label": "Αρχική",
+      "description": "Η επίσημη ιστοσελίδα της Low Quality Interactive, ενός indie studio στο Roblox.",
+      "kicker": "τα πιο βαριά παιχνίδια ever",
+      "heading": "Παραδίδουμε περήφανα λιγότερα απ' όσα υποσχόμαστε από ΠΑΝΤΑ.",
+      "lead": "Φτιάχνουμε τα πιο niche παιχνίδια Roblox όλων των εποχών.",
+      "exploreGames": "Δείτε τα παιχνίδια",
+      "readUpdates": "Διαβάστε updates",
+      "statsAriaLabel": "Στατιστικά studio",
+      "stats": {
+        "liveGames": {
+          "label": "Live παιχνίδια",
+          "copy": "Και τα δύο. Ξέρουμε."
+        },
+        "updatesShipped": {
+          "label": "Updates που βγήκαν",
+          "copy": "Τα περισσότερα χάλασαν κάτι άλλο."
+        },
+        "cumulativeVisits": {
+          "label": "Συνολικές επισκέψεις",
+          "copy": "Τουλάχιστον οι 12 ήταν εμείς που το δοκιμάζαμε."
+        }
+      }
+    },
+    "games": {
+      "label": "Παιχνίδια",
+      "description": "Τρέχοντα και επερχόμενα παιχνίδια της Low Quality Interactive.",
+      "kicker": "τεχνικά παίζεται",
+      "heading": "Νεκρά παιχνίδια και σκουπιδοπρότζεκτ",
+      "lead": "Πατήστε οποιαδήποτε live κάρτα παιχνιδιού για να μπείτε κατευθείαν στη σελίδα του ή χρησιμοποιήστε το κουμπί update για να δείτε το πιο πρόσφατο patch note.",
+      "liveGamesHeading": "Live παιχνίδια",
+      "viewAllUpdates": "Δείτε όλα τα updates ->",
+      "gameListAriaLabel": "Λίστα παιχνιδιών",
+      "viewGameDetails": "Δείτε λεπτομέρειες για το {game}",
+      "playGame": "Παίξτε",
+      "updates": "Updates",
+      "inWorksHeading": "Σε ανάπτυξη",
+      "classified": "Απόρρητο",
+      "projectsAriaLabel": "Projects υπό ανάπτυξη",
+      "unannounced": "Μη ανακοινωμένο",
+      "descriptionRedacted": "Δουλεύουμε πάνω σε αυτό σίγουρα. Μάλλον.",
+      "classifiedStamp": "ΑΠΟΡΡΗΤΟ"
+    },
+    "blogs": {
+      "label": "Ενημερώσεις",
+      "description": "Αναπτυξιακά updates και patch notes από τη Low Quality Interactive.",
+      "kicker": "μισοπεθαμένα updates",
+      "heading": "Logs ενημερώσεων και patch notes",
+      "lead": "Διαλέξτε ένα παιχνίδι παρακάτω για να ανοίξετε το devlog του.",
+      "chooseDevlogAriaLabel": "Επιλέξτε devlog παιχνιδιού",
+      "gameDevlogsHeading": "Updates",
+      "loadingGames": "Φόρτωση παιχνιδιών…",
+      "viewerHeading": "Φόρτωση των πιο πρόσφατων devlogs…",
+      "viewerFallback": "Αν αυτό το μήνυμα μείνει εδώ, το δημόσιο feed ενημερώσεων ίσως να μην είναι διαθέσιμο για λίγο."
+    },
+    "connect": {
+      "label": "Επικοινωνία",
+      "description": "Μπείτε στην κοινότητά μας σήμερα.",
+      "kicker": "παρακαλώ μην επικοινωνήσετε μαζί μας",
+      "heading": "Επικοινωνήστε μαζί μας",
+      "lead": "Διαβάζουμε κάθε μήνυμα. Απαντάμε σε μερικά.",
+      "platformsAriaLabel": "Πλατφόρμες επικοινωνίας",
+      "businessHeading": "Επαγγελματικά αιτήματα",
+      "businessLead": "Για συνεργασίες, αδειοδοτήσεις ή άλλα επαγγελματικά θέματα:",
+      "copyEmailAriaLabel": "Αντιγραφή διεύθυνσης email",
+      "copy": "Αντιγραφή",
+      "copied": "Αντιγράφηκε!"
+    },
+    "game": {
+      "kicker": "Σελίδα παιχνιδιού",
+      "openGame": "Άνοιγμα παιχνιδιού",
+      "latestUpdate": "Τελευταίο update",
+      "backToGames": "Πίσω στα παιχνίδια"
+    },
+    "notFound": {
+      "label": "404",
+      "description": "Η σελίδα δεν βρέθηκε στη Low Quality Interactive.",
+      "kicker": "σφάλμα 404",
+      "heading": "Αυτή η σελίδα δεν υπάρχει.",
+      "copy": "Αυτή η σελίδα δεν εκπλήρωσε τις υποσχέσεις της — αρνήθηκε να υπάρξει. Επιστρέψτε στην αρχική ή δείτε τα παιχνίδια μας.",
+      "goHome": "Πηγαίνετε στην αρχική",
+      "viewGames": "Δείτε παιχνίδια"
+    }
+  },
+  "blogsViewer": {
+    "sections": {
+      "new": "Νέο",
+      "changes": "Αλλαγές",
+      "bugs": "Διορθώσεις bugs",
+      "removals": "Αφαιρέθηκε",
+      "misc": "Διάφορα",
+      "footnotes": "Σημειώσεις"
+    },
+    "untitled": "Χωρίς τίτλο",
+    "update": "Ενημέρωση",
+    "versionFallback": "Ενημέρωση {number}",
+    "noDetails": "Δεν υπάρχουν καταγεγραμμένες λεπτομέρειες για αυτό το update.",
+    "couldNotLoadGames": "Δεν ήταν δυνατή η φόρτωση των παιχνιδιών.",
+    "feedUnavailable": "Το feed ενημερώσεων δεν είναι διαθέσιμο αυτή τη στιγμή. Δοκιμάστε ξανά αργότερα.",
+    "noUpdatesYet": "Δεν υπάρχουν updates ακόμη.",
+    "updatesAppearLater": "Τα logs ενημερώσεων θα εμφανιστούν εδώ μόλις δημοσιευτούν.",
+    "versions": "Εκδόσεις",
+    "olderUpdate": "Παλιότερο update",
+    "newerUpdate": "Νεότερο update",
+    "newBadge": "ΝΕΟ",
+    "defaultTag": "Ενημέρωση",
+    "imageAlt": "Εικόνα update για το {game}"
+  },
+  "catalog": {
+    "games": {
+      "eradication": {
+        "genreLabel": "PvE shooter",
+        "genre": ["Shooter", "Multiplayer", "PvE", "Στρατηγική"],
+        "description": "Ένα ομαδικό shooter ελέγχου περιοχής όπου οι παίκτες παλεύουν να πάρουν πίσω την πόλη τους από τους Whiskorians.",
+        "pageDescription": "ERADICATION - ένα ομαδικό shooter ελέγχου περιοχής στο Roblox.",
+        "pageLead": "Περάστε μέσα από όλο και πιο σκληρά κύματα και επιβιώστε όσο περισσότερο μπορείτε.",
+        "artworkAlt": "Combat artwork του ERADICATION",
+        "updateTag": "Update του ERADICATION",
+        "updateImageAlt": "Εικόνα update του ERADICATION"
+      },
+      "donpollo-obby": {
+        "genreLabel": "Obby",
+        "genre": ["Platformer", "Obby"],
+        "description": "Ένα meme-driven obby χτισμένο γύρω από τον Don Pollo.",
+        "pageDescription": "DON POLLO OBBY - χαμός με εμπόδια και memes στο Roblox.",
+        "pageLead": "Χάος με εμπόδια, γρήγορα restart και routes για speedrun.",
+        "artworkAlt": "Artwork της αιωρούμενης διαδρομής του Don Pollo Obby",
+        "updateTag": "Update του DON POLLO OBBY",
+        "updateImageAlt": "Εικόνα update του DON POLLO OBBY"
+      }
+    },
+    "inWorks": {
+      "favela-94": {
+        "name": "Favela '94",
+        "genre": "Tactical shooter"
+      },
+      "crowns-of-steel": {
+        "name": "Crowns of Steel",
+        "genre": "Στρατηγική"
+      }
+    }
+  }
+}

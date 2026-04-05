@@ -1,23 +1,66 @@
 ---
 import '../styles/global.css';
-import { SITE_NAME, toAbsoluteSiteUrl } from '../data/site';
-import { themeScript } from '../scripts/theme';
+import { SITE_NAME, SOCIAL_LINKS, DISCORD_GUILD_ID } from '../data/site';
+import {
+  getAlternateLinks,
+  getLocaleAbsolutePath,
+  getLocaleOptionLabel,
+  getLocalePath,
+  getMessages,
+  LOCALES,
+  LOCALE_OPTIONS,
+  sanitizeInlineScript,
+  type Locale,
+} from '../i18n/messages';
+import { getGames } from '../data/games';
+import { getNoticeScript } from '../scripts/notice';
+import { getSiteScript } from '../scripts/site';
+import { getThemeScript } from '../scripts/theme';
+import { getLiveScript } from '../scripts/live';
+import { toAbsoluteSiteUrl } from '../data/site';
 
 interface Props {
+  locale: Locale;
   title: string;
   description: string;
   currentPage?: 'home' | 'games' | 'blogs' | 'connect';
   jsonLd?: string;
   ogImage?: string;
-  canonicalPath?: string;
+  routePath?: string;
 }
 
-const { title, description, currentPage, jsonLd, ogImage, canonicalPath } = Astro.props;
+const { locale, title, description, currentPage, jsonLd, ogImage, routePath = '' } = Astro.props;
 const currentYear = new Date().getFullYear();
+const messages = getMessages(locale);
+const homeHref = getLocalePath(locale);
+const gamesHref = getLocalePath(locale, 'games');
+const blogsHref = getLocalePath(locale, 'blogs');
+const connectHref = getLocalePath(locale, 'connect');
+const canonicalUrl = getLocaleAbsolutePath(locale, routePath);
+const alternateLinks = getAlternateLinks(routePath);
+const xDefaultHref = getLocaleAbsolutePath('en', routePath);
+const themeScript = sanitizeInlineScript(getThemeScript(messages.chrome.theme));
+const siteScript = sanitizeInlineScript(
+  getSiteScript(
+    {
+      mobileNav: messages.chrome.mobileNav,
+      localeSwitcher: messages.chrome.localeSwitcher,
+    },
+    LOCALE_OPTIONS,
+    locale === 'en',
+  ),
+);
+const noticeScript = sanitizeInlineScript(getNoticeScript(messages.chrome.cookie));
 
-const canonicalUrl = canonicalPath
-  ? toAbsoluteSiteUrl(canonicalPath)
-  : toAbsoluteSiteUrl(Astro.url.pathname);
+const liveGamesForScript = getGames(locale).filter((g) => g.status !== 'in-development').map((g) => ({
+  id: g.id,
+  status: g.status,
+  universeId: g.universeId,
+}));
+const liveScript = sanitizeInlineScript(
+  getLiveScript(messages.chrome.live, liveGamesForScript, DISCORD_GUILD_ID),
+);
+
 const ogImageUrl = ogImage ? toAbsoluteSiteUrl(ogImage) : toAbsoluteSiteUrl('/assets/logo.png');
 
 // Ensure JSON-LD cannot contain a closing script tag even if the data were ever
@@ -26,13 +69,17 @@ const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefi
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={locale}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalUrl} />
+  {alternateLinks.map((alternate) => (
+    <link rel="alternate" hreflang={alternate.locale} href={alternate.href} />
+  ))}
+  <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -55,10 +102,10 @@ const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefi
   <meta name="theme-color" content="#b54343" />
 
   <!-- Security headers (best-effort via meta; full header coverage requires a CDN/proxy layer) -->
+  <!-- Note: frame-ancestors and X-Frame-Options only work as HTTP headers, not meta tags -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" />
-  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.mymemory.translated.net https://games.roblox.com https://discord.com; base-uri 'self'; form-action 'self'" />
 
   {safeJsonLd && <script is:inline type="application/ld+json" set:html={safeJsonLd} />}
 
@@ -66,27 +113,66 @@ const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefi
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="/assets/logo.png" />
-  <link rel="alternate" type="text/plain" title="LLM Context" href="/llms.txt">
+  <link rel="alternate" type="text/plain" title={messages.meta.llmContextTitle} href="/llms.txt">
   <script is:inline set:html={themeScript}></script>
 </head>
 <body>
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a class="skip-link" href="#main-content">{messages.chrome.skipLink}</a>
   <header class="site-header">
     <div class="container header-row">
-      <a class="brand" href="/" aria-label="Low Quality Interactive home">
-        <img class="site-logo" src="/assets/logo.png" alt="Low Quality Interactive logo" width="36" height="36" />
-        <span>Low Quality Interactive</span>
+      <a class="brand" href={homeHref} aria-label={messages.chrome.brandHomeAriaLabel}>
+        <img class="site-logo" src="/assets/logo.png" alt={messages.chrome.brandLogoAlt} width="36" height="36" />
+        <span>{SITE_NAME}</span>
       </a>
-      <nav class="nav" id="primary-navigation" aria-label="Primary navigation">
-        <a class="nav-link" href="/" aria-current={currentPage === 'home' ? 'page' : undefined}>Home</a>
-        <a class="nav-link" href="/games" aria-current={currentPage === 'games' ? 'page' : undefined}>Games</a>
-        <a class="nav-link" href="/blogs" aria-current={currentPage === 'blogs' ? 'page' : undefined}>Updates</a>
-        <a class="button primary" href="/connect" aria-current={currentPage === 'connect' ? 'page' : undefined}>Connect</a>
+      <nav class="nav" id="primary-navigation" aria-label={messages.chrome.nav.ariaLabel}>
+        <a class="nav-link" href={homeHref} aria-current={currentPage === 'home' ? 'page' : undefined}>{messages.chrome.nav.home}</a>
+        <a class="nav-link" href={gamesHref} aria-current={currentPage === 'games' ? 'page' : undefined}>{messages.chrome.nav.games}</a>
+        <a class="nav-link nav-link-updates" href={blogsHref} aria-current={currentPage === 'blogs' ? 'page' : undefined}>
+          {messages.chrome.nav.updates}
+          <span class="nav-update-badge" data-update-badge hidden aria-hidden="true"></span>
+        </a>
+        <a class="button primary" href={connectHref} aria-current={currentPage === 'connect' ? 'page' : undefined}>{messages.chrome.nav.connect}</a>
+      </nav>
+      <div class="header-controls">
+        <div class="locale-switcher" data-locale-switcher>
+          <button
+            type="button"
+            class="locale-btn"
+            id="locale-btn"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-label={messages.chrome.localeSwitcher.ariaLabel}
+          >
+            <span class="locale-btn-label">{getLocaleOptionLabel(locale)}</span>
+            <svg class="locale-chevron" viewBox="0 0 10 6" fill="none" aria-hidden="true" width="10" height="6">
+              <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul
+            class="locale-listbox"
+            role="listbox"
+            id="locale-listbox"
+            aria-label={messages.chrome.localeSwitcher.ariaLabel}
+            hidden
+          >
+            {LOCALES.map((availableLocale) => (
+              <li
+                role="option"
+                class="locale-option"
+                data-locale={availableLocale}
+                aria-selected={availableLocale === locale ? 'true' : 'false'}
+                tabindex="-1"
+              >
+                {getLocaleOptionLabel(availableLocale)}
+              </li>
+            ))}
+          </ul>
+        </div>
         <button
           id="theme-toggle"
           class="theme-toggle"
-          aria-label="Switch to dark mode"
-          title="Switch to dark mode"
+          aria-label={messages.chrome.theme.toDark}
+          title={messages.chrome.theme.toDark}
           type="button"
         >
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -104,7 +190,7 @@ const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefi
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
           </svg>
         </button>
-      </nav>
+      </div>
     </div>
   </header>
 
@@ -118,36 +204,37 @@ const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefi
     <div class="container">
       <div class="footer-inner">
         <div class="footer-brand">
-          <a class="brand" href="/">
-            <img class="site-logo" src="/assets/logo.png" alt="Low Quality Interactive logo" width="36" height="36" />
-            <span>Low Quality Interactive</span>
+          <a class="brand" href={homeHref}>
+            <img class="site-logo" src="/assets/logo.png" alt={messages.chrome.brandLogoAlt} width="36" height="36" />
+            <span>{SITE_NAME}</span>
           </a>
-          <p>An independent Roblox studio making the most niche games of all time.</p>
+          <p>{messages.chrome.footer.tagline}</p>
         </div>
         <div class="footer-col">
-          <h3>Site</h3>
-          <a href="/">Home</a>
-          <a href="/games">Games</a>
-          <a href="/blogs">Updates</a>
-          <a href="/connect">Connect</a>
+          <h3>{messages.chrome.footer.siteHeading}</h3>
+          <a href={homeHref}>{messages.chrome.nav.home}</a>
+          <a href={gamesHref}>{messages.chrome.nav.games}</a>
+          <a href={blogsHref}>{messages.chrome.nav.updates}</a>
+          <a href={connectHref}>{messages.chrome.nav.connect}</a>
         </div>
         <div class="footer-col">
-          <h3>Connect</h3>
-          <a href="https://x.com/LowQualityInt" target="_blank" rel="noopener noreferrer">X</a>
-          <a href="https://discord.gg/G2J9rP5fBg" target="_blank" rel="noopener noreferrer">Discord</a>
-          <a href="https://www.youtube.com/@LowQualityInteractive" target="_blank" rel="noopener noreferrer">YouTube</a>
-          <a href="https://www.roblox.com/communities/7489017/Low-Quality-Int#!/about" target="_blank" rel="noopener noreferrer">Roblox</a>
-          <a href="/connect">Business Inquiries</a>
+          <h3>{messages.chrome.footer.connectHeading}</h3>
+          <a href={SOCIAL_LINKS.x} target="_blank" rel="noopener noreferrer">{messages.chrome.platforms.x}</a>
+          <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">{messages.chrome.platforms.discord}</a>
+          <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">{messages.chrome.platforms.youtube}</a>
+          <a href={SOCIAL_LINKS.roblox} target="_blank" rel="noopener noreferrer">{messages.chrome.platforms.robloxGroup}</a>
+          <a href={connectHref}>{messages.chrome.footer.businessInquiries}</a>
         </div>
       </div>
       <div class="footer-bottom">
-        <p class="copyright">© {currentYear} {SITE_NAME}. All rights reserved.</p>
+        <p class="copyright">© {currentYear} {SITE_NAME}. {messages.chrome.footer.allRightsReserved}</p>
       </div>
     </div>
   </footer>
 
-  <script is:inline src="/scripts/site.js" defer></script>
-  <script is:inline src="/scripts/notice.js" defer></script>
+  <script is:inline set:html={siteScript}></script>
+  <script is:inline set:html={noticeScript}></script>
+  <script is:inline set:html={liveScript}></script>
   <slot name="scripts" />
 </body>
 </html>

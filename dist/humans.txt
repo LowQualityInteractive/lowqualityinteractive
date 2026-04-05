@@ -1,0 +1,13 @@
+/* TEAM */
+Studio: Low Quality Interactive
+Site: https://lowqualityinteractive.com
+Location: Worldwide
+
+/* THANKS */
+Cloudflare: Security & CDN
+GitHub Pages: Hosting
+
+/* SITE */
+Last update: 2026-04-04
+Language: English
+Technology: Astro, Cloudflare

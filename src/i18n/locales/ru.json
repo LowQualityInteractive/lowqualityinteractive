@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "siteDescription": "Официальный сайт Low Quality Interactive, инди-студии Roblox.",
+    "organizationDescription": "Low Quality Interactive — независимая студия разработки в Roblox, делающая упор на соревновательный мультиплеер, тактические системы и песочницы с высокой реиграбельностью.",
+    "llmContextTitle": "Контекст для LLM"
+  },
+  "chrome": {
+    "skipLink": "Перейти к основному содержимому",
+    "brandHomeAriaLabel": "Главная Low Quality Interactive",
+    "brandLogoAlt": "Логотип Low Quality Interactive",
+    "nav": {
+      "ariaLabel": "Основная навигация",
+      "home": "Главная",
+      "games": "Игры",
+      "updates": "Обновления",
+      "connect": "Контакты"
+    },
+    "theme": {
+      "toDark": "Переключить на тёмную тему",
+      "toLight": "Переключить на светлую тему"
+    },
+    "mobileNav": {
+      "open": "Открыть меню навигации",
+      "close": "Закрыть меню навигации",
+      "label": "Основная навигация"
+    },
+    "localeSwitcher": {
+      "ariaLabel": "Выбрать язык"
+    },
+    "footer": {
+      "tagline": "Выпускаем с 2024-го. Заканчиваем никогда.",
+      "siteHeading": "Сайт",
+      "connectHeading": "Контакты",
+      "businessInquiries": "Деловые запросы",
+      "allRightsReserved": "Все права защищены."
+    },
+    "cookie": {
+      "ariaLabel": "Уведомление о настройках",
+      "message": "Мы используем cookies. Скучные технические, а не с шоколадной крошкой.",
+      "accept": "Ок",
+      "dismiss": "Закрыть"
+    },
+    "platforms": {
+      "x": "X",
+      "discord": "Discord",
+      "youtube": "YouTube",
+      "robloxGroup": "Группа Roblox"
+    }
+  },
+  "pages": {
+    "home": {
+      "label": "Главная",
+      "description": "Официальный сайт Low Quality Interactive, инди-студии Roblox.",
+      "kicker": "самые жёсткие игры вообще",
+      "heading": "Мы с гордостью недодаём обещанное с САМОГО НАЧАЛА.",
+      "lead": "Мы делаем самые нишевые игры в Roblox.",
+      "exploreGames": "Смотреть игры",
+      "readUpdates": "Читать обновления",
+      "statsAriaLabel": "Статистика студии",
+      "stats": {
+        "liveGames": {
+          "label": "Игры в онлайне",
+          "copy": "Обе. Мы знаем."
+        },
+        "updatesShipped": {
+          "label": "Обновлений выпущено",
+          "copy": "Большинство что-то сломали по дороге."
+        },
+        "cumulativeVisits": {
+          "label": "Суммарные визиты",
+          "copy": "Из них хотя бы 12 — мы сами тестировали."
+        }
+      }
+    },
+    "games": {
+      "label": "Игры",
+      "description": "Текущие и будущие игры Low Quality Interactive.",
+      "kicker": "технически играбельно",
+      "heading": "Мёртвые игры и мусорные проекты",
+      "lead": "Тыкните по любой карточке живой игры, чтобы сразу открыть её страницу, или жмите кнопку обновления, чтобы посмотреть последние патчноуты.",
+      "liveGamesHeading": "Игры в онлайне",
+      "viewAllUpdates": "Все обновления ->",
+      "gameListAriaLabel": "Список игр",
+      "viewGameDetails": "Открыть детали {game}",
+      "playGame": "Играть",
+      "updates": "Обновления",
+      "inWorksHeading": "В разработке",
+      "classified": "Секретно",
+      "projectsAriaLabel": "Проекты в разработке",
+      "unannounced": "Не анонсировано",
+      "descriptionRedacted": "Мы точно работаем над этим. Наверное.",
+      "classifiedStamp": "СЕКРЕТНО"
+    },
+    "blogs": {
+      "label": "Обновления",
+      "description": "Девлоги и патчноуты от Low Quality Interactive.",
+      "kicker": "полумёртвые обновы",
+      "heading": "Логи обновлений и патчноуты",
+      "lead": "Выберите игру ниже, чтобы открыть её девлог.",
+      "chooseDevlogAriaLabel": "Выбрать девлог игры",
+      "gameDevlogsHeading": "Updates",
+      "loadingGames": "Загрузка игр…",
+      "viewerHeading": "Загрузка последних девлогов…",
+      "viewerFallback": "Если это сообщение не пропадает, публичная лента обновлений может быть временно недоступна."
+    },
+    "connect": {
+      "label": "Контакты",
+      "description": "Залетайте в наше сообщество уже сегодня.",
+      "kicker": "пожалуйста не связывайтесь с нами",
+      "heading": "Связаться с нами",
+      "lead": "Мы читаем каждое сообщение. Отвечаем на некоторые.",
+      "platformsAriaLabel": "Платформы для связи",
+      "businessHeading": "Деловые запросы",
+      "businessLead": "По вопросам партнёрств, лицензирования и другим деловым темам:",
+      "copyEmailAriaLabel": "Скопировать адрес электронной почты",
+      "copy": "Копировать",
+      "copied": "Скопировано!"
+    },
+    "game": {
+      "kicker": "Страница игры",
+      "openGame": "Открыть игру",
+      "latestUpdate": "Последнее обновление",
+      "backToGames": "Назад к играм"
+    },
+    "notFound": {
+      "label": "404",
+      "description": "Страница не найдена на сайте Low Quality Interactive.",
+      "kicker": "ошибка 404",
+      "heading": "Такой страницы не существует.",
+      "copy": "Эта страница недодала — её вообще не существует. Вернитесь на главную или откройте наши игры.",
+      "goHome": "На главную",
+      "viewGames": "Смотреть игры"
+    }
+  },
+  "blogsViewer": {
+    "sections": {
+      "new": "Новое",
+      "changes": "Изменения",
+      "bugs": "Исправления багов",
+      "removals": "Удалено",
+      "misc": "Разное",
+      "footnotes": "Примечания"
+    },
+    "untitled": "Без названия",
+    "update": "Обновление",
+    "versionFallback": "Обновление {number}",
+    "noDetails": "Для этого обновления нет записанных подробностей.",
+    "couldNotLoadGames": "Не удалось загрузить игры.",
+    "feedUnavailable": "Лента обновлений сейчас недоступна. Попробуйте позже.",
+    "noUpdatesYet": "Обновлений пока нет.",
+    "updatesAppearLater": "Логи обновлений появятся здесь после публикации.",
+    "versions": "Версии",
+    "olderUpdate": "Более старое обновление",
+    "newerUpdate": "Более новое обновление",
+    "newBadge": "НОВОЕ",
+    "defaultTag": "Обновление",
+    "imageAlt": "Изображение обновления для {game}"
+  },
+  "catalog": {
+    "games": {
+      "eradication": {
+        "genreLabel": "PvE-шутер",
+        "genre": ["Шутер", "Мультиплеер", "PvE", "Стратегия"],
+        "description": "Командный шутер про контроль территории, где игроки пытаются отбить свой город у Whiskorians.",
+        "pageDescription": "ERADICATION — командный шутер про контроль территории в Roblox.",
+        "pageLead": "Прорывайтесь через всё более жёсткие волны и держитесь как можно дольше.",
+        "artworkAlt": "Боевой арт ERADICATION",
+        "updateTag": "Обновление ERADICATION",
+        "updateImageAlt": "Изображение обновления ERADICATION"
+      },
+      "donpollo-obby": {
+        "genreLabel": "Obby",
+        "genre": ["Платформер", "Obby"],
+        "description": "Мемная obby, целиком построенная вокруг Don Pollo.",
+        "pageDescription": "DON POLLO OBBY — мемный хаос с препятствиями в Roblox.",
+        "pageLead": "Мемный хаос, быстрые рестарты и маршруты для спидранов.",
+        "artworkAlt": "Арт парящего маршрута Don Pollo Obby",
+        "updateTag": "Обновление DON POLLO OBBY",
+        "updateImageAlt": "Изображение обновления DON POLLO OBBY"
+      }
+    },
+    "inWorks": {
+      "favela-94": {
+        "name": "Favela '94",
+        "genre": "Тактический шутер"
+      },
+      "crowns-of-steel": {
+        "name": "Crowns of Steel",
+        "genre": "Стратегия"
+      }
+    }
+  }
+}
