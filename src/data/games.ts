@@ -76,8 +76,8 @@ const GAME_CATALOG = [
   },
 ] as const satisfies readonly GameBase[];
 
-export const liveGameCount = GAME_CATALOG.filter((game) => game.status === 'live' || game.status === 'sunset').length;
-export const publishedGameSlugs = GAME_CATALOG.filter((game) => game.status !== 'in-development').map(
+export const liveGameCount = GAME_CATALOG.filter((game) => (game.status as GameStatus) === 'live' || (game.status as GameStatus) === 'sunset').length;
+export const publishedGameSlugs = GAME_CATALOG.filter((game) => (game.status as GameStatus) !== 'in-development').map(
   (game) => game.slug,
 );
 
