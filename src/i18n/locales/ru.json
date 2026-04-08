@@ -177,13 +177,19 @@
         "artworkAlt": "Арт парящего маршрута Don Pollo Obby",
         "updateTag": "Обновление DON POLLO OBBY",
         "updateImageAlt": "Изображение обновления DON POLLO OBBY"
+      },
+      "favela-94": {
+        "genreLabel": "Тактический шутер",
+        "genre": ["Шутер", "Мультиплеер", "Тактика", "PvP"],
+        "description": "Жёсткий тактический шутер ближнего боя в фавелах 1994 года.",
+        "pageDescription": "Favela '94 — тактический шутер ближнего боя в Roblox.",
+        "pageLead": "Сражайся в узких переулках и на крышах в интенсивных перестрелках.",
+        "artworkAlt": "Арт Favela '94",
+        "updateTag": "Обновление Favela '94",
+        "updateImageAlt": "Изображение обновления Favela '94"
       }
     },
     "inWorks": {
-      "favela-94": {
-        "name": "Favela '94",
-        "genre": "Тактический шутер"
-      },
       "crowns-of-steel": {
         "name": "Crowns of Steel",
         "genre": "Стратегия"

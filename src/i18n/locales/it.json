@@ -177,13 +177,19 @@
         "artworkAlt": "Artwork del percorso sospeso di Don Pollo Obby",
         "updateTag": "Aggiornamento di DON POLLO OBBY",
         "updateImageAlt": "Immagine aggiornamento di DON POLLO OBBY"
+      },
+      "favela-94": {
+        "genreLabel": "Sparatutto tattico",
+        "genre": ["Sparatutto", "Multiplayer", "Tattico", "PvP"],
+        "description": "Uno sparatutto tattico a distanza ravvicinata nelle favelas del 1994.",
+        "pageDescription": "Favela '94 - uno sparatutto tattico a distanza ravvicinata su Roblox.",
+        "pageLead": "Combatti in vicoli stretti e sui tetti in scontri ravvicinati intensi.",
+        "artworkAlt": "Artwork di Favela '94",
+        "updateTag": "Aggiornamento di Favela '94",
+        "updateImageAlt": "Immagine aggiornamento di Favela '94"
       }
     },
     "inWorks": {
-      "favela-94": {
-        "name": "Favela '94",
-        "genre": "Sparatutto tattico"
-      },
       "crowns-of-steel": {
         "name": "Crowns of Steel",
         "genre": "Strategia"

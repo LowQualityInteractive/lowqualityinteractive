@@ -29,6 +29,7 @@
     },
     "status": {
       "live": "Online",
+      "preview": "Preview",
       "sunset": "Sunset",
       "maintenance": "Maintenance"
     },
@@ -187,13 +188,19 @@
         "artworkAlt": "Don Pollo Obby floating course artwork",
         "updateTag": "DON POLLO OBBY update",
         "updateImageAlt": "DON POLLO OBBY update image"
+      },
+      "favela-94": {
+        "genreLabel": "Tactical Shooter",
+        "genre": ["Shooter", "Multiplayer", "Tactical", "PvP"],
+        "description": "A gritty close-quarters tactical shooter set in the favelas of 1994.",
+        "pageDescription": "Favela '94 - a gritty close-quarters tactical shooter on Roblox.",
+        "pageLead": "Fight through tight alleyways and rooftops in intense close-quarters combat.",
+        "artworkAlt": "Favela '94 artwork",
+        "updateTag": "Favela '94 update",
+        "updateImageAlt": "Favela '94 update image"
       }
     },
     "inWorks": {
-      "favela-94": {
-        "name": "Favela '94",
-        "genre": "Tactical Shooter"
-      },
       "crowns-of-steel": {
         "name": "Crowns of Steel",
         "genre": "Strategy"

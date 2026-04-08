@@ -9,7 +9,6 @@ export interface InWorkProject {
 
 const REDACTION_LENGTHS = {
   'crowns-of-steel': 131,
-  'favela-94': 334,
 } as const;
 
 export function getInWorkProjects(locale: Locale): InWorkProject[] {

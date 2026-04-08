@@ -177,13 +177,19 @@
         "artworkAlt": "Artwork cu traseul plutitor Don Pollo Obby",
         "updateTag": "Update DON POLLO OBBY",
         "updateImageAlt": "Imagine update DON POLLO OBBY"
+      },
+      "favela-94": {
+        "genreLabel": "Shooter tactic",
+        "genre": ["Shooter", "Multiplayer", "Tactic", "PvP"],
+        "description": "Un shooter tactic întunecat de luptă la distanță mică în favelele din 1994.",
+        "pageDescription": "Favela '94 - un shooter tactic de luptă apropiată pe Roblox.",
+        "pageLead": "Luptă prin alei înguste și pe acoperișuri în lupte intense la distanță mică.",
+        "artworkAlt": "Artwork Favela '94",
+        "updateTag": "Update Favela '94",
+        "updateImageAlt": "Imagine update Favela '94"
       }
     },
     "inWorks": {
-      "favela-94": {
-        "name": "Favela '94",
-        "genre": "Shooter tactic"
-      },
       "crowns-of-steel": {
         "name": "Crowns of Steel",
         "genre": "Strategie"

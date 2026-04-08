@@ -177,13 +177,19 @@
         "artworkAlt": "Arte del recorrido flotante de Don Pollo Obby",
         "updateTag": "Update de DON POLLO OBBY",
         "updateImageAlt": "Imagen de update de DON POLLO OBBY"
+      },
+      "favela-94": {
+        "genreLabel": "Shooter táctico",
+        "genre": ["Shooter", "Multijugador", "Táctico", "PvP"],
+        "description": "Un shooter táctico oscuro de combate cerrado en las favelas de 1994.",
+        "pageDescription": "Favela '94 - un shooter táctico de combate cerrado en Roblox.",
+        "pageLead": "Pelea en callejones angostos y azoteas en combates intensos a corta distancia.",
+        "artworkAlt": "Arte de Favela '94",
+        "updateTag": "Update de Favela '94",
+        "updateImageAlt": "Imagen de update de Favela '94"
       }
     },
     "inWorks": {
-      "favela-94": {
-        "name": "Favela '94",
-        "genre": "Shooter táctico"
-      },
       "crowns-of-steel": {
         "name": "Crowns of Steel",
         "genre": "Estrategia"

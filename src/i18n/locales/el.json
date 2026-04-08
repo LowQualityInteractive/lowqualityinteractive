@@ -177,13 +177,19 @@
         "artworkAlt": "Artwork της αιωρούμενης διαδρομής του Don Pollo Obby",
         "updateTag": "Update του DON POLLO OBBY",
         "updateImageAlt": "Εικόνα update του DON POLLO OBBY"
+      },
+      "favela-94": {
+        "genreLabel": "Tactical shooter",
+        "genre": ["Shooter", "Multiplayer", "Τακτική", "PvP"],
+        "description": "Ένα σκοτεινό τακτικό shooter σώμα με σώμα στις φαβέλες του 1994.",
+        "pageDescription": "Favela '94 - ένα τακτικό shooter σώμα με σώμα στο Roblox.",
+        "pageLead": "Μάχεσαι σε στενά σοκάκια και σε ταράτσες σε έντονες αναμετρήσεις.",
+        "artworkAlt": "Artwork του Favela '94",
+        "updateTag": "Update του Favela '94",
+        "updateImageAlt": "Εικόνα update του Favela '94"
       }
     },
     "inWorks": {
-      "favela-94": {
-        "name": "Favela '94",
-        "genre": "Tactical shooter"
-      },
       "crowns-of-steel": {
         "name": "Crowns of Steel",
         "genre": "Στρατηγική"

@@ -7,7 +7,7 @@ import {
   toAbsoluteSiteUrl,
 } from './site';
 
-export type GameStatus = 'live' | 'in-development' | 'sunset';
+export type GameStatus = 'live' | 'preview' | 'in-development' | 'sunset';
 
 export interface GameArtwork {
   alt: string;
@@ -61,6 +61,20 @@ const GAME_CATALOG = [
     updateHash: 'eradication',
   },
   {
+    id: 'favela-94',
+    slug: 'favela-94',
+    name: "Favela '94",
+    status: 'preview',
+    universeId: '',
+    artwork: {
+      src: '/assets/favela-94.png',
+      width: 1600,
+      height: 900,
+    },
+    robloxUrl: 'https://www.roblox.com/games/125235548670144/Favela-94',
+    updateHash: 'favela-94',
+  },
+  {
     id: 'donpollo-obby',
     slug: 'donpollo-obby',
     name: 'DON POLLO OBBY',
@@ -76,7 +90,7 @@ const GAME_CATALOG = [
   },
 ] as const satisfies readonly GameBase[];
 
-export const liveGameCount = GAME_CATALOG.filter((game) => (game.status as GameStatus) === 'live' || (game.status as GameStatus) === 'sunset').length;
+export const liveGameCount = GAME_CATALOG.filter((game) => (game.status as GameStatus) === 'live' || (game.status as GameStatus) === 'preview' || (game.status as GameStatus) === 'sunset').length;
 export const publishedGameSlugs = GAME_CATALOG.filter((game) => (game.status as GameStatus) !== 'in-development').map(
   (game) => game.slug,
 );
@@ -99,7 +113,7 @@ export function getGames(locale: Locale): Game[] {
 }
 
 export function getLiveGames(locale: Locale) {
-  return getGames(locale).filter((game) => game.status === 'live');
+  return getGames(locale).filter((game) => game.status === 'live' || game.status === 'preview');
 }
 
 export function getPublishedGames(locale: Locale) {
