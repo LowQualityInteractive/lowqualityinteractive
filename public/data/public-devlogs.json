@@ -6,6 +6,32 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v4072",
+          "version": "v4.0.7.2",
+          "date": "4/9/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added the Hand Charge (gamepass)"
+            ],
+            "changes": [
+              "Changed ammo crate action from 3s to 0.1s",
+              "Overhauled the M134 Minigun"
+            ],
+            "bugs": [
+              "Fixed various bugs + general codebase improvements"
+            ],
+            "removals": [
+              "Removed the Mechanical Grenadier"
+            ],
+            "misc": [],
+            "footnotes": [
+              "Many of you didn't like the Mechanical Grenadier, so we changed it up"
+            ]
+          }
+        },
+        {
           "id": "eradication-v4071",
           "version": "v4.0.7.1",
           "date": "3/10/26",
