@@ -6,6 +6,40 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v408",
+          "version": "v4.0.8",
+          "date": "4/12/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [],
+            "changes": [
+              "Reduced network latency and overhead by 60-75%",
+              "Reduced client CPU overhead by 25%",
+              "Overhauled Whiskorian rendering",
+              "Freed up 2-5 frames with server and client optimization",
+              "Raised the server capacity from 25 to 32",
+              "Increased Whiskorian spawn rate by 20%",
+              "Reduced Whiskorian-based vehicle damage by 90%",
+              "Revamped game anti-cheat",
+              "Revamped loading screen",
+              "Resolved deprecated sounds"
+            ],
+            "bugs": [
+              "Fixed premium benefits logic bug resulting in 4x reward"
+            ],
+            "removals": [],
+            "misc": [
+              "Significantly improved game stability and performance",
+              "Server stability strengthened to support much longer uptime with fewer slowdowns"
+            ],
+            "footnotes": [
+              "The game may be extremely unstable or extremely stable. 😶‍🌫️",
+              "Report false bans!"
+            ]
+          }
+        },
+        {
           "id": "eradication-v4072",
           "version": "v4.0.7.2",
           "date": "4/10/26",
