@@ -6,6 +6,31 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v410",
+          "version": "v4.1.0",
+          "date": "4/14/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added dynamic spawning based on player count",
+              "Added Whiskorian variant 'Bloater'",
+              "Added Whiskorian variant 'Spitter'",
+              "Added Whiskorian variant 'Leader'",
+              "Added Whiskorian variant 'Robot'"
+            ],
+            "changes": [
+              "Nerfed Whiskorian variant 'Pimple'"
+            ],
+            "bugs": [
+              "Resolved flying vehicles (?)"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
           "id": "eradication-v409",
           "version": "v4.0.9",
           "date": "4/13/26",
