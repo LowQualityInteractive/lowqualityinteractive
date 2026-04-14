@@ -223,6 +223,511 @@
             "misc": [],
             "footnotes": []
           }
+        },
+        {
+          "id": "eradication-v406",
+          "version": "v4.0.6",
+          "date": "9/6/25",
+          "image": "assets/null",
+          "imageAlt": "Eradication v4.0.6 update screenshot",
+          "contents": {
+            "new": [],
+            "changes": [
+              "Enhanced weapon gunplay (vehicles)",
+              "Improved automatic suspension physics",
+              "Improved attachment models",
+              "Improved vehicular gunsights",
+              "Improved loading times",
+              "Readjusted the vehicular control interface",
+              "Readjusted attachment settings (all attachments now have buffs/nerfs)",
+              "Readjusted vehicular torque"
+            ],
+            "bugs": [
+              "Fixed some issues involving vehicular-to-player collision",
+              "Fixed some issues with respawning",
+              "Fixed some issues with the main menu",
+              "Fixed an issue involving weapon duplication during sitting states",
+              "Fixed an issue involving LTV-300's high suspension",
+              "Fixed an issue involving sight placement during reload",
+              "Fixed an issue involving explosion craters in the boss den",
+              "Fixed an issue involving false-positive anti-cheat bans",
+              "Fixed the toggle aim keybind (P key / mobile button)",
+              "Fixed capture UI scaling on all devices"
+            ],
+            "removals": [
+              "Removed serverside attachment models (temporarily?)",
+              "Removed safemode"
+            ],
+            "misc": [],
+            "footnotes": [
+              "Refill stations deferred to next update"
+            ]
+          }
+        },
+        {
+          "id": "eradication-v405",
+          "version": "v4.0.5",
+          "date": "9/4/25",
+          "image": "assets/null",
+          "imageAlt": "Eradication v4.0.5 update screenshot",
+          "contents": {
+            "new": [
+              "Added weapon attachment: Optic",
+              "Added weapon attachment: Barrel",
+              "Added weapon attachment: Underbarrel",
+              "Added weapon attachment: Bipod",
+              "Added vehicle: LTV-300",
+              "Added weapon: Musket",
+              "Added tracers to all weapons",
+              "Added small trench bridges around the map"
+            ],
+            "changes": [
+              "Renamed vehicle MBT-52 Panthera to MBT-800",
+              "Renamed vehicle RR-20P Sentinel to ACV-120",
+              "Readjusted the settings design",
+              "Readjusted gore graphics down to preserve performance",
+              "Readjusted hipfire movement",
+              "Optimized explosion networking for less server lag"
+            ],
+            "bugs": [
+              "Fixed an issue involving inventory duplication when entering/leaving a vehicle"
+            ],
+            "removals": [
+              "Removed vehicle: Greasehog"
+            ],
+            "misc": [],
+            "footnotes": [
+              "Anti-cheat strengthening deferred to next update"
+            ]
+          }
+        },
+        {
+          "id": "eradication-v404",
+          "version": "v4.0.4",
+          "date": "8/27/25",
+          "image": "assets/null",
+          "imageAlt": "Eradication v4.0.4 update screenshot",
+          "contents": {
+            "new": [
+              "Added weapon: AX-50",
+              "Added weapon: Remington Model 870",
+              "Added weapon: MP5A3",
+              "Added weapon: Krag-Jørgensen",
+              "Added weapon: Toka",
+              "Added purchasable: x2 Cash (15m/30m/60m)",
+              "Added purchasable: x2 XP (15m/30m/60m)",
+              "Added purchasable: x2 Ammunition Canister",
+              "Added badge: First Blood",
+              "Added badge: Fighter",
+              "Added badge: Hunter",
+              "Added badge: Exterminator",
+              "Added badge: Arms Dealer",
+              "Added setting: Toggle Aim",
+              "Added the Greasehog to SkyDrop",
+              "Added the contributor factor to the Whiskorian boss fight",
+              "Added locks to weapons in loadout",
+              "Added a server migration system",
+              "Added more creators to the credits list",
+              "Added a donations page",
+              "Added vignette overlay to the AX-50's scope"
+            ],
+            "changes": [
+              "Reworked snipers",
+              "Reworked credits",
+              "Revamped hitmarkers",
+              "Readjusted Glock sounds",
+              "Readjusted notification UI",
+              "Increased ammunition canister capacity from 5k to 10k",
+              "Made the AK-74 free",
+              "Decreased weapon spread"
+            ],
+            "bugs": [
+              "Fixed an issue involving territories being stuck at 6/7",
+              "Fixed an issue involving a secondary weapon challenge",
+              "Fixed an issue involving loadout saves",
+              "Fixed an overlapping text issue in credits",
+              "Fixed a vehicle glitch where the owner leaving caused loss of weapons",
+              "Fixed engine sounds",
+              "Fixed an issue involving the qaAdmin panel being open for unintended users",
+              "Fixed an issue involving the Arms Dealer badge",
+              "Fixed an issue involving leaderboard updates",
+              "Permanently fixed an issue involving Whiskorian access to weapons (shooting as a Whiskorian now results in an auto-ban)"
+            ],
+            "removals": [
+              "Removed weapon: Makeshift AK"
+            ],
+            "misc": [],
+            "footnotes": [
+              "Iron sight readjustments deferred to next update",
+              "Weapon loadout datastores wiped with this update"
+            ]
+          }
+        },
+        {
+          "id": "eradication-v4035",
+          "version": "v4.0.3.5",
+          "date": "8/20/25",
+          "image": "assets/null",
+          "imageAlt": "Eradication v4.0.3.5 update screenshot",
+          "contents": {
+            "new": [
+              "Added secondary weapon: Bodeo 1889"
+            ],
+            "changes": [
+              "Revamped and fortified the purchase backend (gamepasses, developer products)",
+              "Changed the Mechanical Grenadier's explosion VFX",
+              "Increased the Whiskorian count"
+            ],
+            "bugs": [
+              "Fixed an issue with SkyDrop not spawning",
+              "Fixed an issue with the den not counting territories properly",
+              "Fixed an issue with Whiskorians not spawning properly",
+              "Fixed an issue with the Remington Rolling Block slowly cocking back",
+              "Fixed an incorrect ammo type for the VSS Vintorez",
+              "Fixed an incorrect ammo type for the RPK-74"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": [
+              "\"NEW\" tag for weapons in loadout deferred to next update",
+              "The Double-Barrel is known to be broken and should not be reported"
+            ]
+          }
+        },
+        {
+          "id": "eradication-v403",
+          "version": "v4.0.3",
+          "date": "8/19/25",
+          "image": "assets/null",
+          "imageAlt": "Eradication v4.0.3 update screenshot",
+          "contents": {
+            "new": [
+              "Added SkyDrop setting: Lock Driver",
+              "Added server location display to the main menu",
+              "Added game version display to the main menu",
+              "Added gore for explosions"
+            ],
+            "changes": [
+              "Reworked ammo boxes",
+              "Lifted anti-alt detection to increase player count",
+              "Increased snipers' default ADS FOV",
+              "Increased the Whiskorian count",
+              "Decreased the hitmarker size"
+            ],
+            "bugs": [
+              "Fixed an issue involving building collisions",
+              "Fixed an issue of the Whiskorian count exponentially increasing every round or death",
+              "Fixed an issue of explosion splash damage not working",
+              "Fixed the black screen of death",
+              "Resolved the reoccurring invalid sounds issue"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
+          "id": "eradication-v402",
+          "version": "v4.0.2",
+          "date": "8/17/25",
+          "image": "assets/null",
+          "imageAlt": "Eradication v4.0.2 update screenshot",
+          "contents": {
+            "new": [],
+            "changes": [
+              "Changed the MBT-52 Panthera to a one-man vehicle",
+              "Changed the RR-20P Sentinel to a one-man vehicle"
+            ],
+            "bugs": [
+              "Fixed an issue of vehicle armaments not doing damage to Whiskorians",
+              "Fixed an issue of Whiskorians being able to mount SkyDrop vehicles"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": [
+              "Whiskorian count exponential growth fix deferred to next update",
+              "Hitmarker affecting teammates and dead humanoids fix deferred to next update"
+            ]
+          }
+        },
+        {
+          "id": "eradication-v401",
+          "version": "v4.0.1",
+          "date": "8/16/25",
+          "image": "assets/null",
+          "imageAlt": "Eradication v4.0.1 update screenshot",
+          "contents": {
+            "new": [
+              "Added in-game suggestions and feedback system",
+              "Added map pings",
+              "Added hitmarkers"
+            ],
+            "changes": [
+              "Rearranged the start menu's assets",
+              "Rearranged the unstance keybind from Space to X",
+              "Changed the M249's feel",
+              "Corrected the AK-74's ammo type",
+              "Corrected the Thompson M1928's ammo magazine"
+            ],
+            "bugs": [
+              "Fixed the boss not working after one round",
+              "Fixed the leaderboard loading bug",
+              "Fixed a critical issue where Whiskorians could wield weapons",
+              "Fixed a critical issue where console users were unable to select SkyDrop vehicles",
+              "Resolved problematic bullet raycasting (Whiskorians no longer tank excessive bullets)"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
+          "id": "eradication-v400",
+          "version": "v4.0.0",
+          "date": "8/8/25",
+          "image": "assets/null",
+          "imageAlt": "Eradication v4.0.0 RETALIATION update screenshot",
+          "contents": {
+            "new": [
+              "Added interactive map with mobile support, zoom, and legend",
+              "Added settings (persistent): aim sensitivity, graphics mode, tooltips, level UI, bloom, color correction, sunrays, camera shake",
+              "Added settings (non-persistent): DOOM music, impact effects",
+              "Added weapon: Double-Barrel",
+              "Added weapon: AA-12",
+              "Added weapon: M249",
+              "Added weapon: Remington Rolling Block",
+              "Added weapon: M40A5",
+              "Added weapon: Makeshift AK",
+              "Added weapon: Makeshift Obrez",
+              "Added weapon: DF2000 (developer weapon)",
+              "Added weapon attachment: Optic",
+              "Added vehicle: MTP-92",
+              "Added vehicle: MTG-92",
+              "Added vehicle: RR-20P Sentinel",
+              "Added vehicle: MBT-52 Panthera",
+              "Added global leaderboard: Cash, Kills, XP",
+              "Added teams: Defenders and Whiskorians",
+              "Added commands: qaAirstrike1–4, qaCaptureAllFlags, qaResetAllFlags, qaRoundID, qaClockTime",
+              "Added Whiskorian variants: Normal, Pimple, Watcher",
+              "Added 48-minute rounds for the core loop",
+              "Added original SFX for Whiskorians",
+              "Re-added craters (despawn after 3 minutes)",
+              "Re-added weapon holsters for secondary weapons",
+              "Added sound to notifications",
+              "Added daily challenges",
+              "Added credits",
+              "Added friend invite tab",
+              "Added levels",
+              "Added tooltips",
+              "Added SkyDrop (replaces RPG-26)",
+              "Added ability to topple and run over Whiskorians and trees with vehicles",
+              "Added contributor tag for bug reporters",
+              "Added weapon canting while crouched",
+              "Added fire blur",
+              "Added inspect animation",
+              "Added camera shake to explosions",
+              "Added realistic bullet physics",
+              "Added sprint toggle for console",
+              "Re-added third person support for weapons"
+            ],
+            "changes": [
+              "Converted Whiskorians from R15 to R6",
+              "Whiskorian attack range reduced: 10 studs to 5 studs",
+              "Whiskorian attack damage reduced: 15 to 12.5",
+              "Whiskorian attack cooldown increased: 1.3s to 1.4s",
+              "Whiskorian respawn time increased: 4–6s to 10–15s",
+              "Revamped Whiskorian AI logic",
+              "Increased territory decay rate: 0.002 to 0.003",
+              "Increased ammo reserves for gamepass weapons",
+              "Improved weapon loadout saving",
+              "Revamped footsteps",
+              "Revamped Whiskorian boss",
+              "Revamped airstrikes",
+              "Revamped explosion logic and VFX",
+              "Revamped overhead ranks",
+              "Revamped backpack",
+              "Revamped ProximityPrompts",
+              "Fixed flawed territory capture logic",
+              "Changed premium benefits payout: 10k to 5k",
+              "Changed default aim sensitivity: 0.4 to 0.5",
+              "Changed stance change time: 0.45s to 0.3s",
+              "Changed jump cooldown: 1.5s to 1.2s",
+              "Changed body despawn time: 30s to 8s",
+              "Changed body limit: 5 to 4",
+              "Changed blood color from red/dark red to pink/magenta",
+              "Resized viewmodel arm size",
+              "Readjusted ambience, flag sounds, Whiskorian sounds, terrain, and ADS speed",
+              "Redesigned chatbox, mobile controls, bullet casing models, both rivers, and muzzle flashes",
+              "Overhauled visual graphics, gamepass logic, and shop UI",
+              "Refreshed all UI sounds and house models",
+              "Revamped UIs: Weapon, Main Menu, Loadout, Deploy",
+              "Refreshed UIs: Notification, Vehicle, Capture",
+              "Revamped reload animations: AK, AR",
+              "Refreshed and readjusted weapons: AK-12, AK-74, AR-15, VSS Vintorez, M1911A1, Python, Z Custom, Five-seveN, P90, G36, G17 w/ Shield, G18, G19, Kar98k, Vector, L86A1, M16A2, Mechanical Grenadier, M4A1, M61 Vulcan, MK1 Carbine, M91/30, PPSh-41, RPG-7, RPK-74, P320, Saiga-12, Schwarzlose M.1898, Walther P99 AS, Thompson M1928"
+            ],
+            "bugs": [
+              "Fixed Furrow's broken flag",
+              "Fixed craters",
+              "Fixed Whiskorian ragdoll",
+              "Fixed mobile input for vehicle controls",
+              "Fixed the Whiskorian attack animation",
+              "Fixed bugs with premium benefits",
+              "Fixed an issue where player accessories would unanchor on death",
+              "Fixed an issue where Whiskorians attack undeployed players",
+              "Fixed instant chambers in a tactical reload",
+              "Fixed a firing issue when equipping and unequipping",
+              "Fixed an ADS issue when equipping and unequipping",
+              "Fixed the loadout guard preventing players from deploying with no weapon"
+            ],
+            "removals": [
+              "Removed chance to decapitate a Whiskorian (replaced by impact effects)",
+              "Removed update logs UI",
+              "Removed fall damage",
+              "Removed Whiskorian variants: Tank, Mini, Normal (legacy)",
+              "Removed weapon: Beretta 92X",
+              "Removed weapon: Chauchat M. 1915",
+              "Removed weapon: Gewehr 98",
+              "Removed weapon: MP5A5",
+              "Removed weapon: M45 MEUSOC",
+              "Removed weapon: M60E3",
+              "Removed weapon: M9A3",
+              "Removed weapon: MAC-10",
+              "Removed weapon: MAC-10S",
+              "Removed weapon: H.C.A.R",
+              "Removed weapon: MP-40",
+              "Removed weapon: Martini-Henry",
+              "Removed weapon: Mei-294",
+              "Removed weapon: Mei-494",
+              "Removed weapon: Nailgun",
+              "Removed weapon: PM Makarov",
+              "Removed weapon: RPG-26",
+              "Removed weapon: SVT-40M",
+              "Removed weapon: G43",
+              "Removed weapon: AKM",
+              "Removed weapon: M3A1 Grease Gun",
+              "Removed weapon: StG-44",
+              "Removed weapon: MAS-49",
+              "Removed weapon: RM-277",
+              "Removed weapon: RS-556",
+              "Removed weapon: APR .308"
+            ],
+            "misc": [
+              "Overhauled and strengthened anti-cheat",
+              "Reintroduced StreamingEnabled",
+              "Extensive optimization",
+              "Restored all animations"
+            ],
+            "footnotes": [
+              "Barrel, Underbarrel, and Bipod attachments listed as coming soon"
+            ]
+          }
+        },
+        {
+          "id": "eradication-v355",
+          "version": "v3.5.5",
+          "date": "6/23/25",
+          "image": "assets/null",
+          "imageAlt": "Eradication v3.5.5 update screenshot",
+          "contents": {
+            "new": [
+              "Added developer panel for private server owners",
+              "Added primary weapon: G36",
+              "Added automatic localization support for Arabic"
+            ],
+            "changes": [
+              "Changed crouch animations",
+              "Changed prone animations",
+              "Changed UI sounds",
+              "Changed the Gewehr 43 animations"
+            ],
+            "bugs": [
+              "Fixed broken animations",
+              "Fixed reset bugs in the menu",
+              "Fixed a bloom lighting glitch",
+              "Fixed further loading screen bugs"
+            ],
+            "removals": [
+              "Removed developer weapon: Elysium AK",
+              "Removed developer command: Nuke"
+            ],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
+          "id": "eradication-v351",
+          "version": "v3.5.1",
+          "date": "6/18/25",
+          "image": "assets/null",
+          "imageAlt": "Eradication v3.5.1 update screenshot",
+          "contents": {
+            "new": [],
+            "changes": [
+              "New game icon",
+              "New game thumbnail",
+              "New game description",
+              "New game name"
+            ],
+            "bugs": [
+              "Solved an infinite loop glitch within the loading screen logic"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
+          "id": "eradication-v350",
+          "version": "v3.5.0",
+          "date": "4/21/25",
+          "image": "assets/null",
+          "imageAlt": "Eradication v3.5.0 update screenshot",
+          "contents": {
+            "new": [
+              "Added notifications"
+            ],
+            "changes": [
+              "Changed the main menu logic",
+              "Overhauled the respawn and death system",
+              "Overhauled Whiskorian AI logic (possibly bugged)",
+              "Overhauled Whiskorian spawn logic (possibly bugged)",
+              "Changed UI sounds and visuals"
+            ],
+            "bugs": [
+              "Solved the long-lasting broken alt detection"
+            ],
+            "removals": [
+              "Removed excess voxel terrain",
+              "Removed free daily premium cash (temporary)",
+              "Removed all interactable doors"
+            ],
+            "misc": [],
+            "footnotes": [
+              "This update was released prematurely due to internal conflict"
+            ]
+          }
+        },
+        {
+          "id": "eradication-v305",
+          "version": "v3.0.5",
+          "date": "4/9/25",
+          "image": "assets/null",
+          "imageAlt": "Eradication v3.0.5 update screenshot",
+          "contents": {
+            "new": [
+              "Added cardinal direction UI",
+              "Added walking and running animations"
+            ],
+            "changes": [
+              "Updated the vehicle system",
+              "Updated the visual Whiskorian models",
+              "Updated footstep sounds"
+            ],
+            "bugs": [],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
         }
       ]
     },
