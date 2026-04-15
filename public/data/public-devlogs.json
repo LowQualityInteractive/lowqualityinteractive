@@ -6,6 +6,28 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v411",
+          "version": "v4.1.1",
+          "date": "4/15/25",
+          "image": "assets/null",
+          "imageAlt": "Eradication v4.1.1 update screenshot",
+          "contents": {
+            "new": [
+              "Added localization support for international players"
+            ],
+            "changes": [
+              "Significant internal refactor across the codebase for better stability and maintainability",
+              "Overhauled the anti-cheat system with improved detection accuracy and reliability"
+            ],
+            "bugs": [
+              "Resolved several runtime errors that could affect player experience"
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
           "id": "eradication-v410",
           "version": "v4.1.0",
           "date": "4/14/26",
