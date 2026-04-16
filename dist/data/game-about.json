@@ -1,0 +1,95 @@
+{
+  "games": [
+    {
+      "id": "eradication",
+      "body": [
+        "ERADICATION is a team-based territory control shooter on Roblox. Players must work together to push back the Whiskorian invasion and reclaim their town, surviving through escalating enemy waves.",
+        "Each match demands coordination and adaptability, the Whiskorians grow stronger as the game progresses, forcing teams to constantly adjust their strategy to survive."
+      ],
+      "features": [
+        "Team-based PvE with escalating enemy waves",
+        "Territory control and defensive mechanics",
+        "Multiple loadouts and tactical options",
+        "Regular balance updates and seasonal content"
+      ],
+      "media": [
+        {
+          "src": "/assets/eradication.png",
+          "alt": "ERADICATION battlefield screenshot",
+          "caption": "The front lines"
+        }
+      ],
+      "links": [
+        {
+          "label": "Play on Roblox",
+          "href": "https://www.roblox.com/games/16844978752/ERADICATION",
+          "external": true
+        },
+        {
+          "label": "Latest update notes",
+          "href": "/blogs/#eradication",
+          "external": false
+        }
+      ]
+    },
+    {
+      "id": "favela-94",
+      "body": [
+        "Favela '94 is a close-quarters tactical shooter set in the tight alleyways and rooftops of a 1994 Brazilian favela. Every engagement is personal, map knowledge and positioning are everything.",
+        "Currently in preview. Expect rough edges, rapid updates, and a dev team that's watching closely."
+      ],
+      "features": [
+        "Close-quarters PvP combat",
+        "Authentic 90s favela environment",
+        "Tactical movement and positioning",
+        "Preview: actively in development"
+      ],
+      "media": [
+        {
+          "src": "/assets/favela-94.png",
+          "alt": "Favela '94 rooftop combat screenshot",
+          "caption": "Rooftop engagement"
+        }
+      ],
+      "links": [
+        {
+          "label": "Play on Roblox",
+          "href": "https://www.roblox.com/games/125235548670144/Favela-94",
+          "external": true
+        }
+      ]
+    },
+    {
+      "id": "donpollo-obby",
+      "body": [
+        "DON POLLO OBBY is a meme-powered obstacle course built around the legend of Don Pollo. Fast restarts, chaotic stages, and speedrun-friendly layout make it endlessly replayable.",
+        "This game has been sunset. It remains playable as a piece of Low Quality Interactive history."
+      ],
+      "features": [
+        "Meme-driven obstacle course stages",
+        "Fast restart checkpoints",
+        "Speedrun-friendly layout",
+        "Sunset: preserved for history"
+      ],
+      "media": [
+        {
+          "src": "/assets/donpollo.png",
+          "alt": "Don Pollo Obby course screenshot",
+          "caption": "The course awaits"
+        }
+      ],
+      "links": [
+        {
+          "label": "Play on Roblox",
+          "href": "https://www.roblox.com/games/133585619009566/DON-POLLO-OBBY",
+          "external": true
+        },
+        {
+          "label": "Update history",
+          "href": "/blogs/#donpollo-obby",
+          "external": false
+        }
+      ]
+    }
+  ]
+}

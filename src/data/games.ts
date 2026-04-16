@@ -220,3 +220,34 @@ export function getGameJsonLd(locale: Locale, game: Game) {
     ],
   });
 }
+
+export function getGameAboutPath(locale: Locale, game: Pick<Game, 'slug'>) {
+  return getLocalePath(locale, `${game.slug}/about`);
+}
+
+export function getGameAboutJsonLd(locale: Locale, game: Game) {
+  const localizedAboutUrl = getLocaleAbsolutePath(locale, `${game.slug}/about`);
+  const localizedGameUrl = getLocaleAbsolutePath(locale, game.slug);
+
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'AboutPage',
+        '@id': `${localizedAboutUrl}#webpage`,
+        name: getSiteTitle(`About ${game.name}`),
+        url: localizedAboutUrl,
+        description: game.pageDescription,
+        inLanguage: locale,
+        isPartOf: { '@id': `${localizedGameUrl}#webpage` },
+        about: { '@id': `${SITE_URL}/#${game.id}` },
+      },
+      {
+        ...getGameSchema(game),
+        description: game.pageLead,
+        publisher: { '@type': 'Organization', name: SITE_NAME },
+        mainEntityOfPage: { '@id': `${localizedAboutUrl}#webpage` },
+      },
+    ],
+  });
+}

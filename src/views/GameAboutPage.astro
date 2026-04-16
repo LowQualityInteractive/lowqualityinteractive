@@ -1,0 +1,303 @@
+---
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  getGameBySlug,
+  getGameAboutJsonLd,
+  getGameHref,
+  getGameUpdateHref,
+} from '../data/games';
+import { getSiteTitle, SITE_NAME, toAbsoluteSiteUrl } from '../data/site';
+import { getMessages, sanitizeInlineScript, type Locale } from '../i18n/messages';
+
+interface Props {
+  locale: Locale;
+  slug: string;
+}
+
+const { locale, slug } = Astro.props;
+const messages = getMessages(locale);
+const page = messages.pages.game;
+const game = getGameBySlug(locale, slug);
+
+if (!game) {
+  throw new Error(`Unknown game slug: ${slug}`);
+}
+
+const aboutRoutePath = `${game.slug}/about`;
+
+// Load game-about.json at build time
+let aboutData: {
+  body: string[];
+  features: string[];
+  media: { src: string; alt: string; caption?: string }[];
+  links: { label: string; href: string; external: boolean }[];
+} = { body: [], features: [], media: [], links: [] };
+
+try {
+  const raw = JSON.parse(readFileSync(resolve('public/data/game-about.json'), 'utf-8'));
+  const entry = raw.games?.find((g: { id: string }) => g.id === game.id);
+  if (entry) aboutData = entry;
+} catch {}
+
+const clientConfig = sanitizeInlineScript(JSON.stringify({
+  locale,
+  gameId: game.id,
+  gameName: game.name,
+}));
+---
+
+<BaseLayout
+  locale={locale}
+  title={getSiteTitle(`About ${game.name}`)}
+  description={game.pageDescription}
+  currentPage="games"
+  routePath={aboutRoutePath}
+  jsonLd={getGameAboutJsonLd(locale, game)}
+  ogImage={game.artwork.src}
+>
+  <link slot="head-extra" rel="up" href={toAbsoluteSiteUrl(getGameHref(locale, game))} />
+
+  <section class="hero">
+    <span class="kicker">About this game</span>
+    <h1>{game.name}</h1>
+    <p class="lead">{game.pageLead}</p>
+    <div class="cta-row">
+      <a class="button primary button-play" target="_blank" rel="noopener noreferrer" href={game.robloxUrl}>{page.openGame}</a>
+      <a class="button ghost" href={getGameUpdateHref(locale, game)}>{page.latestUpdate}</a>
+      <a class="button ghost" href={getGameHref(locale, game)}>{page.backToGames}</a>
+    </div>
+  </section>
+
+  <section class="about-details">
+    <!-- Metadata grid -->
+    <dl class="about-grid">
+      <div class="about-entry">
+        <dt>Developer</dt>
+        <dd>{SITE_NAME}</dd>
+      </div>
+      <div class="about-entry">
+        <dt>Platform</dt>
+        <dd>Roblox</dd>
+      </div>
+      <div class="about-entry">
+        <dt>Genre</dt>
+        <dd>{game.genreLabel}</dd>
+      </div>
+      <div class="about-entry">
+        <dt>Status</dt>
+        <dd style="text-transform: capitalize;">{game.status}</dd>
+      </div>
+    </dl>
+
+    <!-- Media gallery -->
+    {aboutData.media.length > 0 && (
+      <div class="about-media">
+        {aboutData.media.map((item) => (
+          <figure class="about-media-item">
+            <img src={item.src} alt={item.alt} loading="lazy" />
+            {item.caption && <figcaption data-translatable>{item.caption}</figcaption>}
+          </figure>
+        ))}
+      </div>
+    )}
+
+    <!-- Body paragraphs -->
+    {aboutData.body.length > 0 && (
+      <div class="about-body" id="about-body">
+        {aboutData.body.map((para) => (
+          <p data-translatable>{para}</p>
+        ))}
+      </div>
+    )}
+
+    <!-- Features list -->
+    {aboutData.features.length > 0 && (
+      <div class="about-features">
+        <h2>Features</h2>
+        <ul id="about-features-list">
+          {aboutData.features.map((feat) => (
+            <li data-translatable>{feat}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <!-- Links -->
+    {aboutData.links.length > 0 && (
+      <div class="about-links">
+        <h2>Official links</h2>
+        <ul>
+          {aboutData.links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                target={link.external ? '_blank' : undefined}
+                rel={link.external ? 'noopener noreferrer' : undefined}
+                data-translatable
+              >{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <!--
+      LLM context: This page is the canonical about page for {game.name} by {SITE_NAME}.
+      Genre: {game.genreLabel}. Platform: Roblox.
+      Official Roblox URL: {game.robloxUrl}
+    -->
+  </section>
+</BaseLayout>
+
+<script is:inline define:vars={{ clientConfig }}>
+(function () {
+  const CONFIG = JSON.parse(clientConfig);
+  const LOCALE = CONFIG.locale;
+  if (LOCALE === 'en') return;
+
+  const MYMEMORY_LANG = {
+    'pt-BR': 'pt-BR', 'es-MX': 'es', 'es-ES': 'es',
+    ru: 'ru', de: 'de', it: 'it', fr: 'fr', ro: 'ro', el: 'el',
+  };
+  const targetLang = MYMEMORY_LANG[LOCALE] || LOCALE;
+
+  const hashStr = (s) => {
+    let h = 5381;
+    for (let i = 0; i < s.length; i++) h = ((h << 5) + h) ^ s.charCodeAt(i);
+    return (h >>> 0).toString(36);
+  };
+
+  const txCache = new Map();
+
+  const translateOne = (text) => {
+    if (!text || !text.trim()) return Promise.resolve(text);
+    const key = 'lqi-tx-' + LOCALE + '-' + hashStr(text);
+    try {
+      const cached = sessionStorage.getItem(key);
+      if (cached !== null) return Promise.resolve(cached);
+    } catch {}
+    if (txCache.has(key)) return txCache.get(key);
+
+    const promise = fetch(
+      'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=en|' + targetLang,
+      { signal: AbortSignal.timeout(8000) }
+    )
+      .then((r) => { if (!r.ok) throw new Error(); return r.json(); })
+      .then((data) => {
+        const result = data?.responseData?.translatedText || text;
+        const out = (!result.trim() || result === text) ? text : result;
+        try { sessionStorage.setItem(key, out); } catch {}
+        return out;
+      })
+      .catch(() => text);
+
+    txCache.set(key, promise);
+    return promise;
+  };
+
+  const nodes = document.querySelectorAll('[data-translatable]');
+  nodes.forEach((node) => {
+    const original = node.textContent || '';
+    if (!original.trim()) return;
+    translateOne(original).then((translated) => {
+      if (translated && translated !== original) node.textContent = translated;
+    });
+  });
+})();
+</script>
+
+<style>
+  .about-details {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+    margin: 0;
+  }
+
+  .about-entry {
+    padding: 1rem;
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: 8px;
+  }
+
+  .about-entry dt {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.55;
+    margin-bottom: 0.25rem;
+  }
+
+  .about-entry dd {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .about-media {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .about-media-item {
+    margin: 0;
+  }
+
+  .about-media-item img {
+    width: 100%;
+    max-width: 860px;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .about-media-item figcaption {
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    opacity: 0.6;
+  }
+
+  .about-body p {
+    line-height: 1.7;
+  }
+
+  .about-features h2,
+  .about-links h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .about-features ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .about-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .about-links a {
+    color: var(--color-accent, #b54343);
+    text-decoration: underline;
+    font-weight: 500;
+  }
+</style>

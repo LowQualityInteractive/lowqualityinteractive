@@ -2,10 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import {
   getGameBySlug,
+  getGameAboutPath,
   getGameJsonLd,
   getGameUpdateHref,
 } from '../data/games';
-import { getSiteTitle } from '../data/site';
+import { getSiteTitle, toAbsoluteSiteUrl } from '../data/site';
 import { getLocalePath, getMessages, type Locale } from '../i18n/messages';
 
 interface Props {
@@ -32,6 +33,7 @@ if (!game) {
   jsonLd={getGameJsonLd(locale, game)}
   ogImage={game.artwork.src}
 >
+  <link slot="head-extra" rel="about" href={toAbsoluteSiteUrl(getGameAboutPath(locale, game))} />
   <section class="hero">
     <span class="kicker">{page.kicker}</span>
     <h1>{game.name}</h1>

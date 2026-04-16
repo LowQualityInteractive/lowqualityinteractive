@@ -114,6 +114,7 @@ const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefi
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="/assets/logo.png" />
   <link rel="alternate" type="text/plain" title={messages.meta.llmContextTitle} href="/llms.txt">
+  <slot name="head-extra" />
   <script is:inline set:html={themeScript}></script>
 </head>
 <body>
