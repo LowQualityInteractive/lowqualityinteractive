@@ -16,11 +16,11 @@
               "Added localization support for international players"
             ],
             "changes": [
-              "Significant internal refactor across the codebase for better stability and maintainability",
-              "Overhauled the anti-cheat system with improved detection accuracy and reliability"
+              "Refactored major portions of the codebase to improve stability and maintainability",
+              "Overhauled the anti-cheat system to improve detection accuracy and reliability"
             ],
             "bugs": [
-              "Resolved several runtime errors that could affect player experience"
+              "Resolved multiple runtime errors that could disrupt gameplay"
             ],
             "removals": [],
             "misc": [],
@@ -36,16 +36,16 @@
           "contents": {
             "new": [
               "Added dynamic spawning based on player count",
-              "Added Whiskorian variant 'Bloater'",
-              "Added Whiskorian variant 'Spitter'",
-              "Added Whiskorian variant 'Leader'",
-              "Added Whiskorian variant 'Robot'"
+              "Added Whiskorian variant: Bloater",
+              "Added Whiskorian variant: Spitter",
+              "Added Whiskorian variant: Leader",
+              "Added Whiskorian variant: Robot"
             ],
             "changes": [
-              "Nerfed Whiskorian variant 'Pimple'"
+              "Reduced the effectiveness of the Whiskorian variant: Pimple"
             ],
             "bugs": [
-              "Resolved flying vehicles (?)"
+              "Resolved an issue that could cause vehicles to fly unexpectedly"
             ],
             "removals": [],
             "misc": [],
@@ -65,14 +65,14 @@
               "Added Whiskorian defense logic"
             ],
             "changes": [
-              "Increased the base capture time by 60%",
-              "Revamped footsteps",
-              "Reworked the Pimple Whiskorian variant"
+              "Increased base capture time by 60%",
+              "Reworked footstep audio",
+              "Reworked the Whiskorian variant: Pimple"
             ],
             "bugs": [
-              "Resolved silent error regarding broken weapon gamepasses",
-              "Resolved an issue regarding Whiskorians not showing up on the map",
-              "Resolved an issue regarding Whiskorians not being able to attack during continuous contact",
+              "Resolved a silent error affecting broken weapon gamepasses",
+              "Fixed an issue that prevented Whiskorians from appearing on the map",
+              "Fixed an issue that prevented Whiskorians from attacking during continuous contact",
               "Fixed the callout enabled setting"
             ],
             "removals": [],
@@ -89,28 +89,28 @@
           "contents": {
             "new": [],
             "changes": [
-              "Reduced network latency and overhead by 60-75%",
+              "Reduced network latency and overhead by 60% to 75%",
               "Reduced client CPU overhead by 25%",
               "Overhauled Whiskorian rendering",
-              "Freed up 2-5 frames with server and client optimization",
-              "Raised the server capacity from 25 to 32",
+              "Improved server and client performance, freeing 2 to 5 frames",
+              "Increased server capacity from 25 to 32 players",
               "Increased Whiskorian spawn rate by 20%",
-              "Reduced Whiskorian-based vehicle damage by 90%",
-              "Revamped game anti-cheat",
-              "Revamped loading screen",
-              "Resolved deprecated sounds"
+              "Reduced vehicle damage caused by Whiskorians by 90%",
+              "Revamped the anti-cheat system",
+              "Revamped the loading screen",
+              "Updated deprecated sounds"
             ],
             "bugs": [
-              "Fixed premium benefits logic bug resulting in 4x reward"
+              "Fixed a premium benefits logic issue that incorrectly granted 4x rewards"
             ],
             "removals": [],
             "misc": [
-              "Significantly improved game stability and performance",
-              "Server stability strengthened to support much longer uptime with fewer slowdowns"
+              "Overall game stability and performance have been significantly improved",
+              "Improved server stability to support longer uptime with fewer slowdowns"
             ],
             "footnotes": [
-              "The game may be extremely unstable or extremely stable. 😶‍🌫️",
-              "Report false bans!"
+              "Stability may vary while this update is being monitored",
+              "Please report any false bans"
             ]
           }
         },
@@ -122,21 +122,21 @@
           "imageAlt": "ERADICATION update screenshot",
           "contents": {
             "new": [
-              "Added the Hand Charge (gamepass)"
+              "Added gamepass: Hand Charge"
             ],
             "changes": [
-              "Changed ammo crate action from 3s to 0.1s",
+              "Reduced ammo crate interaction time from 3s to 0.1s",
               "Overhauled the M134 Minigun"
             ],
             "bugs": [
-              "Fixed various bugs + general codebase improvements"
+              "Fixed various bugs and made general codebase improvements"
             ],
             "removals": [
               "Removed the Mechanical Grenadier"
             ],
             "misc": [],
             "footnotes": [
-              "Many of you didn't like the Mechanical Grenadier, so we changed it up",
+              "The Mechanical Grenadier has been replaced based on player feedback",
               "Previous Mechanical Grenadier owners will receive the Hand Charge for free"
             ]
           }
@@ -156,7 +156,7 @@
             "removals": [],
             "misc": [],
             "footnotes": [
-              "Performance and stability improvements"
+              "Includes performance and stability improvements"
             ]
           }
         },
@@ -168,18 +168,18 @@
           "imageAlt": "ERADICATION update screenshot",
           "contents": {
             "new": [
-              "Added universal gyroscopic stabilization to turrets",
-              "Added extra gameplay integrity protections"
+              "Added universal gyroscopic stabilization for turrets",
+              "Added additional gameplay integrity protections"
             ],
             "changes": [],
             "bugs": [
-              "Fixed aiming relative to firing so guns shoot straighter",
+              "Adjusted aiming and firing alignment so weapons shoot more accurately",
               "Fixed ghost driving"
             ],
             "removals": [],
             "misc": [],
             "footnotes": [
-              "Performance improvements across the update"
+              "Includes performance improvements"
             ]
           }
         },
@@ -196,7 +196,7 @@
             ],
             "changes": [],
             "bugs": [
-              "Fixed helicopters' tooltips"
+              "Fixed helicopter tooltips"
             ],
             "removals": [],
             "misc": [],
@@ -211,12 +211,12 @@
           "imageAlt": "ERADICATION update screenshot",
           "contents": {
             "new": [
-              "Added a SkyDrop variant: Aviation (98R$)",
+              "Added SkyDrop variant: Aviation (98R$)",
               "Added helicopter: MH-60 Blackhawk (transport)"
             ],
             "changes": [],
             "bugs": [
-              "Fixed callout enabling"
+              "Fixed callout activation"
             ],
             "removals": [],
             "misc": [],
@@ -234,12 +234,12 @@
               "Added a callout menu with settings (V)"
             ],
             "changes": [
-              "Changed refueling visuals for aesthetics",
-              "Changed how running over Whiskorians affects vehicle health"
+              "Updated refueling visuals",
+              "Adjusted how vehicle health is affected when running over Whiskorians"
             ],
             "bugs": [
-              "Fixed vehicle damage behavior caused by Whiskorians",
-              "Fixed camera interference while operating a vehicle"
+              "Fixed Whiskorian-related vehicle damage behavior",
+              "Fixed camera interference while operating vehicles"
             ],
             "removals": [],
             "misc": [],
@@ -255,34 +255,34 @@
           "contents": {
             "new": [],
             "changes": [
-              "Enhanced weapon gunplay (vehicles)",
+              "Improved vehicle gunplay",
               "Improved automatic suspension physics",
               "Improved attachment models",
-              "Improved vehicular gunsights",
+              "Improved vehicle gunsights",
               "Improved loading times",
-              "Readjusted the vehicular control interface",
-              "Readjusted attachment settings (all attachments now have buffs/nerfs)",
-              "Readjusted vehicular torque"
+              "Readjusted the vehicle control interface",
+              "Readjusted attachment balance so all attachments now include tradeoffs",
+              "Readjusted vehicle torque"
             ],
             "bugs": [
-              "Fixed some issues involving vehicular-to-player collision",
-              "Fixed some issues with respawning",
-              "Fixed some issues with the main menu",
-              "Fixed an issue involving weapon duplication during sitting states",
-              "Fixed an issue involving LTV-300's high suspension",
-              "Fixed an issue involving sight placement during reload",
+              "Fixed several issues involving vehicle-to-player collisions",
+              "Fixed several respawn issues",
+              "Fixed several main menu issues",
+              "Fixed an issue that allowed weapon duplication while seated",
+              "Fixed the excessive suspension height on the LTV-300",
+              "Fixed an issue with sight placement during reloads",
               "Fixed an issue involving explosion craters in the boss den",
-              "Fixed an issue involving false-positive anti-cheat bans",
+              "Fixed false-positive anti-cheat bans",
               "Fixed the toggle aim keybind (P key / mobile button)",
-              "Fixed capture UI scaling on all devices"
+              "Fixed capture UI scaling across all devices"
             ],
             "removals": [
-              "Removed serverside attachment models (temporarily?)",
-              "Removed safemode"
+              "Temporarily removed server-side attachment models",
+              "Removed safe mode"
             ],
             "misc": [],
             "footnotes": [
-              "Refill stations deferred to next update"
+              "Refill stations have been deferred to the next update"
             ]
           }
         },
@@ -301,25 +301,25 @@
               "Added vehicle: LTV-300",
               "Added weapon: Musket",
               "Added tracers to all weapons",
-              "Added small trench bridges around the map"
+              "Added small trench bridges across the map"
             ],
             "changes": [
-              "Renamed vehicle MBT-52 Panthera to MBT-800",
-              "Renamed vehicle RR-20P Sentinel to ACV-120",
-              "Readjusted the settings design",
-              "Readjusted gore graphics down to preserve performance",
-              "Readjusted hipfire movement",
-              "Optimized explosion networking for less server lag"
+              "Renamed vehicle: MBT-52 Panthera to MBT-800",
+              "Renamed vehicle: RR-20P Sentinel to ACV-120",
+              "Updated the settings menu design",
+              "Reduced gore intensity to preserve performance",
+              "Adjusted hipfire movement",
+              "Optimized explosion networking to reduce server lag"
             ],
             "bugs": [
-              "Fixed an issue involving inventory duplication when entering/leaving a vehicle"
+              "Fixed an issue that caused inventory duplication when entering or exiting vehicles"
             ],
             "removals": [
               "Removed vehicle: Greasehog"
             ],
             "misc": [],
             "footnotes": [
-              "Anti-cheat strengthening deferred to next update"
+              "Anti-cheat improvements have been deferred to the next update"
             ]
           }
         },
@@ -347,41 +347,41 @@
               "Added setting: Toggle Aim",
               "Added the Greasehog to SkyDrop",
               "Added the contributor factor to the Whiskorian boss fight",
-              "Added locks to weapons in loadout",
+              "Added loadout weapon locks",
               "Added a server migration system",
-              "Added more creators to the credits list",
+              "Added additional creators to the credits",
               "Added a donations page",
-              "Added vignette overlay to the AX-50's scope"
+              "Added a vignette overlay to the AX-50 scope"
             ],
             "changes": [
-              "Reworked snipers",
-              "Reworked credits",
-              "Revamped hitmarkers",
-              "Readjusted Glock sounds",
-              "Readjusted notification UI",
+              "Reworked sniper rifles",
+              "Reworked the credits",
+              "Updated hitmarkers",
+              "Adjusted Glock audio",
+              "Adjusted the notification UI",
               "Increased ammunition canister capacity from 5k to 10k",
               "Made the AK-74 free",
-              "Decreased weapon spread"
+              "Reduced weapon spread"
             ],
             "bugs": [
-              "Fixed an issue involving territories being stuck at 6/7",
+              "Fixed an issue that caused territories to remain stuck at 6/7",
               "Fixed an issue involving a secondary weapon challenge",
-              "Fixed an issue involving loadout saves",
-              "Fixed an overlapping text issue in credits",
-              "Fixed a vehicle glitch where the owner leaving caused loss of weapons",
-              "Fixed engine sounds",
-              "Fixed an issue involving the qaAdmin panel being open for unintended users",
-              "Fixed an issue involving the Arms Dealer badge",
-              "Fixed an issue involving leaderboard updates",
-              "Permanently fixed an issue involving Whiskorian access to weapons (shooting as a Whiskorian now results in an auto-ban)"
+              "Fixed an issue affecting loadout saves",
+              "Fixed overlapping text in the credits",
+              "Fixed a vehicle issue where owners leaving caused weapons to disappear",
+              "Fixed engine audio",
+              "Fixed an issue that exposed the qaAdmin panel to unintended users",
+              "Fixed an issue affecting the Arms Dealer badge",
+              "Fixed an issue affecting leaderboard updates",
+              "Permanently fixed an issue that allowed Whiskorians to access weapons (shooting as a Whiskorian now results in an auto-ban)"
             ],
             "removals": [
               "Removed weapon: Makeshift AK"
             ],
             "misc": [],
             "footnotes": [
-              "Iron sight readjustments deferred to next update",
-              "Weapon loadout datastores wiped with this update"
+              "Iron sight adjustments have been deferred to the next update",
+              "Weapon loadout datastores were wiped with this update"
             ]
           }
         },
@@ -396,23 +396,23 @@
               "Added secondary weapon: Bodeo 1889"
             ],
             "changes": [
-              "Revamped and fortified the purchase backend (gamepasses, developer products)",
-              "Changed the Mechanical Grenadier's explosion VFX",
+              "Revamped and reinforced the purchase backend for gamepasses and developer products",
+              "Updated the Mechanical Grenadier explosion VFX",
               "Increased the Whiskorian count"
             ],
             "bugs": [
-              "Fixed an issue with SkyDrop not spawning",
-              "Fixed an issue with the den not counting territories properly",
-              "Fixed an issue with Whiskorians not spawning properly",
-              "Fixed an issue with the Remington Rolling Block slowly cocking back",
-              "Fixed an incorrect ammo type for the VSS Vintorez",
-              "Fixed an incorrect ammo type for the RPK-74"
+              "Fixed an issue that prevented SkyDrop from spawning",
+              "Fixed an issue that caused the den to count territories incorrectly",
+              "Fixed an issue that prevented Whiskorians from spawning correctly",
+              "Fixed an issue that caused the Remington Rolling Block to cock back slowly",
+              "Fixed the incorrect ammo type for the VSS Vintorez",
+              "Fixed the incorrect ammo type for the RPK-74"
             ],
             "removals": [],
             "misc": [],
             "footnotes": [
-              "\"NEW\" tag for weapons in loadout deferred to next update",
-              "The Double-Barrel is known to be broken and should not be reported"
+              "\"NEW\" loadout tags have been deferred to the next update",
+              "The Double-Barrel is currently known to be broken and does not need to be reported"
             ]
           }
         },
@@ -427,21 +427,21 @@
               "Added SkyDrop setting: Lock Driver",
               "Added server location display to the main menu",
               "Added game version display to the main menu",
-              "Added gore for explosions"
+              "Added explosion gore"
             ],
             "changes": [
               "Reworked ammo boxes",
-              "Lifted anti-alt detection to increase player count",
-              "Increased snipers' default ADS FOV",
+              "Relaxed anti-alt detection to support higher player counts",
+              "Increased the default ADS FOV for sniper rifles",
               "Increased the Whiskorian count",
-              "Decreased the hitmarker size"
+              "Reduced hitmarker size"
             ],
             "bugs": [
               "Fixed an issue involving building collisions",
-              "Fixed an issue of the Whiskorian count exponentially increasing every round or death",
-              "Fixed an issue of explosion splash damage not working",
+              "Fixed an issue that caused the Whiskorian count to increase exponentially after each round or death",
+              "Fixed an issue that prevented explosion splash damage from working",
               "Fixed the black screen of death",
-              "Resolved the reoccurring invalid sounds issue"
+              "Resolved a recurring invalid sound issue"
             ],
             "removals": [],
             "misc": [],
@@ -457,18 +457,18 @@
           "contents": {
             "new": [],
             "changes": [
-              "Changed the MBT-52 Panthera to a one-man vehicle",
-              "Changed the RR-20P Sentinel to a one-man vehicle"
+              "Converted the MBT-52 Panthera to a one-man vehicle",
+              "Converted the RR-20P Sentinel to a one-man vehicle"
             ],
             "bugs": [
-              "Fixed an issue of vehicle armaments not doing damage to Whiskorians",
-              "Fixed an issue of Whiskorians being able to mount SkyDrop vehicles"
+              "Fixed an issue that prevented vehicle armaments from damaging Whiskorians",
+              "Fixed an issue that allowed Whiskorians to mount SkyDrop vehicles"
             ],
             "removals": [],
             "misc": [],
             "footnotes": [
-              "Whiskorian count exponential growth fix deferred to next update",
-              "Hitmarker affecting teammates and dead humanoids fix deferred to next update"
+              "The fix for exponential Whiskorian count growth has been deferred to the next update",
+              "The fix for hitmarkers affecting teammates and dead humanoids has been deferred to the next update"
             ]
           }
         },
@@ -480,23 +480,23 @@
           "imageAlt": "Eradication v4.0.1 update screenshot",
           "contents": {
             "new": [
-              "Added in-game suggestions and feedback system",
+              "Added an in-game suggestions and feedback system",
               "Added map pings",
               "Added hitmarkers"
             ],
             "changes": [
-              "Rearranged the start menu's assets",
-              "Rearranged the unstance keybind from Space to X",
-              "Changed the M249's feel",
-              "Corrected the AK-74's ammo type",
-              "Corrected the Thompson M1928's ammo magazine"
+              "Rearranged main menu assets",
+              "Changed the unstance keybind from Space to X",
+              "Adjusted the feel of the M249",
+              "Corrected the AK-74 ammo type",
+              "Corrected the Thompson M1928 magazine type"
             ],
             "bugs": [
-              "Fixed the boss not working after one round",
-              "Fixed the leaderboard loading bug",
-              "Fixed a critical issue where Whiskorians could wield weapons",
-              "Fixed a critical issue where console users were unable to select SkyDrop vehicles",
-              "Resolved problematic bullet raycasting (Whiskorians no longer tank excessive bullets)"
+              "Fixed an issue that prevented the boss from functioning after one round",
+              "Fixed a leaderboard loading issue",
+              "Fixed a critical issue that allowed Whiskorians to wield weapons",
+              "Fixed a critical issue that prevented console players from selecting SkyDrop vehicles",
+              "Resolved bullet raycasting issues so Whiskorians no longer absorb excessive shots"
             ],
             "removals": [],
             "misc": [],
@@ -511,9 +511,9 @@
           "imageAlt": "Eradication v4.0.0 RETALIATION update screenshot",
           "contents": {
             "new": [
-              "Added interactive map with mobile support, zoom, and legend",
-              "Added settings (persistent): aim sensitivity, graphics mode, tooltips, level UI, bloom, color correction, sunrays, camera shake",
-              "Added settings (non-persistent): DOOM music, impact effects",
+              "Added an interactive map with mobile support, zoom, and a legend",
+              "Added persistent settings: aim sensitivity, graphics mode, tooltips, level UI, bloom, color correction, sunrays, camera shake",
+              "Added non-persistent settings: DOOM music and impact effects",
               "Added weapon: Double-Barrel",
               "Added weapon: AA-12",
               "Added weapon: M249",
@@ -527,83 +527,83 @@
               "Added vehicle: MTG-92",
               "Added vehicle: RR-20P Sentinel",
               "Added vehicle: MBT-52 Panthera",
-              "Added global leaderboard: Cash, Kills, XP",
-              "Added teams: Defenders and Whiskorians",
+              "Added global leaderboards for Cash, Kills, and XP",
+              "Added the Defenders and Whiskorians teams",
               "Added commands: qaAirstrike1–4, qaCaptureAllFlags, qaResetAllFlags, qaRoundID, qaClockTime",
               "Added Whiskorian variants: Normal, Pimple, Watcher",
-              "Added 48-minute rounds for the core loop",
-              "Added original SFX for Whiskorians",
-              "Re-added craters (despawn after 3 minutes)",
-              "Re-added weapon holsters for secondary weapons",
-              "Added sound to notifications",
+              "Added 48-minute rounds to the core game loop",
+              "Added original Whiskorian SFX",
+              "Re-added craters with a 3-minute despawn timer",
+              "Re-added secondary weapon holsters",
+              "Added notification audio",
               "Added daily challenges",
               "Added credits",
               "Added friend invite tab",
               "Added levels",
               "Added tooltips",
-              "Added SkyDrop (replaces RPG-26)",
-              "Added ability to topple and run over Whiskorians and trees with vehicles",
+              "Added SkyDrop (replacing the RPG-26)",
+              "Added vehicle interactions for toppling and running over Whiskorians and trees",
               "Added contributor tag for bug reporters",
               "Added weapon canting while crouched",
               "Added fire blur",
-              "Added inspect animation",
+              "Added an inspect animation",
               "Added camera shake to explosions",
               "Added realistic bullet physics",
               "Added sprint toggle for console",
-              "Re-added third person support for weapons"
+              "Re-added third-person weapon support"
             ],
             "changes": [
               "Converted Whiskorians from R15 to R6",
-              "Whiskorian attack range reduced: 10 studs to 5 studs",
-              "Whiskorian attack damage reduced: 15 to 12.5",
-              "Whiskorian attack cooldown increased: 1.3s to 1.4s",
-              "Whiskorian respawn time increased: 4–6s to 10–15s",
-              "Revamped Whiskorian AI logic",
-              "Increased territory decay rate: 0.002 to 0.003",
+              "Reduced Whiskorian attack range from 10 studs to 5 studs",
+              "Reduced Whiskorian attack damage from 15 to 12.5",
+              "Increased Whiskorian attack cooldown from 1.3s to 1.4s",
+              "Increased Whiskorian respawn time from 4–6s to 10–15s",
+              "Reworked Whiskorian AI",
+              "Increased territory decay rate from 0.002 to 0.003",
               "Increased ammo reserves for gamepass weapons",
               "Improved weapon loadout saving",
-              "Revamped footsteps",
-              "Revamped Whiskorian boss",
-              "Revamped airstrikes",
-              "Revamped explosion logic and VFX",
-              "Revamped overhead ranks",
-              "Revamped backpack",
-              "Revamped ProximityPrompts",
-              "Fixed flawed territory capture logic",
-              "Changed premium benefits payout: 10k to 5k",
-              "Changed default aim sensitivity: 0.4 to 0.5",
-              "Changed stance change time: 0.45s to 0.3s",
-              "Changed jump cooldown: 1.5s to 1.2s",
-              "Changed body despawn time: 30s to 8s",
-              "Changed body limit: 5 to 4",
+              "Reworked footstep audio",
+              "Reworked the Whiskorian boss",
+              "Reworked airstrikes",
+              "Reworked explosion logic and VFX",
+              "Reworked overhead ranks",
+              "Reworked the backpack",
+              "Reworked ProximityPrompts",
+              "Corrected territory capture logic",
+              "Changed premium benefits payout from 10k to 5k",
+              "Changed default aim sensitivity from 0.4 to 0.5",
+              "Changed stance transition time from 0.45s to 0.3s",
+              "Changed jump cooldown from 1.5s to 1.2s",
+              "Changed body despawn time from 30s to 8s",
+              "Changed body limit from 5 to 4",
               "Changed blood color from red/dark red to pink/magenta",
-              "Resized viewmodel arm size",
-              "Readjusted ambience, flag sounds, Whiskorian sounds, terrain, and ADS speed",
-              "Redesigned chatbox, mobile controls, bullet casing models, both rivers, and muzzle flashes",
-              "Overhauled visual graphics, gamepass logic, and shop UI",
+              "Adjusted viewmodel arm size",
+              "Readjusted ambience, flag audio, Whiskorian audio, terrain, and ADS speed",
+              "Redesigned the chatbox, mobile controls, bullet casing models, both rivers, and muzzle flashes",
+              "Overhauled visual graphics, gamepass logic, and the shop UI",
               "Refreshed all UI sounds and house models",
-              "Revamped UIs: Weapon, Main Menu, Loadout, Deploy",
-              "Refreshed UIs: Notification, Vehicle, Capture",
-              "Revamped reload animations: AK, AR",
-              "Refreshed and readjusted weapons: AK-12, AK-74, AR-15, VSS Vintorez, M1911A1, Python, Z Custom, Five-seveN, P90, G36, G17 w/ Shield, G18, G19, Kar98k, Vector, L86A1, M16A2, Mechanical Grenadier, M4A1, M61 Vulcan, MK1 Carbine, M91/30, PPSh-41, RPG-7, RPK-74, P320, Saiga-12, Schwarzlose M.1898, Walther P99 AS, Thompson M1928"
+              "Reworked the Weapon, Main Menu, Loadout, and Deploy UIs",
+              "Refreshed the Notification, Vehicle, and Capture UIs",
+              "Reworked reload animations for the AK and AR",
+              "Refreshed and readjusted the following weapons: AK-12, AK-74, AR-15, VSS Vintorez, M1911A1, Python, Z Custom, Five-seveN, P90, G36, G17 w/ Shield, G18, G19, Kar98k, Vector, L86A1, M16A2, Mechanical Grenadier, M4A1, M61 Vulcan, MK1 Carbine, M91/30, PPSh-41, RPG-7, RPK-74, P320, Saiga-12, Schwarzlose M.1898, Walther P99 AS, Thompson M1928"
             ],
             "bugs": [
               "Fixed Furrow's broken flag",
               "Fixed craters",
-              "Fixed Whiskorian ragdoll",
+              "Fixed Whiskorian ragdolls",
               "Fixed mobile input for vehicle controls",
               "Fixed the Whiskorian attack animation",
-              "Fixed bugs with premium benefits",
-              "Fixed an issue where player accessories would unanchor on death",
-              "Fixed an issue where Whiskorians attack undeployed players",
-              "Fixed instant chambers in a tactical reload",
-              "Fixed a firing issue when equipping and unequipping",
-              "Fixed an ADS issue when equipping and unequipping",
-              "Fixed the loadout guard preventing players from deploying with no weapon"
+              "Fixed issues with premium benefits",
+              "Fixed an issue that caused player accessories to unanchor on death",
+              "Fixed an issue that allowed Whiskorians to attack undeployed players",
+              "Fixed instant chambering during tactical reloads",
+              "Fixed a firing issue when equipping and unequipping weapons",
+              "Fixed an ADS issue when equipping and unequipping weapons",
+              "Fixed the loadout guard so players can no longer deploy without a weapon"
             ],
             "removals": [
-              "Removed chance to decapitate a Whiskorian (replaced by impact effects)",
-              "Removed update logs UI",
+              "Removed Whiskorian decapitation chance (replaced with impact effects)",
+              "Removed the update logs UI",
               "Removed fall damage",
               "Removed Whiskorian variants: Tank, Mini, Normal (legacy)",
               "Removed weapon: Beretta 92X",
@@ -634,13 +634,13 @@
               "Removed weapon: APR .308"
             ],
             "misc": [
-              "Overhauled and strengthened anti-cheat",
-              "Reintroduced StreamingEnabled",
-              "Extensive optimization",
+              "Overhauled and strengthened the anti-cheat system",
+              "Re-enabled StreamingEnabled",
+              "Completed extensive optimization",
               "Restored all animations"
             ],
             "footnotes": [
-              "Barrel, Underbarrel, and Bipod attachments listed as coming soon"
+              "Barrel, Underbarrel, and Bipod attachments remain listed as coming soon"
             ]
           }
         },
@@ -652,21 +652,21 @@
           "imageAlt": "Eradication v3.5.5 update screenshot",
           "contents": {
             "new": [
-              "Added developer panel for private server owners",
+              "Added a developer panel for private server owners",
               "Added primary weapon: G36",
-              "Added automatic localization support for Arabic"
+              "Added automatic Arabic localization support"
             ],
             "changes": [
-              "Changed crouch animations",
-              "Changed prone animations",
-              "Changed UI sounds",
-              "Changed the Gewehr 43 animations"
+              "Updated crouch animations",
+              "Updated prone animations",
+              "Updated UI audio",
+              "Updated Gewehr 43 animations"
             ],
             "bugs": [
               "Fixed broken animations",
-              "Fixed reset bugs in the menu",
+              "Fixed menu reset issues",
               "Fixed a bloom lighting glitch",
-              "Fixed further loading screen bugs"
+              "Fixed additional loading screen issues"
             ],
             "removals": [
               "Removed developer weapon: Elysium AK",
@@ -685,13 +685,13 @@
           "contents": {
             "new": [],
             "changes": [
-              "New game icon",
-              "New game thumbnail",
-              "New game description",
-              "New game name"
+              "Updated the game icon",
+              "Updated the game thumbnail",
+              "Updated the game description",
+              "Updated the game name"
             ],
             "bugs": [
-              "Solved an infinite loop glitch within the loading screen logic"
+              "Resolved an infinite loop in the loading screen logic"
             ],
             "removals": [],
             "misc": [],
@@ -709,23 +709,23 @@
               "Added notifications"
             ],
             "changes": [
-              "Changed the main menu logic",
+              "Updated main menu logic",
               "Overhauled the respawn and death system",
-              "Overhauled Whiskorian AI logic (possibly bugged)",
-              "Overhauled Whiskorian spawn logic (possibly bugged)",
-              "Changed UI sounds and visuals"
+              "Overhauled Whiskorian AI logic",
+              "Overhauled Whiskorian spawn logic",
+              "Updated UI audio and visuals"
             ],
             "bugs": [
-              "Solved the long-lasting broken alt detection"
+              "Resolved the long-standing broken alt detection issue"
             ],
             "removals": [
               "Removed excess voxel terrain",
-              "Removed free daily premium cash (temporary)",
+              "Temporarily removed free daily premium cash",
               "Removed all interactable doors"
             ],
             "misc": [],
             "footnotes": [
-              "This update was released prematurely due to internal conflict"
+              "This update was released earlier than intended due to internal conflict"
             ]
           }
         },
@@ -742,8 +742,8 @@
             ],
             "changes": [
               "Updated the vehicle system",
-              "Updated the visual Whiskorian models",
-              "Updated footstep sounds"
+              "Updated Whiskorian visuals",
+              "Updated footstep audio"
             ],
             "bugs": [],
             "removals": [],
@@ -759,6 +759,24 @@
       "tag": "DON POLLO OBBY update",
       "updates": [
         {
+          "id": "donpollo-obby-v12",
+          "version": "v1.2",
+          "date": "4/16/26",
+          "image": "assets/null",
+          "imageAlt": "DON POLLO OBBY update screenshot",
+          "contents": {
+            "new": [],
+            "changes": [
+              "Refactored the frontend and backend codebase",
+              "Adjusted several models"
+            ],
+            "bugs": [],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
           "id": "donpollo-v11",
           "version": "v1.1",
           "date": "6/21/25",
@@ -766,17 +784,17 @@
           "imageAlt": "DON POLLO OBBY update screenshot",
           "contents": {
             "new": [
-              "Badge when you join the obby",
-              "Badge when you finish the obby",
-              "Rainbow Carpet at the end",
-              "Flying Cloud at the end"
+              "Added a join badge",
+              "Added a completion badge",
+              "Added a Rainbow Carpet at the finish",
+              "Added a Flying Cloud at the finish"
             ],
             "changes": [
-              "New stage cap is 51 from 50",
-              "Added some logic to the invisible map boundaries"
+              "Increased the stage cap from 50 to 51",
+              "Added logic to the invisible map boundaries"
             ],
             "bugs": [
-              "Solved a minor gamepass bug involving tools upon join"
+              "Resolved a minor gamepass issue affecting tools on join"
             ],
             "removals": [],
             "misc": [],
