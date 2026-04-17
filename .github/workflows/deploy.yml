@@ -44,6 +44,7 @@ jobs:
         env:
           NODE_OPTIONS: --max-old-space-size=4096
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          PUBLIC_STATUS_API_URL: ${{ secrets.PUBLIC_STATUS_API_URL }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
