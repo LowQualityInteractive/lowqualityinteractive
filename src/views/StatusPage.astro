@@ -92,10 +92,4 @@ const statusScript = sanitizeInlineScript(getStatusScript(workerUrl, gameMeta));
     <p class="status-no-incidents">Loading…</p>
   </div>
 
-  {!workerUrl && (
-    <div class="card" style="margin-top:2rem;border-color:rgba(224,160,48,0.4);background:rgba(224,160,48,0.06);">
-      <h2 style="font-size:var(--fs-lg);color:var(--text);">Worker URL not configured</h2>
-      <p>Set <code>PUBLIC_STATUS_API_URL</code> in your <code>.env</code> file to enable live status data.</p>
-    </div>
-  )}
 </BaseLayout>

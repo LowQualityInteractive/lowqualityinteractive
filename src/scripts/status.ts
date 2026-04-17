@@ -162,7 +162,7 @@ function renderIncidents(incidents){
 }
 
 var cachedData=null;
-var hasError=false;
+var hasError=!WORKER_URL;
 
 function updateNavDot(overall){
   var dots=document.querySelectorAll('[data-status-nav-dot]');
@@ -172,6 +172,13 @@ function updateNavDot(overall){
 }
 
 async function load(){
+  if(!WORKER_URL){
+    renderBanner(null,true);
+    renderGames(null);
+    renderPlatform(null);
+    renderIncidents([]);
+    return;
+  }
   try{
     var res=await fetch(WORKER_URL);
     if(!res.ok)throw new Error('HTTP '+res.status);
@@ -192,7 +199,7 @@ async function load(){
 renderBanner(null,false);
 renderGames(null);
 renderPlatform(null);
-load();
-setInterval(load,60000);
+if(WORKER_URL){load();setInterval(load,60000);}
+else{renderBanner(null,true);renderGames(null);renderPlatform(null);renderIncidents([]);}
 })();`;
 }
