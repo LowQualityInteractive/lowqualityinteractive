@@ -74,8 +74,8 @@ async function checkStatuses(): Promise<StatusSnapshot> {
     if (res.ok) {
       const json = await res.json() as { data?: typeof gamesData };
       gamesData = json.data ?? [];
-      // Slow but responsive = degraded
-      if (robloxMs > 5000) robloxStatus = 'degraded';
+      // Only mark degraded for severely slow responses (>6s), not normal variance
+      if (robloxMs > 6000) robloxStatus = 'degraded';
     } else {
       // 5xx = server is down; 4xx = something wrong but reachable = degraded
       robloxStatus = res.status >= 500 ? 'down' : 'degraded';
@@ -96,8 +96,6 @@ async function checkStatuses(): Promise<StatusSnapshot> {
       };
     }
     const playing = rd.playing ?? 0;
-    // Game is operational as long as the API returned data for it.
-    // Only degrade/down based on the platform — not player count.
     const gameStatus: CheckStatus =
       robloxStatus === 'down' ? 'down'
         : robloxStatus === 'degraded' ? 'degraded'
@@ -147,15 +145,52 @@ async function storeSnapshot(kv: KVNamespace, snap: StatusSnapshot): Promise<voi
   await updateIncidents(kv, prev, snap);
 }
 
+// ── Legacy incident migration ──────────────────────────────────────────────
+
+function migrateIncidentText(s: string): string {
+  return s
+    .replace(/\bRoblox Platform\b/g, 'Roblox')
+    .replace(/ — /g, ': ')
+    .replace(/\. Monitoring the situation\./g, '.')
+    .replace(/normal operation\./g, 'normal operations.');
+}
+
+function migrateIncidents(incidents: Incident[]): { changed: boolean; incidents: Incident[] } {
+  let changed = false;
+  const migrated = incidents.map(inc => {
+    const title = migrateIncidentText(inc.title);
+    const updates = inc.updates.map(u => {
+      const msg = migrateIncidentText(u.message);
+      if (msg !== u.message) changed = true;
+      return msg !== u.message ? { ...u, message: msg } : u;
+    });
+    if (title !== inc.title) changed = true;
+    return (title !== inc.title || updates !== inc.updates) ? { ...inc, title, updates } : inc;
+  });
+  return { changed, incidents: migrated };
+}
+
 // ── Incident automation ────────────────────────────────────────────────────
 
 function serviceLabel(id: string): string {
-  if (id === 'roblox') return 'Roblox Platform';
+  if (id === 'roblox') return 'Roblox';
   return GAMES.find(g => g.id === id)?.name ?? id;
 }
 
 function now(): string {
   return new Date().toISOString();
+}
+
+// Returns true if all non-operational games are caused by Roblox being down/degraded.
+// Used to decide whether to group game incidents under the Roblox incident.
+function gamesAffectedByRoblox(
+  robloxStatus: CheckStatus,
+  games: GameCheck[],
+): string[] {
+  if (robloxStatus === 'operational') return [];
+  return games
+    .filter(g => g.status !== 'operational')
+    .map(g => g.id);
 }
 
 async function updateIncidents(
@@ -164,62 +199,104 @@ async function updateIncidents(
   curr: StatusSnapshot,
 ): Promise<void> {
   const raw = await kv.get('status:incidents');
-  const incidents: Incident[] = raw ? JSON.parse(raw) : [];
+  const rawIncidents: Incident[] = raw ? JSON.parse(raw) : [];
+  const { changed: migrationNeeded, incidents } = migrateIncidents(rawIncidents);
 
-  const services: Array<{ id: string; status: CheckStatus }> = [
-    { id: 'roblox', status: curr.roblox.status },
-    ...curr.games.map(g => ({ id: g.id, status: g.status })),
-  ];
+  // Load the pending-confirmation state (tracks consecutive bad checks per service)
+  const pendingRaw = await kv.get('status:pending');
+  const pending: Record<string, number> = pendingRaw ? JSON.parse(pendingRaw) : {};
 
   const prevServices: Array<{ id: string; status: CheckStatus }> = prev ? [
     { id: 'roblox', status: prev.roblox.status },
     ...prev.games.map(g => ({ id: g.id, status: g.status })),
   ] : [];
 
-  for (const svc of services) {
+  // Determine which game IDs are downstream victims of Roblox being bad
+  const robloxCausedGameIds = gamesAffectedByRoblox(curr.roblox.status, curr.games);
+  const robloxIsDown = curr.roblox.status !== 'operational';
+
+  // Build the full service list, but skip game services that are only down because of Roblox —
+  // those will be represented as sub-services on the Roblox incident instead.
+  const allServices: Array<{ id: string; status: CheckStatus }> = [
+    { id: 'roblox', status: curr.roblox.status },
+    ...curr.games.map(g => ({ id: g.id, status: g.status })),
+  ];
+
+  for (const svc of allServices) {
+    const isRobloxCausedGame = svc.id !== 'roblox' && robloxIsDown && robloxCausedGameIds.includes(svc.id);
+
+    // If this game's issue is purely Roblox-caused, add it to the Roblox incident's
+    // affected services instead of creating a separate incident.
+    if (isRobloxCausedGame) {
+      const robloxIncident = incidents.find(
+        i => i.affectedServices.includes('roblox') && i.status !== 'resolved',
+      );
+      if (robloxIncident && !robloxIncident.affectedServices.includes(svc.id)) {
+        robloxIncident.affectedServices.push(svc.id);
+      }
+      // Resolve any previously separate incident for this game if Roblox is causing it
+      for (const inc of incidents) {
+        if (
+          inc.affectedServices.includes(svc.id) &&
+          !inc.affectedServices.includes('roblox') &&
+          inc.status !== 'resolved'
+        ) {
+          inc.status = 'resolved';
+          inc.resolvedAt = now();
+          inc.updates.push({
+            time: now(),
+            message: `${serviceLabel(svc.id)}: issue tracked under Roblox platform incident.`,
+          });
+        }
+      }
+      continue;
+    }
+
     const prevSvc = prevServices.find(p => p.id === svc.id);
     const prevStatus = prevSvc?.status ?? 'operational';
     const wasOk = prevStatus === 'operational';
     const isOk = svc.status === 'operational';
 
-    // Transition: ok → not ok — open a new incident
     if (wasOk && !isOk) {
+      // Require 2 consecutive bad checks before opening an incident (false-positive filter)
+      pending[svc.id] = (pending[svc.id] ?? 0) + 1;
+      if (pending[svc.id] < 2) continue;
+
       const openAlready = incidents.find(
         i => i.affectedServices.includes(svc.id) && i.status !== 'resolved',
       );
       if (!openAlready) {
+        const severity = svc.status === 'down' ? 'outage' : 'degraded performance';
         const label = svc.status === 'down' ? 'outage' : 'degraded performance';
         incidents.unshift({
           id: `auto-${svc.id}-${Date.now()}`,
           date: now(),
           resolvedAt: null,
-          title: `${serviceLabel(svc.id)} — ${label}`,
+          title: `${serviceLabel(svc.id)}: ${label}`,
           status: 'investigating',
           affectedServices: [svc.id],
           updates: [{
             time: now(),
-            message: `Detected ${label} for ${serviceLabel(svc.id)}. Monitoring the situation.`,
+            message: `Detected ${severity} for ${serviceLabel(svc.id)}.`,
           }],
         });
       }
-    }
-
-    // Transition: not ok → ok — resolve open incident
-    if (!wasOk && isOk) {
+    } else if (!wasOk && isOk) {
+      // Recovered — clear pending and resolve open incident
+      delete pending[svc.id];
       for (const inc of incidents) {
         if (inc.affectedServices.includes(svc.id) && inc.status !== 'resolved') {
           inc.status = 'resolved';
           inc.resolvedAt = now();
           inc.updates.push({
             time: now(),
-            message: `${serviceLabel(svc.id)} has returned to normal operation.`,
+            message: `${serviceLabel(svc.id)} has returned to normal operations.`,
           });
         }
       }
-    }
-
-    // Still degraded/down on subsequent checks — add a monitoring update every hour
-    if (!wasOk && !isOk) {
+    } else if (!wasOk && !isOk) {
+      // Still bad — clear pending (already confirmed) and add hourly monitoring update
+      delete pending[svc.id];
       const open = incidents.find(
         i => i.affectedServices.includes(svc.id) && i.status !== 'resolved',
       );
@@ -233,8 +310,13 @@ async function updateIncidents(
           });
         }
       }
+    } else {
+      // Was ok and still ok — clear any pending count
+      delete pending[svc.id];
     }
   }
+
+  await kv.put('status:pending', JSON.stringify(pending), { expirationTtl: 2 * 3600 });
 
   // Keep only the last 20 incidents, expire after 30 days
   await kv.put(

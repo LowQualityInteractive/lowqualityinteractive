@@ -1,7 +1,14 @@
+interface AlertBarMessages {
+  degraded: string;
+  down: string;
+  viewStatus: string;
+}
+
 interface LiveMessages {
   players: string;
   online: string;
   updateBadgeLabel: string;
+  alertBar?: AlertBarMessages;
 }
 
 interface LiveGame {
@@ -10,12 +17,13 @@ interface LiveGame {
   universeId: string;
 }
 
-export function getLiveScript(messages: LiveMessages, games: LiveGame[], discordGuildId: string) {
+export function getLiveScript(messages: LiveMessages, games: LiveGame[], discordGuildId: string, statusWorkerUrl?: string) {
   return String.raw`(() => {
-  const CONFIG = ${JSON.stringify({ messages, games, discordGuildId })};
+  const CONFIG = ${JSON.stringify({ messages, games, discordGuildId, statusWorkerUrl: statusWorkerUrl ?? '' })};
   const MESSAGES = CONFIG.messages;
   const GAMES = CONFIG.games;
   const DISCORD_GUILD_ID = CONFIG.discordGuildId;
+  const STATUS_WORKER_URL = CONFIG.statusWorkerUrl;
 
   const interpolate = (template, values) =>
     template.replace(/\{(\w+)\}/g, (_, key) => (values[key] !== undefined ? String(values[key]) : ''));
@@ -108,6 +116,34 @@ export function getLiveScript(messages: LiveMessages, games: LiveGame[], discord
     document.querySelectorAll('[data-update-badge]').forEach((el) => {
       el.setAttribute('hidden', '');
     });
+  }
+
+  // --- Status: site-wide alert bar + nav dot ---
+  if (STATUS_WORKER_URL) {
+    fetch(STATUS_WORKER_URL, { signal: AbortSignal.timeout(8000) })
+      .then((res) => res.ok ? res.json() : null)
+      .catch(() => null)
+      .then((data) => {
+        if (!data || !data.latest) return;
+        const ss = [data.latest.roblox.status].concat(data.latest.games.map((g) => g.status));
+        const overall = ss.every((s) => s === 'operational') ? 'operational'
+          : ss.some((s) => s === 'down') ? 'down' : 'degraded';
+
+        document.querySelectorAll('[data-status-nav-dot]').forEach((d) => {
+          d.className = 'status-nav-dot status-nav-dot-' + overall;
+        });
+
+        const bar = document.getElementById('site-alert-bar');
+        if (bar && overall !== 'operational') {
+          const textEl = bar.querySelector('.site-alert-text');
+          const alertBar = MESSAGES.alertBar;
+          bar.setAttribute('data-severity', overall);
+          if (textEl) textEl.textContent = overall === 'down'
+            ? (alertBar ? alertBar.down : 'We are experiencing a major outage affecting some services.')
+            : (alertBar ? alertBar.degraded : 'Some services are experiencing degraded performance.');
+          bar.removeAttribute('hidden');
+        }
+      });
   }
 })();`;
 }

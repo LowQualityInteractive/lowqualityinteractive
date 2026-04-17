@@ -45,6 +45,11 @@
       "discord": "Discord",
       "youtube": "YouTube",
       "robloxGroup": "Группа Roblox"
+    },
+    "alertBar": {
+      "degraded": "Некоторые сервисы работают с перебоями.",
+      "down": "Произошёл масштабный сбой, затронувший некоторые сервисы.",
+      "viewStatus": "Статус"
     }
   },
   "pages": {
@@ -130,6 +135,60 @@
         "featuresHeading": "Особенности",
         "linksHeading": "Официальные ссылки"
       }
+    },
+    "status": {
+      "label": "Статус",
+      "description": "Статус игр Low Quality Interactive и платформы Roblox в реальном времени.",
+      "kicker": "Состояние системы",
+      "heading": "Статус сервисов",
+      "lead": "Мониторинг наших игр и платформы Roblox в реальном времени. Обновляется автоматически каждые 60 секунд.",
+      "ourGamesHeading": "Наши игры",
+      "robloxPlatformHeading": "Платформа Roblox",
+      "incidentHistoryHeading": "История инцидентов",
+      "platformLabel": "Roblox",
+      "platformNote": "Время отклика: {ms}мс",
+      "platformFootnote": "Этот показатель основан на состоянии API Roblox и может не отражать все проблемы платформы. Официальный статус Roblox — status.roblox.com.",
+      "gamesMonitored": "Отслеживается игр: {n}",
+      "playingNow": "{n} играют сейчас",
+      "noDataYet": "Статус в реальном времени будет доступен после выхода",
+      "checking": "Проверка статуса\u2026",
+      "unavailable": "Статус недоступен",
+      "unavailableSub": "Не удалось подключиться к API. Повтор\u2026",
+      "allOperational": "Все системы работают",
+      "someIssues": "Некоторые системы работают с перебоями",
+      "majorOutage": "Обнаружен масштабный сбой",
+      "unknown": "Статус неизвестен",
+      "updatedAgo": "Обновлено {ago}",
+      "justNow": "только что",
+      "minAgo": "{n} мин назад",
+      "hrAgo": "{n} ч назад",
+      "statusLabels": {
+        "operational": "Работает",
+        "degraded": "Нестабильно",
+        "down": "Недоступно",
+        "unknown": "Неизвестно",
+        "preview": "Предпросмотр"
+      },
+      "timeline": {
+        "ariaLabel": "Доступность за последние {n} проверок",
+        "up": "Работает",
+        "down": "Недоступно"
+      },
+      "incidentStatus": {
+        "investigating": "Расследование",
+        "monitoring": "Мониторинг",
+        "resolved": "Устранено"
+      },
+      "incidentTemplates": {
+        "titleDegraded": "{service}: ухудшение производительности",
+        "titleOutage": "{service}: сбой",
+        "detectedDegraded": "Обнаружено ухудшение производительности {service}.",
+        "detectedOutage": "Обнаружен сбой {service}.",
+        "recovered": "{service} вернулся к нормальной работе.",
+        "ongoing": "Проблема с {service} продолжается. Мониторинг активен.",
+        "trackedUnderRoblox": "{service}: проблема отслеживается в инциденте платформы Roblox."
+      },
+      "noIncidents": "Недавних инцидентов нет."
     },
     "notFound": {
       "label": "404",

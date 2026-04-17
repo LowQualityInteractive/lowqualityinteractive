@@ -21,10 +21,12 @@ export function getSiteScript(
   messages: SiteScriptMessages,
   localeOptions: Record<string, LocaleOption>,
   isDefaultLocale: boolean,
+  noLocaleRedirect: boolean = false,
 ) {
   return String.raw`(() => {
   const CONFIG = ${JSON.stringify({
     isDefaultLocale,
+    noLocaleRedirect,
     localeOptions,
     messages,
     cookieKey: 'lqi-locale',
@@ -149,7 +151,7 @@ export function getSiteScript(
 
   // On any English page: if the user has a stored non-English locale preference,
   // or their browser prefers a non-English locale (first visit only), redirect.
-  if (CONFIG.isDefaultLocale) {
+  if (CONFIG.isDefaultLocale && !CONFIG.noLocaleRedirect) {
     const preferredLocale = getStoredLocale() || detectPreferredLocale();
     setStoredLocale(preferredLocale);
 

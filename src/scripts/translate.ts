@@ -9,6 +9,7 @@ export function getTranslateBootstrap(locale: string) {
     window.__lqiTranslate = {
       enabled: false,
       one: (t) => Promise.resolve(t),
+      translateScope: () => {},
     };
     return;
   }
@@ -46,20 +47,48 @@ export function getTranslateBootstrap(locale: string) {
     inflight.set(key, p);
     return p;
   };
-  window.__lqiTranslate = { enabled: true, one };
+  const translateNode = (node) => {
+    if (!node || node.__lqiTranslated) return;
+    const original = (node.textContent || '').trim();
+    if (!original) return;
+    node.__lqiTranslated = true;
+    window.__lqiTranslate.one(original).then((translated) => {
+      if (translated && translated !== original) node.textContent = translated;
+    });
+  };
+
+  const translateScope = (root) => {
+    const scope = root || document;
+    if (scope.matches && scope.matches('[data-translatable]')) translateNode(scope);
+    scope.querySelectorAll('[data-translatable]').forEach(translateNode);
+  };
+
+  window.__lqiTranslate = { enabled: true, one, translateScope };
+
+  const translateAll = () => {
+    if (!window.__lqiTranslate || !window.__lqiTranslate.enabled) return;
+    translateScope(document);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', translateAll, { once: true });
+  } else {
+    translateAll();
+  }
+
+  // Retranslate when new content is injected (e.g. the blogs viewer or status script)
+  const mo = new MutationObserver(() => translateAll());
+  if (document.body) {
+    mo.observe(document.body, { childList: true, subtree: true });
+  } else {
+    document.addEventListener('DOMContentLoaded', () => {
+      mo.observe(document.body, { childList: true, subtree: true });
+    }, { once: true });
+  }
 })();`;
 }
 
 export function getAboutTranslateScript() {
-  return String.raw`(() => {
-  const tx = window.__lqiTranslate;
-  if (!tx || !tx.enabled) return;
-  document.querySelectorAll('[data-translatable]').forEach((node) => {
-    const original = node.textContent || '';
-    if (!original.trim()) return;
-    tx.one(original).then((translated) => {
-      if (translated && translated !== original) node.textContent = translated;
-    });
-  });
-})();`;
+  // Back-compat shim: translate.ts now runs auto-translate globally, so this is a no-op.
+  return String.raw`(() => {})();`;
 }

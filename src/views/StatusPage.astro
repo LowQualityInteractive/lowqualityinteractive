@@ -3,12 +3,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getGames } from '../data/games';
 import { getSiteTitle } from '../data/site';
 import { getStatusScript, type StatusGameMeta } from '../scripts/status';
-import { sanitizeInlineScript } from '../i18n/messages';
+import { getMessages, sanitizeInlineScript, type Locale } from '../i18n/messages';
+
+interface Props {
+  locale?: Locale;
+}
 
 const workerUrl = import.meta.env.PUBLIC_STATUS_API_URL ?? '';
 
+const { locale = 'en' } = Astro.props;
+const messages = getMessages(locale);
+const page = messages.pages.status;
+
 // All games for the status page — games without a universeId show "no data"
-const allGames = getGames('en');
+const allGames = getGames(locale);
 const gameMeta: StatusGameMeta[] = allGames
   .filter(g => g.status !== 'in-development')
   .map(g => ({
@@ -19,30 +27,52 @@ const gameMeta: StatusGameMeta[] = allGames
     hasData:    g.universeId !== '',
   }));
 
-const statusScript = sanitizeInlineScript(getStatusScript(workerUrl, gameMeta));
+const statusScript = sanitizeInlineScript(getStatusScript(workerUrl, gameMeta, {
+  platformLabel:    page.platformLabel,
+  platformNote:     page.platformNote,
+  gamesMonitored:   page.gamesMonitored,
+  playingNow:       page.playingNow,
+  noDataYet:        page.noDataYet,
+  checking:         page.checking,
+  unavailable:      page.unavailable,
+  unavailableSub:   page.unavailableSub,
+  allOperational:   page.allOperational,
+  someIssues:       page.someIssues,
+  majorOutage:      page.majorOutage,
+  unknown:          page.unknown,
+  updatedAgo:       page.updatedAgo,
+  justNow:          page.justNow,
+  minAgo:           page.minAgo,
+  hrAgo:            page.hrAgo,
+  statusLabels:     page.statusLabels,
+  timeline:         page.timeline,
+  incidentStatus:   page.incidentStatus,
+  incidentTemplates: page.incidentTemplates,
+  noIncidents:      page.noIncidents,
+}));
 ---
 
 <BaseLayout
-  locale="en"
-  title={getSiteTitle('Status')}
-  description="Real-time status of Low Quality Interactive games and the Roblox platform."
+  locale={locale}
+  title={getSiteTitle(page.label)}
+  description={page.description}
   currentPage="status"
   routePath="status"
-  noAlternates={true}
+  noLocaleRedirect={true}
   extraScripts={[statusScript]}
   extraConnectSrc={workerUrl ? [workerUrl] : []}
 >
   <section class="hero">
-    <span class="kicker">System Status</span>
-    <h1>Service Status</h1>
-    <p class="lead">Real-time monitoring for our games and the Roblox platform. Refreshes automatically every 60 seconds.</p>
+    <span class="kicker">{page.kicker}</span>
+    <h1>{page.heading}</h1>
+    <p class="lead">{page.lead}</p>
   </section>
 
   <!-- Overall status banner -->
   <div id="status-banner" class="status-banner status-banner-loading" role="status" aria-live="polite">
     <div class="status-banner-icon" aria-hidden="true"></div>
     <div class="status-banner-body">
-      <strong id="status-banner-text">Checking status…</strong>
+      <strong id="status-banner-text">{page.checking}</strong>
       <span id="status-banner-sub"></span>
     </div>
     <span id="status-checked-at"></span>
@@ -50,15 +80,15 @@ const statusScript = sanitizeInlineScript(getStatusScript(workerUrl, gameMeta));
 
   <!-- Games -->
   <div class="section-header">
-    <h2>Our Games</h2>
+    <h2>{page.ourGamesHeading}</h2>
   </div>
-  <div id="status-games" class="status-games-grid" aria-label="Game status" aria-live="polite">
+  <div id="status-games" class="status-games-grid" aria-label={page.ourGamesHeading} aria-live="polite">
     {gameMeta.map(() => (
       <div class="status-game-card">
         <div class="status-game-header">
           <div class="status-game-info">
             <span class="status-dot status-dot-unknown" aria-hidden="true"></span>
-            <span class="status-game-name">Loading…</span>
+            <span class="status-game-name">{page.checking}</span>
           </div>
         </div>
       </div>
@@ -67,29 +97,25 @@ const statusScript = sanitizeInlineScript(getStatusScript(workerUrl, gameMeta));
 
   <!-- Roblox platform -->
   <div class="section-header section-header-spaced">
-    <h2>Roblox Platform</h2>
+    <h2>{page.robloxPlatformHeading}</h2>
   </div>
   <div class="card status-platform-card" id="status-platform" aria-live="polite">
     <div class="status-platform-row">
       <div class="status-game-info">
         <span class="status-dot status-dot-unknown" aria-hidden="true"></span>
-        <span class="status-game-name">Roblox Platform API</span>
+        <span class="status-game-name">{page.platformLabel}</span>
       </div>
-      <span class="status-badge status-badge-unknown">Loading…</span>
+      <span class="status-badge status-badge-unknown">{page.checking}</span>
     </div>
   </div>
-  <p class="status-platform-footnote">
-    This indicator is derived from Roblox API response health and may not reflect all platform issues.
-    For authoritative Roblox status, see
-    <a href="https://status.roblox.com" target="_blank" rel="noopener noreferrer">status.roblox.com</a>.
-  </p>
+  <p class="status-platform-footnote">{page.platformFootnote}</p>
 
   <!-- Incidents -->
   <div class="section-header section-header-spaced">
-    <h2>Incident History</h2>
+    <h2>{page.incidentHistoryHeading}</h2>
   </div>
   <div id="status-incidents" class="status-incidents-list" aria-live="polite">
-    <p class="status-no-incidents">Loading…</p>
+    <p class="status-no-incidents">{page.checking}</p>
   </div>
 
 </BaseLayout>

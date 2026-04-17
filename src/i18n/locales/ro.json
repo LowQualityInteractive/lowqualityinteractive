@@ -45,6 +45,11 @@
       "discord": "Discord",
       "youtube": "YouTube",
       "robloxGroup": "Grup Roblox"
+    },
+    "alertBar": {
+      "degraded": "Unele servicii înregistrează probleme de performanță.",
+      "down": "Experimentăm o întrerupere majoră care afectează unele servicii.",
+      "viewStatus": "Vezi status"
     }
   },
   "pages": {
@@ -130,6 +135,60 @@
         "featuresHeading": "Caracteristici",
         "linksHeading": "Linkuri oficiale"
       }
+    },
+    "status": {
+      "label": "Status",
+      "description": "Starea în timp real a jocurilor Low Quality Interactive și a platformei Roblox.",
+      "kicker": "Starea Sistemului",
+      "heading": "Starea Serviciilor",
+      "lead": "Monitorizare în timp real a jocurilor noastre și a platformei Roblox. Se actualizează automat la fiecare 60 de secunde.",
+      "ourGamesHeading": "Jocurile Noastre",
+      "robloxPlatformHeading": "Platforma Roblox",
+      "incidentHistoryHeading": "Istoricul Incidentelor",
+      "platformLabel": "Roblox",
+      "platformNote": "Timp de răspuns: {ms}ms",
+      "platformFootnote": "Acest indicator este derivat din starea API-ului Roblox și poate să nu reflecte toate problemele platformei. Pentru starea oficială Roblox, vizitează status.roblox.com.",
+      "gamesMonitored": "{n} jocuri monitorizate",
+      "playingNow": "{n} joacă acum",
+      "noDataYet": "Statusul live va fi disponibil după lansare",
+      "checking": "Se verifică statusul\u2026",
+      "unavailable": "Status indisponibil",
+      "unavailableSub": "Nu s-a putut accesa API-ul de status. Se încearcă din nou\u2026",
+      "allOperational": "Toate sistemele funcționează",
+      "someIssues": "Unele sisteme au probleme",
+      "majorOutage": "Pană majoră detectată",
+      "unknown": "Status necunoscut",
+      "updatedAgo": "Actualizat {ago}",
+      "justNow": "chiar acum",
+      "minAgo": "acum {n} min",
+      "hrAgo": "acum {n} h",
+      "statusLabels": {
+        "operational": "Operațional",
+        "degraded": "Degradat",
+        "down": "Inactiv",
+        "unknown": "Necunoscut",
+        "preview": "Previzualizare"
+      },
+      "timeline": {
+        "ariaLabel": "Disponibilitate în ultimele {n} verificări",
+        "up": "Online",
+        "down": "Offline"
+      },
+      "incidentStatus": {
+        "investigating": "Se investighează",
+        "monitoring": "Monitorizare",
+        "resolved": "Rezolvat"
+      },
+      "incidentTemplates": {
+        "titleDegraded": "{service}: performanță degradată",
+        "titleOutage": "{service}: pană",
+        "detectedDegraded": "Performanță degradată detectată la {service}.",
+        "detectedOutage": "Pană detectată la {service}.",
+        "recovered": "{service} a revenit la funcționarea normală.",
+        "ongoing": "Problema la {service} continuă. Monitorizare activă.",
+        "trackedUnderRoblox": "{service}: problemă urmărită în incidentul platformei Roblox."
+      },
+      "noIncidents": "Niciun incident recent."
     },
     "notFound": {
       "label": "404",

@@ -33,12 +33,13 @@ interface Props {
   extraScripts?: string[];
   extraConnectSrc?: string[];
   noAlternates?: boolean;
+  noLocaleRedirect?: boolean;
 }
 
 const {
   locale, title, description, currentPage, jsonLd, ogImage,
   routePath = '', extraScripts = [],
-  extraConnectSrc = [], noAlternates = false,
+  extraConnectSrc = [], noAlternates = false, noLocaleRedirect = false,
 } = Astro.props;
 const currentYear = new Date().getFullYear();
 const messages = getMessages(locale);
@@ -46,6 +47,7 @@ const homeHref = getLocalePath(locale);
 const gamesHref = getLocalePath(locale, 'games');
 const blogsHref = getLocalePath(locale, 'blogs');
 const connectHref = getLocalePath(locale, 'connect');
+const statusHref = getLocalePath(locale, 'status');
 const canonicalUrl = getLocaleAbsolutePath(locale, routePath);
 const alternateLinks = getAlternateLinks(routePath);
 const xDefaultHref = getLocaleAbsolutePath('en', routePath);
@@ -59,6 +61,7 @@ const siteScript = sanitizeInlineScript(
     },
     LOCALE_OPTIONS,
     locale === 'en',
+    noLocaleRedirect,
   ),
 );
 const noticeScript = sanitizeInlineScript(getNoticeScript(messages.chrome.cookie));
@@ -68,8 +71,14 @@ const liveGamesForScript = getGames(locale).filter((g) => g.status !== 'in-devel
   status: g.status,
   universeId: g.universeId,
 }));
+const statusWorkerUrl = import.meta.env.PUBLIC_STATUS_API_URL ?? '';
 const liveScript = sanitizeInlineScript(
-  getLiveScript(messages.chrome.live, liveGamesForScript, DISCORD_GUILD_ID),
+  getLiveScript(
+    { ...messages.chrome.live, alertBar: messages.chrome.alertBar },
+    liveGamesForScript,
+    DISCORD_GUILD_ID,
+    statusWorkerUrl,
+  ),
 );
 const translateBootstrap = sanitizeInlineScript(getTranslateBootstrap(locale));
 
@@ -98,7 +107,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: https:",
-  `connect-src 'self' https://api.mymemory.translated.net https://games.roblox.com https://groups.roblox.com https://discord.com${extraConnectSrc.filter(Boolean).map(u => ' ' + u).join('')}`,
+  `connect-src 'self' https://api.mymemory.translated.net https://games.roblox.com https://groups.roblox.com https://discord.com${statusWorkerUrl ? ' ' + statusWorkerUrl : ''}${extraConnectSrc.filter(Boolean).map(u => ' ' + u).join('')}`,
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'none'",
@@ -172,7 +181,7 @@ const csp = [
           <span class="nav-update-badge" data-update-badge hidden aria-hidden="true"></span>
         </a>
         <a class="button primary" href={connectHref} aria-current={currentPage === 'connect' ? 'page' : undefined}>{messages.chrome.nav.connect}</a>
-        <a class="status-nav-btn" href="/status" aria-label="Site status" aria-current={currentPage === 'status' ? 'page' : undefined}>
+        <a class="status-nav-btn" href={statusHref} aria-label="Site status" aria-current={currentPage === 'status' ? 'page' : undefined}>
           <span class="status-nav-dot" data-status-nav-dot aria-hidden="true"></span>
           <span class="status-nav-label">Status</span>
         </a>
@@ -238,6 +247,14 @@ const csp = [
     </div>
   </header>
 
+  <div id="site-alert-bar" class="site-alert-bar" hidden aria-live="polite" role="alert">
+    <div class="container site-alert-inner">
+      <span class="site-alert-dot" aria-hidden="true"></span>
+      <span class="site-alert-text"></span>
+      <a class="site-alert-link" href={statusHref}>{messages.chrome.alertBar.viewStatus}</a>
+    </div>
+  </div>
+
   <main id="main-content">
     <div class="container">
       <slot />
@@ -260,7 +277,7 @@ const csp = [
           <a href={gamesHref}>{messages.chrome.nav.games}</a>
           <a href={blogsHref}>{messages.chrome.nav.updates}</a>
           <a href={connectHref}>{messages.chrome.nav.connect}</a>
-          <a href="/status">Status</a>
+          <a href={statusHref}>{messages.pages.status.label}</a>
         </div>
         <div class="footer-col">
           <h3>{messages.chrome.footer.connectHeading}</h3>

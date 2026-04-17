@@ -45,6 +45,11 @@
       "discord": "Discord",
       "youtube": "YouTube",
       "robloxGroup": "Groupe Roblox"
+    },
+    "alertBar": {
+      "degraded": "Certains services connaissent des problèmes de performance.",
+      "down": "Une panne majeure affecte certains services.",
+      "viewStatus": "Voir le statut"
     }
   },
   "pages": {
@@ -130,6 +135,60 @@
         "featuresHeading": "Caractéristiques",
         "linksHeading": "Liens officiels"
       }
+    },
+    "status": {
+      "label": "Statut",
+      "description": "Statut en temps réel des jeux de Low Quality Interactive et de la plateforme Roblox.",
+      "kicker": "État du Système",
+      "heading": "État des Services",
+      "lead": "Surveillance en temps réel de nos jeux et de la plateforme Roblox. Mise à jour automatique toutes les 60 secondes.",
+      "ourGamesHeading": "Nos Jeux",
+      "robloxPlatformHeading": "Plateforme Roblox",
+      "incidentHistoryHeading": "Historique des Incidents",
+      "platformLabel": "Roblox",
+      "platformNote": "Temps de réponse : {ms}ms",
+      "platformFootnote": "Cet indicateur est basé sur l'état de l'API Roblox et peut ne pas refléter tous les problèmes de la plateforme. Pour le statut officiel Roblox, consultez status.roblox.com.",
+      "gamesMonitored": "{n} jeux surveillés",
+      "playingNow": "{n} jouent maintenant",
+      "noDataYet": "Statut en direct disponible après la sortie",
+      "checking": "Vérification du statut\u2026",
+      "unavailable": "Statut indisponible",
+      "unavailableSub": "Impossible d'atteindre l'API de statut. Nouvelle tentative\u2026",
+      "allOperational": "Tous les systèmes opérationnels",
+      "someIssues": "Certains systèmes rencontrent des problèmes",
+      "majorOutage": "Panne majeure détectée",
+      "unknown": "Statut inconnu",
+      "updatedAgo": "Mis à jour {ago}",
+      "justNow": "à l'instant",
+      "minAgo": "il y a {n} min",
+      "hrAgo": "il y a {n} h",
+      "statusLabels": {
+        "operational": "Opérationnel",
+        "degraded": "Dégradé",
+        "down": "Hors service",
+        "unknown": "Inconnu",
+        "preview": "Aperçu"
+      },
+      "timeline": {
+        "ariaLabel": "Disponibilité sur les {n} dernières vérifications",
+        "up": "En ligne",
+        "down": "Hors ligne"
+      },
+      "incidentStatus": {
+        "investigating": "En cours d'analyse",
+        "monitoring": "Surveillance",
+        "resolved": "Résolu"
+      },
+      "incidentTemplates": {
+        "titleDegraded": "{service} : performances dégradées",
+        "titleOutage": "{service} : panne",
+        "detectedDegraded": "Performances dégradées détectées pour {service}.",
+        "detectedOutage": "Panne détectée pour {service}.",
+        "recovered": "{service} a retrouvé un fonctionnement normal.",
+        "ongoing": "Le problème sur {service} persiste. Surveillance en cours.",
+        "trackedUnderRoblox": "{service} : problème suivi dans l'incident de la plateforme Roblox."
+      },
+      "noIncidents": "Aucun incident récent."
     },
     "notFound": {
       "label": "404",

@@ -45,6 +45,11 @@
       "discord": "Discord",
       "youtube": "YouTube",
       "robloxGroup": "Ομάδα Roblox"
+    },
+    "alertBar": {
+      "degraded": "Ορισμένες υπηρεσίες αντιμετωπίζουν προβλήματα απόδοσης.",
+      "down": "Αντιμετωπίζουμε σημαντική διακοπή σε ορισμένες υπηρεσίες.",
+      "viewStatus": "Προβολή κατάστασης"
     }
   },
   "pages": {
@@ -130,6 +135,60 @@
         "featuresHeading": "Χαρακτηριστικά",
         "linksHeading": "Επίσημοι σύνδεσμοι"
       }
+    },
+    "status": {
+      "label": "Κατάσταση",
+      "description": "Κατάσταση σε πραγματικό χρόνο των παιχνιδιών της Low Quality Interactive και της πλατφόρμας Roblox.",
+      "kicker": "Κατάσταση Συστήματος",
+      "heading": "Κατάσταση Υπηρεσιών",
+      "lead": "Παρακολούθηση σε πραγματικό χρόνο των παιχνιδιών μας και της πλατφόρμας Roblox. Ανανεώνεται αυτόματα κάθε 60 δευτερόλεπτα.",
+      "ourGamesHeading": "Τα Παιχνίδια Μας",
+      "robloxPlatformHeading": "Πλατφόρμα Roblox",
+      "incidentHistoryHeading": "Ιστορικό Συμβάντων",
+      "platformLabel": "Roblox",
+      "platformNote": "Χρόνος απόκρισης: {ms}ms",
+      "platformFootnote": "Αυτός ο δείκτης βασίζεται στην υγεία του API της Roblox και μπορεί να μην αντικατοπτρίζει όλα τα προβλήματα της πλατφόρμας. Για την επίσημη κατάσταση Roblox, δες status.roblox.com.",
+      "gamesMonitored": "{n} παιχνίδια παρακολουθούνται",
+      "playingNow": "{n} παίζουν τώρα",
+      "noDataYet": "Η κατάσταση σε πραγματικό χρόνο θα είναι διαθέσιμη μετά την κυκλοφορία",
+      "checking": "Έλεγχος κατάστασης\u2026",
+      "unavailable": "Η κατάσταση δεν είναι διαθέσιμη",
+      "unavailableSub": "Δεν ήταν δυνατή η πρόσβαση στο API κατάστασης. Επανάληψη\u2026",
+      "allOperational": "Όλα τα συστήματα λειτουργούν",
+      "someIssues": "Κάποια συστήματα αντιμετωπίζουν προβλήματα",
+      "majorOutage": "Εντοπίστηκε σοβαρή διακοπή",
+      "unknown": "Άγνωστη κατάσταση",
+      "updatedAgo": "Ενημερώθηκε {ago}",
+      "justNow": "μόλις τώρα",
+      "minAgo": "πριν {n} λεπτά",
+      "hrAgo": "πριν {n} ώρες",
+      "statusLabels": {
+        "operational": "Λειτουργικό",
+        "degraded": "Υποβαθμισμένο",
+        "down": "Εκτός λειτουργίας",
+        "unknown": "Άγνωστο",
+        "preview": "Προεπισκόπηση"
+      },
+      "timeline": {
+        "ariaLabel": "Διαθεσιμότητα στους τελευταίους {n} ελέγχους",
+        "up": "Σε λειτουργία",
+        "down": "Εκτός"
+      },
+      "incidentStatus": {
+        "investigating": "Διερεύνηση",
+        "monitoring": "Παρακολούθηση",
+        "resolved": "Επιλύθηκε"
+      },
+      "incidentTemplates": {
+        "titleDegraded": "{service}: υποβαθμισμένη απόδοση",
+        "titleOutage": "{service}: διακοπή",
+        "detectedDegraded": "Εντοπίστηκε υποβαθμισμένη απόδοση για {service}.",
+        "detectedOutage": "Εντοπίστηκε διακοπή για {service}.",
+        "recovered": "Το {service} επέστρεψε σε κανονική λειτουργία.",
+        "ongoing": "Το πρόβλημα με {service} συνεχίζεται. Η παρακολούθηση συνεχίζεται.",
+        "trackedUnderRoblox": "{service}: το πρόβλημα παρακολουθείται στο συμβάν πλατφόρμας Roblox."
+      },
+      "noIncidents": "Δεν υπάρχουν πρόσφατα συμβάντα."
     },
     "notFound": {
       "label": "404",

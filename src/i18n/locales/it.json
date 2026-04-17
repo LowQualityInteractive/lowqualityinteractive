@@ -45,6 +45,11 @@
       "discord": "Discord",
       "youtube": "YouTube",
       "robloxGroup": "Gruppo Roblox"
+    },
+    "alertBar": {
+      "degraded": "Alcuni servizi stanno riscontrando problemi di prestazioni.",
+      "down": "Stiamo riscontrando un'interruzione grave che interessa alcuni servizi.",
+      "viewStatus": "Vedi stato"
     }
   },
   "pages": {
@@ -130,6 +135,60 @@
         "featuresHeading": "Caratteristiche",
         "linksHeading": "Link ufficiali"
       }
+    },
+    "status": {
+      "label": "Stato",
+      "description": "Stato in tempo reale dei giochi di Low Quality Interactive e della piattaforma Roblox.",
+      "kicker": "Stato del Sistema",
+      "heading": "Stato dei Servizi",
+      "lead": "Monitoraggio in tempo reale dei nostri giochi e della piattaforma Roblox. Si aggiorna automaticamente ogni 60 secondi.",
+      "ourGamesHeading": "I Nostri Giochi",
+      "robloxPlatformHeading": "Piattaforma Roblox",
+      "incidentHistoryHeading": "Storico Incidenti",
+      "platformLabel": "Roblox",
+      "platformNote": "Tempo di risposta: {ms}ms",
+      "platformFootnote": "Questo indicatore si basa sullo stato dell'API Roblox e potrebbe non riflettere tutti i problemi della piattaforma. Per lo stato ufficiale di Roblox, visita status.roblox.com.",
+      "gamesMonitored": "{n} giochi monitorati",
+      "playingNow": "{n} stanno giocando ora",
+      "noDataYet": "Stato live disponibile dopo il rilascio",
+      "checking": "Verifica dello stato\u2026",
+      "unavailable": "Stato non disponibile",
+      "unavailableSub": "Impossibile raggiungere l'API di stato. Nuovo tentativo\u2026",
+      "allOperational": "Tutti i sistemi operativi",
+      "someIssues": "Alcuni sistemi con problemi",
+      "majorOutage": "Interruzione grave rilevata",
+      "unknown": "Stato sconosciuto",
+      "updatedAgo": "Aggiornato {ago}",
+      "justNow": "proprio ora",
+      "minAgo": "{n} min fa",
+      "hrAgo": "{n} h fa",
+      "statusLabels": {
+        "operational": "Operativo",
+        "degraded": "Degradato",
+        "down": "Non disponibile",
+        "unknown": "Sconosciuto",
+        "preview": "Anteprima"
+      },
+      "timeline": {
+        "ariaLabel": "Disponibilità nelle ultime {n} verifiche",
+        "up": "Online",
+        "down": "Offline"
+      },
+      "incidentStatus": {
+        "investigating": "Indagine in corso",
+        "monitoring": "Monitoraggio",
+        "resolved": "Risolto"
+      },
+      "incidentTemplates": {
+        "titleDegraded": "{service}: prestazioni degradate",
+        "titleOutage": "{service}: interruzione",
+        "detectedDegraded": "Rilevate prestazioni degradate per {service}.",
+        "detectedOutage": "Rilevata interruzione di {service}.",
+        "recovered": "{service} è tornato alla normale operatività.",
+        "ongoing": "Il problema su {service} è ancora in corso. Monitoraggio attivo.",
+        "trackedUnderRoblox": "{service}: problema tracciato nell'incidente della piattaforma Roblox."
+      },
+      "noIncidents": "Nessun incidente recente."
     },
     "notFound": {
       "label": "404",

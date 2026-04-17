@@ -38,6 +38,11 @@
       "online": "{n} online",
       "updateBadgeLabel": "New update available"
     },
+    "alertBar": {
+      "degraded": "Some services are experiencing degraded performance.",
+      "down": "We are experiencing a major outage affecting some services.",
+      "viewStatus": "View status"
+    },
     "footer": {
       "tagline": "Shipping since 2024. Finishing never.",
       "siteHeading": "Site",
@@ -142,6 +147,60 @@
         "featuresHeading": "Features",
         "linksHeading": "Official links"
       }
+    },
+    "status": {
+      "label": "Status",
+      "description": "Real-time status of Low Quality Interactive games and the Roblox platform.",
+      "kicker": "System Status",
+      "heading": "Service Status",
+      "lead": "Real-time monitoring for our games and the Roblox platform. Refreshes automatically every 60 seconds.",
+      "ourGamesHeading": "Our Games",
+      "robloxPlatformHeading": "Roblox Platform",
+      "incidentHistoryHeading": "Incident History",
+      "platformLabel": "Roblox",
+      "platformNote": "Response time: {ms}ms",
+      "platformFootnote": "This indicator is derived from Roblox API response health and may not reflect all platform issues. For authoritative Roblox status, see status.roblox.com.",
+      "gamesMonitored": "{n} games monitored",
+      "playingNow": "{n} playing now",
+      "noDataYet": "Live status available after release",
+      "checking": "Checking status\u2026",
+      "unavailable": "Status unavailable",
+      "unavailableSub": "Could not reach the status API. Retrying\u2026",
+      "allOperational": "All systems operational",
+      "someIssues": "Some systems experiencing issues",
+      "majorOutage": "Major outage detected",
+      "unknown": "Status unknown",
+      "updatedAgo": "Updated {ago}",
+      "justNow": "just now",
+      "minAgo": "{n} min ago",
+      "hrAgo": "{n} hr ago",
+      "statusLabels": {
+        "operational": "Operational",
+        "degraded": "Degraded",
+        "down": "Down",
+        "unknown": "Unknown",
+        "preview": "Preview"
+      },
+      "timeline": {
+        "ariaLabel": "Uptime over last {n} checks",
+        "up": "Up",
+        "down": "Down"
+      },
+      "incidentStatus": {
+        "investigating": "Investigating",
+        "monitoring": "Monitoring",
+        "resolved": "Resolved"
+      },
+      "incidentTemplates": {
+        "titleDegraded": "{service}: degraded performance",
+        "titleOutage": "{service}: outage",
+        "detectedDegraded": "Detected degraded performance for {service}.",
+        "detectedOutage": "Detected outage for {service}.",
+        "recovered": "{service} has returned to normal operations.",
+        "ongoing": "Issue with {service} is ongoing. Continuing to monitor.",
+        "trackedUnderRoblox": "{service}: issue tracked under Roblox platform incident."
+      },
+      "noIncidents": "No recent incidents."
     },
     "notFound": {
       "label": "404",

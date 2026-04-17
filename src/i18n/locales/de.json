@@ -45,6 +45,11 @@
       "discord": "Discord",
       "youtube": "YouTube",
       "robloxGroup": "Roblox-Gruppe"
+    },
+    "alertBar": {
+      "degraded": "Einige Dienste sind beeinträchtigt.",
+      "down": "Ein größerer Ausfall betrifft einige Dienste.",
+      "viewStatus": "Status anzeigen"
     }
   },
   "pages": {
@@ -130,6 +135,60 @@
         "featuresHeading": "Features",
         "linksHeading": "Offizielle Links"
       }
+    },
+    "status": {
+      "label": "Status",
+      "description": "Echtzeit-Status der Spiele von Low Quality Interactive und der Roblox-Plattform.",
+      "kicker": "Systemstatus",
+      "heading": "Dienststatus",
+      "lead": "Echtzeit-Überwachung unserer Spiele und der Roblox-Plattform. Aktualisiert sich alle 60 Sekunden.",
+      "ourGamesHeading": "Unsere Spiele",
+      "robloxPlatformHeading": "Roblox-Plattform",
+      "incidentHistoryHeading": "Störungsverlauf",
+      "platformLabel": "Roblox",
+      "platformNote": "Antwortzeit: {ms}ms",
+      "platformFootnote": "Dieser Indikator basiert auf der Roblox-API-Reaktionsgesundheit und spiegelt möglicherweise nicht alle Plattformprobleme wider. Den offiziellen Roblox-Status findest du auf status.roblox.com.",
+      "gamesMonitored": "{n} Spiele überwacht",
+      "playingNow": "{n} spielen gerade",
+      "noDataYet": "Live-Status nach Veröffentlichung verfügbar",
+      "checking": "Status wird geprüft\u2026",
+      "unavailable": "Status nicht verfügbar",
+      "unavailableSub": "Status-API nicht erreichbar. Wiederholungsversuch\u2026",
+      "allOperational": "Alle Systeme betriebsbereit",
+      "someIssues": "Einige Systeme beeinträchtigt",
+      "majorOutage": "Größerer Ausfall erkannt",
+      "unknown": "Status unbekannt",
+      "updatedAgo": "Aktualisiert {ago}",
+      "justNow": "gerade eben",
+      "minAgo": "vor {n} Min.",
+      "hrAgo": "vor {n} Std.",
+      "statusLabels": {
+        "operational": "Betriebsbereit",
+        "degraded": "Beeinträchtigt",
+        "down": "Ausgefallen",
+        "unknown": "Unbekannt",
+        "preview": "Vorschau"
+      },
+      "timeline": {
+        "ariaLabel": "Verfügbarkeit der letzten {n} Prüfungen",
+        "up": "Online",
+        "down": "Offline"
+      },
+      "incidentStatus": {
+        "investigating": "Untersuchung",
+        "monitoring": "Überwachung",
+        "resolved": "Behoben"
+      },
+      "incidentTemplates": {
+        "titleDegraded": "{service}: Leistung beeinträchtigt",
+        "titleOutage": "{service}: Ausfall",
+        "detectedDegraded": "Beeinträchtigte Leistung bei {service} erkannt.",
+        "detectedOutage": "Ausfall bei {service} erkannt.",
+        "recovered": "{service} läuft wieder normal.",
+        "ongoing": "Problem mit {service} besteht weiterhin. Überwachung läuft.",
+        "trackedUnderRoblox": "{service}: Problem wird unter dem Roblox-Plattform-Incident verfolgt."
+      },
+      "noIncidents": "Keine aktuellen Störungen."
     },
     "notFound": {
       "label": "404",
