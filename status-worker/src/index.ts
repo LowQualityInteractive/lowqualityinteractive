@@ -46,7 +46,7 @@ interface Incident {
 // ── Games catalogue ────────────────────────────────────────────────────────
 
 const GAMES = [
-  { id: 'eradication',   name: 'ERADICATION',   universeId: '5788461409' },
+  { id: 'eradication', name: 'ERADICATION', universeId: '5788461409' },
   { id: 'donpollo-obby', name: 'DON POLLO OBBY', universeId: '7915083902' },
 ] as const;
 
@@ -99,9 +99,9 @@ async function checkStatuses(): Promise<StatusSnapshot> {
     // Game is operational as long as the API returned data for it.
     // Only degrade/down based on the platform — not player count.
     const gameStatus: CheckStatus =
-      robloxStatus === 'down'      ? 'down'
-      : robloxStatus === 'degraded' ? 'degraded'
-      : 'operational';
+      robloxStatus === 'down' ? 'down'
+        : robloxStatus === 'degraded' ? 'degraded'
+          : 'operational';
     return {
       ...game,
       status: gameStatus,
@@ -180,7 +180,7 @@ async function updateIncidents(
     const prevSvc = prevServices.find(p => p.id === svc.id);
     const prevStatus = prevSvc?.status ?? 'operational';
     const wasOk = prevStatus === 'operational';
-    const isOk  = svc.status === 'operational';
+    const isOk = svc.status === 'operational';
 
     // Transition: ok → not ok — open a new incident
     if (wasOk && !isOk) {
@@ -276,7 +276,7 @@ async function getHistory(kv: KVNamespace) {
   return {
     uptime: {
       '24h': Object.fromEntries(services.map(s => [s, uptime(h24, s)])),
-      '7d':  Object.fromEntries(services.map(s => [s, uptime(h7d, s)])),
+      '7d': Object.fromEntries(services.map(s => [s, uptime(h7d, s)])),
     },
     timeline: Object.fromEntries(
       services.map(s => [
@@ -303,7 +303,7 @@ function corsHeaders(origin: string, allowed: string): HeadersInit {
 }
 
 async function handleFetch(request: Request, env: Env): Promise<Response> {
-  const origin  = request.headers.get('Origin') ?? '';
+  const origin = request.headers.get('Origin') ?? '';
   const headers = corsHeaders(origin, env.ALLOWED_ORIGIN ?? '*');
 
   if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers });
