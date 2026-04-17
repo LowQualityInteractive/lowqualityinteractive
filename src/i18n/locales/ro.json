@@ -120,7 +120,16 @@
       "kicker": "Pagina jocului",
       "openGame": "Deschide jocul",
       "latestUpdate": "Cel mai nou update",
-      "backToGames": "Înapoi la jocuri"
+      "backToGames": "Înapoi la jocuri",
+      "about": {
+        "kicker": "Despre acest joc",
+        "developer": "Dezvoltator",
+        "platform": "Platformă",
+        "genre": "Gen",
+        "status": "Stare",
+        "featuresHeading": "Caracteristici",
+        "linksHeading": "Linkuri oficiale"
+      }
     },
     "notFound": {
       "label": "404",
@@ -160,7 +169,12 @@
     "games": {
       "eradication": {
         "genreLabel": "Shooter PvE",
-        "genre": ["Shooter", "Multiplayer", "PvE", "Strategie"],
+        "genre": [
+          "Shooter",
+          "Multiplayer",
+          "PvE",
+          "Strategie"
+        ],
         "description": "Un shooter de control teritorial pe echipe în care jucătorii luptă să-și recucerească orașul de la Whiskorians.",
         "pageDescription": "ERADICATION - un shooter pe echipe cu control teritorial pe Roblox.",
         "pageLead": "Treci prin valuri din ce în ce mai grele și supraviețuiește cât poți de mult.",
@@ -170,7 +184,10 @@
       },
       "donpollo-obby": {
         "genreLabel": "Obby",
-        "genre": ["Platformer", "Obby"],
+        "genre": [
+          "Platformer",
+          "Obby"
+        ],
         "description": "Un obby propulsat de meme construit în jurul lui Don Pollo.",
         "pageDescription": "DON POLLO OBBY - haos cu obstacole alimentat de meme pe Roblox.",
         "pageLead": "Haos cu obstacole, restarturi rapide și trasee de speedrun.",
@@ -180,7 +197,12 @@
       },
       "favela-94": {
         "genreLabel": "Shooter tactic",
-        "genre": ["Shooter", "Multiplayer", "Tactic", "PvP"],
+        "genre": [
+          "Shooter",
+          "Multiplayer",
+          "Tactic",
+          "PvP"
+        ],
         "description": "Un shooter tactic întunecat de luptă la distanță mică în favelele din 1994.",
         "pageDescription": "Favela '94 - un shooter tactic de luptă apropiată pe Roblox.",
         "pageLead": "Luptă prin alei înguste și pe acoperișuri în lupte intense la distanță mică.",

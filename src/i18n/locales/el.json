@@ -120,7 +120,16 @@
       "kicker": "Σελίδα παιχνιδιού",
       "openGame": "Άνοιγμα παιχνιδιού",
       "latestUpdate": "Τελευταίο update",
-      "backToGames": "Πίσω στα παιχνίδια"
+      "backToGames": "Πίσω στα παιχνίδια",
+      "about": {
+        "kicker": "Σχετικά με αυτό το παιχνίδι",
+        "developer": "Δημιουργός",
+        "platform": "Πλατφόρμα",
+        "genre": "Είδος",
+        "status": "Κατάσταση",
+        "featuresHeading": "Χαρακτηριστικά",
+        "linksHeading": "Επίσημοι σύνδεσμοι"
+      }
     },
     "notFound": {
       "label": "404",
@@ -160,7 +169,12 @@
     "games": {
       "eradication": {
         "genreLabel": "PvE shooter",
-        "genre": ["Shooter", "Multiplayer", "PvE", "Στρατηγική"],
+        "genre": [
+          "Shooter",
+          "Multiplayer",
+          "PvE",
+          "Στρατηγική"
+        ],
         "description": "Ένα ομαδικό shooter ελέγχου περιοχής όπου οι παίκτες παλεύουν να πάρουν πίσω την πόλη τους από τους Whiskorians.",
         "pageDescription": "ERADICATION - ένα ομαδικό shooter ελέγχου περιοχής στο Roblox.",
         "pageLead": "Περάστε μέσα από όλο και πιο σκληρά κύματα και επιβιώστε όσο περισσότερο μπορείτε.",
@@ -170,7 +184,10 @@
       },
       "donpollo-obby": {
         "genreLabel": "Obby",
-        "genre": ["Platformer", "Obby"],
+        "genre": [
+          "Platformer",
+          "Obby"
+        ],
         "description": "Ένα meme-driven obby χτισμένο γύρω από τον Don Pollo.",
         "pageDescription": "DON POLLO OBBY - χαμός με εμπόδια και memes στο Roblox.",
         "pageLead": "Χάος με εμπόδια, γρήγορα restart και routes για speedrun.",
@@ -180,7 +197,12 @@
       },
       "favela-94": {
         "genreLabel": "Tactical shooter",
-        "genre": ["Shooter", "Multiplayer", "Τακτική", "PvP"],
+        "genre": [
+          "Shooter",
+          "Multiplayer",
+          "Τακτική",
+          "PvP"
+        ],
         "description": "Ένα σκοτεινό τακτικό shooter σώμα με σώμα στις φαβέλες του 1994.",
         "pageDescription": "Favela '94 - ένα τακτικό shooter σώμα με σώμα στο Roblox.",
         "pageLead": "Μάχεσαι σε στενά σοκάκια και σε ταράτσες σε έντονες αναμετρήσεις.",

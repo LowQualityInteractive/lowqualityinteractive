@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getGames } from '../data/games';
+import { getSiteTitle } from '../data/site';
+import { getStatusScript, type StatusGameMeta } from '../scripts/status';
+import { sanitizeInlineScript } from '../i18n/messages';
+
+const workerUrl = import.meta.env.PUBLIC_STATUS_API_URL ?? '';
+
+// All games for the status page — games without a universeId show "no data"
+const allGames = getGames('en');
+const gameMeta: StatusGameMeta[] = allGames
+  .filter(g => g.status !== 'in-development')
+  .map(g => ({
+    id:         g.id,
+    name:       g.name,
+    slug:       g.slug,
+    gameStatus: g.status,
+    hasData:    g.universeId !== '',
+  }));
+
+const statusScript = sanitizeInlineScript(getStatusScript(workerUrl, gameMeta));
+---
+
+<BaseLayout
+  locale="en"
+  title={getSiteTitle('Status')}
+  description="Real-time status of Low Quality Interactive games and the Roblox platform."
+  currentPage="status"
+  routePath="status"
+  noAlternates={true}
+  extraScripts={[statusScript]}
+  extraConnectSrc={workerUrl ? [workerUrl] : []}
+>
+  <section class="hero">
+    <span class="kicker">System Status</span>
+    <h1>Service Status</h1>
+    <p class="lead">Real-time monitoring for our games and the Roblox platform. Refreshes automatically every 60 seconds.</p>
+  </section>
+
+  <!-- Overall status banner -->
+  <div id="status-banner" class="status-banner status-banner-loading" role="status" aria-live="polite">
+    <div class="status-banner-icon" aria-hidden="true"></div>
+    <div class="status-banner-body">
+      <strong id="status-banner-text">Checking status…</strong>
+      <span id="status-banner-sub"></span>
+    </div>
+    <span id="status-checked-at"></span>
+  </div>
+
+  <!-- Games -->
+  <div class="section-header">
+    <h2>Our Games</h2>
+  </div>
+  <div id="status-games" class="status-games-grid" aria-label="Game status" aria-live="polite">
+    {gameMeta.map(() => (
+      <div class="status-game-card">
+        <div class="status-game-header">
+          <div class="status-game-info">
+            <span class="status-dot status-dot-unknown" aria-hidden="true"></span>
+            <span class="status-game-name">Loading…</span>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Roblox platform -->
+  <div class="section-header section-header-spaced">
+    <h2>Roblox Platform</h2>
+  </div>
+  <div class="card status-platform-card" id="status-platform" aria-live="polite">
+    <div class="status-platform-row">
+      <div class="status-game-info">
+        <span class="status-dot status-dot-unknown" aria-hidden="true"></span>
+        <span class="status-game-name">Roblox Platform API</span>
+      </div>
+      <span class="status-badge status-badge-unknown">Loading…</span>
+    </div>
+  </div>
+  <p class="status-platform-footnote">
+    This indicator is derived from Roblox API response health and may not reflect all platform issues.
+    For authoritative Roblox status, see
+    <a href="https://status.roblox.com" target="_blank" rel="noopener noreferrer">status.roblox.com</a>.
+  </p>
+
+  <!-- Incidents -->
+  <div class="section-header section-header-spaced">
+    <h2>Incident History</h2>
+  </div>
+  <div id="status-incidents" class="status-incidents-list" aria-live="polite">
+    <p class="status-no-incidents">Loading…</p>
+  </div>
+
+  {!workerUrl && (
+    <div class="card" style="margin-top:2rem;border-color:rgba(224,160,48,0.4);background:rgba(224,160,48,0.06);">
+      <h2 style="font-size:var(--fs-lg);color:var(--text);">Worker URL not configured</h2>
+      <p>Set <code>PUBLIC_STATUS_API_URL</code> in your <code>.env</code> file to enable live status data.</p>
+    </div>
+  )}
+</BaseLayout>

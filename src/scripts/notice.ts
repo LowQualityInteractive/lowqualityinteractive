@@ -52,16 +52,13 @@ export function getNoticeScript(messages: CookieNoticeMessages) {
   banner.appendChild(inner);
   document.body.appendChild(banner);
 
-  function setCookie(name, value, days) {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
-  }
-
   function dismiss(accept) {
-    if (window.__lqiTheme) {
-      window.__lqiTheme.grantConsent();
-    } else {
-      setCookie('lqi-ok', '1', 365);
+    if (accept) {
+      if (window.__lqiTheme) {
+        window.__lqiTheme.grantConsent();
+      } else {
+        window.__lqiCookies.set('lqi-ok', '1', 365);
+      }
     }
     banner.classList.add('is-hidden');
     window.setTimeout(() => banner.remove(), 380);

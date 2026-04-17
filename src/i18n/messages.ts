@@ -162,3 +162,10 @@ export function interpolate(
 export function sanitizeInlineScript(script: string) {
   return script.replace(/<\/script/gi, '<\\/script');
 }
+
+// CSP-compliant SHA-256 hash for an inline <script> body. The hash must be
+// computed on the exact string that ends up between <script>...</script>.
+export async function cspScriptHash(scriptBody: string) {
+  const { createHash } = await import('node:crypto');
+  return `'sha256-${createHash('sha256').update(scriptBody).digest('base64')}'`;
+}

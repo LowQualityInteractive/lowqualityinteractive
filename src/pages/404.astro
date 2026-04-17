@@ -1,13 +1,15 @@
 ---
 import '../styles/global.css';
 import { getSiteTitle } from '../data/site';
-import { LOCALES, LOCALE_OPTIONS, getLocalePath, getMessages, sanitizeInlineScript } from '../i18n/messages';
+import { LOCALES, LOCALE_OPTIONS, cspScriptHash, getLocalePath, getMessages, sanitizeInlineScript } from '../i18n/messages';
 import { getNotFoundScript } from '../scripts/notFound';
 import { getSiteScript } from '../scripts/site';
 import { getThemeScript } from '../scripts/theme';
+import { getCookiesBootstrap } from '../scripts/cookies';
 
 const english = getMessages('en');
 const page = english.pages.notFound;
+const cookiesBootstrap = sanitizeInlineScript(getCookiesBootstrap());
 const themeScript = sanitizeInlineScript(getThemeScript(english.chrome.theme));
 const siteScript = sanitizeInlineScript(
   getSiteScript(
@@ -19,7 +21,7 @@ const siteScript = sanitizeInlineScript(
     false,
   ),
 );
-const notFoundScript = sanitizeInlineScript(
+const notFoundScriptRaw = sanitizeInlineScript(
   getNotFoundScript(
     Object.fromEntries(
       LOCALES.map((locale) => {
@@ -43,6 +45,22 @@ const notFoundScript = sanitizeInlineScript(
     ),
   ),
 );
+const notFoundScript = notFoundScriptRaw;
+
+const scripts404 = [cookiesBootstrap, themeScript, siteScript, notFoundScript];
+const scriptHashes = (await Promise.all(scripts404.map((s) => cspScriptHash(s)))).join(' ');
+const csp404 = [
+  "default-src 'self'",
+  `script-src 'self' ${scriptHashes}`,
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com",
+  "img-src 'self' data: https:",
+  "connect-src 'self'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "object-src 'none'",
+].join('; ');
 ---
 
 <!DOCTYPE html>
@@ -50,6 +68,9 @@ const notFoundScript = sanitizeInlineScript(
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Content-Security-Policy" content={csp404} />
   <title>{getSiteTitle(page.label)}</title>
   <meta name="description" content={page.description} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -57,6 +78,7 @@ const notFoundScript = sanitizeInlineScript(
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="/assets/logo.png" />
   <link rel="alternate" type="text/plain" title={english.meta.llmContextTitle} href="/llms.txt">
+  <script is:inline set:html={cookiesBootstrap}></script>
   <script is:inline set:html={themeScript}></script>
 </head>
 <body>

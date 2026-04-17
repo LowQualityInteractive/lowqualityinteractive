@@ -1,0 +1,16 @@
+name = "lqi-status"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+
+[[kv_namespaces]]
+binding = "STATUS_KV"
+id = "1b2c8d5303ed4bd1ae507c6b6fe71214"
+
+[triggers]
+crons = ["*/5 * * * *"]
+
+[vars]
+ALLOWED_ORIGIN = "*"
+
+[env.production.vars]
+ALLOWED_ORIGIN = "https://lowqualityinteractive.com"

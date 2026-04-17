@@ -33,6 +33,7 @@ const blogsScript = sanitizeInlineScript(
   description={page.description}
   currentPage="blogs"
   routePath="blogs"
+  extraScripts={[blogsScript]}
 >
   <section class="hero">
     <span class="kicker">{page.kicker}</span>
@@ -52,5 +53,4 @@ const blogsScript = sanitizeInlineScript(
     <p>{page.viewerFallback}</p>
   </div>
 
-  <script is:inline slot="scripts" set:html={blogsScript}></script>
 </BaseLayout>

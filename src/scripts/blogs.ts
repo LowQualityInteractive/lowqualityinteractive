@@ -45,66 +45,9 @@ export function getBlogsScript(
   const DEVLOGS_URL = '/data/public-devlogs.json';
   const CHANGELOG_SECTIONS = ['new', 'changes', 'bugs', 'removals', 'misc'];
 
-  // --- Translation ---
-  // MyMemory: free, no API key, ~5000 chars/day per IP.
-  // Each string is translated individually and cached in sessionStorage.
-  const TRANSLATE_ENABLED = LOCALE !== 'en';
-
-  // MyMemory lang codes for compound locales
-  const MYMEMORY_LANG = {
-    'pt-BR': 'pt-BR',
-    'es-MX': 'es',
-    'es-ES': 'es',
-    ru: 'ru',
-    de: 'de',
-    it: 'it',
-    fr: 'fr',
-    ro: 'ro',
-    el: 'el',
-  };
-  const targetLang = MYMEMORY_LANG[LOCALE] || LOCALE;
-
-  // Simple djb2 hash for cache keys
-  const hashStr = (s) => {
-    let h = 5381;
-    for (let i = 0; i < s.length; i++) h = ((h << 5) + h) ^ s.charCodeAt(i);
-    return (h >>> 0).toString(36);
-  };
-
-  const txCache = new Map(); // in-memory: string -> Promise<string>
-
-  const translateOne = (text) => {
-    if (!text || !text.trim()) return Promise.resolve(text);
-    const key = 'lqi-tx-' + LOCALE + '-' + hashStr(text);
-
-    // Check sessionStorage cache first
-    try {
-      const cached = sessionStorage.getItem(key);
-      if (cached !== null) return Promise.resolve(cached);
-    } catch {}
-
-    if (txCache.has(key)) return txCache.get(key);
-
-    const promise = fetch(
-      'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=en|' + targetLang,
-      { signal: AbortSignal.timeout(8000) }
-    )
-      .then((res) => {
-        if (!res.ok) throw new Error('bad response');
-        return res.json();
-      })
-      .then((data) => {
-        const result = (data.responseData && data.responseData.translatedText) || text;
-        // MyMemory returns the original when quota is exceeded; detect that
-        const out = (result === text || !result.trim()) ? text : result;
-        try { sessionStorage.setItem(key, out); } catch {}
-        return out;
-      })
-      .catch(() => text);
-
-    txCache.set(key, promise);
-    return promise;
-  };
+  const tx = window.__lqiTranslate;
+  const TRANSLATE_ENABLED = !!(tx && tx.enabled);
+  const translateOne = tx ? tx.one : (t) => Promise.resolve(t);
 
   // Translate all user-visible strings in an update in parallel
   const translateUpdate = async (update) => {

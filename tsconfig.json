@@ -4,5 +4,6 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "target": "ESNext"
-  }
+  },
+  "exclude": ["status-worker", "node_modules", "dist"]
 }

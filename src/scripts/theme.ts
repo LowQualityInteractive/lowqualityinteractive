@@ -13,16 +13,7 @@ export function getThemeScript(messages: ThemeMessages) {
   const LIGHT = 'light';
   const root = document.documentElement;
 
-  function getCookie(name) {
-    const pattern = new RegExp('(?:^|; )' + name + '=([^;]*)');
-    const match = document.cookie.match(pattern);
-    return match ? decodeURIComponent(match[1]) : null;
-  }
-
-  function setCookie(name, value, days) {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
-  }
+  const { get: getCookie, set: setCookie } = window.__lqiCookies;
 
   function hasConsent() {
     return getCookie(CONSENT_COOKIE) === '1';

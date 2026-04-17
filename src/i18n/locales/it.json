@@ -120,7 +120,16 @@
       "kicker": "Pagina del gioco",
       "openGame": "Apri gioco",
       "latestUpdate": "Ultimo aggiornamento",
-      "backToGames": "Torna ai giochi"
+      "backToGames": "Torna ai giochi",
+      "about": {
+        "kicker": "Informazioni su questo gioco",
+        "developer": "Sviluppatore",
+        "platform": "Piattaforma",
+        "genre": "Genere",
+        "status": "Stato",
+        "featuresHeading": "Caratteristiche",
+        "linksHeading": "Link ufficiali"
+      }
     },
     "notFound": {
       "label": "404",
@@ -160,7 +169,12 @@
     "games": {
       "eradication": {
         "genreLabel": "Sparatutto PvE",
-        "genre": ["Sparatutto", "Multiplayer", "PvE", "Strategia"],
+        "genre": [
+          "Sparatutto",
+          "Multiplayer",
+          "PvE",
+          "Strategia"
+        ],
         "description": "Uno sparatutto a controllo territoriale a squadre in cui i giocatori combattono per riprendersi la loro città dai Whiskorians.",
         "pageDescription": "ERADICATION - uno sparatutto a controllo territoriale a squadre su Roblox.",
         "pageLead": "Affronta ondate sempre più pesanti e resisti il più a lungo possibile.",
@@ -170,7 +184,10 @@
       },
       "donpollo-obby": {
         "genreLabel": "Obby",
-        "genre": ["Platform", "Obby"],
+        "genre": [
+          "Platform",
+          "Obby"
+        ],
         "description": "Un'obby guidata dai meme costruita attorno a Don Pollo.",
         "pageDescription": "DON POLLO OBBY - caos a ostacoli alimentato dai meme su Roblox.",
         "pageLead": "Caos a ostacoli con restart rapidi e percorsi da speedrun.",
@@ -180,7 +197,12 @@
       },
       "favela-94": {
         "genreLabel": "Sparatutto tattico",
-        "genre": ["Sparatutto", "Multiplayer", "Tattico", "PvP"],
+        "genre": [
+          "Sparatutto",
+          "Multiplayer",
+          "Tattico",
+          "PvP"
+        ],
         "description": "Uno sparatutto tattico a distanza ravvicinata nelle favelas del 1994.",
         "pageDescription": "Favela '94 - uno sparatutto tattico a distanza ravvicinata su Roblox.",
         "pageLead": "Combatti in vicoli stretti e sui tetti in scontri ravvicinati intensi.",

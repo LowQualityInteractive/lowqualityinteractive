@@ -3,13 +3,14 @@
     {
       "id": "eradication",
       "body": [
-        "ERADICATION is a team-based territory control shooter on Roblox. Players must work together to push back the Whiskorian invasion and reclaim their town, surviving through escalating enemy waves.",
-        "Each match demands coordination and adaptability, the Whiskorians grow stronger as the game progresses, forcing teams to constantly adjust their strategy to survive."
+        "ERADICATION is a team-based PvE shooter on Roblox where squads fight to reclaim a town overrun by Whiskorians, once-ordinary townspeople who spent too long online and changed into something else. The transformation gave them anthropomorphic, feral features: whiskers, tails, claws. Survivors coined the nickname Whiskorian as a cruel joke. The name stuck.",
+        "Players are contractors hired to push the Whiskorians back and take the town, block by block. The threat escalates as matches progress, and the mountain past the fog at the edge of the map. Whiskspire, hides something the briefings won't talk about."
       ],
       "features": [
-        "Team-based PvE with escalating enemy waves",
-        "Territory control and defensive mechanics",
-        "Multiple loadouts and tactical options",
+        "Team-based PvE against escalating Whiskorian waves",
+        "Territory control across a full reclaimable town",
+        "Deep weapon sandbox with vehicles, helicopters, and tactical loadouts",
+        "Layered map with a gated frontier zone and a hidden boss encounter",
         "Regular balance updates and seasonal content"
       ],
       "media": [
@@ -35,12 +36,12 @@
     {
       "id": "favela-94",
       "body": [
-        "Favela '94 is a close-quarters tactical shooter set in the tight alleyways and rooftops of a 1994 Brazilian favela. Every engagement is personal, map knowledge and positioning are everything.",
-        "Currently in preview. Expect rough edges, rapid updates, and a dev team that's watching closely."
+        "Favela '94 is a close-quarters tactical shooter set in the tight alleyways and rooftops of a 1994 Brazilian favela. Every engagement is pretty personal, map knowledge and positioning are everything.",
+        "Currently in preview. Expect rough edges, rapid updates, and a dev that's watching closely."
       ],
       "features": [
         "Close-quarters PvP combat",
-        "Authentic 90s favela environment",
+        "Superb weapon customization",
         "Tactical movement and positioning",
         "Preview: actively in development"
       ],
@@ -48,7 +49,7 @@
         {
           "src": "/assets/favela-94.png",
           "alt": "Favela '94 rooftop combat screenshot",
-          "caption": "Rooftop engagement"
+          "caption": "Preview showcase"
         }
       ],
       "links": [
@@ -62,11 +63,11 @@
     {
       "id": "donpollo-obby",
       "body": [
-        "DON POLLO OBBY is a meme-powered obstacle course built around the legend of Don Pollo. Fast restarts, chaotic stages, and speedrun-friendly layout make it endlessly replayable.",
+        "DON POLLO OBBY is a tuff obstacle course built around the legend of Don Pollo. Dumb easy stages, you just hearing Don Pollo in the back 🥀🥀😭",
         "This game has been sunset. It remains playable as a piece of Low Quality Interactive history."
       ],
       "features": [
-        "Meme-driven obstacle course stages",
+        "Don Pollo in your ear",
         "Fast restart checkpoints",
         "Speedrun-friendly layout",
         "Sunset: preserved for history"
@@ -75,7 +76,7 @@
         {
           "src": "/assets/donpollo.png",
           "alt": "Don Pollo Obby course screenshot",
-          "caption": "The course awaits"
+          "caption": "Un video mas mi gente..."
         }
       ],
       "links": [

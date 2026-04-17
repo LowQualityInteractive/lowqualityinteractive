@@ -71,7 +71,7 @@
       "stats": {
         "liveGames": {
           "label": "Live Games",
-          "copy": "Both of them. We know."
+          "copy": "Few of them. We know."
         },
         "updatesShipped": {
           "label": "Updates Shipped",
@@ -132,7 +132,16 @@
       "kicker": "Game page",
       "openGame": "Play now",
       "latestUpdate": "Latest update",
-      "backToGames": "Back to games"
+      "backToGames": "Back to games",
+      "about": {
+        "kicker": "About this game",
+        "developer": "Developer",
+        "platform": "Platform",
+        "genre": "Genre",
+        "status": "Status",
+        "featuresHeading": "Features",
+        "linksHeading": "Official links"
+      }
     },
     "notFound": {
       "label": "404",
@@ -172,7 +181,12 @@
     "games": {
       "eradication": {
         "genreLabel": "PvE Shooter",
-        "genre": ["Shooter", "Multiplayer", "PvE", "Strategy"],
+        "genre": [
+          "Shooter",
+          "Multiplayer",
+          "PvE",
+          "Strategy"
+        ],
         "description": "A team-based territory control shooter where players work to reclaim their town from Whiskorians.",
         "pageDescription": "ERADICATION - a team-based territory control shooter on Roblox.",
         "pageLead": "Fight through escalating waves and survive as long as possible.",
@@ -182,7 +196,10 @@
       },
       "donpollo-obby": {
         "genreLabel": "Obby",
-        "genre": ["Platformer", "Obby"],
+        "genre": [
+          "Platformer",
+          "Obby"
+        ],
         "description": "A meme-driven obby built around Don Pollo.",
         "pageDescription": "DON POLLO OBBY - meme-powered obstacle chaos on Roblox.",
         "pageLead": "Meme-powered obstacle chaos with fast restarts and speedrun routes.",
@@ -192,7 +209,12 @@
       },
       "favela-94": {
         "genreLabel": "Tactical Shooter",
-        "genre": ["Shooter", "Multiplayer", "Tactical", "PvP"],
+        "genre": [
+          "Shooter",
+          "Multiplayer",
+          "Tactical",
+          "PvP"
+        ],
         "description": "A gritty close-quarters tactical shooter set in the favelas of 1994.",
         "pageDescription": "Favela '94 - a gritty close-quarters tactical shooter on Roblox.",
         "pageLead": "Fight through tight alleyways and rooftops in intense close-quarters combat.",

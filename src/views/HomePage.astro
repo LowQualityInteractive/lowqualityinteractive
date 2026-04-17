@@ -2,7 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getHomeJsonLd, liveGameCount } from '../data/games';
+import { getHomeJsonLd, publishedGameCount } from '../data/games';
 import { getSiteTitle } from '../data/site';
 import { getLocalePath, getMessages, type Locale } from '../i18n/messages';
 
@@ -71,7 +71,7 @@ const updatesDisplay = totalUpdates > 0 ? `${totalUpdates}+` : '—';
 
   <div class="stat-strip" aria-label={page.statsAriaLabel}>
     <div class="stat-item">
-      <span class="stat-value">{liveGameCount}</span>
+      <span class="stat-value">{publishedGameCount}</span>
       <h2>{page.stats.liveGames.label}</h2>
       <p>{page.stats.liveGames.copy}</p>
     </div>

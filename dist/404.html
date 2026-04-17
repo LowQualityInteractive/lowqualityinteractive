@@ -1,4 +1,16 @@
-<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Low Quality Interactive | 404</title><meta name="description" content="Page not found on Low Quality Interactive."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="icon" type="image/png" href="/assets/logo.png"><link rel="alternate" type="text/plain" title="LLM Context" href="/llms.txt"><script>
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-Content-Type-Options" content="nosniff"><meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-vEZjza2F1ODXLrSIY8yGi+TqBb/D41Mn1lE/h+SnVmI=' 'sha256-E/z1U4tzCqCTcEXHA37h972VbTnjBqn9yIJTKCrGwkA=' 'sha256-rWhJADkwkDkZtaZLzVA4qBWPZ/sXA4fT9Xo9cD8/eA0=' 'sha256-hSkRj+PR7ei99/fv1/jfnBu8vYQgP7nX2+uXdhRv2Uk='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'"><title>Low Quality Interactive | 404</title><meta name="description" content="Page not found on Low Quality Interactive."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="icon" type="image/png" href="/assets/logo.png"><link rel="alternate" type="text/plain" title="LLM Context" href="/llms.txt"><script>(() => {
+  if (window.__lqiCookies) return;
+  const get = (name) => {
+    const pattern = new RegExp('(?:^|; )' + name + '=([^;]*)');
+    const match = document.cookie.match(pattern);
+    return match ? decodeURIComponent(match[1]) : null;
+  };
+  const set = (name, value, days) => {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+  };
+  window.__lqiCookies = { get, set };
+})();</script><script>
 (() => {
   const LABELS = {"toDark":"Switch to dark mode","toLight":"Switch to light mode"};
   const THEME_COOKIE = 'lqi-theme';
@@ -7,16 +19,7 @@
   const LIGHT = 'light';
   const root = document.documentElement;
 
-  function getCookie(name) {
-    const pattern = new RegExp('(?:^|; )' + name + '=([^;]*)');
-    const match = document.cookie.match(pattern);
-    return match ? decodeURIComponent(match[1]) : null;
-  }
-
-  function setCookie(name, value, days) {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
-  }
+  const { get: getCookie, set: setCookie } = window.__lqiCookies;
 
   function hasConsent() {
     return getCookie(CONSENT_COOKIE) === '1';
@@ -89,7 +92,7 @@
 
   document.addEventListener('DOMContentLoaded', syncToggleButton, { once: true });
 })();
-</script><link rel="stylesheet" href="/_astro/theme.BcZtMfmf.css"></head> <body> <main class="not-found-main"> <div class="container not-found-shell"> <div class="not-found-card"> <p class="kicker" id="not-found-kicker">404 error</p> <h1 class="not-found-title" id="not-found-heading">This page does not exist.</h1> <p class="not-found-copy" id="not-found-copy">This page underdelivered by not existing. Return to the homepage or browse our games.</p> <div class="cta-row not-found-actions"> <a class="button primary" id="not-found-home" href="/">Go home</a> <a class="button ghost" id="not-found-games" href="/games/">View games</a> </div> </div> </div> </main> <script>(() => {
+</script><link rel="stylesheet" href="/_astro/cookies.DQs5Qp9-.css"></head> <body> <main class="not-found-main"> <div class="container not-found-shell"> <div class="not-found-card"> <p class="kicker" id="not-found-kicker">404 error</p> <h1 class="not-found-title" id="not-found-heading">This page does not exist.</h1> <p class="not-found-copy" id="not-found-copy">This page underdelivered by not existing. Return to the homepage or browse our games.</p> <div class="cta-row not-found-actions"> <a class="button primary" id="not-found-home" href="/">Go home</a> <a class="button ghost" id="not-found-games" href="/games/">View games</a> </div> </div> </div> </main> <script>(() => {
   const CONFIG = {"isDefaultLocale":false,"localeOptions":{"en":{"nativeName":"English"},"pt-BR":{"nativeName":"Português (Brasil)"},"es-MX":{"nativeName":"Español (México)"},"es-ES":{"nativeName":"Español (España)"},"ru":{"nativeName":"Русский"},"de":{"nativeName":"Deutsch"},"it":{"nativeName":"Italiano"},"fr":{"nativeName":"Français"},"ro":{"nativeName":"Română"},"el":{"nativeName":"Ελληνικά"}},"messages":{"mobileNav":{"open":"Open navigation menu","close":"Close navigation menu","label":"Primary navigation"},"localeSwitcher":{"ariaLabel":"Choose language"}},"cookieKey":"lqi-locale"};
   const MOBILE_LABELS = CONFIG.messages.mobileNav;
   const LOCALE_LABELS = CONFIG.messages.localeSwitcher;
@@ -98,16 +101,7 @@
   const NON_DEFAULT_LOCALES = SUPPORTED_LOCALES.filter((locale) => locale !== DEFAULT_LOCALE);
   const LOCALE_COOKIE_KEY = CONFIG.cookieKey;
 
-  function getCookie(name) {
-    const pattern = new RegExp('(?:^|; )' + name + '=([^;]*)');
-    const match = document.cookie.match(pattern);
-    return match ? decodeURIComponent(match[1]) : null;
-  }
-
-  function setCookie(name, value, days) {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
-  }
+  const { get: getCookie, set: setCookie } = window.__lqiCookies;
 
   const normalizeLocale = (value) =>
     typeof value === 'string' && SUPPORTED_LOCALES.includes(value) ? value : null;

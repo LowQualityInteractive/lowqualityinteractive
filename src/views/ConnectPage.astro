@@ -57,6 +57,7 @@ if (youtubeApiKey) {
   description={page.description}
   currentPage="connect"
   routePath="connect"
+  extraScripts={[connectScript]}
 >
   <section class="hero">
     <span class="kicker">{page.kicker}</span>
@@ -111,5 +112,4 @@ if (youtubeApiKey) {
     </div>
   </div>
 
-  <script is:inline slot="scripts" set:html={connectScript}></script>
 </BaseLayout>

@@ -120,7 +120,16 @@
       "kicker": "Página do jogo",
       "openGame": "Abrir jogo",
       "latestUpdate": "Update mais recente",
-      "backToGames": "Voltar para jogos"
+      "backToGames": "Voltar para jogos",
+      "about": {
+        "kicker": "Sobre este jogo",
+        "developer": "Desenvolvedor",
+        "platform": "Plataforma",
+        "genre": "Gênero",
+        "status": "Status",
+        "featuresHeading": "Recursos",
+        "linksHeading": "Links oficiais"
+      }
     },
     "notFound": {
       "label": "404",
@@ -160,7 +169,12 @@
     "games": {
       "eradication": {
         "genreLabel": "Shooter PvE",
-        "genre": ["Shooter", "Multiplayer", "PvE", "Estratégia"],
+        "genre": [
+          "Shooter",
+          "Multiplayer",
+          "PvE",
+          "Estratégia"
+        ],
         "description": "Um shooter de controle territorial em equipe onde os jogadores lutam para retomar a própria cidade dos Whiskorians.",
         "pageDescription": "ERADICATION - um shooter tático de controle territorial no Roblox.",
         "pageLead": "Enfrente ondas cada vez piores e sobreviva o máximo que conseguir.",
@@ -170,7 +184,10 @@
       },
       "donpollo-obby": {
         "genreLabel": "Obby",
-        "genre": ["Plataforma", "Obby"],
+        "genre": [
+          "Plataforma",
+          "Obby"
+        ],
         "description": "Uma obby movida a meme construída em volta do Don Pollo.",
         "pageDescription": "DON POLLO OBBY - caos de obstáculos movido a meme no Roblox.",
         "pageLead": "Caos de obstáculos com respawn rápido e rotas para speedrun.",
@@ -180,7 +197,12 @@
       },
       "favela-94": {
         "genreLabel": "Shooter tático",
-        "genre": ["Shooter", "Multiplayer", "Tático", "PvP"],
+        "genre": [
+          "Shooter",
+          "Multiplayer",
+          "Tático",
+          "PvP"
+        ],
         "description": "Um sombrio shooter tático de combate a curta distância nas favelas de 1994.",
         "pageDescription": "Favela '94 - um shooter tático de combate a curta distância no Roblox.",
         "pageLead": "Lute em vielas estreitas e telhados em combates intensos a curta distância.",

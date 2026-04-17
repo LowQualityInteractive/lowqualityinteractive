@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { SITE_NAME, SOCIAL_LINKS, DISCORD_GUILD_ID } from '../data/site';
 import {
+  cspScriptHash,
   getAlternateLinks,
   getLocaleAbsolutePath,
   getLocaleOptionLabel,
@@ -17,19 +18,28 @@ import { getNoticeScript } from '../scripts/notice';
 import { getSiteScript } from '../scripts/site';
 import { getThemeScript } from '../scripts/theme';
 import { getLiveScript } from '../scripts/live';
+import { getTranslateBootstrap } from '../scripts/translate';
+import { getCookiesBootstrap } from '../scripts/cookies';
 import { toAbsoluteSiteUrl } from '../data/site';
 
 interface Props {
   locale: Locale;
   title: string;
   description: string;
-  currentPage?: 'home' | 'games' | 'blogs' | 'connect';
+  currentPage?: 'home' | 'games' | 'blogs' | 'connect' | 'status';
   jsonLd?: string;
   ogImage?: string;
   routePath?: string;
+  extraScripts?: string[];
+  extraConnectSrc?: string[];
+  noAlternates?: boolean;
 }
 
-const { locale, title, description, currentPage, jsonLd, ogImage, routePath = '' } = Astro.props;
+const {
+  locale, title, description, currentPage, jsonLd, ogImage,
+  routePath = '', extraScripts = [],
+  extraConnectSrc = [], noAlternates = false,
+} = Astro.props;
 const currentYear = new Date().getFullYear();
 const messages = getMessages(locale);
 const homeHref = getLocalePath(locale);
@@ -39,6 +49,7 @@ const connectHref = getLocalePath(locale, 'connect');
 const canonicalUrl = getLocaleAbsolutePath(locale, routePath);
 const alternateLinks = getAlternateLinks(routePath);
 const xDefaultHref = getLocaleAbsolutePath('en', routePath);
+const cookiesBootstrap = sanitizeInlineScript(getCookiesBootstrap());
 const themeScript = sanitizeInlineScript(getThemeScript(messages.chrome.theme));
 const siteScript = sanitizeInlineScript(
   getSiteScript(
@@ -60,12 +71,39 @@ const liveGamesForScript = getGames(locale).filter((g) => g.status !== 'in-devel
 const liveScript = sanitizeInlineScript(
   getLiveScript(messages.chrome.live, liveGamesForScript, DISCORD_GUILD_ID),
 );
+const translateBootstrap = sanitizeInlineScript(getTranslateBootstrap(locale));
 
 const ogImageUrl = ogImage ? toAbsoluteSiteUrl(ogImage) : toAbsoluteSiteUrl('/assets/logo.png');
 
 // Ensure JSON-LD cannot contain a closing script tag even if the data were ever
 // sourced from outside the static build pipeline.
 const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefined;
+
+const allInlineScripts = [
+  cookiesBootstrap,
+  themeScript,
+  ...(safeJsonLd ? [safeJsonLd] : []),
+  translateBootstrap,
+  siteScript,
+  noticeScript,
+  liveScript,
+  ...extraScripts,
+];
+const scriptHashes = (
+  await Promise.all(allInlineScripts.map((s) => cspScriptHash(s)))
+).join(' ');
+const csp = [
+  "default-src 'self'",
+  `script-src 'self' ${scriptHashes}`,
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com",
+  "img-src 'self' data: https:",
+  `connect-src 'self' https://api.mymemory.translated.net https://games.roblox.com https://groups.roblox.com https://discord.com${extraConnectSrc.filter(Boolean).map(u => ' ' + u).join('')}`,
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "object-src 'none'",
+].join('; ');
 ---
 
 <!DOCTYPE html>
@@ -76,10 +114,10 @@ const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefi
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalUrl} />
-  {alternateLinks.map((alternate) => (
+  {!noAlternates && alternateLinks.map((alternate) => (
     <link rel="alternate" hreflang={alternate.locale} href={alternate.href} />
   ))}
-  <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+  {!noAlternates && <link rel="alternate" hreflang="x-default" href={xDefaultHref} />}
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -105,7 +143,7 @@ const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefi
   <!-- Note: frame-ancestors and X-Frame-Options only work as HTTP headers, not meta tags -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.mymemory.translated.net https://games.roblox.com https://discord.com; base-uri 'self'; form-action 'self'" />
+  <meta http-equiv="Content-Security-Policy" content={csp} />
 
   {safeJsonLd && <script is:inline type="application/ld+json" set:html={safeJsonLd} />}
 
@@ -115,6 +153,7 @@ const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefi
   <link rel="icon" type="image/png" href="/assets/logo.png" />
   <link rel="alternate" type="text/plain" title={messages.meta.llmContextTitle} href="/llms.txt">
   <slot name="head-extra" />
+  <script is:inline set:html={cookiesBootstrap}></script>
   <script is:inline set:html={themeScript}></script>
 </head>
 <body>
@@ -133,6 +172,10 @@ const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefi
           <span class="nav-update-badge" data-update-badge hidden aria-hidden="true"></span>
         </a>
         <a class="button primary" href={connectHref} aria-current={currentPage === 'connect' ? 'page' : undefined}>{messages.chrome.nav.connect}</a>
+        <a class="status-nav-btn" href="/status" aria-label="Site status" aria-current={currentPage === 'status' ? 'page' : undefined}>
+          <span class="status-nav-dot" data-status-nav-dot aria-hidden="true"></span>
+          <span class="status-nav-label">Status</span>
+        </a>
       </nav>
       <div class="header-controls">
         <div class="locale-switcher" data-locale-switcher>
@@ -217,6 +260,7 @@ const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefi
           <a href={gamesHref}>{messages.chrome.nav.games}</a>
           <a href={blogsHref}>{messages.chrome.nav.updates}</a>
           <a href={connectHref}>{messages.chrome.nav.connect}</a>
+          <a href="/status">Status</a>
         </div>
         <div class="footer-col">
           <h3>{messages.chrome.footer.connectHeading}</h3>
@@ -233,9 +277,10 @@ const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefi
     </div>
   </footer>
 
+  <script is:inline set:html={translateBootstrap}></script>
   <script is:inline set:html={siteScript}></script>
   <script is:inline set:html={noticeScript}></script>
   <script is:inline set:html={liveScript}></script>
-  <slot name="scripts" />
+  {extraScripts.map((s) => <script is:inline set:html={s} />)}
 </body>
 </html>

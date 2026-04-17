@@ -120,7 +120,16 @@
       "kicker": "Página del juego",
       "openGame": "Abrir juego",
       "latestUpdate": "Update más reciente",
-      "backToGames": "Volver a juegos"
+      "backToGames": "Volver a juegos",
+      "about": {
+        "kicker": "Acerca de este juego",
+        "developer": "Desarrollador",
+        "platform": "Plataforma",
+        "genre": "Género",
+        "status": "Estado",
+        "featuresHeading": "Características",
+        "linksHeading": "Enlaces oficiales"
+      }
     },
     "notFound": {
       "label": "404",
@@ -160,7 +169,12 @@
     "games": {
       "eradication": {
         "genreLabel": "Shooter PvE",
-        "genre": ["Shooter", "Multijugador", "PvE", "Estrategia"],
+        "genre": [
+          "Shooter",
+          "Multijugador",
+          "PvE",
+          "Estrategia"
+        ],
         "description": "Un shooter de control territorial por equipos donde los jugadores pelean por recuperar su ciudad de los Whiskorians.",
         "pageDescription": "ERADICATION - un shooter de control territorial por equipos en Roblox.",
         "pageLead": "Sobrevive oleadas cada vez más pesadas y aguanta todo lo que puedas.",
@@ -170,7 +184,10 @@
       },
       "donpollo-obby": {
         "genreLabel": "Obby",
-        "genre": ["Plataformas", "Obby"],
+        "genre": [
+          "Plataformas",
+          "Obby"
+        ],
         "description": "Una obby impulsada por memes construida alrededor de Don Pollo.",
         "pageDescription": "DON POLLO OBBY - caos de obstáculos con poder de meme en Roblox.",
         "pageLead": "Caos de obstáculos con respawns rápidos y rutas para speedrun.",
@@ -180,7 +197,12 @@
       },
       "favela-94": {
         "genreLabel": "Shooter táctico",
-        "genre": ["Shooter", "Multijugador", "Táctico", "PvP"],
+        "genre": [
+          "Shooter",
+          "Multijugador",
+          "Táctico",
+          "PvP"
+        ],
         "description": "Un shooter táctico oscuro de combate cerrado en las favelas de 1994.",
         "pageDescription": "Favela '94 - un shooter táctico de combate cerrado en Roblox.",
         "pageLead": "Pelea en callejones angostos y azoteas en combates intensos a corta distancia.",

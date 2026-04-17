@@ -120,7 +120,16 @@
       "kicker": "Spielseite",
       "openGame": "Spiel öffnen",
       "latestUpdate": "Neuestes Update",
-      "backToGames": "Zurück zu den Spielen"
+      "backToGames": "Zurück zu den Spielen",
+      "about": {
+        "kicker": "Über dieses Spiel",
+        "developer": "Entwickler",
+        "platform": "Plattform",
+        "genre": "Genre",
+        "status": "Status",
+        "featuresHeading": "Features",
+        "linksHeading": "Offizielle Links"
+      }
     },
     "notFound": {
       "label": "404",
@@ -160,7 +169,12 @@
     "games": {
       "eradication": {
         "genreLabel": "PvE-Shooter",
-        "genre": ["Shooter", "Multiplayer", "PvE", "Strategie"],
+        "genre": [
+          "Shooter",
+          "Multiplayer",
+          "PvE",
+          "Strategie"
+        ],
         "description": "Ein teambasierter Territory-Control-Shooter, in dem Spieler ihre Stadt von den Whiskorians zurückerobern.",
         "pageDescription": "ERADICATION - ein teambasierter Territory-Control-Shooter auf Roblox.",
         "pageLead": "Kämpf dich durch immer härtere Wellen und halt so lange durch, wie du kannst.",
@@ -170,7 +184,10 @@
       },
       "donpollo-obby": {
         "genreLabel": "Obby",
-        "genre": ["Plattformer", "Obby"],
+        "genre": [
+          "Plattformer",
+          "Obby"
+        ],
         "description": "Eine memegetriebene Obby rund um Don Pollo.",
         "pageDescription": "DON POLLO OBBY - memegetriebenes Hindernis-Chaos auf Roblox.",
         "pageLead": "Meme-Chaos mit schnellen Neustarts und Routen für Speedruns.",
@@ -180,7 +197,12 @@
       },
       "favela-94": {
         "genreLabel": "Taktik-Shooter",
-        "genre": ["Shooter", "Multiplayer", "Taktik", "PvP"],
+        "genre": [
+          "Shooter",
+          "Multiplayer",
+          "Taktik",
+          "PvP"
+        ],
         "description": "Ein düsterer Nahkampf-Taktik-Shooter in den Favelas des Jahres 1994.",
         "pageDescription": "Favela '94 - ein düsterer Nahkampf-Taktik-Shooter auf Roblox.",
         "pageLead": "Kämpf dich durch enge Gassen und Dächer in intensiven Nahkämpfen.",

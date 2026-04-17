@@ -36,16 +36,7 @@ export function getSiteScript(
   const NON_DEFAULT_LOCALES = SUPPORTED_LOCALES.filter((locale) => locale !== DEFAULT_LOCALE);
   const LOCALE_COOKIE_KEY = CONFIG.cookieKey;
 
-  function getCookie(name) {
-    const pattern = new RegExp('(?:^|; )' + name + '=([^;]*)');
-    const match = document.cookie.match(pattern);
-    return match ? decodeURIComponent(match[1]) : null;
-  }
-
-  function setCookie(name, value, days) {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
-  }
+  const { get: getCookie, set: setCookie } = window.__lqiCookies;
 
   const normalizeLocale = (value) =>
     typeof value === 'string' && SUPPORTED_LOCALES.includes(value) ? value : null;
