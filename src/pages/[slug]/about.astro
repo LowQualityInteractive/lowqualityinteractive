@@ -1,0 +1,19 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { publishedGameSlugs } from '../../data/games';
+import GameAboutPage from '../../views/GameAboutPage.astro';
+
+export const getStaticPaths: GetStaticPaths = () =>
+  publishedGameSlugs.map((slug) => ({
+    params: { slug },
+    props: { slug },
+  }));
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+<GameAboutPage locale="en" slug={slug} />

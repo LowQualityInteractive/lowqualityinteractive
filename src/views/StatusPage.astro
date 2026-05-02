@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getGames } from '../data/games';
+import { getSiteTitle } from '../data/site';
+import { getStatusScript, type StatusGameMeta } from '../scripts/status';
+import { getMessages, sanitizeInlineScript, type Locale } from '../i18n/messages';
+
+interface Props {
+  locale?: Locale;
+}
+
+const workerUrl = import.meta.env.PUBLIC_STATUS_API_URL ?? '';
+
+const { locale = 'en' } = Astro.props;
+const messages = getMessages(locale);
+const page = messages.pages.status;
+
+// All games for the status page — games without a universeId show "no data"
+const allGames = getGames(locale);
+const gameMeta: StatusGameMeta[] = allGames
+  .filter(g => g.status !== 'in-development')
+  .map(g => ({
+    id:         g.id,
+    name:       g.name,
+    slug:       g.slug,
+    gameStatus: g.status,
+    hasData:    g.universeId !== '',
+  }));
+
+const statusScript = sanitizeInlineScript(getStatusScript(workerUrl, gameMeta, {
+  platformLabel:    page.platformLabel,
+  platformNote:     page.platformNote,
+  gamesMonitored:   page.gamesMonitored,
+  playingNow:       page.playingNow,
+  noDataYet:        page.noDataYet,
+  checking:         page.checking,
+  unavailable:      page.unavailable,
+  unavailableSub:   page.unavailableSub,
+  allOperational:   page.allOperational,
+  someIssues:       page.someIssues,
+  majorOutage:      page.majorOutage,
+  unknown:          page.unknown,
+  updatedAgo:       page.updatedAgo,
+  justNow:          page.justNow,
+  minAgo:           page.minAgo,
+  hrAgo:            page.hrAgo,
+  statusLabels:     page.statusLabels,
+  timeline:         page.timeline,
+  incidentStatus:   page.incidentStatus,
+  incidentTemplates: page.incidentTemplates,
+  noIncidents:      page.noIncidents,
+}));
+---
+
+<BaseLayout
+  locale={locale}
+  title={getSiteTitle(page.label)}
+  description={page.description}
+  currentPage="status"
+  routePath="status"
+  noLocaleRedirect={true}
+  extraScripts={[statusScript]}
+  extraConnectSrc={workerUrl ? [workerUrl] : []}
+>
+  <section class="hero">
+    <span class="kicker">{page.kicker}</span>
+    <h1>{page.heading}</h1>
+    <p class="lead">{page.lead}</p>
+  </section>
+
+  <!-- Overall status banner -->
+  <div id="status-banner" class="status-banner status-banner-loading" role="status" aria-live="polite">
+    <div class="status-banner-icon" aria-hidden="true"></div>
+    <div class="status-banner-body">
+      <strong id="status-banner-text">{page.checking}</strong>
+      <span id="status-banner-sub"></span>
+    </div>
+    <span id="status-checked-at"></span>
+  </div>
+
+  <!-- Games -->
+  <div class="section-header">
+    <h2>{page.ourGamesHeading}</h2>
+  </div>
+  <div id="status-games" class="status-games-grid" aria-label={page.ourGamesHeading} aria-live="polite">
+    {gameMeta.map(() => (
+      <div class="status-game-card">
+        <div class="status-game-header">
+          <div class="status-game-info">
+            <span class="status-dot status-dot-unknown" aria-hidden="true"></span>
+            <span class="status-game-name">{page.checking}</span>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Roblox platform -->
+  <div class="section-header section-header-spaced">
+    <h2>{page.robloxPlatformHeading}</h2>
+  </div>
+  <div class="card status-platform-card" id="status-platform" aria-live="polite">
+    <div class="status-platform-row">
+      <div class="status-game-info">
+        <span class="status-dot status-dot-unknown" aria-hidden="true"></span>
+        <span class="status-game-name">{page.platformLabel}</span>
+      </div>
+      <span class="status-badge status-badge-unknown">{page.checking}</span>
+    </div>
+  </div>
+  <p class="status-platform-footnote">{page.platformFootnote}</p>
+
+  <!-- Incidents -->
+  <div class="section-header section-header-spaced">
+    <h2>{page.incidentHistoryHeading}</h2>
+  </div>
+  <div id="status-incidents" class="status-incidents-list" aria-live="polite">
+    <p class="status-no-incidents">{page.checking}</p>
+  </div>
+
+</BaseLayout>

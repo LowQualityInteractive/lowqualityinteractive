@@ -1,0 +1,17 @@
+/* TEAM */
+Studio: Low Quality Interactive
+Site: https://lowqualityinteractive.com
+Location: Worldwide
+
+/* THANKS */
+Cloudflare: Security & CDN
+Roblox: Platform & game distribution
+Astro: Site framework
+
+/* SITE */
+Last update: 2026-04-23
+Languages: English, Portuguese (Brazil), Spanish (Mexico), Spanish (Spain), Russian, German, Italian, French, Romanian, Greek
+Technology: Astro, Cloudflare
+Primary routes: /, /games/, /blogs/, /status/, /connect/, /privacy-policy/
+Game routes: /{slug}/ and /{slug}/about/
+Localized routes: /{locale}/...

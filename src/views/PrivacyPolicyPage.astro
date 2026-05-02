@@ -1,0 +1,216 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONTACT_EMAIL, SITE_NAME, getSiteTitle } from '../data/site';
+import { getMessages, type Locale } from '../i18n/messages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const messages = getMessages(locale);
+const page = messages.pages.privacyPolicy;
+
+const lastUpdated = 'April 23, 2026';
+---
+
+<BaseLayout
+  locale={locale}
+  title={getSiteTitle(page.label)}
+  description={page.description}
+  routePath="privacy-policy"
+>
+  <section class="hero legal-shell">
+    <span class="kicker" data-translatable>{SITE_NAME}</span>
+    <h1 data-translatable>Privacy Policy</h1>
+    <p class="lead" data-translatable>
+      This policy covers information collected through our website and through our Roblox games and experiences.
+    </p>
+    <p class="legal-meta">
+      <span data-translatable>Last updated</span>
+      <time datetime="2026-04-23">{lastUpdated}</time>
+    </p>
+  </section>
+
+  <article class="legal-shell legal-copy" aria-label={page.label}>
+    <section class="legal-section">
+      <h2 data-translatable>Who we are</h2>
+      <p data-translatable>
+        Low Quality Interactive (also referred to as LQI) is an independent Roblox game development studio. This
+        policy covers information collected through our website and through our Roblox games and experiences. Questions
+        can be sent to contact@lowqualityinteractive.com.
+      </p>
+      <p data-translatable>
+        This policy does not govern Roblox, Discord, YouTube, X, or any other third-party platform we link to. Those
+        services operate under their own privacy policies.
+      </p>
+    </section>
+
+    <section class="legal-section">
+      <h2 data-translatable>What this policy covers</h2>
+      <p data-translatable>
+        This policy applies to information collected through the Low Quality Interactive website and through our Roblox
+        games. It also applies to information received through direct contact with us via links provided on this site.
+      </p>
+    </section>
+
+    <section class="legal-section">
+      <h2 data-translatable>Information we may receive</h2>
+      <h3 data-translatable>Website</h3>
+      <p data-translatable>
+        When you load our website, our hosting and infrastructure providers may receive technical request data such as
+        your IP address, browser type, device information, referring URL, and basic request metadata.
+      </p>
+      <p data-translatable>
+        If you contact us directly, we receive whatever information you choose to include, such as your name, email
+        address, and the contents of your message.
+      </p>
+
+      <h3 data-translatable>Roblox Games</h3>
+      <p data-translatable>
+        When you play our games on Roblox, we may collect and process the following:
+      </p>
+      <ul class="legal-list">
+        <li data-translatable>Join and leave events, such as when you enter or exit one of our experiences</li>
+        <li data-translatable>In-game chat messages sent within our experiences</li>
+        <li data-translatable>Gameplay and behavior data, used for anti-cheat and security purposes</li>
+        <li data-translatable>User suggestions and feedback you voluntarily submit</li>
+        <li data-translatable>Roblox usernames and user IDs associated with all of the above</li>
+      </ul>
+      <p data-translatable>
+        This data originates from Roblox's platform and may be processed by our own external systems and tools. We do
+        not own or control your Roblox account data. Roblox's own Privacy Policy governs account-level information.
+      </p>
+    </section>
+
+    <section class="legal-section">
+      <h2 data-translatable>Cookies and browser storage</h2>
+      <p data-translatable>
+        Our website uses cookies and browser storage. When you first visit, you will be prompted to acknowledge our
+        cookie usage.
+      </p>
+      <p data-translatable>
+        We use cookies and browser storage for the following functional purposes:
+      </p>
+      <ul class="legal-list">
+        <li data-translatable>Remembering your cookie notice acknowledgment</li>
+        <li data-translatable>Storing your light or dark theme preference</li>
+        <li data-translatable>Storing your language/locale preference</li>
+      </ul>
+      <p data-translatable>
+        For non-English locales, the site also uses session-based browser storage to cache machine-translated text and
+        lightweight UI state so the experience is faster and less repetitive during your visit.
+      </p>
+      <p data-translatable>
+        We do not use cookies for advertising or cross-site tracking. You can clear or block cookies at any time
+        through your browser settings, though some site preferences may not be saved.
+      </p>
+    </section>
+
+    <section class="legal-section">
+      <h2 data-translatable>How we use information</h2>
+      <p data-translatable>
+        We use the information described above to:
+      </p>
+      <ul class="legal-list">
+        <li data-translatable>Operate and secure the website and our games</li>
+        <li data-translatable>Respond to inquiries and feedback</li>
+        <li data-translatable>Maintain site preferences such as theme and language</li>
+        <li data-translatable>Moderate our game experiences and enforce community rules</li>
+        <li data-translatable>Detect and act on cheating or exploitative behavior</li>
+        <li data-translatable>Analyze how our games are played and improve them</li>
+        <li data-translatable>Identify and fix bugs, errors, and performance issues</li>
+        <li data-translatable>Support community-facing features connected to our games and studio presence</li>
+      </ul>
+    </section>
+
+    <section class="legal-section">
+      <h2 data-translatable>Data retention</h2>
+      <p data-translatable>General logs (joins, leaves, chat, feedback): up to 3 months</p>
+      <p data-translatable>Anti-cheat and security logs: up to 6 months</p>
+      <p data-translatable>
+        Website contact and inquiry data: kept only as long as reasonably necessary for operations, security,
+        recordkeeping, and legal compliance
+      </p>
+      <p data-translatable>
+        Data is deleted or anonymized once it is no longer needed for the purpose it was collected.
+      </p>
+    </section>
+
+    <section class="legal-section">
+      <h2 data-translatable>Third-party services</h2>
+      <p data-translatable>
+        We use the following third-party services, which may receive or process some of the data described in this
+        policy:
+      </p>
+      <ul class="legal-list">
+        <li data-translatable>Roblox: the platform our games run on; handles core analytics and account data</li>
+        <li data-translatable>Discord: used for community management and internal tooling</li>
+        <li data-translatable>Cloudflare: used for infrastructure, performance, and security</li>
+        <li data-translatable>MyMemory: used for on-page auto-translation outside English</li>
+      </ul>
+      <p data-translatable>
+        When you interact with features powered by these services or follow outbound links, those third parties may
+        collect information under their own terms and privacy policies.
+      </p>
+    </section>
+
+    <section class="legal-section">
+      <h2 data-translatable>Data sharing</h2>
+      <p data-translatable>
+        Data may be transmitted to our internal dashboards and tools for moderation, analytics, and debugging
+        purposes. We do not sell your data to third parties.
+      </p>
+    </section>
+
+    <section class="legal-section">
+      <h2 data-translatable>Age and audience</h2>
+      <p data-translatable>
+        Our website may be visited by people interested in Roblox experiences, but we do not knowingly ask children to
+        submit personal information beyond what they voluntarily send in a message or email. Our Roblox experiences are
+        available to the general Roblox audience. Roblox handles age verification and parental controls at the account
+        level. We do not separately collect or verify age information.
+      </p>
+    </section>
+
+    <section class="legal-section">
+      <h2 data-translatable>Security</h2>
+      <p data-translatable>
+        We take reasonable technical and organizational measures to protect the data we process. No system is perfectly
+        secure, but we aim to keep your data safe and limit access to those who need it.
+      </p>
+    </section>
+
+    <section class="legal-section">
+      <h2 data-translatable>Your rights</h2>
+      <p data-translatable>
+        If you are located in the European Union or a region with similar data protection laws such as the GDPR, you
+        may have data access or erasure rights under applicable law.
+      </p>
+      <p data-translatable>
+        We do not process or respond to direct erasure requests sent to us. Requests relating to Roblox account or
+        platform data must be made through Roblox under Roblox's own privacy process.
+      </p>
+      <p data-translatable>
+        You can manage your website preferences by clearing or blocking cookies through your browser settings, or by
+        not submitting personal information through contact methods linked from this site.
+      </p>
+    </section>
+
+    <section class="legal-section">
+      <h2 data-translatable>Changes to this policy</h2>
+      <p data-translatable>
+        We may update this policy from time to time. If we make changes, we will post the revised version here and
+        update the effective date shown above. Continued use of our website or experiences after changes constitutes
+        acceptance of the updated policy.
+      </p>
+    </section>
+
+    <section class="legal-section">
+      <h2 data-translatable>Contact</h2>
+      <p data-translatable>Low Quality Interactive</p>
+      <p>{CONTACT_EMAIL}</p>
+      <p>lowqualityinteractive.com</p>
+    </section>
+  </article>
+</BaseLayout>

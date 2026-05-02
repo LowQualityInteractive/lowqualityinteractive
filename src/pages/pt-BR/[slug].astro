@@ -1,0 +1,18 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { publishedGameSlugs } from '../../data/games';
+
+export const getStaticPaths: GetStaticPaths = () =>
+  publishedGameSlugs.map((slug) => ({
+    params: { slug },
+    props: { slug },
+  }));
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+
+return Astro.redirect(`/pt-BR/${slug}/about`, 301);
+---

@@ -1,0 +1,41 @@
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+
+# Editor folders
+.vscode/
+.idea/
+
+# Private and non-production folders
+private/
+drafts/
+notes/
+exports/
+source-assets/
+
+# Large design/source files
+*.psd
+*.kra
+*.clip
+*.blend
+
+# Dependencies and build output
+node_modules/
+dist/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Cloudflare Wrangler local state
+.wrangler/
+wrangler.toml.local
+wrangler.toml.*.local

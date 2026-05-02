@@ -1,0 +1,307 @@
+---
+import '../styles/global.css';
+import { SITE_NAME, SOCIAL_LINKS, DISCORD_GUILD_ID } from '../data/site';
+import {
+  cspScriptHash,
+  getAlternateLinks,
+  getLocaleAbsolutePath,
+  getLocaleOptionLabel,
+  getLocalePath,
+  getMessages,
+  LOCALES,
+  LOCALE_OPTIONS,
+  sanitizeInlineScript,
+  type Locale,
+} from '../i18n/messages';
+import { getGames } from '../data/games';
+import { getNoticeScript } from '../scripts/notice';
+import { getSiteScript } from '../scripts/site';
+import { getThemeScript } from '../scripts/theme';
+import { getLiveScript } from '../scripts/live';
+import { getTranslateBootstrap } from '../scripts/translate';
+import { getCookiesBootstrap } from '../scripts/cookies';
+import { toAbsoluteSiteUrl } from '../data/site';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  currentPage?: 'home' | 'games' | 'blogs' | 'connect' | 'status';
+  jsonLd?: string;
+  ogImage?: string;
+  routePath?: string;
+  extraScripts?: string[];
+  extraConnectSrc?: string[];
+  noAlternates?: boolean;
+  noLocaleRedirect?: boolean;
+}
+
+const {
+  locale, title, description, currentPage, jsonLd, ogImage,
+  routePath = '', extraScripts = [],
+  extraConnectSrc = [], noAlternates = false, noLocaleRedirect = false,
+} = Astro.props;
+const currentYear = new Date().getFullYear();
+const messages = getMessages(locale);
+const homeHref = getLocalePath(locale);
+const gamesHref = getLocalePath(locale, 'games');
+const blogsHref = getLocalePath(locale, 'blogs');
+const connectHref = getLocalePath(locale, 'connect');
+const statusHref = getLocalePath(locale, 'status');
+const privacyPolicyHref = getLocalePath(locale, 'privacy-policy');
+const canonicalUrl = getLocaleAbsolutePath(locale, routePath);
+const alternateLinks = getAlternateLinks(routePath);
+const xDefaultHref = getLocaleAbsolutePath('en', routePath);
+const cookiesBootstrap = sanitizeInlineScript(getCookiesBootstrap());
+const themeScript = sanitizeInlineScript(getThemeScript(messages.chrome.theme));
+const siteScript = sanitizeInlineScript(
+  getSiteScript(
+    {
+      mobileNav: messages.chrome.mobileNav,
+      localeSwitcher: messages.chrome.localeSwitcher,
+    },
+    LOCALE_OPTIONS,
+    locale === 'en',
+    noLocaleRedirect,
+  ),
+);
+const noticeScript = sanitizeInlineScript(getNoticeScript(messages.chrome.cookie));
+
+const liveGamesForScript = getGames(locale).filter((g) => g.status !== 'in-development').map((g) => ({
+  id: g.id,
+  status: g.status,
+  universeId: g.universeId,
+}));
+const statusWorkerUrl = import.meta.env.PUBLIC_STATUS_API_URL ?? '';
+const liveScript = sanitizeInlineScript(
+  getLiveScript(
+    { ...messages.chrome.live, alertBar: messages.chrome.alertBar },
+    liveGamesForScript,
+    DISCORD_GUILD_ID,
+    statusWorkerUrl,
+  ),
+);
+const translateBootstrap = sanitizeInlineScript(getTranslateBootstrap(locale));
+
+const ogImageUrl = ogImage ? toAbsoluteSiteUrl(ogImage) : toAbsoluteSiteUrl('/assets/logo.png');
+
+// Ensure JSON-LD cannot contain a closing script tag even if the data were ever
+// sourced from outside the static build pipeline.
+const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefined;
+
+const allInlineScripts = [
+  cookiesBootstrap,
+  themeScript,
+  ...(safeJsonLd ? [safeJsonLd] : []),
+  translateBootstrap,
+  siteScript,
+  noticeScript,
+  liveScript,
+  ...extraScripts,
+];
+const scriptHashes = (
+  await Promise.all(allInlineScripts.map((s) => cspScriptHash(s)))
+).join(' ');
+const csp = [
+  "default-src 'self'",
+  `script-src 'self' ${scriptHashes}`,
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com",
+  "img-src 'self' data: https:",
+  `connect-src 'self' https://api.mymemory.translated.net https://games.roblox.com https://groups.roblox.com https://discord.com${statusWorkerUrl ? ' ' + statusWorkerUrl : ''}${extraConnectSrc.filter(Boolean).map(u => ' ' + u).join('')}`,
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "object-src 'none'",
+].join('; ');
+---
+
+<!DOCTYPE html>
+<html lang={locale}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+  {!noAlternates && alternateLinks.map((alternate) => (
+    <link rel="alternate" hreflang={alternate.locale} href={alternate.href} />
+  ))}
+  {!noAlternates && <link rel="alternate" hreflang="x-default" href={xDefaultHref} />}
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={SITE_NAME} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={ogImageUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@LowQualityInt" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageUrl} />
+
+  <!-- Theme -->
+  <meta name="theme-color" content="#b54343" />
+
+  <!-- Security headers (best-effort via meta; full header coverage requires a CDN/proxy layer) -->
+  <!-- Note: frame-ancestors and X-Frame-Options only work as HTTP headers, not meta tags -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Content-Security-Policy" content={csp} />
+
+  {safeJsonLd && <script is:inline type="application/ld+json" set:html={safeJsonLd} />}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="alternate" type="text/plain" title={messages.meta.llmContextTitle} href="/llms.txt">
+  <slot name="head-extra" />
+  <script is:inline set:html={cookiesBootstrap}></script>
+  <script is:inline set:html={themeScript}></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">{messages.chrome.skipLink}</a>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href={homeHref} aria-label={messages.chrome.brandHomeAriaLabel}>
+        <img class="site-logo" src="/assets/logo.png" alt={messages.chrome.brandLogoAlt} width="36" height="36" />
+        <span>{SITE_NAME}</span>
+      </a>
+      <nav class="nav" id="primary-navigation" aria-label={messages.chrome.nav.ariaLabel}>
+        <a class="nav-link" href={homeHref} aria-current={currentPage === 'home' ? 'page' : undefined}>{messages.chrome.nav.home}</a>
+        <a class="nav-link" href={gamesHref} aria-current={currentPage === 'games' ? 'page' : undefined}>{messages.chrome.nav.games}</a>
+        <a class="nav-link nav-link-updates" href={blogsHref} aria-current={currentPage === 'blogs' ? 'page' : undefined}>
+          {messages.chrome.nav.updates}
+          <span class="nav-update-badge" data-update-badge hidden aria-hidden="true"></span>
+        </a>
+        <a class="button primary" href={connectHref} aria-current={currentPage === 'connect' ? 'page' : undefined}>{messages.chrome.nav.connect}</a>
+        <a class="status-nav-btn" href={statusHref} aria-label="Site status" aria-current={currentPage === 'status' ? 'page' : undefined}>
+          <span class="status-nav-dot" data-status-nav-dot aria-hidden="true"></span>
+          <span class="status-nav-label">Status</span>
+        </a>
+      </nav>
+      <div class="header-controls">
+        <div class="locale-switcher" data-locale-switcher>
+          <button
+            type="button"
+            class="locale-btn"
+            id="locale-btn"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-label={messages.chrome.localeSwitcher.ariaLabel}
+          >
+            <span class="locale-btn-label">{getLocaleOptionLabel(locale)}</span>
+            <svg class="locale-chevron" viewBox="0 0 10 6" fill="none" aria-hidden="true" width="10" height="6">
+              <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul
+            class="locale-listbox"
+            role="listbox"
+            id="locale-listbox"
+            aria-label={messages.chrome.localeSwitcher.ariaLabel}
+            hidden
+          >
+            {LOCALES.map((availableLocale) => (
+              <li
+                role="option"
+                class="locale-option"
+                data-locale={availableLocale}
+                aria-selected={availableLocale === locale ? 'true' : 'false'}
+                tabindex="-1"
+              >
+                {getLocaleOptionLabel(availableLocale)}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <button
+          id="theme-toggle"
+          class="theme-toggle"
+          aria-label={messages.chrome.theme.toDark}
+          title={messages.chrome.theme.toDark}
+          type="button"
+        >
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div id="site-alert-bar" class="site-alert-bar" hidden aria-live="polite" role="alert">
+    <div class="container site-alert-inner">
+      <span class="site-alert-dot" aria-hidden="true"></span>
+      <span class="site-alert-text"></span>
+      <a class="site-alert-link" href={statusHref}>{messages.chrome.alertBar.viewStatus}</a>
+    </div>
+  </div>
+
+  <main id="main-content">
+    <div class="container">
+      <slot />
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a class="brand" href={homeHref}>
+            <img class="site-logo" src="/assets/logo.png" alt={messages.chrome.brandLogoAlt} width="36" height="36" />
+            <span>{SITE_NAME}</span>
+          </a>
+          <p>{messages.chrome.footer.tagline}</p>
+        </div>
+        <div class="footer-col">
+          <h3>{messages.chrome.footer.siteHeading}</h3>
+          <a href={homeHref}>{messages.chrome.nav.home}</a>
+          <a href={gamesHref}>{messages.chrome.nav.games}</a>
+          <a href={blogsHref}>{messages.chrome.nav.updates}</a>
+          <a href={connectHref}>{messages.chrome.nav.connect}</a>
+          <a href={statusHref}>{messages.pages.status.label}</a>
+        </div>
+        <div class="footer-col">
+          <h3>{messages.chrome.footer.connectHeading}</h3>
+          <a href={SOCIAL_LINKS.x} target="_blank" rel="noopener noreferrer">{messages.chrome.platforms.x}</a>
+          <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">{messages.chrome.platforms.discord}</a>
+          <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">{messages.chrome.platforms.youtube}</a>
+          <a href={SOCIAL_LINKS.roblox} target="_blank" rel="noopener noreferrer">{messages.chrome.platforms.robloxGroup}</a>
+          <a href={connectHref}>{messages.chrome.footer.businessInquiries}</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-footnotes">
+          <p class="copyright">© {currentYear} {SITE_NAME}. {messages.chrome.footer.allRightsReserved}</p>
+          <a class="footer-footnote-link" href={privacyPolicyHref}>{messages.pages.privacyPolicy.label}</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script is:inline set:html={translateBootstrap}></script>
+  <script is:inline set:html={siteScript}></script>
+  <script is:inline set:html={noticeScript}></script>
+  <script is:inline set:html={liveScript}></script>
+  {extraScripts.map((s) => <script is:inline set:html={s} />)}
+</body>
+</html>
