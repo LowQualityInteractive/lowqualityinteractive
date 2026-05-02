@@ -255,7 +255,7 @@ async function updateIncidents(
 ): Promise<void> {
   const raw = await kv.get('status:incidents');
   const rawIncidents: Incident[] = raw ? JSON.parse(raw) : [];
-  const { changed: migrationNeeded, incidents } = migrateIncidents(rawIncidents);
+  const { incidents } = migrateIncidents(rawIncidents);
 
   // counts consecutive bad checks per service before we actually open an incident
   const pendingRaw = await kv.get('status:pending');

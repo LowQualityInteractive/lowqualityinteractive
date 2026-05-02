@@ -50,7 +50,7 @@ var GAMES=${G};
 var MSGS=${M};
 
 function el(id){return document.getElementById(id);}
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function fmt(n){return n!==null&&n!==undefined?(Math.round(n*10)/10)+'%':'N/A';}
 function interp(tpl,vals){return String(tpl).replace(/\\{(\\w+)\\}/g,function(_,k){return vals[k]!==undefined?String(vals[k]):''});}
 function timeAgo(ts){

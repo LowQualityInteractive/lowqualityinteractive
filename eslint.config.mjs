@@ -21,7 +21,7 @@ export default [
   ...typescriptEslint.configs['flat/recommended'],
   ...astro.configs['flat/recommended'],
   {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts,astro}'],
     rules: {
       '@typescript-eslint/no-unused-vars': [
         'error',
@@ -31,6 +31,7 @@ export default [
           caughtErrorsIgnorePattern: '^_',
         },
       ],
+      'no-empty': ['error', { allowEmptyCatch: true }],
     },
   },
   {
