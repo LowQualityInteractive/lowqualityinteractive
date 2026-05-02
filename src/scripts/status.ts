@@ -53,6 +53,22 @@ function el(id){return document.getElementById(id);}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function fmt(n){return n!==null&&n!==undefined?(Math.round(n*10)/10)+'%':'N/A';}
 function interp(tpl,vals){return String(tpl).replace(/\\{(\\w+)\\}/g,function(_,k){return vals[k]!==undefined?String(vals[k]):''});}
+function statusClass(s,fallback){
+  s=String(s||'');
+  return /^(operational|degraded|down|unknown|preview)$/.test(s)?s:(fallback||'unknown');
+}
+function incidentClass(s){
+  s=String(s||'');
+  return /^(investigating|monitoring|resolved)$/.test(s)?s:'investigating';
+}
+function safeSlug(s){
+  s=String(s||'');
+  return /^[a-z0-9-]+$/.test(s)?s:'';
+}
+function gameAboutHref(s){
+  s=safeSlug(s);
+  return s?'/'+s+'/about':'#';
+}
 function timeAgo(ts){
   var s=Math.round((Date.now()-ts)/1000);
   if(s<60)return MSGS.justNow;
@@ -61,11 +77,14 @@ function timeAgo(ts){
 }
 
 var STATUS_LABEL=MSGS.statusLabels;
-function label(s){return STATUS_LABEL[s]||s;}
+function label(s){
+  s=statusClass(s);
+  return STATUS_LABEL[s]||s;
+}
 
 function overallStatus(data){
-  if(!data||!data.latest)return 'unknown';
-  var ss=[data.latest.roblox.status].concat(data.latest.games.map(function(g){return g.status;}));
+  if(!data||!data.latest||!data.latest.roblox||!Array.isArray(data.latest.games))return 'unknown';
+  var ss=[statusClass(data.latest.roblox.status)].concat(data.latest.games.map(function(g){return statusClass(g.status);}));
   if(ss.every(function(s){return s==='operational';}))return 'operational';
   if(ss.some(function(s){return s==='down';}))return 'down';
   return 'degraded';
@@ -74,7 +93,7 @@ function overallStatus(data){
 function renderTimeline(ticks,checkedAt){
   if(!ticks||!ticks.length)return '';
   var slice=ticks.slice(-60);
-  var base=checkedAt||Date.now();
+  var base=Number.isFinite(checkedAt)?checkedAt:Date.now();
   var total=slice.length;
   return '<div class="status-timeline" aria-label="'+esc(interp(MSGS.timeline.ariaLabel,{n:total}))+'" role="img">'+
     slice.map(function(v,i){
@@ -105,7 +124,7 @@ function setupTickTooltips(){
     var dateStr=d.toLocaleDateString([],{month:'short',day:'numeric'});
     var t=getTooltip();
     t.innerHTML='<div class="status-tick-tooltip-status '+(up?'status-tick-tooltip-status-up':'status-tick-tooltip-status-down')+'">'+esc(up?MSGS.timeline.up:MSGS.timeline.down)+'</div>'+
-      '<div class="status-tick-tooltip-time">'+dateStr+', '+timeStr+'</div>';
+      '<div class="status-tick-tooltip-time">'+esc(dateStr)+', '+esc(timeStr)+'</div>';
     t.classList.add('visible');
   });
   document.addEventListener('mousemove',function(e){
@@ -153,11 +172,12 @@ function renderGames(data){
   var container=el('status-games');
   if(!container)return;
   container.innerHTML=GAMES.map(function(meta){
-    var apiGame=data&&data.latest?data.latest.games.find(function(g){return g.id===meta.id;}):null;
+    var latestGames=data&&data.latest&&Array.isArray(data.latest.games)?data.latest.games:[];
+    var apiGame=latestGames.find(function(g){return g.id===meta.id;})||null;
     var u24=data&&data.uptime?data.uptime['24h'][meta.id]:null;
     var u7d=data&&data.uptime?data.uptime['7d'][meta.id]:null;
     var tl=data&&data.timeline?data.timeline[meta.id]:null;
-    var s=meta.hasData&&apiGame?apiGame.status:(meta.hasData?'unknown':'preview');
+    var s=statusClass(meta.hasData&&apiGame?apiGame.status:(meta.hasData?'unknown':'preview'));
     var playing=apiGame&&meta.hasData?apiGame.playing:null;
     var uptimeHtml='';
     if(meta.hasData&&(u24!==null||u7d!==null)){
@@ -172,10 +192,10 @@ function renderGames(data){
     return '<div class="status-game-card">'+
       '<div class="status-game-header">'+
         '<div class="status-game-info">'+
-          '<span class="status-dot status-dot-'+esc(s)+'" aria-hidden="true"></span>'+
-          '<a class="status-game-name" href="/'+esc(meta.slug)+'/about">'+esc(meta.name)+'</a>'+
+          '<span class="status-dot status-dot-'+s+'" aria-hidden="true"></span>'+
+          '<a class="status-game-name" href="'+gameAboutHref(meta.slug)+'">'+esc(meta.name)+'</a>'+
         '</div>'+
-        '<span class="status-badge status-badge-'+esc(s)+'" role="status">'+label(s)+'</span>'+
+        '<span class="status-badge status-badge-'+s+'" role="status">'+esc(label(s))+'</span>'+
       '</div>'+
       (playing!==null?'<p class="status-game-players">'+esc(interp(MSGS.playingNow,{n:playing.toLocaleString()}))+'</p>':'')+
       (meta.hasData&&tl?renderTimeline(tl,checkedAt):'')+
@@ -191,14 +211,14 @@ function renderPlatform(data){
   var u24=data&&data.uptime?data.uptime['24h']['roblox']:null;
   var u7d=data&&data.uptime?data.uptime['7d']['roblox']:null;
   var tl=data&&data.timeline?data.timeline['roblox']:null;
-  var s=roblox?roblox.status:'unknown';
+  var s=statusClass(roblox?roblox.status:'unknown');
   container.innerHTML=
     '<div class="status-platform-row">'+
       '<div class="status-game-info">'+
         '<span class="status-dot status-dot-'+s+'" aria-hidden="true"></span>'+
         '<span class="status-game-name">'+esc(MSGS.platformLabel)+'</span>'+
       '</div>'+
-      '<span class="status-badge status-badge-'+s+'" role="status">'+label(s)+'</span>'+
+      '<span class="status-badge status-badge-'+s+'" role="status">'+esc(label(s))+'</span>'+
     '</div>'+
     (roblox?'<p class="status-platform-note">'+esc(interp(MSGS.platformNote,{ms:roblox.responseMs}))+'</p>':'')+
     (tl?renderTimeline(tl,data&&data.latest?data.latest.checkedAt:null):'')+
@@ -220,8 +240,6 @@ function migrateText(s){
     .replace(/normal operation\\./g,'normal operations.');
 }
 
-// match the worker's English strings and swap in the localized template.
-// falls through to the original if nothing matches.
 function localizeIncidentText(s){
   var T=MSGS.incidentTemplates;
   if(!T)return s;
@@ -264,7 +282,6 @@ function isGameIncident(inc){
   return null;
 }
 
-// fold old game incidents into the matching Roblox incident if they opened within 5 min
 function groupIncidents(incidents){
   var FIVE_MIN=5*60*1000;
   var out=[];
@@ -317,11 +334,12 @@ function renderIncidents(incidents){
   }
   container.innerHTML=recent.slice(0,20).map(function(inc){
     var date=new Date(inc.date).toLocaleDateString([],{month:'short',day:'numeric',year:'numeric'});
-    var statusLabel=MSGS.incidentStatus[inc.status]||inc.status;
+    var incStatus=incidentClass(inc.status);
+    var statusLabel=MSGS.incidentStatus[incStatus]||incStatus;
     var subservices=(inc.affectedServices||[]).filter(function(s){return s!=='roblox'&&GAME_LABEL_BY_ID[s];});
     var affectedHtml='';
     if(subservices.length){
-      var subDotClass=inc.status==='resolved'?'status-dot-operational':(inc.status==='investigating'?'status-dot-down':'status-dot-degraded');
+      var subDotClass=incStatus==='resolved'?'status-dot-operational':(incStatus==='investigating'?'status-dot-down':'status-dot-degraded');
       affectedHtml='<ul class="status-incident-affected">'+
         subservices.map(function(sid){
           return '<li><span class="status-dot '+subDotClass+'" aria-hidden="true"></span><span>'+esc(GAME_LABEL_BY_ID[sid])+'</span></li>';
@@ -339,7 +357,7 @@ function renderIncidents(incidents){
     }
     return '<div class="status-incident-card">'+
       '<div class="status-incident-header">'+
-        '<span class="status-incident-badge status-incident-badge-'+esc(inc.status)+'">'+esc(statusLabel)+'</span>'+
+        '<span class="status-incident-badge status-incident-badge-'+incStatus+'">'+esc(statusLabel)+'</span>'+
         '<span class="status-incident-date">'+esc(date)+'</span>'+
       '</div>'+
       '<h3 class="status-incident-title" data-translatable>'+esc(inc.title)+'</h3>'+
@@ -387,7 +405,6 @@ async function load(){
   }
 }
 
-// initial paint
 renderBanner(null,false);
 renderGames(null);
 renderPlatform(null);

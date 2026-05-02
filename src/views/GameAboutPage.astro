@@ -39,18 +39,91 @@ const aboutLabels = page.about ?? {
   linksHeading: 'Official links',
 };
 
-// pulled at build
-let aboutData: {
+interface GameAboutData {
   body: string[];
   features: string[];
   media: { src: string; alt: string; caption?: string }[];
   links: { label: string; href: string; external: boolean }[];
-} = { body: [], features: [], media: [], links: [] };
+}
+
+const emptyAboutData: GameAboutData = { body: [], features: [], media: [], links: [] };
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function stringValue(value: unknown) {
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+function stringArray(value: unknown) {
+  return Array.isArray(value) ? value.map(stringValue).filter(Boolean) : [];
+}
+
+function normalizeAssetSrc(value: unknown) {
+  const raw = stringValue(value);
+  if (!raw || /^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(raw) || raw.includes('\\')) return '';
+  const normalized = `/${raw.replace(/^\/+/, '')}`;
+  return normalized.startsWith('/assets/') && !normalized.includes('..') ? normalized : '';
+}
+
+function normalizeInternalHref(value: unknown) {
+  const raw = stringValue(value);
+  if (!raw || !raw.startsWith('/') || raw.startsWith('//') || raw.includes('\\')) return '';
+  return raw.includes('\0') ? '' : raw;
+}
+
+function normalizeExternalHref(value: unknown) {
+  const raw = stringValue(value);
+  if (!raw) return '';
+
+  try {
+    const url = new URL(raw);
+    return url.protocol === 'https:' ? url.toString() : '';
+  } catch {
+    return '';
+  }
+}
+
+function normalizeAboutData(value: unknown): GameAboutData {
+  if (!isRecord(value)) return emptyAboutData;
+
+  const media = Array.isArray(value.media)
+    ? value.media.flatMap((item) => {
+        if (!isRecord(item)) return [];
+        const src = normalizeAssetSrc(item.src);
+        const alt = stringValue(item.alt);
+        if (!src || !alt) return [];
+        const caption = stringValue(item.caption);
+        return [{ src, alt, ...(caption ? { caption } : {}) }];
+      })
+    : [];
+
+  const links = Array.isArray(value.links)
+    ? value.links.flatMap((item) => {
+        if (!isRecord(item)) return [];
+        const label = stringValue(item.label);
+        const external = item.external === true;
+        const href = external ? normalizeExternalHref(item.href) : normalizeInternalHref(item.href);
+        return label && href ? [{ label, href, external }] : [];
+      })
+    : [];
+
+  return {
+    body: stringArray(value.body),
+    features: stringArray(value.features),
+    media,
+    links,
+  };
+}
+
+let aboutData = emptyAboutData;
 
 try {
   const raw = JSON.parse(readFileSync(resolve('public/data/game-about.json'), 'utf-8'));
-  const entry = raw.games?.find((g: { id: string }) => g.id === game.id);
-  if (entry) aboutData = entry;
+  const entries = isRecord(raw) && Array.isArray(raw.games) ? raw.games : [];
+  const entry = entries.find((item): item is Record<string, unknown> => isRecord(item) && item.id === game.id);
+  if (entry) aboutData = normalizeAboutData(entry);
 } catch {}
 
 const aboutTranslateScript = sanitizeInlineScript(getAboutTranslateScript());
@@ -80,7 +153,6 @@ const aboutTranslateScript = sanitizeInlineScript(getAboutTranslateScript());
   </section>
 
   <section class="about-details">
-    <!-- Metadata grid -->
     <dl class="about-grid">
       <div class="about-entry">
         <dt>{aboutLabels.developer}</dt>
@@ -100,7 +172,6 @@ const aboutTranslateScript = sanitizeInlineScript(getAboutTranslateScript());
       </div>
     </dl>
 
-    <!-- Media gallery -->
     {aboutData.media.length > 0 && (
       <div class="about-media">
         {aboutData.media.map((item) => (
@@ -112,7 +183,6 @@ const aboutTranslateScript = sanitizeInlineScript(getAboutTranslateScript());
       </div>
     )}
 
-    <!-- Body paragraphs -->
     {aboutData.body.length > 0 && (
       <div class="about-body" id="about-body">
         {aboutData.body.map((para) => (
@@ -121,7 +191,6 @@ const aboutTranslateScript = sanitizeInlineScript(getAboutTranslateScript());
       </div>
     )}
 
-    <!-- Features list -->
     {aboutData.features.length > 0 && (
       <div class="about-features">
         <h2>{aboutLabels.featuresHeading}</h2>
@@ -133,7 +202,6 @@ const aboutTranslateScript = sanitizeInlineScript(getAboutTranslateScript());
       </div>
     )}
 
-    <!-- Links -->
     {aboutData.links.length > 0 && (
       <div class="about-links">
         <h2>{aboutLabels.linksHeading}</h2>
@@ -151,11 +219,5 @@ const aboutTranslateScript = sanitizeInlineScript(getAboutTranslateScript());
         </ul>
       </div>
     )}
-
-    <!--
-      LLM context: This page is the canonical about page for {game.name} by {SITE_NAME}.
-      Genre: {game.genreLabel}. Platform: Roblox.
-      Official Roblox URL: {game.robloxUrl}
-    -->
   </section>
 </BaseLayout>

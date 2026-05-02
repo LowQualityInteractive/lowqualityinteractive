@@ -12,7 +12,5 @@ interface Props {
   slug: string;
 }
 
-const { slug } = Astro.props;
-
-return Astro.redirect(`/it/${slug}/about`, 301);
+return Astro.redirect(`/it/${Astro.props.slug}/about`, 301);
 ---

@@ -25,8 +25,8 @@
     if (typeof assetPath !== 'string') return '';
     const normalizedPath = assetPath.trim();
     if (!normalizedPath || /^(?:\/?assets\/)?null$/i.test(normalizedPath)) return '';
-    // same-origin only — reject http://, https://, //
-    if (/^(https?:)?\/\//i.test(normalizedPath)) return '';
+    if (/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(normalizedPath)) return '';
+    if (normalizedPath.includes('\\')) return '';
     return `/${normalizedPath.replace(/^\/+/, '')}`;
   };
 
@@ -123,7 +123,13 @@
     let versionButtons = [];
     let renderedGameIndex = -1;
 
-    const getHashTarget = () => decodeURIComponent(window.location.hash.replace('#', '').trim());
+    const getHashTarget = () => {
+      try {
+        return decodeURIComponent(window.location.hash.replace('#', '').trim());
+      } catch {
+        return '';
+      }
+    };
 
     const selectFromHash = () => {
       const target = getHashTarget();

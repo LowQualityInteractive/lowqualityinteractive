@@ -49,7 +49,6 @@ export function getBlogsScript(
   const TRANSLATE_ENABLED = !!(tx && tx.enabled);
   const translateOne = tx ? tx.one : (t) => Promise.resolve(t);
 
-  // run all visible strings through the translator in parallel
   const translateUpdate = async (update) => {
     if (!TRANSLATE_ENABLED) return update;
 
@@ -91,7 +90,6 @@ export function getBlogsScript(
     return result;
   };
 
-  // helpers
   const interpolate = (template, values) =>
     template.replace(/\{(\w+)\}/g, (_, key) => values[key] ?? '');
 
@@ -120,7 +118,8 @@ export function getBlogsScript(
     if (typeof assetPath !== 'string') return '';
     const normalizedPath = assetPath.trim();
     if (!normalizedPath || /^(?:\/?assets\/)?null$/i.test(normalizedPath)) return '';
-    if (/^(https?:)?\/\//i.test(normalizedPath)) return '';
+    if (/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(normalizedPath)) return '';
+    if (normalizedPath.includes('\\')) return '';
     return '/' + normalizedPath.replace(/^\/+/, '');
   };
 
@@ -237,8 +236,7 @@ export function getBlogsScript(
       return;
     }
 
-    // lazy translate: current update first, the rest run in the background
-    const translationCache = new Map(); // updateId -> Promise<update>
+    const translationCache = new Map();
 
     const getTranslatedUpdate = (game, updateIndex) => {
       const update = game.updates[updateIndex];
@@ -256,7 +254,13 @@ export function getBlogsScript(
     let versionButtons = [];
     let renderedGameIndex = -1;
 
-    const getHashTarget = () => decodeURIComponent(window.location.hash.replace('#', '').trim());
+    const getHashTarget = () => {
+      try {
+        return decodeURIComponent(window.location.hash.replace('#', '').trim());
+      } catch {
+        return '';
+      }
+    };
 
     const selectFromHash = () => {
       const target = getHashTarget();
@@ -430,7 +434,6 @@ export function getBlogsScript(
       bodyChildren.push(renderChangelog(update));
       body.replaceChildren(...bodyChildren);
 
-      // warm up the rest in the background
       if (TRANSLATE_ENABLED) {
         game.updates.forEach((_, i) => {
           if (i !== state.currentUpdateIndex) {

@@ -43,18 +43,173 @@ interface Incident {
   updates: IncidentUpdate[];
 }
 
-// games
-
 const GAMES = [
   { id: 'eradication', name: 'ERADICATION', universeId: '5788461409' },
   { id: 'donpollo-obby', name: 'DON POLLO OBBY', universeId: '7915083902' },
 ] as const;
 
 const GAME_IDS = GAMES.map(g => g.id);
-
-// check
+const DEFAULT_ALLOWED_ORIGIN = 'https://lowqualityinteractive.com';
 
 type GameRow = { id: number; playing: number; visits: number; isPlayable: boolean };
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function parseJson<T>(raw: string | null, fallback: T): T {
+  if (!raw) return fallback;
+  try {
+    return JSON.parse(raw) as T;
+  } catch {
+    return fallback;
+  }
+}
+
+function parseJsonArray<T>(raw: string | null): T[] {
+  const parsed = parseJson<unknown>(raw, []);
+  return Array.isArray(parsed) ? parsed as T[] : [];
+}
+
+function parsePending(raw: string | null): Record<string, number> {
+  const parsed = parseJson<unknown>(raw, {});
+  if (!isRecord(parsed)) return {};
+
+  const pending: Record<string, number> = Object.create(null);
+  for (const [key, value] of Object.entries(parsed)) {
+    if (typeof value === 'number' && Number.isFinite(value)) {
+      pending[key] = value;
+    }
+  }
+  return pending;
+}
+
+function normalizeGameRows(payload: unknown): GameRow[] {
+  if (!isRecord(payload) || !Array.isArray(payload.data)) return [];
+
+  return payload.data.flatMap((row) => {
+    if (!isRecord(row)) return [];
+    const id = Number(row.id);
+    if (!Number.isFinite(id)) return [];
+    return [{
+      id,
+      playing: typeof row.playing === 'number' && Number.isFinite(row.playing) ? row.playing : 0,
+      visits: typeof row.visits === 'number' && Number.isFinite(row.visits) ? row.visits : 0,
+      isPlayable: row.isPlayable === true,
+    }];
+  });
+}
+
+function stringValue(value: unknown): string {
+  return typeof value === 'string' ? value : '';
+}
+
+function numberValue(value: unknown, fallback = 0): number {
+  return typeof value === 'number' && Number.isFinite(value) ? value : fallback;
+}
+
+function normalizeCheckStatus(value: unknown): CheckStatus | null {
+  return value === 'operational' || value === 'degraded' || value === 'down' ? value : null;
+}
+
+function normalizeSnapshot(value: unknown): StatusSnapshot | null {
+  if (!isRecord(value) || !isRecord(value.roblox) || !Array.isArray(value.games)) return null;
+  const robloxStatus = normalizeCheckStatus(value.roblox.status);
+  if (!robloxStatus) return null;
+
+  const games = value.games.flatMap((game) => {
+    if (!isRecord(game)) return [];
+    const status = normalizeCheckStatus(game.status);
+    const id = stringValue(game.id);
+    const name = stringValue(game.name);
+    const universeId = stringValue(game.universeId);
+    if (!status || !id || !name) return [];
+    return [{
+      id,
+      name,
+      universeId,
+      status,
+      playing: numberValue(game.playing),
+      visits: numberValue(game.visits),
+      isPlayable: game.isPlayable === true,
+      responseMs: numberValue(game.responseMs),
+    }];
+  });
+
+  return {
+    checkedAt: numberValue(value.checkedAt, Date.now()),
+    roblox: {
+      status: robloxStatus,
+      responseMs: numberValue(value.roblox.responseMs),
+    },
+    games,
+  };
+}
+
+function parseSnapshot(raw: string | null): StatusSnapshot | null {
+  return normalizeSnapshot(parseJson<unknown>(raw, null));
+}
+
+function normalizeCheckBit(value: unknown): CheckBit | null {
+  if (!isRecord(value) || !isRecord(value.games)) return null;
+  const t = numberValue(value.t, 0);
+  if (t <= 0) return null;
+  const games: Record<string, 0 | 1> = Object.create(null);
+  for (const [key, state] of Object.entries(value.games)) {
+    games[key] = state === 0 ? 0 : 1;
+  }
+
+  return {
+    t,
+    roblox: value.roblox === 0 ? 0 : 1,
+    games,
+  };
+}
+
+function parseCheckBits(raw: string | null): CheckBit[] {
+  return parseJsonArray<unknown>(raw).flatMap((check) => {
+    const normalized = normalizeCheckBit(check);
+    return normalized ? [normalized] : [];
+  });
+}
+
+function normalizeIncident(value: unknown): Incident | null {
+  if (!isRecord(value)) return null;
+  const id = stringValue(value.id);
+  const date = stringValue(value.date);
+  const title = stringValue(value.title);
+  if (!id || !date || !title) return null;
+  const status =
+    value.status === 'monitoring' || value.status === 'resolved' ? value.status : 'investigating';
+  const affectedServices = Array.isArray(value.affectedServices)
+    ? value.affectedServices.filter((service): service is string => typeof service === 'string')
+    : [];
+  const updates = Array.isArray(value.updates)
+    ? value.updates.flatMap((update) => {
+        if (!isRecord(update)) return [];
+        const time = stringValue(update.time);
+        const message = stringValue(update.message);
+        return time && message ? [{ time, message }] : [];
+      })
+    : [];
+
+  return {
+    id,
+    date,
+    resolvedAt: typeof value.resolvedAt === 'string' ? value.resolvedAt : null,
+    title,
+    status,
+    affectedServices,
+    updates,
+  };
+}
+
+function parseIncidents(raw: string | null): Incident[] {
+  return parseJsonArray<unknown>(raw).flatMap((incident) => {
+    const normalized = normalizeIncident(incident);
+    return normalized ? [normalized] : [];
+  });
+}
 
 async function fetchWithTimeout(url: string, ms: number): Promise<Response> {
   const controller = new AbortController();
@@ -66,7 +221,6 @@ async function fetchWithTimeout(url: string, ms: number): Promise<Response> {
   }
 }
 
-// 2 retries — stops a one-tick blip from looking like an outage
 async function fetchGamesWithRetry(url: string): Promise<{ res: Response | null; ms: number }> {
   const start = Date.now();
   let lastRes: Response | null = null;
@@ -75,7 +229,6 @@ async function fetchGamesWithRetry(url: string): Promise<{ res: Response | null;
       const res = await fetchWithTimeout(url, 8000);
       if (res.ok) return { res, ms: Date.now() - start };
       lastRes = res;
-      // 4xx is on us, not transient — bail
       if (res.status < 500) break;
     } catch {
       lastRes = null;
@@ -85,14 +238,13 @@ async function fetchGamesWithRetry(url: string): Promise<{ res: Response | null;
   return { res: lastRes, ms: Date.now() - start };
 }
 
-// roblox statuspage — source of truth for platform health.
-// indicator: none | minor | major | critical
 async function fetchOfficialRobloxStatus(): Promise<CheckStatus | null> {
   try {
     const res = await fetchWithTimeout('https://status.roblox.com/api/v2/status.json', 5000);
     if (!res.ok) return null;
-    const json = await res.json() as { status?: { indicator?: string } };
-    const ind = json.status?.indicator;
+    const json = await res.json();
+    const status = isRecord(json) && isRecord(json.status) ? json.status : {};
+    const ind = status.indicator;
     if (ind === 'none') return 'operational';
     if (ind === 'minor') return 'degraded';
     if (ind === 'major' || ind === 'critical') return 'down';
@@ -115,26 +267,24 @@ async function checkStatuses(): Promise<StatusSnapshot> {
   let gamesData: GameRow[] = [];
 
   if (res && res.ok) {
-    const json = await res.json() as { data?: GameRow[] };
-    gamesData = json.data ?? [];
-    if (robloxMs > 6000) robloxStatus = 'degraded';
+    try {
+      gamesData = normalizeGameRows(await res.json());
+      if (robloxMs > 6000) robloxStatus = 'degraded';
+    } catch {
+      robloxStatus = 'degraded';
+    }
   } else if (res) {
     robloxStatus = res.status >= 500 ? 'down' : 'degraded';
   } else {
-    // every retry failed. without statuspage confirmation, call it degraded —
-    // saves us from opening fake outages on a flaky network.
     robloxStatus = officialStatus === 'down' ? 'down' : 'degraded';
   }
 
-  // statuspage wins. if it says they're down, we're down. if it says they're up but we
-  // can't reach them, downgrade to "degraded" instead of yelling outage.
   if (officialStatus) {
     if (officialStatus === 'down') robloxStatus = 'down';
     else if (officialStatus === 'degraded' && robloxStatus === 'operational') robloxStatus = 'degraded';
     else if (officialStatus === 'operational' && robloxStatus === 'down') robloxStatus = 'degraded';
   }
 
-  // multiple games missing from an OK response = roblox hiccup, not per-game.
   const missingCount = res && res.ok
     ? GAMES.filter(g => !gamesData.find(d => String(d.id) === g.universeId)).length
     : 0;
@@ -168,22 +318,19 @@ async function checkStatuses(): Promise<StatusSnapshot> {
   return { checkedAt: Date.now(), roblox: { status: robloxStatus, responseMs: robloxMs }, games };
 }
 
-// storage
-
 function dayKey(ts: number): string {
   return new Date(ts).toISOString().slice(0, 10);
 }
 
 async function storeSnapshot(kv: KVNamespace, snap: StatusSnapshot): Promise<void> {
   const previous = await kv.get('status:latest');
-  const prev: StatusSnapshot | null = previous ? JSON.parse(previous) : null;
+  const prev = parseSnapshot(previous);
 
   await kv.put('status:latest', JSON.stringify(snap));
 
-  // daily bucket
   const key = `status:checks:${dayKey(snap.checkedAt)}`;
   const raw = await kv.get(key);
-  const bucket: CheckBit[] = raw ? JSON.parse(raw) : [];
+  const bucket = parseCheckBits(raw);
   bucket.push({
     t: snap.checkedAt,
     roblox: snap.roblox.status === 'operational' ? 1 : 0,
@@ -199,8 +346,6 @@ async function storeSnapshot(kv: KVNamespace, snap: StatusSnapshot): Promise<voi
   // open/close incidents off status transitions
   await updateIncidents(kv, prev, snap);
 }
-
-// legacy incident migration
 
 function migrateIncidentText(s: string): string {
   return s
@@ -225,8 +370,6 @@ function migrateIncidents(incidents: Incident[]): { changed: boolean; incidents:
   return { changed, incidents: migrated };
 }
 
-// incident automation
-
 function serviceLabel(id: string): string {
   if (id === 'roblox') return 'Roblox';
   return GAMES.find(g => g.id === id)?.name ?? id;
@@ -236,8 +379,6 @@ function now(): string {
   return new Date().toISOString();
 }
 
-// returns the games that are bad only because roblox itself is bad —
-// used to fold them under the roblox incident instead of opening their own.
 function gamesAffectedByRoblox(
   robloxStatus: CheckStatus,
   games: GameCheck[],
@@ -254,23 +395,20 @@ async function updateIncidents(
   curr: StatusSnapshot,
 ): Promise<void> {
   const raw = await kv.get('status:incidents');
-  const rawIncidents: Incident[] = raw ? JSON.parse(raw) : [];
+  const rawIncidents = parseIncidents(raw);
   const { incidents } = migrateIncidents(rawIncidents);
 
-  // counts consecutive bad checks per service before we actually open an incident
   const pendingRaw = await kv.get('status:pending');
-  const pending: Record<string, number> = pendingRaw ? JSON.parse(pendingRaw) : {};
+  const pending = parsePending(pendingRaw);
 
   const prevServices: Array<{ id: string; status: CheckStatus }> = prev ? [
     { id: 'roblox', status: prev.roblox.status },
     ...prev.games.map(g => ({ id: g.id, status: g.status })),
   ] : [];
 
-  // games taken down by roblox itself
   const robloxCausedGameIds = gamesAffectedByRoblox(curr.roblox.status, curr.games);
   const robloxIsDown = curr.roblox.status !== 'operational';
 
-  // games that are only down because of roblox get folded into the roblox incident below
   const allServices: Array<{ id: string; status: CheckStatus }> = [
     { id: 'roblox', status: curr.roblox.status },
     ...curr.games.map(g => ({ id: g.id, status: g.status })),
@@ -279,7 +417,6 @@ async function updateIncidents(
   for (const svc of allServices) {
     const isRobloxCausedGame = svc.id !== 'roblox' && robloxIsDown && robloxCausedGameIds.includes(svc.id);
 
-    // pin to the open roblox incident instead of opening a new one
     if (isRobloxCausedGame) {
       const robloxIncident = incidents.find(
         i => i.affectedServices.includes('roblox') && i.status !== 'resolved',
@@ -287,7 +424,6 @@ async function updateIncidents(
       if (robloxIncident && !robloxIncident.affectedServices.includes(svc.id)) {
         robloxIncident.affectedServices.push(svc.id);
       }
-      // if a standalone game incident was already open, resolve it — roblox owns this now
       for (const inc of incidents) {
         if (
           inc.affectedServices.includes(svc.id) &&
@@ -311,7 +447,6 @@ async function updateIncidents(
     const isOk = svc.status === 'operational';
 
     if (wasOk && !isOk) {
-      // need 2 bad checks in a row — single blips don't count
       pending[svc.id] = (pending[svc.id] ?? 0) + 1;
       if (pending[svc.id] < 2) continue;
 
@@ -335,7 +470,6 @@ async function updateIncidents(
         });
       }
     } else if (!wasOk && isOk) {
-      // back up — clear pending, resolve any open incident
       delete pending[svc.id];
       for (const inc of incidents) {
         if (inc.affectedServices.includes(svc.id) && inc.status !== 'resolved') {
@@ -348,7 +482,6 @@ async function updateIncidents(
         }
       }
     } else if (!wasOk && !isOk) {
-      // still bad — drop a "monitoring" update once an hour
       delete pending[svc.id];
       const open = incidents.find(
         i => i.affectedServices.includes(svc.id) && i.status !== 'resolved',
@@ -364,22 +497,18 @@ async function updateIncidents(
         }
       }
     } else {
-      // still fine — wipe pending
       delete pending[svc.id];
     }
   }
 
   await kv.put('status:pending', JSON.stringify(pending), { expirationTtl: 2 * 3600 });
 
-  // keep last 20, expire after 30 days
   await kv.put(
     'status:incidents',
     JSON.stringify(incidents.slice(0, 20)),
     { expirationTtl: 30 * 86400 },
   );
 }
-
-// history + uptime
 
 async function getHistory(kv: KVNamespace) {
   const now = Date.now();
@@ -389,7 +518,7 @@ async function getHistory(kv: KVNamespace) {
   const buckets = await Promise.all(
     keys.map(async d => {
       const raw = await kv.get(`status:checks:${d}`);
-      return raw ? (JSON.parse(raw) as CheckBit[]) : [];
+      return parseCheckBits(raw);
     }),
   );
 
@@ -422,28 +551,66 @@ async function getHistory(kv: KVNamespace) {
   };
 }
 
-// http
+function normalizeOrigin(value: string | null | undefined): string | null {
+  if (!value) return null;
 
-function corsHeaders(origin: string, allowed: string): HeadersInit {
-  const allowOrigin =
-    !allowed || allowed === '*' || origin === allowed ? (origin || '*') : allowed;
-  return {
-    'Access-Control-Allow-Origin': allowOrigin,
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Access-Control-Max-Age': '86400',
-    'Content-Type': 'application/json',
+  try {
+    const url = new URL(value.trim());
+    return url.protocol === 'https:' || url.protocol === 'http:' ? url.origin : null;
+  } catch {
+    return null;
+  }
+}
+
+function getAllowedOrigin(env: Env): string {
+  return normalizeOrigin(env.ALLOWED_ORIGIN) ?? DEFAULT_ALLOWED_ORIGIN;
+}
+
+function responseHeaders(request: Request, env: Env): Headers {
+  const headers = new Headers({
+    'Content-Type': 'application/json; charset=utf-8',
     'Cache-Control': 'no-store',
+    'X-Content-Type-Options': 'nosniff',
+    'Referrer-Policy': 'no-referrer',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Max-Age': '86400',
     Vary: 'Origin',
-  };
+  });
+  const rawOrigin = request.headers.get('Origin');
+  const requestOrigin = normalizeOrigin(rawOrigin);
+  const allowedOrigin = getAllowedOrigin(env);
+
+  if (!rawOrigin || requestOrigin === allowedOrigin) {
+    headers.set('Access-Control-Allow-Origin', allowedOrigin);
+  }
+
+  return headers;
+}
+
+function hasDisallowedOrigin(request: Request, env: Env): boolean {
+  const rawOrigin = request.headers.get('Origin');
+  if (!rawOrigin) return false;
+  return normalizeOrigin(rawOrigin) !== getAllowedOrigin(env);
+}
+
+function jsonResponse(body: unknown, status: number, headers: Headers): Response {
+  return new Response(JSON.stringify(body), { status, headers });
 }
 
 async function handleFetch(request: Request, env: Env): Promise<Response> {
-  const origin = request.headers.get('Origin') ?? '';
-  const headers = corsHeaders(origin, env.ALLOWED_ORIGIN ?? '*');
+  const headers = responseHeaders(request, env);
+
+  if (hasDisallowedOrigin(request, env)) {
+    return jsonResponse({ error: 'Origin not allowed' }, 403, headers);
+  }
 
   if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers });
-  if (request.method !== 'GET')
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405, headers });
+  if (request.method !== 'GET') {
+    const methodHeaders = new Headers(headers);
+    methodHeaders.set('Allow', 'GET, OPTIONS');
+    return jsonResponse({ error: 'Method not allowed' }, 405, methodHeaders);
+  }
 
   const [latestRaw, history, incidentsRaw] = await Promise.all([
     env.STATUS_KV.get('status:latest'),
@@ -451,17 +618,23 @@ async function handleFetch(request: Request, env: Env): Promise<Response> {
     env.STATUS_KV.get('status:incidents'),
   ]);
 
-  const latest: StatusSnapshot | null = latestRaw ? JSON.parse(latestRaw) : null;
-  const incidents: Incident[] = incidentsRaw ? JSON.parse(incidentsRaw) : [];
+  const latest = parseSnapshot(latestRaw);
+  const incidents = parseIncidents(incidentsRaw);
 
-  return new Response(JSON.stringify({ latest, ...history, incidents }), { headers });
+  return jsonResponse({ latest, ...history, incidents }, 200, headers);
 }
-
-// entry
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    return handleFetch(request, env);
+    try {
+      return await handleFetch(request, env);
+    } catch {
+      return jsonResponse(
+        { error: 'Internal server error' },
+        500,
+        responseHeaders(request, env),
+      );
+    }
   },
 
   async scheduled(_event: ScheduledEvent, env: Env, ctx: ExecutionContext): Promise<void> {
