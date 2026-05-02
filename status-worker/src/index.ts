@@ -43,7 +43,7 @@ interface Incident {
   updates: IncidentUpdate[];
 }
 
-// ── Games catalogue ────────────────────────────────────────────────────────
+// games
 
 const GAMES = [
   { id: 'eradication', name: 'ERADICATION', universeId: '5788461409' },
@@ -52,7 +52,7 @@ const GAMES = [
 
 const GAME_IDS = GAMES.map(g => g.id);
 
-// ── Check ──────────────────────────────────────────────────────────────────
+// check
 
 type GameRow = { id: number; playing: number; visits: number; isPlayable: boolean };
 
@@ -66,7 +66,7 @@ async function fetchWithTimeout(url: string, ms: number): Promise<Response> {
   }
 }
 
-// Fetch games.roblox.com with up to 2 retries on transient failure (kills single-tick blips).
+// 2 retries — stops a one-tick blip from looking like an outage
 async function fetchGamesWithRetry(url: string): Promise<{ res: Response | null; ms: number }> {
   const start = Date.now();
   let lastRes: Response | null = null;
@@ -75,7 +75,7 @@ async function fetchGamesWithRetry(url: string): Promise<{ res: Response | null;
       const res = await fetchWithTimeout(url, 8000);
       if (res.ok) return { res, ms: Date.now() - start };
       lastRes = res;
-      // Don't retry 4xx — it's a client issue, not transient
+      // 4xx is on us, not transient — bail
       if (res.status < 500) break;
     } catch {
       lastRes = null;
@@ -85,8 +85,8 @@ async function fetchGamesWithRetry(url: string): Promise<{ res: Response | null;
   return { res: lastRes, ms: Date.now() - start };
 }
 
-// Roblox's official status page (Statuspage.io). Authoritative for platform health.
-// indicator: "none" | "minor" | "major" | "critical"
+// roblox statuspage — source of truth for platform health.
+// indicator: none | minor | major | critical
 async function fetchOfficialRobloxStatus(): Promise<CheckStatus | null> {
   try {
     const res = await fetchWithTimeout('https://status.roblox.com/api/v2/status.json', 5000);
@@ -121,21 +121,20 @@ async function checkStatuses(): Promise<StatusSnapshot> {
   } else if (res) {
     robloxStatus = res.status >= 500 ? 'down' : 'degraded';
   } else {
-    // All retries failed — network/timeout. Without official confirmation, call it degraded
-    // rather than down to avoid false-positive outage incidents from transient blips.
+    // every retry failed. without statuspage confirmation, call it degraded —
+    // saves us from opening fake outages on a flaky network.
     robloxStatus = officialStatus === 'down' ? 'down' : 'degraded';
   }
 
-  // Official status is authoritative: if Roblox says they have an incident, trust it over our probe.
-  // Likewise, if our probe thinks Roblox is down but the official page says operational, downgrade.
+  // statuspage wins. if it says they're down, we're down. if it says they're up but we
+  // can't reach them, downgrade to "degraded" instead of yelling outage.
   if (officialStatus) {
     if (officialStatus === 'down') robloxStatus = 'down';
     else if (officialStatus === 'degraded' && robloxStatus === 'operational') robloxStatus = 'degraded';
     else if (officialStatus === 'operational' && robloxStatus === 'down') robloxStatus = 'degraded';
   }
 
-  // Co-occurrence: if multiple games are missing from a successful response while we
-  // think Roblox is fine, that's almost certainly a platform hiccup, not per-game issues.
+  // multiple games missing from an OK response = roblox hiccup, not per-game.
   const missingCount = res && res.ok
     ? GAMES.filter(g => !gamesData.find(d => String(d.id) === g.universeId)).length
     : 0;
@@ -169,7 +168,7 @@ async function checkStatuses(): Promise<StatusSnapshot> {
   return { checkedAt: Date.now(), roblox: { status: robloxStatus, responseMs: robloxMs }, games };
 }
 
-// ── Storage ────────────────────────────────────────────────────────────────
+// storage
 
 function dayKey(ts: number): string {
   return new Date(ts).toISOString().slice(0, 10);
@@ -181,7 +180,7 @@ async function storeSnapshot(kv: KVNamespace, snap: StatusSnapshot): Promise<voi
 
   await kv.put('status:latest', JSON.stringify(snap));
 
-  // Daily history bucket
+  // daily bucket
   const key = `status:checks:${dayKey(snap.checkedAt)}`;
   const raw = await kv.get(key);
   const bucket: CheckBit[] = raw ? JSON.parse(raw) : [];
@@ -197,11 +196,11 @@ async function storeSnapshot(kv: KVNamespace, snap: StatusSnapshot): Promise<voi
   });
   await kv.put(key, JSON.stringify(bucket.slice(-300)), { expirationTtl: 8 * 86400 });
 
-  // Auto-manage incidents based on status transitions
+  // open/close incidents off status transitions
   await updateIncidents(kv, prev, snap);
 }
 
-// ── Legacy incident migration ──────────────────────────────────────────────
+// legacy incident migration
 
 function migrateIncidentText(s: string): string {
   return s
@@ -226,7 +225,7 @@ function migrateIncidents(incidents: Incident[]): { changed: boolean; incidents:
   return { changed, incidents: migrated };
 }
 
-// ── Incident automation ────────────────────────────────────────────────────
+// incident automation
 
 function serviceLabel(id: string): string {
   if (id === 'roblox') return 'Roblox';
@@ -237,8 +236,8 @@ function now(): string {
   return new Date().toISOString();
 }
 
-// Returns true if all non-operational games are caused by Roblox being down/degraded.
-// Used to decide whether to group game incidents under the Roblox incident.
+// returns the games that are bad only because roblox itself is bad —
+// used to fold them under the roblox incident instead of opening their own.
 function gamesAffectedByRoblox(
   robloxStatus: CheckStatus,
   games: GameCheck[],
@@ -258,7 +257,7 @@ async function updateIncidents(
   const rawIncidents: Incident[] = raw ? JSON.parse(raw) : [];
   const { changed: migrationNeeded, incidents } = migrateIncidents(rawIncidents);
 
-  // Load the pending-confirmation state (tracks consecutive bad checks per service)
+  // counts consecutive bad checks per service before we actually open an incident
   const pendingRaw = await kv.get('status:pending');
   const pending: Record<string, number> = pendingRaw ? JSON.parse(pendingRaw) : {};
 
@@ -267,12 +266,11 @@ async function updateIncidents(
     ...prev.games.map(g => ({ id: g.id, status: g.status })),
   ] : [];
 
-  // Determine which game IDs are downstream victims of Roblox being bad
+  // games taken down by roblox itself
   const robloxCausedGameIds = gamesAffectedByRoblox(curr.roblox.status, curr.games);
   const robloxIsDown = curr.roblox.status !== 'operational';
 
-  // Build the full service list, but skip game services that are only down because of Roblox —
-  // those will be represented as sub-services on the Roblox incident instead.
+  // games that are only down because of roblox get folded into the roblox incident below
   const allServices: Array<{ id: string; status: CheckStatus }> = [
     { id: 'roblox', status: curr.roblox.status },
     ...curr.games.map(g => ({ id: g.id, status: g.status })),
@@ -281,8 +279,7 @@ async function updateIncidents(
   for (const svc of allServices) {
     const isRobloxCausedGame = svc.id !== 'roblox' && robloxIsDown && robloxCausedGameIds.includes(svc.id);
 
-    // If this game's issue is purely Roblox-caused, add it to the Roblox incident's
-    // affected services instead of creating a separate incident.
+    // pin to the open roblox incident instead of opening a new one
     if (isRobloxCausedGame) {
       const robloxIncident = incidents.find(
         i => i.affectedServices.includes('roblox') && i.status !== 'resolved',
@@ -290,7 +287,7 @@ async function updateIncidents(
       if (robloxIncident && !robloxIncident.affectedServices.includes(svc.id)) {
         robloxIncident.affectedServices.push(svc.id);
       }
-      // Resolve any previously separate incident for this game if Roblox is causing it
+      // if a standalone game incident was already open, resolve it — roblox owns this now
       for (const inc of incidents) {
         if (
           inc.affectedServices.includes(svc.id) &&
@@ -314,7 +311,7 @@ async function updateIncidents(
     const isOk = svc.status === 'operational';
 
     if (wasOk && !isOk) {
-      // Require 2 consecutive bad checks before opening an incident (false-positive filter)
+      // need 2 bad checks in a row — single blips don't count
       pending[svc.id] = (pending[svc.id] ?? 0) + 1;
       if (pending[svc.id] < 2) continue;
 
@@ -338,7 +335,7 @@ async function updateIncidents(
         });
       }
     } else if (!wasOk && isOk) {
-      // Recovered — clear pending and resolve open incident
+      // back up — clear pending, resolve any open incident
       delete pending[svc.id];
       for (const inc of incidents) {
         if (inc.affectedServices.includes(svc.id) && inc.status !== 'resolved') {
@@ -351,7 +348,7 @@ async function updateIncidents(
         }
       }
     } else if (!wasOk && !isOk) {
-      // Still bad — clear pending (already confirmed) and add hourly monitoring update
+      // still bad — drop a "monitoring" update once an hour
       delete pending[svc.id];
       const open = incidents.find(
         i => i.affectedServices.includes(svc.id) && i.status !== 'resolved',
@@ -367,14 +364,14 @@ async function updateIncidents(
         }
       }
     } else {
-      // Was ok and still ok — clear any pending count
+      // still fine — wipe pending
       delete pending[svc.id];
     }
   }
 
   await kv.put('status:pending', JSON.stringify(pending), { expirationTtl: 2 * 3600 });
 
-  // Keep only the last 20 incidents, expire after 30 days
+  // keep last 20, expire after 30 days
   await kv.put(
     'status:incidents',
     JSON.stringify(incidents.slice(0, 20)),
@@ -382,7 +379,7 @@ async function updateIncidents(
   );
 }
 
-// ── History & uptime ───────────────────────────────────────────────────────
+// history + uptime
 
 async function getHistory(kv: KVNamespace) {
   const now = Date.now();
@@ -425,7 +422,7 @@ async function getHistory(kv: KVNamespace) {
   };
 }
 
-// ── HTTP handler ───────────────────────────────────────────────────────────
+// http
 
 function corsHeaders(origin: string, allowed: string): HeadersInit {
   const allowOrigin =
@@ -460,7 +457,7 @@ async function handleFetch(request: Request, env: Env): Promise<Response> {
   return new Response(JSON.stringify({ latest, ...history, incidents }), { headers });
 }
 
-// ── Entry point ────────────────────────────────────────────────────────────
+// entry
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {

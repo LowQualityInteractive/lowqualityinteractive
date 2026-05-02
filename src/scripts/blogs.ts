@@ -49,7 +49,7 @@ export function getBlogsScript(
   const TRANSLATE_ENABLED = !!(tx && tx.enabled);
   const translateOne = tx ? tx.one : (t) => Promise.resolve(t);
 
-  // Translate all user-visible strings in an update in parallel
+  // run all visible strings through the translator in parallel
   const translateUpdate = async (update) => {
     if (!TRANSLATE_ENABLED) return update;
 
@@ -91,7 +91,7 @@ export function getBlogsScript(
     return result;
   };
 
-  // --- Helpers ---
+  // helpers
   const interpolate = (template, values) =>
     template.replace(/\{(\w+)\}/g, (_, key) => values[key] ?? '');
 
@@ -237,9 +237,7 @@ export function getBlogsScript(
       return;
     }
 
-    // Translate update content in the background; re-render when done.
-    // We translate lazily: only the currently-viewed update is translated before
-    // first render; the rest are translated in the background.
+    // lazy translate: current update first, the rest run in the background
     const translationCache = new Map(); // updateId -> Promise<update>
 
     const getTranslatedUpdate = (game, updateIndex) => {
@@ -432,7 +430,7 @@ export function getBlogsScript(
       bodyChildren.push(renderChangelog(update));
       body.replaceChildren(...bodyChildren);
 
-      // Kick off background translation of remaining updates in this game
+      // warm up the rest in the background
       if (TRANSLATE_ENABLED) {
         game.updates.forEach((_, i) => {
           if (i !== state.currentUpdateIndex) {

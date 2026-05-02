@@ -15,7 +15,7 @@ const { locale = 'en' } = Astro.props;
 const messages = getMessages(locale);
 const page = messages.pages.status;
 
-// All games for the status page — games without a universeId show "no data"
+// missing universeId = "no data"
 const allGames = getGames(locale);
 const gameMeta: StatusGameMeta[] = allGames
   .filter(g => g.status !== 'in-development')

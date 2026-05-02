@@ -35,7 +35,7 @@ export function getLiveScript(messages: LiveMessages, games: LiveGame[], discord
     return String(n);
   };
 
-  // --- Roblox API: live player counts on game cards ---
+  // live player counts on game cards
   const allGames = GAMES.filter((g) => g.universeId);
   if (allGames.length > 0) {
     const universeIds = allGames.map((g) => g.universeId).join(',');
@@ -69,7 +69,7 @@ export function getLiveScript(messages: LiveMessages, games: LiveGame[], discord
       });
   }
 
-  // --- Devlog JSON: update feed badge ---
+  // "new update" badge
   fetch('/data/public-devlogs.json', { cache: 'no-store', signal: AbortSignal.timeout(8000) })
     .then((res) => res.ok ? res.json() : null)
     .catch(() => null)
@@ -93,7 +93,7 @@ export function getLiveScript(messages: LiveMessages, games: LiveGame[], discord
       }
     });
 
-  // --- Discord: online member count ---
+  // discord online count
   if (DISCORD_GUILD_ID) {
     fetch('https://discord.com/api/guilds/' + DISCORD_GUILD_ID + '/widget.json', {
       signal: AbortSignal.timeout(6000),
@@ -110,7 +110,7 @@ export function getLiveScript(messages: LiveMessages, games: LiveGame[], discord
       });
   }
 
-  // Mark blogs as visited when on that page
+  // hitting /blogs counts as "seen"
   if (window.location.pathname.includes('/blogs')) {
     try { sessionStorage.setItem('lqi-blogs-visited', '1'); } catch {}
     document.querySelectorAll('[data-update-badge]').forEach((el) => {
@@ -118,7 +118,7 @@ export function getLiveScript(messages: LiveMessages, games: LiveGame[], discord
     });
   }
 
-  // --- Status: site-wide alert bar + nav dot ---
+  // alert bar + nav dot
   if (STATUS_WORKER_URL) {
     fetch(STATUS_WORKER_URL, { signal: AbortSignal.timeout(8000) })
       .then((res) => res.ok ? res.json() : null)

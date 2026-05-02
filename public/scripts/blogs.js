@@ -25,7 +25,7 @@
     if (typeof assetPath !== 'string') return '';
     const normalizedPath = assetPath.trim();
     if (!normalizedPath || /^(?:\/?assets\/)?null$/i.test(normalizedPath)) return '';
-    // Only allow same-origin paths — reject any absolute URL (http://, https://, //)
+    // same-origin only — reject http://, https://, //
     if (/^(https?:)?\/\//i.test(normalizedPath)) return '';
     return `/${normalizedPath.replace(/^\/+/, '')}`;
   };

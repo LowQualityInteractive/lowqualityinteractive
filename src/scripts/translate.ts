@@ -1,6 +1,5 @@
-// Returns an IIFE-safe string of JS that defines window.__lqiTranslate,
-// a per-locale MyMemory-backed translator with sessionStorage caching.
-// Safe to inline multiple times: the first run wins, subsequent runs no-op.
+// IIFE that sets up window.__lqiTranslate (MyMemory + sessionStorage cache).
+// Re-inlining is fine — first one wins.
 export function getTranslateBootstrap(locale: string) {
   return String.raw`(() => {
   if (window.__lqiTranslate) return;
@@ -76,7 +75,7 @@ export function getTranslateBootstrap(locale: string) {
     translateAll();
   }
 
-  // Retranslate when new content is injected (e.g. the blogs viewer or status script)
+  // re-run when blogs/status inject new DOM
   const mo = new MutationObserver(() => translateAll());
   if (document.body) {
     mo.observe(document.body, { childList: true, subtree: true });
@@ -89,6 +88,6 @@ export function getTranslateBootstrap(locale: string) {
 }
 
 export function getAboutTranslateScript() {
-  // Back-compat shim: translate.ts now runs auto-translate globally, so this is a no-op.
+  // kept for back-compat — global auto-translate handles this now
   return String.raw`(() => {})();`;
 }

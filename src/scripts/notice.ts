@@ -11,7 +11,7 @@ export function getNoticeScript(messages: CookieNoticeMessages) {
 
   const TEXT = ${JSON.stringify(messages)};
 
-  // Build banner
+  // build banner
   const banner = document.createElement('div');
   banner.className = 'cookie-banner';
   banner.setAttribute('role', 'region');

@@ -14,7 +14,7 @@ const { locale } = Astro.props;
 const messages = getMessages(locale);
 const page = messages.pages.home;
 
-// Fetch Roblox stats at build time (server-side, no CORS issue)
+// build-time fetch — skips CORS
 const UNIVERSE_IDS = '5788461409,7915083902';
 let totalVisits = 0;
 try {
@@ -35,7 +35,7 @@ const formatVisits = (n: number) => {
 
 const visitsDisplay = totalVisits > 0 ? formatVisits(totalVisits) : '—';
 
-// Count total updates from devlogs file at build time
+// total update count from devlogs
 let totalUpdates = 0;
 try {
   const devlogsPath = resolve('public/data/public-devlogs.json');

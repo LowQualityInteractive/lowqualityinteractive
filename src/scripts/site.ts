@@ -263,7 +263,7 @@ export function getSiteScript(
         closeListbox();
         localeBtn.focus();
       } else if (e.key.length === 1) {
-        // Type-ahead
+        // type-ahead
         const match = opts.findIndex((opt) =>
           (opt.textContent || '').trim().toLowerCase().startsWith(e.key.toLowerCase())
         );
@@ -271,14 +271,14 @@ export function getSiteScript(
       }
     });
 
-    // Close on outside click
+    // close on outside click
     document.addEventListener('click', (e) => {
       if (!localeSwitcher.contains(e.target instanceof Element ? e.target : null)) {
         closeListbox();
       }
     });
 
-    // When listbox is open, focus it so keyboard events land on it
+    // focus the listbox when open so keys land on it
     const observer = new MutationObserver(() => {
       if (!localeListbox.hidden) localeListbox.focus();
     });

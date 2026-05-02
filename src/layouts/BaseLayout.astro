@@ -85,8 +85,7 @@ const translateBootstrap = sanitizeInlineScript(getTranslateBootstrap(locale));
 
 const ogImageUrl = ogImage ? toAbsoluteSiteUrl(ogImage) : toAbsoluteSiteUrl('/assets/logo.png');
 
-// Ensure JSON-LD cannot contain a closing script tag even if the data were ever
-// sourced from outside the static build pipeline.
+// guard against </script in case JSON-LD ever comes from outside the build
 const safeJsonLd = jsonLd ? jsonLd.replace(/<\/script/gi, '<\\/script') : undefined;
 
 const allInlineScripts = [

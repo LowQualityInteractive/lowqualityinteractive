@@ -220,8 +220,8 @@ function migrateText(s){
     .replace(/normal operation\\./g,'normal operations.');
 }
 
-// Pattern-match the worker's English output and swap in localized templates.
-// Returns the localized string, or the original if no pattern matches.
+// match the worker's English strings and swap in the localized template.
+// falls through to the original if nothing matches.
 function localizeIncidentText(s){
   var T=MSGS.incidentTemplates;
   if(!T)return s;
@@ -264,8 +264,7 @@ function isGameIncident(inc){
   return null;
 }
 
-// Group legacy data: any game incident opened within 5 minutes of a Roblox incident
-// should be folded in as a sub-service of that Roblox incident.
+// fold old game incidents into the matching Roblox incident if they opened within 5 min
 function groupIncidents(incidents){
   var FIVE_MIN=5*60*1000;
   var out=[];
@@ -388,7 +387,7 @@ async function load(){
   }
 }
 
-// Initial loading state
+// initial paint
 renderBanner(null,false);
 renderGames(null);
 renderPlatform(null);
