@@ -6,6 +6,25 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v50e",
+          "version": "v5.0e",
+          "date": "5/2/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [],
+            "changes": [
+              "Revamped and standardized every GUI element across the game for a consistent visual experience."
+            ],
+            "bugs": [],
+            "removals": [],
+            "misc": [],
+            "footnotes": [
+              "Another update coming later today 😶‍🌫️"
+            ]
+          }
+        },
+        {
           "id": "eradication-v50d",
           "version": "v5.0d",
           "date": "5/1/26",
