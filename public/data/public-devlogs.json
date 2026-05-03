@@ -6,6 +6,27 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v50f",
+          "version": "v5.0f",
+          "date": "5/2/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added the M60, only available to group users",
+              "Added a dedicated Rewards section GUI, allowing players to view and claim all available rewards in one place."
+            ],
+            "changes": [
+              "Improved the level system UX for smoother progression.",
+              "Limited private server rewards to prevent reward farming."
+            ],
+            "bugs": [],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
           "id": "eradication-v50e",
           "version": "v5.0e",
           "date": "5/2/26",
