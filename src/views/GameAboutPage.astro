@@ -40,6 +40,16 @@ const aboutLabels = page.about ?? {
 
 const aboutData = getGameAbout(game.id);
 
+// optional per-game markdown file at src/data/about/<id>.md
+// drop a file there and it replaces the body+features block on this page
+// and on the .md endpoint. no file = falls back to body[]+features[] from json
+// translation note: markdown content is not auto-translated, write data-translatable
+// inline html if you need that
+type AboutModule = { Content: (props: Record<string, unknown>) => unknown };
+const aboutMarkdownModules = import.meta.glob<AboutModule>('../data/about/*.md', { eager: true });
+const aboutMarkdown = aboutMarkdownModules[`../data/about/${game.id}.md`] ?? null;
+const AboutMarkdownContent = aboutMarkdown?.Content;
+
 const aboutTranslateScript = sanitizeInlineScript(getAboutTranslateScript());
 ---
 
@@ -99,23 +109,31 @@ const aboutTranslateScript = sanitizeInlineScript(getAboutTranslateScript());
       </div>
     )}
 
-    {aboutData.body.length > 0 && (
-      <div class="about-body" id="about-body">
-        {aboutData.body.map((para) => (
-          <p data-translatable>{para}</p>
-        ))}
+    {AboutMarkdownContent ? (
+      <div class="about-body about-markdown" id="about-body">
+        <AboutMarkdownContent />
       </div>
-    )}
+    ) : (
+      <>
+        {aboutData.body.length > 0 && (
+          <div class="about-body" id="about-body">
+            {aboutData.body.map((para) => (
+              <p data-translatable>{para}</p>
+            ))}
+          </div>
+        )}
 
-    {aboutData.features.length > 0 && (
-      <div class="about-features">
-        <h2>{aboutLabels.featuresHeading}</h2>
-        <ul id="about-features-list">
-          {aboutData.features.map((feat) => (
-            <li data-translatable>{feat}</li>
-          ))}
-        </ul>
-      </div>
+        {aboutData.features.length > 0 && (
+          <div class="about-features">
+            <h2>{aboutLabels.featuresHeading}</h2>
+            <ul id="about-features-list">
+              {aboutData.features.map((feat) => (
+                <li data-translatable>{feat}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </>
     )}
 
     {aboutData.links.length > 0 && (

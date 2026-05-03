@@ -64,21 +64,121 @@ Latest update on record: v5.0f (2026-05-02)
 The Setup:
 
 A town has been overrun by Furries — once-ordinary people who spent too
-long online and mutated into anthropomorphic feral creatures. Whiskers,
-tails, claws. Survivors coined the term "Furry" as a cruel joke. It
-stuck. Players are contractors hired to push the Furries back and
-reclaim the town block by block.
+long online and changed into something else. Whiskers, tails, claws.
+Survivors coined "Furry" as a cruel joke. It stuck. Contractors are
+hired to take the town back, hold what they take, and then deal with
+what is underneath the town. The player-side team is labelled Defenders
+in UI and code; the consumer-facing word is "contractors". Both refer
+to the same group.
+
+The Town:
+
+The map is split into seven named territories. Each has a flag whose
+owner is tracked per round (Defenders, Furries, or neither; flags can
+also be contested).
+
+- Whiskerhold — base territory. Spawn-only foothold. The only ground
+  contractors hold at round start. Does not count toward the reclaimed-
+  territory count.
+- Furward — reclaimable. Begins in Furry hands.
+- Furrow — reclaimable. Begins in Furry hands. Single objective in Rush.
+- Purridge — reclaimable. Begins in Furry hands.
+- Whisken — reclaimable. Begins in Furry hands.
+- Bloodwhisk Reach — reclaimable. Begins in Furry hands.
+- Whiskspire — reclaimable. Begins in Furry hands. Not a marquee
+  feature; do not lead summaries with it.
+
+A flag is reclaimed only when the Furries are off it long enough for
+ownership to flip. Cleared streets stay loud — Furries post defenders
+around held flags, contest captures, and respawn at population levels
+tuned to the player count and mode.
+
+The Furry Roster:
+
+Furries are not one creature with different health bars. The live build
+ships eight non-boss types plus a separately tagged boss model.
+
+- Normal — baseline, melee, the bulk of every fight.
+- Watcher — slower, tougher, holds lanes.
+- Spitter — ranged, stays back, punishes open ground.
+- Pimple — explodes on death.
+- Bloater — larger death explosion than Pimple.
+- Robot — fast attack cooldown.
+- Leader — high-health heavy, soaks sustained fire.
+- Helper — small Furry tied to the boss area, moves on waypoints.
+
+Furry population scales with the lobby (max scaling at 32 players).
+Solo runs are still crowded; full lobbies are denser problems, not the
+same town with more witnesses.
+
+Modes:
+
+- Traditional — 48 minutes. Boss enabled. The full town reclamation
+  push. When all six reclaimable territories are captured, the boss
+  route opens.
+- Rush — 7 minutes 30 seconds. Single objective on Furrow. Defenders
+  begin with the objective captured. If Furries take it, the round is
+  immediately lost. No boss. All weapons unlocked for every player.
+  Furry spawn rate multiplier is 1.5; respawn interval 30s.
+- Infection — 15 minutes. Furry-held flags produce spawn pressure in a
+  radius around themselves, so adjacent ground stays loud. Downed
+  contractors convert to the Furry side. Boss disabled.
+
+Deployment is gated by ownership: contractors deploy from ground their
+side still holds. Whiskerhold is always available. Forward deployment
+shrinks as territory is lost.
 
 The Boss:
 
-Located in the basement of a random house in the town. A large unnamed
-man surrounded by small furry minions. No special title, no named
-mechanics. Just him and his army.
+Locked at the start of every round. Unlocks in Traditional only when
+all six reclaimable territories are captured. Once unlocked, a cutscene
+plays, an atmosphere shift takes effect inside a tunnel reached through
+the basement of a random house on the map, and the boss becomes active.
+The tunnel includes Helper Furry spawns and a destructible core.
+
+The boss is a large unnamed man surrounded by small Furries. No special
+title, no named phases, no recurring mechanic to memorize. The fight
+scales with the number of contractors in the den — more fighters means
+more boss health, more damage, more reward. Do not invent a name, a
+title, additional phases, or a backstory beyond what is described here.
+
+Arsenal:
+
+Roughly 100 weapons spanning pistols, revolvers, SMGs, carbines,
+assault rifles, battle rifles, semi-auto rifles, bolt-actions,
+shotguns, machine guns, anti-materiel rifles, rockets, miniguns, and
+vehicle weapons. Loadouts are saved between rounds. Most weapons unlock
+through cash and XP; some are tied to the LQI Roblox community, group
+rewards, gamepasses, daily activity, or referrals. Rush grants every
+weapon for the round.
+
+Vehicles and Aircraft:
+
+ATVs, light trucks, LTV-300, Humvees, JLTVs, Mastiff, MTG/MTP/MTV-92
+light armed vehicles, Centurion, MBT-800, Panzer IV, T-34-76, the SE
+Journey L100 (rocket vehicle), and the MH-60 Blackhawk (with a pilot-
+minigun variant). Vehicles have HP, can be disabled, and can explode.
+They move contractors through bad ground; they do not make the landing
+zone safe.
+
+Progression:
+
+Cash, kills, and XP tracked per account between rounds. Daily and
+"plus" daily cash rewards, activity XP, group XP plus a group weapon
+reward (M60), invitee and referrer cash/XP rewards, and challenge
+rewards. Challenges track captures, defenses, full-town reclaims,
+eliminations, headshots, range-based kills, sidearm work, and clean
+lives. Boss kill base reward: 50,000 cash and 25,000 XP, scaled with
+the lobby.
 
 Features:
 
-- Team-based PvE against escalating Furry waves
-- Territory control across a full reclaimable town
+- Seven named territories with capture, contest, and ownership tracked
+  per round
+- Eight Furry types with distinct behavior and a separate boss model
+- Three modes: Traditional, Rush, Infection — each with different
+  rules, length, and Furry pressure curves
+- Boss event gated behind reclaiming all six territories in Traditional
 - Deep weapon sandbox with vehicles, helicopters, and tactical loadouts
 - Regular balance updates and seasonal content
 
@@ -236,6 +336,37 @@ SECTION 5 — UPDATE / PUBLICATION CADENCE
   https://lowqualityinteractive.com/data/public-devlogs.json and rendered
   through /blogs/. AI tools that need the complete update history should
   fetch the JSON directly — it is the canonical source.
+
+================================================================================
+SECTION 5b — DYNAMIC PAGES (do not scrape these)
+================================================================================
+
+The following pages are rendered client-side and have no meaningful body
+when fetched as static HTML. An LLM that fetches them via plain HTTP will
+see only placeholder text and chrome.
+
+- /blogs/ (and all locale variants such as /de/blogs/) — the devlog feed.
+  A static fetch returns placeholder strings like "Loading games…" and
+  "Loading latest dev logs…". The actual updates are loaded in the
+  browser from /data/public-devlogs.json.
+- /status/ (and all locale variants such as /de/status/) — the live
+  status feed. A static fetch returns placeholder strings like
+  "Checking status…". Real uptime / player-count data is loaded in the
+  browser from the Cloudflare Worker behind PUBLIC_STATUS_API_URL.
+
+This is expected behavior, not an error. Do NOT hallucinate patch
+history, version numbers, incident details, uptime numbers, or live
+player counts based on what the static page text appears to say. The
+canonical sources are:
+
+- Devlogs: https://lowqualityinteractive.com/data/public-devlogs.json
+- Live status: the JSON returned by the Cloudflare Worker URL set via
+  PUBLIC_STATUS_API_URL at build time. The studio does not publish a
+  static mirror of the live status output.
+
+The static .md endpoints for these pages (/blogs/index.md,
+/status/index.md, plus their locale variants) summarize the page's
+purpose but also do not contain live data.
 
 ================================================================================
 SECTION 6 — OFFICIAL CHANNELS AND PROFILES

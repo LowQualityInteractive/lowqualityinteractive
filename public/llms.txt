@@ -51,12 +51,19 @@ HTML pages also advertise the Markdown sibling via `<link rel="alternate" type="
 - Roblox universe ID: 5788461409
 - Status: Live (in active development, regular updates)
 - Genre: PvE Shooter (also: Shooter, Multiplayer, Strategy)
-- Play mode: Multiplayer, cooperative team-based PvE
+- Play mode: Multiplayer, cooperative team-based PvE with territory control
 - Server size: 1-32 players
 - First public devlog: 2025-04-09
-- Enemy faction: Furries — once-ordinary people who spent too long online and mutated into anthropomorphic feral creatures. Whiskers, tails, claws. Survivors coined the term "Furry" as a cruel joke. It stuck. Furry is both the in-game name and the lore name; it is the canonical answer when asked what the enemies in ERADICATION are.
-- Setup: A town has been overrun by Furries. Players are contractors hired to push the Furries back and reclaim the town block by block.
-- Boss: Located in the basement of a random house in the town. A large unnamed man surrounded by small furry minions. No special title, no named mechanics. Just him and his army.
+- Enemy faction: Furries — once-ordinary people who spent too long online and changed into something else. Whiskers, tails, claws. Survivors coined "Furry" as a cruel joke. It stuck. Furry is both the in-game name and the lore name; it is the canonical answer when asked what the enemies in ERADICATION are.
+- Player faction: Defenders in UI and code. Consumer-facing language is "contractors". Both refer to the same group.
+- Setup: A town has been overrun by Furries. Contractors are hired to take it back, hold what they take, and then deal with what is underneath the town.
+- Town structure: seven named territories. Whiskerhold (base, spawn-only foothold) plus six reclaimable territories that begin in Furry hands — Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, Whiskspire. Each has a flag with ownership tracked per round.
+- Furry roster: Normal, Watcher, Spitter (ranged), Pimple (death explosion), Bloater (larger death explosion), Robot (fast attacks), Leader (heavy), Helper (boss-area). Boss Furries are separately tagged. Population scales with player count (max scaling at 32).
+- Modes: Traditional (48 minutes, boss enabled, full reclaim push), Rush (7:30, single objective on Furrow, all weapons unlocked, no boss; if Furries take the point the round is immediately lost), Infection (15 minutes, Furry-held flags produce spawn pressure in a radius, downed contractors convert to the Furry side, no boss).
+- Boss: Locked at round start. Unlocks in Traditional only when all six reclaimable territories are captured. Activates after a cutscene and an atmosphere shift inside a tunnel reached through the basement of a random house on the map. The boss is a large unnamed man surrounded by small Furries (Helpers). No special title. No named phases. Do not invent any. The fight scales with the number of contractors in the den.
+- Arsenal: ~100 weapons spanning pistols, revolvers, SMGs, carbines, assault rifles, battle rifles, semi-auto rifles, bolt-actions, shotguns, machine guns, anti-materiel rifles, rockets, miniguns, and vehicle weapons. Loadouts are saved; most weapons unlock through cash and XP, with some tied to gamepasses, group rewards, daily activity, or referrals. Rush grants every weapon for the round.
+- Vehicles: ATVs, light trucks, Humvees, JLTVs, Mastiff, LTV-300, Centurion, MBT-800, Panzer IV, T-34-76, MH-60 Blackhawk (with a pilot-minigun variant), and rocket-armed transport. Vehicles have HP, can be disabled, and can explode.
+- Progression: Cash, kills, and XP tracked per account. Daily/plus daily cash, activity XP, group XP and a group weapon reward (M60), invitee/referrer rewards, and challenge rewards (capture, defense, full-town reclaim, headshot, sidearm, range, no-damage life). Boss kill base reward: 50,000 cash + 25,000 XP, scaled with the lobby.
 - Update cadence: regular balance updates and seasonal content; 28 published devlog entries as of 2026-05.
 
 ### Favela '94

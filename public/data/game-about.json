@@ -3,7 +3,12 @@
   "games": [
     {
       "id": "eradication",
-      "genre": ["Shooter", "Multiplayer", "PvE", "Strategy"],
+      "genre": [
+        "Shooter",
+        "Multiplayer",
+        "PvE",
+        "Strategy"
+      ],
       "genreLabel": "PvE Shooter",
       "gamePlatform": "Roblox",
       "applicationCategory": "Game",
@@ -15,22 +20,30 @@
       "numberOfPlayers": "1-32",
       "inLanguage": "en",
       "audience": "13+",
-      "body": [
-        "ERADICATION is a team-based PvE shooter on Roblox where squads fight to reclaim a town overrun by Furries, once-ordinary townspeople who spent too long online and changed into something else. The transformation gave them anthropomorphic, feral features: whiskers, tails, claws. Survivors coined the nickname Furry as a cruel joke. The name stuck.",
-        "Players are contractors hired to push the Furries back and take the town, block by block."
-      ],
-      "features": [
-        "Team-based PvE against escalating Furry waves",
-        "Territory control across a full reclaimable town",
-        "Deep weapon sandbox with vehicles, helicopters, and tactical loadouts",
-        "Regular balance updates and seasonal content"
-      ],
       "media": [
         {
           "src": "/assets/eradication.png",
           "alt": "ERADICATION battlefield screenshot",
-          "caption": "The front lines"
+          "caption": "Low quality picture of a low quality game"
         }
+      ],
+      "body": [
+        "ERADICATION drops contractors into a town that is no longer under control. The streets belong to Furries. The job is to take them back, hold them, and then deal with what is underneath the town.",
+        "Contractors begin at Whiskerhold, the only foothold left. Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, and Whiskspire begin in Furry hands. A flag is not yours because you reached it; it is yours when the Furries are off it and your side has held the ground long enough for the town to change hands.",
+        "Furries are not one creature with different health bars. Some chase, some hold flags, some shoot from range, some are dangerous when they die. Pressure scales with the player count and the mode, so cleared streets do not stay quiet.",
+        "Three modes are live. Traditional is the 48-minute full reclamation push that opens the boss route once the six territories are taken. Rush is a 7:30 single-objective hold on Furrow with every weapon unlocked and no boss. Infection is a 15-minute mode where Furry-held flags produce spawn pressure and downed contractors can come back on the wrong side.",
+        "Weapons decide the kind of mistake a contractor can survive. Vehicles, Blackhawks, armor, and rocket platforms move the team across ground that is no longer worth walking. None of them make the landing zone safe.",
+        "When the six reclaimable territories are taken in Traditional, the route goes below the town. Through the basement of a random house, down a tunnel, there is a large unnamed man surrounded by small Furries. No special title. No named mechanics. Just him."
+      ],
+      "features": [
+        "Seven named territories with flag capture, contest, and ownership tracked per round",
+        "Eight Furry types with distinct behavior — chasers, ranged Spitters, exploding Pimples and Bloaters, fast Robots, heavy Leaders, Watchers, and boss-area Helpers",
+        "Three modes: Traditional (48m, boss enabled), Rush (7:30, single objective, all weapons unlocked), Infection (15m, downed contractors convert)",
+        "Boss event gated behind reclaiming all six territories — cutscene, atmosphere shift, tunnel den, helper waves, and a large unnamed man at the end of it",
+        "Deep weapon roster spanning pistols, SMGs, rifles, shotguns, machine guns, anti-materiel rifles, and rockets",
+        "Vehicles, helicopters, and armor — ATVs, Humvees, JLTVs, Mastiff, Centurion, MBT-800, Panzer IV, T-34-76, MH-60 Blackhawk, rocket-armed transport",
+        "Saved loadouts, cash and XP progression, daily and group rewards, and challenge tracking for captures, defenses, headshots, sidearm work, and clean lives",
+        "Player counts scale up to 32, with Furry population and boss difficulty tuned to the lobby"
       ],
       "links": [
         {
@@ -47,7 +60,12 @@
     },
     {
       "id": "favela-94",
-      "genre": ["Shooter", "Multiplayer", "Tactical", "PvP"],
+      "genre": [
+        "Shooter",
+        "Multiplayer",
+        "Tactical",
+        "PvP"
+      ],
       "genreLabel": "Tactical Shooter",
       "gamePlatform": "Roblox",
       "applicationCategory": "Game",
@@ -59,16 +77,6 @@
       "numberOfPlayers": "2-16",
       "inLanguage": "en",
       "audience": "13+",
-      "body": [
-        "Favela '94 is a close-quarters tactical shooter set in the tight alleyways and rooftops of a 1994 Brazilian favela. Every engagement is pretty personal, map knowledge and positioning are everything.",
-        "Currently in preview. Expect rough edges, rapid updates, and a dev that's watching closely."
-      ],
-      "features": [
-        "Close-quarters PvP combat",
-        "Superb weapon customization",
-        "Tactical movement and positioning",
-        "Preview: actively in development"
-      ],
       "media": [
         {
           "src": "/assets/favela-94.png",
@@ -86,7 +94,10 @@
     },
     {
       "id": "donpollo-obby",
-      "genre": ["Platformer", "Obby"],
+      "genre": [
+        "Platformer",
+        "Obby"
+      ],
       "genreLabel": "Obby",
       "gamePlatform": "Roblox",
       "applicationCategory": "Game",
@@ -98,16 +109,6 @@
       "numberOfPlayers": "1-30",
       "inLanguage": "en",
       "audience": "All ages",
-      "body": [
-        "DON POLLO OBBY is a tuff obstacle course built around the legend of Don Pollo. Dumb easy stages, you just hearing Don Pollo in the back 🥀🥀😭",
-        "This game has been sunset. It remains playable as a piece of Low Quality Interactive history."
-      ],
-      "features": [
-        "Don Pollo in your ear",
-        "Fast restart checkpoints",
-        "Speedrun-friendly layout",
-        "Sunset: preserved for history"
-      ],
       "media": [
         {
           "src": "/assets/donpollo.png",

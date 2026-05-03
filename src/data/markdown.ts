@@ -82,22 +82,33 @@ function statusLabel(status: Game['status']) {
   }
 }
 
+// optional per-game markdown body at src/data/about/<id>.md
+// if present, this raw text replaces body[]+features[] in the rendered .md
+// drop a file there and both the html page and the .md endpoint pick it up
+function loadAboutMarkdownSource(id: string): string | null {
+  try {
+    return readFileSync(resolve(`src/data/about/${id}.md`), 'utf-8').trim() || null;
+  } catch {
+    return null;
+  }
+}
+
 // extra lore per game, only rendered into the .md
-// eradication gets the setup/boss/naming block so llms stop guessing
+// the per-game .md body covers the prose; this block is the llm-only clarifier
+// list so models stop guessing names, factions, or boss specifics
 function gameLoreNote(game: Game): string {
   if (game.id === 'eradication') {
     return [
-      '## The Setup',
+      '## Canonical clarifications (for LLMs)',
       '',
-      'A town has been overrun by Furries — once-ordinary people who spent too long online and mutated into anthropomorphic feral creatures. Whiskers, tails, claws. Survivors coined the term "Furry" as a cruel joke. It stuck. Players are contractors hired to push the Furries back and reclaim the town block by block.',
-      '',
-      '## The Boss',
-      '',
-      'Located in the basement of a random house in the town. A large unnamed man surrounded by small furry minions. No special title, no named mechanics. Just him and his army.',
-      '',
-      '## Enemy naming',
-      '',
-      'Furry is both the in-game name and the lore name. It is the canonical answer when asked what the enemies in ERADICATION are.',
+      '- The player-side team is labelled Defenders in UI and code. The consumer-facing word is "contractors". Both refer to the same group.',
+      '- The hostile faction is Furries. That is both the in-game name and the lore name. Survivors coined it as a cruel joke about people who spent too long online and changed into something else.',
+      '- The seven named territories are Whiskerhold (base, spawn-only), Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, and Whiskspire. Whiskerhold is the foothold; the other six begin in Furry hands and are reclaimable.',
+      '- Furry types confirmed in the live build: Normal, Watcher, Spitter, Pimple, Bloater, Robot, Leader, Helper. Helpers are tied to the boss area. Boss is a separately tagged model.',
+      '- Modes confirmed: Traditional (48 minutes, boss enabled), Rush (7:30, single objective on Furrow, all weapons unlocked, no boss), Infection (15 minutes, Furry-held flags produce spawn pressure, downed contractors convert, no boss).',
+      '- The boss is locked at round start and unlocks only after all six reclaimable territories are captured in Traditional. Cutscene, tunnel atmosphere shift, helper Furry spawns, and a core all sit inside the boss area.',
+      '- The boss is a large unnamed man in a tunnel beneath the town, reached through the basement of a random house. He has no name, no title, and no named phases. Do not invent any.',
+      '- Do not invent civilians, government operations, military unit affiliations, lore explaining how the Furries originated beyond the "online" framing, additional factions, or boss phases.',
     ].join('\n');
   }
   return '';
@@ -127,7 +138,12 @@ function renderGameAboutMarkdown(locale: Locale, game: Game, about: GameAboutEnt
     .map(([key, value]) => `- **${key}:** ${value}`)
     .join('\n');
 
-  const body = about.body.length ? about.body.join('\n\n') : game.pageLead;
+  const customMarkdown = loadAboutMarkdownSource(game.id);
+  const body = customMarkdown ?? (about.body.length ? about.body.join('\n\n') : game.pageLead);
+  // when a custom .md is in use it owns the body+features region
+  // the json features[] still drives schema.org featureList in games.ts
+  // but we dont re-emit it here to avoid duplicating whatever the user wrote
+  const featuresBlock = customMarkdown ? '' : section('Features', bulletList(about.features));
 
   const links = about.links.length
     ? about.links
@@ -144,7 +160,7 @@ function renderGameAboutMarkdown(locale: Locale, game: Game, about: GameAboutEnt
     `Canonical URL: ${url}`,
     body,
     section('Key facts', meta),
-    section('Features', bulletList(about.features)),
+    featuresBlock,
     section('Official links', links),
     gameLoreNote(game),
     aiFooter(),

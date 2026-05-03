@@ -1230,6 +1230,105 @@ main { padding-block: 3.5rem 5rem; }
   font-size: var(--fs-md);
 }
 
+/* astro :global() rendering of the about/<id>.md file
+   covers headings, lists, and tables that the structured json body[]
+   never produces. keeps bullets aligned with paragraph text and gives
+   tables real borders/padding instead of browser defaults */
+.about-markdown { gap: 1.25rem; }
+.about-markdown > * { margin: 0; }
+.about-markdown p {
+  line-height: 1.75;
+  color: var(--text-2);
+  font-size: var(--fs-md);
+}
+.about-markdown h2 {
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-top: 1.5rem;
+}
+.about-markdown h3 {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-top: 1rem;
+}
+.about-markdown ul,
+.about-markdown ol {
+  padding-left: 1.25rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+.about-markdown ul { list-style: disc outside; }
+.about-markdown ol { list-style: decimal outside; }
+.about-markdown li::marker { color: var(--brand); }
+.about-markdown strong { color: var(--text); font-weight: 700; }
+.about-markdown a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.about-markdown a:hover { color: var(--brand-dark); }
+.about-markdown code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2, rgba(127,127,127,0.12));
+  border: 1px solid var(--border);
+}
+.about-markdown blockquote {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid var(--brand);
+  color: var(--muted);
+  font-style: italic;
+}
+.about-markdown hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0.5rem 0;
+}
+
+/* table block.
+   keeping display:table (default) so the outer border lines up with the
+   cell border grid - display:block decouples them and the right edge floats. */
+.about-markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-md);
+  color: var(--text-2);
+  line-height: 1.6;
+  overflow: hidden;
+}
+.about-markdown thead {
+  background: var(--surface-2, rgba(127,127,127,0.08));
+}
+.about-markdown th,
+.about-markdown td {
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+.about-markdown th:last-child,
+.about-markdown td:last-child { border-right: none; }
+.about-markdown tbody tr:last-child td { border-bottom: none; }
+.about-markdown th {
+  color: var(--text);
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 .about-features h2,
 .about-links h2 {
   font-size: var(--fs-xl);
