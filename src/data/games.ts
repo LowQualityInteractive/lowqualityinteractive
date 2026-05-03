@@ -135,16 +135,12 @@ export function getGameUpdateHref(locale: Locale, game: Pick<Game, 'updateHash'>
   return `${getLocalePath(locale, 'blogs')}#${game.updateHash}`;
 }
 
-// Reusable @id reference back to the canonical Organization node defined on the
-// home page graph. Every non-home graph cites the Organization by @id rather
-// than duplicating the full entity, so crawlers see one Organization across the
-// whole site and correctly link studio facts.
+// points back at the org node on the home graph
+// every other page cites it by id instead of duplicating the whole thing
 const ORG_REF = { '@id': `${SITE_URL}/#organization` };
 
-// Mapping from internal route key to the canonical breadcrumb label. Labels are
-// English on purpose: schema.org BreadcrumbList values are not translated, and
-// keeping them locale-stable means LLM crawlers see the same crumb chain
-// regardless of which locale variant they fetched.
+// breadcrumb labels are english on purpose
+// schema.org doesnt translate these and keeping them stable gives crawlers one chain
 const BREADCRUMB_LABELS = {
   home: 'Home',
   games: 'Games',
@@ -155,16 +151,14 @@ const BREADCRUMB_LABELS = {
 } as const;
 
 interface BreadcrumbCrumb {
-  // Display name for the crumb. Crawlers surface this verbatim.
+  // crawlers print this verbatim
   name: string;
-  // Absolute URL for the breadcrumb step. Required by schema.org so search
-  // tools and LLM browsing agents can follow the chain back to the root.
+  // absolute url, schema.org requires it
   url: string;
 }
 
-// Builds a BreadcrumbList node. Added to every page's @graph so crawlers
-// reconstruct the site hierarchy without having to traverse the navigation.
-// LLMs use this to determine "where am I in this site" when summarising.
+// builds the breadcrumb node
+// goes on every page graph so crawlers dont have to walk the nav
 function getBreadcrumbList(pageUrl: string, crumbs: BreadcrumbCrumb[]) {
   return {
     '@type': 'BreadcrumbList',
@@ -201,10 +195,9 @@ export function getHomeJsonLd(locale: Locale) {
     '@context': 'https://schema.org',
     '@graph': [
       {
-        // Organization is the canonical studio node. Defined once here on the
-        // home graph; every other page references it by @id. sameAs lists
-        // authoritative external profiles so LLMs can cross-verify the studio
-        // identity with Roblox, Discord, X, YouTube, and the live-game listings.
+        // the org node lives here once
+        // every other page just references it by id
+        // sameAs is so crawlers can cross-check us against roblox/discord/x/yt
         '@type': 'Organization',
         '@id': `${SITE_URL}/#organization`,
         name: SITE_NAME,
@@ -216,9 +209,9 @@ export function getHomeJsonLd(locale: Locale) {
         sameAs: [...SOCIAL_URLS, ...liveGames.map((game) => game.robloxUrl)],
       },
       {
-        // WebSite represents the entire lowqualityinteractive.com property.
-        // No SearchAction is included because the site has no on-site search;
-        // adding a stub action would mislead crawlers that surface search UIs.
+        // WebSite covers the whole property
+        // no SearchAction because we dont have site search
+        // a fake one would just mislead crawlers
         '@type': 'WebSite',
         '@id': `${localizedHomeUrl}#website`,
         url: localizedHomeUrl,
@@ -241,9 +234,8 @@ export function getGamesJsonLd(locale: Locale) {
     '@context': 'https://schema.org',
     '@graph': [
       {
-        // CollectionPage frames the games index as a curated catalog rather
-        // than a generic web page. LLMs treat CollectionPage as a list-style
-        // resource and tend to enumerate its members faithfully.
+        // CollectionPage tells llms this is a list, not just a page
+        // they tend to enumerate the members instead of summarising
         '@type': 'CollectionPage',
         '@id': `${pageUrl}#webpage`,
         name: getSiteTitle(pageLabel),
@@ -317,14 +309,13 @@ export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutE
     (link) => link.external && /^https:\/\/(?:www\.)?roblox\.com\//i.test(link.href),
   )?.href;
 
-  // sameAs lists authoritative external profiles for this entity. Helps LLM
-  // crawlers reconcile this VideoGame with its Roblox listing.
+  // sameAs ties this game to its roblox listing for crawlers
   const sameAs = [playOnRoblox, ...SOCIAL_URLS.filter((u) => /roblox\.com/i.test(u))].filter(
     (v, i, arr): v is string => Boolean(v) && arr.indexOf(v) === i,
   );
 
-  // image: every image referenced in the about page, not just the hero. LLMs
-  // increasingly use schema image lists to surface gallery results.
+  // every image on the page, not just the hero
+  // multimodal llms pick from the list
   const imageUrls = about.media
     .map((m) => toAbsoluteSiteUrl(m.src))
     .filter((u, i, arr) => arr.indexOf(u) === i);
@@ -336,52 +327,37 @@ export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutE
     ...getGameSchema(game),
     publisher: { '@type': 'Organization', name: SITE_NAME },
     mainEntityOfPage: { '@id': `${localizedAboutUrl}#webpage` },
-    // name: explicit display title so crawlers index the canonical brand
-    // capitalisation rather than guessing from the URL slug.
+    // explicit name so crawlers dont guess capitalisation from the slug
     name: game.name,
-    // url: locale-agnostic canonical for the about page, gives LLMs a single
-    // stable URL to cite regardless of which translation they crawled.
+    // locale-agnostic canonical, gives llms one url to cite
     url: canonicalAboutUrl,
-    // playMode: distinguishes multiplayer titles in answers like
-    // "co-op Roblox shooters", which are common LLM query intents.
+    // helps with queries like "co-op roblox shooters"
     playMode: about.playMode ?? 'MultiPlayer',
-    // applicationCategory: lets general application-aware crawlers
-    // (Bing, ChatGPT search) classify the entity beyond just VideoGame.
+    // bing/chatgpt search use this to classify beyond just VideoGame
     applicationCategory: about.applicationCategory ?? 'Game',
-    // gamePlatform: redundantly stated so the field survives even if a
-    // crawler ignores the inherited value from getGameSchema.
+    // restated in case a crawler ignores the inherited value
     gamePlatform: about.gamePlatform ?? 'Roblox',
-    // author: ties the game back to the studio entity, so crawlers can
-    // attribute the work and surface other LQI titles together.
+    // ties the game to the studio so crawlers can group lqi titles
     author: {
       '@type': 'Organization',
       name: SITE_NAME,
       url: `${SITE_URL}/`,
     },
-    // image: full set of in-page images so multimodal LLMs can pick the
-    // most relevant one for visual answers.
+    // full image list, multimodal llms pick whatever fits
     image: allImages,
-    // description: full prose body from the about page, the richest semantic
-    // signal an LLM can use to summarise the game in its own words.
+    // the prose body, richest signal for summaries
     description: bodyText || game.pageLead,
-    // featureList: concrete bullet points that LLMs lift verbatim when
-    // asked "what features does X have", reducing hallucination.
+    // bullet points llms lift verbatim for "what features does x have"
     ...(featuresText ? { featureList: featuresText } : {}),
-    // datePublished: a stable signal LLMs use when ranking by recency or
-    // when the user asks "when was X released". Stored as ISO year string.
+    // release year as iso string
     ...(about.releaseYear ? { datePublished: about.releaseYear } : {}),
-    // numberOfPlayers: schema.org QuantitativeValue-ish range. Encoded as a
-    // simple "min-max" string for LLM legibility; structured consumers can
-    // still parse it.
+    // min-max string, easier for llms to read than the QuantitativeValue shape
     ...(about.numberOfPlayers ? { numberOfPlayers: about.numberOfPlayers } : {}),
-    // inLanguage: useful when the catalog ships translated game pages. The
-    // game itself is English; the page may be served localized.
+    // game itself is english, page may be localized
     inLanguage: about.inLanguage ?? 'en',
-    // audience: rough age suitability so LLMs can avoid suggesting age-
-    // inappropriate titles in family contexts.
+    // age suitability so llms dont suggest us in family contexts
     ...(about.audience ? { audience: { '@type': 'Audience', suggestedMinAge: about.audience } } : {}),
-    // identifier: stable Roblox numeric IDs — the most precise way an LLM
-    // can disambiguate this title from clones or fan re-uploads.
+    // roblox ids, the only way to disambiguate from clones
     ...(about.robloxGameId
       ? {
           identifier: [
@@ -392,12 +368,10 @@ export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutE
           ],
         }
       : {}),
-    // operatingSystem: Roblox is itself a runtime; declaring it lets app-store
-    // crawlers index the title under the Roblox platform bucket.
+    // roblox is the runtime, app-store crawlers like having this set
     operatingSystem: 'Roblox',
-    // offers: price info. Roblox titles are free to enter; some have in-game
-    // purchases but the entry price is zero. LLMs answering "is X free?" use
-    // this directly.
+    // entry price is zero on every roblox title we ship
+    // llms use this for "is x free"
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -431,11 +405,9 @@ export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutE
   });
 }
 
-// Generic page JSON-LD builder for sections that have no entity-rich content
-// of their own (Blogs index, Connect, Status, Privacy Policy). Emits a
-// WebPage / ContactPage / etc. node plus a BreadcrumbList so every URL on the
-// site exposes a structured-data block. Without this, those sections were
-// invisible to schema-aware crawlers — they'd only see HTML.
+// fallback json-ld builder for pages that arent really an entity
+// blogs, connect, status, privacy, etc
+// without this they show up as plain html to schema-aware crawlers
 interface SectionPageOptions {
   description: string;
   inLanguage: Locale;

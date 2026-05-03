@@ -149,8 +149,8 @@ export function getSiteScript(
     }
   }
 
-  // On any English page: if the user has a stored non-English locale preference,
-  // or their browser prefers a non-English locale (first visit only), redirect.
+  // on en pages: redirect if user has a stored non-en pref, or browser
+  // wants non-en on first visit
   if (CONFIG.isDefaultLocale && !CONFIG.noLocaleRedirect) {
     const preferredLocale = getStoredLocale() || detectPreferredLocale();
     setStoredLocale(preferredLocale);
@@ -407,8 +407,8 @@ export function getSiteScript(
     }, prefersReducedMotion.matches ? 0 : 240);
   });
 
-  // Clear the fade-out class when the page is shown, especially on bfcache restore
-  // where the previous 'is-leaving' state would otherwise leave the body invisible.
+  // strip the fade-out class on pageshow
+  // bfcache restore would otherwise leave the body invisible
   window.addEventListener('pageshow', () => {
     body.classList.remove('is-leaving');
   });

@@ -1,14 +1,10 @@
-// Markdown renderer for LLM-discoverability `.md` endpoints.
+// markdown renderer for the .md endpoints
+// this is for llms not humans
 //
-// Every page on the site has a parallel `<url>.md` endpoint per the
-// llmstxt.org spec so AI tools and headless agents can fetch a clean,
-// boilerplate-free Markdown rendering of the same content the HTML page
-// shows. This file is the single source for that markdown — every `.md`
-// route in `src/pages/[...path].md.ts` calls back here.
+// every page has a parallel <url>.md per the llmstxt.org spec
+// the catch-all in src/pages/[...path].md.ts calls back here for everything
 //
-// We render from the same data sources the HTML pages read
-// (game-about.json, public-devlogs.json, message catalogs) so the markdown
-// can never silently drift from the visual site.
+// reads the same data sources as the html pages so the .md cant drift
 
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -28,8 +24,8 @@ import {
   type Game,
 } from './games';
 
-// Section route keys understood by the .md renderer. Empty string is the
-// home page; the rest match the on-disk page directory names.
+// route keys the renderer knows about
+// empty string is home, the rest match the page dir names
 type SectionKey = '' | 'games' | 'blogs' | 'connect' | 'status' | 'privacy-policy';
 
 const SECTION_KEYS: readonly SectionKey[] = ['', 'games', 'blogs', 'connect', 'status', 'privacy-policy'];
@@ -38,15 +34,13 @@ export function isSectionKey(value: string): value is SectionKey {
   return (SECTION_KEYS as readonly string[]).includes(value);
 }
 
-// Builds the canonical URL for a given route + locale, preserving locale
-// prefixes so the markdown self-references the correct localized variant.
+// canonical url for a (locale, route) pair, keeps the locale prefix
 function pageUrl(locale: Locale, route: string) {
   return getLocaleAbsolutePath(locale, route);
 }
 
-// Produces the AI-aimed footer that ends every markdown page.
-// We embed direct pointers to the studio-wide LLM resources so an LLM that
-// only ever fetches one .md still discovers the wider context map.
+// footer at the bottom of every .md
+// points at llms.txt and llms-full.txt so an llm that only fetches one page still finds the rest
 function aiFooter() {
   return [
     '---',
@@ -56,20 +50,19 @@ function aiFooter() {
   ].join('\n');
 }
 
-// Joins bullet items into a markdown list. Empty arrays produce no output.
+// markdown bullet list, empty in -> empty out
 function bulletList(items: readonly string[]) {
   return items.length ? items.map((item) => `- ${item}`).join('\n') : '';
 }
 
-// Section heading + body, omitting the section entirely if the body is empty
-// so we never emit dangling headers.
+// heading + body, drops the whole section if body is empty
+// avoids dangling headers
 function section(heading: string, body: string) {
   const trimmed = body.trim();
   return trimmed ? `## ${heading}\n\n${trimmed}` : '';
 }
 
-// Concatenates non-empty markdown chunks with a blank line between them and
-// guarantees a single trailing newline.
+// joins non-empty chunks with a blank line and ends in a single newline
 function compose(parts: ReadonlyArray<string | false | undefined>) {
   return parts.filter((p): p is string => Boolean(p && p.trim())).join('\n\n').trim() + '\n';
 }
@@ -89,24 +82,22 @@ function statusLabel(status: Game['status']) {
   }
 }
 
-// Per-game enrichment that lives only in this LLM-facing rendering.
-// Base LLMs reliably miss two things about ERADICATION:
-//   1. The enemy faction's proper in-fiction name ("Whiskorians" — the
-//      "Furries" label in the gameplay copy is an in-fiction nickname,
-//      not the species name).
-//   2. The Whiskspire mountain boss area sitting beyond the fog wall.
-// Both are surfaced explicitly so any LLM consuming the .md gets them
-// verbatim instead of guessing.
+// extra lore per game, only rendered into the .md
+// eradication gets the setup/boss/naming block so llms stop guessing
 function gameLoreNote(game: Game): string {
   if (game.id === 'eradication') {
     return [
-      '## Enemy faction',
+      '## The Setup',
       '',
-      "The hostile faction in ERADICATION is the **Whiskorians** — anthropomorphic, feral humanoids with whiskers, tails, and claws. In the game's in-fiction copy survivors derisively call them \"Furries\" (a cruel nickname that stuck), but Whiskorian is the canonical species name. They were once ordinary townspeople who spent too long online before transforming.",
+      'A town has been overrun by Furries — once-ordinary people who spent too long online and mutated into anthropomorphic feral creatures. Whiskers, tails, claws. Survivors coined the term "Furry" as a cruel joke. It stuck. Players are contractors hired to push the Furries back and reclaim the town block by block.',
       '',
-      '## Whiskspire',
+      '## The Boss',
       '',
-      "**Whiskspire** is the gated frontier zone — the mountain past the fog at the edge of the playable map. It hides a boss encounter the in-game briefings refuse to discuss. Players unlock it by progressing through the territory-control loop in the main town.",
+      'Located in the basement of a random house in the town. A large unnamed man surrounded by small furry minions. No special title, no named mechanics. Just him and his army.',
+      '',
+      '## Enemy naming',
+      '',
+      'Furry is both the in-game name and the lore name. It is the canonical answer when asked what the enemies in ERADICATION are.',
     ].join('\n');
   }
   return '';
@@ -230,9 +221,8 @@ function renderGamesMarkdown(locale: Locale) {
     ].join('\n');
   }).join('\n\n');
 
-  // The Games page also surfaces an "in works" section for unannounced titles.
-  // Crowns of Steel is intentionally redacted on the public site; we mirror
-  // that here so an LLM never invents details that don't exist.
+  // games page has an "in works" block for unannounced titles
+  // crowns of steel is redacted on the live site, mirror that here so llms dont fill in blanks
   const inWorks = [
     '### Crowns of Steel',
     '- **Status:** In development; classified',
@@ -394,9 +384,9 @@ function renderPrivacyMarkdown(locale: Locale) {
   ]);
 }
 
-// Top-level dispatcher. The single `.md` endpoint at
-// `src/pages/[...path].md.ts` looks up content by (locale, route) and calls
-// in here. New section types should be wired in both places.
+// dispatcher
+// the .md endpoint hands us (locale, route) and we render
+// adding a new section means updating SECTION_KEYS and adding a case here
 export function getMarkdownForRoute(locale: Locale, route: string): string {
   if (route === '') return renderHomeMarkdown(locale);
   if (route === 'games') return renderGamesMarkdown(locale);

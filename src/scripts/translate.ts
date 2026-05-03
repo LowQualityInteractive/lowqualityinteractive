@@ -1,5 +1,5 @@
-// IIFE that sets up window.__lqiTranslate (MyMemory + sessionStorage cache).
-// Re-inlining is fine — first one wins.
+// iife that sets up window.__lqiTranslate (mymemory + sessionStorage cache)
+// re-inlining is fine, first one wins
 export function getTranslateBootstrap(locale: string) {
   return String.raw`(() => {
   if (window.__lqiTranslate) return;
@@ -88,6 +88,6 @@ export function getTranslateBootstrap(locale: string) {
 }
 
 export function getAboutTranslateScript() {
-  // kept for back-compat — global auto-translate handles this now
+  // back-compat shim, global auto-translate handles this now
   return String.raw`(() => {})();`;
 }

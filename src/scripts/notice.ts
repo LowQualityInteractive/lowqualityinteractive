@@ -64,7 +64,7 @@ export function getNoticeScript(messages: CookieNoticeMessages) {
     window.setTimeout(() => banner.remove(), 380);
   }
 
-  // Slide in after a short delay so the animation is visible
+  // delay one frame so the slide-in animates instead of snapping
   window.requestAnimationFrame(() => {
     window.requestAnimationFrame(() => {
       banner.classList.add('is-visible');

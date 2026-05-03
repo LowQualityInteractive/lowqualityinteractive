@@ -70,7 +70,7 @@ const projects = getInWorkProjects(locale);
           <span class="game-player-count" hidden></span>
         </div>
         <div class="game-card-footer">
-          {/* aria-label disambiguates the three identical "Play now" buttons on this page so screen readers and LLM accessibility-tree parsers can tell which game each link launches. */}
+          {/* three identical "play now" buttons on this page, aria-label tells screen readers which one is which */}
           <a class="button primary button-play" target="_blank" rel="noopener noreferrer" href={game.robloxUrl} aria-label={interpolate(page.playGameOn, { game: game.name })}>{page.playGame}</a>
           <a class="button ghost" href={getGameUpdateHref(locale, game)}>{page.updates}</a>
           <a class="button ghost" href={getGameAboutPath(locale, game)}>{page.about}</a>

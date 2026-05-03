@@ -40,7 +40,7 @@ if (!game) {
     <h1>{game.name}</h1>
     <p class="lead">{game.pageLead}</p>
     <div class="cta-row">
-      {/* aria-label adds game name + platform so the link is self-describing in the accessibility tree (visible label is just "Play now"). */}
+      {/* visible label is just "play now", aria-label adds the game + platform so the link makes sense to screen readers */}
       <a class="button primary button-play" target="_blank" rel="noopener noreferrer" href={game.robloxUrl} aria-label={interpolate(page.openGameOn, { game: game.name })}>{page.openGame}</a>
       <a class="button ghost" href={getGameUpdateHref(locale, game)}>{page.latestUpdate}</a>
       <a class="button ghost" href={getLocalePath(locale, 'games')}>{page.backToGames}</a>

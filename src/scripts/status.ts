@@ -244,12 +244,12 @@ function localizeIncidentText(s){
   var T=MSGS.incidentTemplates;
   if(!T)return s;
   var str=String(s);
-  // Titles: "{service}: outage" / "{service}: degraded performance"
+  // titles: "{service}: outage" / "{service}: degraded performance"
   var m=str.match(/^(.+): outage$/);
   if(m)return interp(T.titleOutage,{service:m[1]});
   m=str.match(/^(.+): degraded performance$/);
   if(m)return interp(T.titleDegraded,{service:m[1]});
-  // Update messages
+  // update messages
   m=str.match(/^Detected outage for (.+)\\.$/);
   if(m)return interp(T.detectedOutage,{service:m[1]});
   m=str.match(/^Detected degraded performance for (.+)\\.$/);

@@ -161,7 +161,7 @@ p { color: var(--text-2); }
 .container { width: min(1200px, 92vw); margin-inline: auto; }
 main { padding-block: 3.5rem 5rem; }
 
-/* Site-wide alert bar */
+/* site-wide alert bar */
 .site-alert-bar {
   background-color: rgba(201,64,64,0.1);
   border-bottom: 1px solid rgba(201,64,64,0.3);
@@ -1619,7 +1619,7 @@ footer {
   }
 }
 
-/* ── Status nav button ───────────────────────────────────────────────────── */
+/* status nav button */
 
 .status-nav-btn {
   display: inline-flex;
@@ -1665,7 +1665,7 @@ footer {
   .status-nav-label { display: inline; }
 }
 
-/* ── Status page ─────────────────────────────────────────────────────────── */
+/* status page */
 
 :root {
   --status-ok:      #3cb87a;
@@ -1788,7 +1788,7 @@ a.status-game-name:hover { color: var(--brand); }
 }
 
 
-/* Status indicator dot */
+/* status indicator dot */
 .status-dot {
   width: 9px;
   height: 9px;
@@ -1802,7 +1802,7 @@ a.status-game-name:hover { color: var(--brand); }
 .status-dot-preview,
 .status-dot-unknown     { background-color: var(--muted); }
 
-/* Status badge pill */
+/* status badge pill */
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -1825,7 +1825,7 @@ a.status-game-name:hover { color: var(--brand); }
 :root[data-theme="dark"] .status-badge-degraded    { color: #f0c060; }
 :root[data-theme="dark"] .status-badge-down        { color: #f07070; }
 
-/* Uptime row */
+/* uptime row */
 .status-uptime-row {
   display: flex;
   gap: 1.5rem;
@@ -1854,7 +1854,7 @@ a.status-game-name:hover { color: var(--brand); }
   font-variant-numeric: tabular-nums;
 }
 
-/* Timeline sparkline */
+/* timeline sparkline */
 .status-timeline {
   display: flex;
   gap: 2px;
@@ -1878,7 +1878,7 @@ a.status-game-name:hover { color: var(--brand); }
 .status-tick:hover { opacity: 1; }
 .status-tick-down { background-color: var(--status-down); }
 
-/* Tick tooltip */
+/* tick tooltip */
 .status-tick-tooltip {
   position: fixed;
   z-index: 200;
@@ -1922,7 +1922,7 @@ a.status-game-name:hover { color: var(--brand); }
   border-radius: 2px;
 }
 
-/* Platform card */
+/* platform card */
 .status-platform-card {
   display: flex;
   flex-direction: column;
@@ -1957,7 +1957,7 @@ a.status-game-name:hover { color: var(--brand); }
 }
 .status-platform-footnote a:hover { color: var(--brand-dark); }
 
-/* Incidents */
+/* incidents */
 .status-incidents-list {
   display: flex;
   flex-direction: column;

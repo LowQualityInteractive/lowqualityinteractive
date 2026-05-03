@@ -1,47 +1,29 @@
-# LLM-discoverability HTTP headers.
+# http headers for llm discovery
+# this is for llms not humans
 #
-# WHY THIS FILE EXISTS:
-# Per Evil Martians research (April 2026), AI agents that fetch HTTP
-# responses without parsing HTML rely on the response `Link` header to
-# discover a markdown rendering of a page. Headless tools (Claude Code
-# fetcher, Cursor file reader, future ChatGPT browse modes) read the
-# header and skip the HTML body entirely. JSON-LD does not reach those
-# tools — only the wire-level HTTP signals do.
+# headless ai fetchers (claude code, cursor, future chatgpt browse) read the
+# Link response header and skip the html body. json-ld doesnt reach them, only
+# wire-level signals do
 #
-# WHEN THIS FILE ACTIVATES:
-# `_headers` is a Cloudflare Pages and Netlify deploy-time configuration
-# file. The current production deployment is GitHub Pages with Cloudflare
-# DNS in front, and GitHub Pages IGNORES this file. So today the
-# per-route `Link` headers below are NOT served by the CDN — only the
-# `<link rel="alternate" type="text/markdown">` HTML tag and the visible
-# `.md` endpoints are doing real work for LLM discovery.
+# activates on cloudflare pages and netlify. github pages ignores this file
+# entirely so today none of these rules actually fire. the html <link> tag and
+# the .md endpoints are doing the real work right now
+# easiest fix without leaving github pages: a cloudflare worker / transform
+# rule on the existing zone. or move to cloudflare pages and these activate
+# automatically
 #
-# To activate these headers without leaving GitHub Pages, the cheapest
-# path is a Cloudflare Worker / Transform Rule on the existing zone that
-# injects the same `Link` header per pathname. See
-# `functions/_middleware.ts` in this repo for the equivalent runtime
-# implementation if/when the deployment moves to Cloudflare Pages or any
-# host that runs edge functions. Vercel reads its own `vercel.json`
-# headers config; the same rules can be ported by hand.
-#
-# All `.md` endpoints used below are emitted at build time by
-# `src/pages/[...path].md.ts`.
+# .md endpoints are emitted by src/pages/[...path].md.ts
 
-# -----------------------------------------------------------------------
-# Default headers on every URL. Points headless agents at the studio-wide
-# llms.txt + llms-full.txt context maps regardless of which page they hit.
-# -----------------------------------------------------------------------
+# default on every url, points at the studio-wide llms.txt + llms-full.txt
 /*
   Link: </llms.txt>; rel="alternate"; type="text/plain"; title="LLM context", </llms-full.txt>; rel="alternate"; type="text/markdown"; title="Full LLM context"
   Vary: Accept
 
-# -----------------------------------------------------------------------
-# Per-route Link header pointing at this page's matching `.md` endpoint.
-# Cloudflare Pages and Netlify combine matching `_headers` rules, so the
-# default rule above and the per-route rule below both apply.
-# -----------------------------------------------------------------------
+# per-route Link header pointing at the matching .md
+# matching rules combine, so the default above and the per-route rule below
+# both fire on the same request
 
-# English (unprefixed) home + sections + game-about pages.
+# en (unprefixed) home + sections + game-about
 /
   Link: </index.md>; rel="alternate"; type="text/markdown"
 /games
@@ -71,12 +53,10 @@
 /donpollo-obby/about
   Link: </donpollo-obby/about.md>; rel="alternate"; type="text/markdown"
 
-# -----------------------------------------------------------------------
-# Localized variants. Same routes mirrored under each locale prefix.
-# Cloudflare Pages does not robustly support placeholder substitution in
-# header values across multi-segment paths, so we enumerate explicitly.
-# Update this block in lockstep with `LOCALES` in src/i18n/messages.ts.
-# -----------------------------------------------------------------------
+# localized variants, same routes per locale prefix
+# placeholder substitution in cloudflare _headers is flaky across multi-segment
+# paths so we just enumerate. yes we need all of this
+# keep in sync with LOCALES in src/i18n/messages.ts
 
 # pt-BR
 /pt-BR
@@ -366,10 +346,9 @@
 /el/donpollo-obby/about
   Link: </el/donpollo-obby/about.md>; rel="alternate"; type="text/markdown"
 
-# Force the .md endpoints to serve as markdown even on hosts that infer
-# Content-Type from extension. Without this some CDNs send `application/
-# octet-stream` for `.md`, which causes browsers to download instead of
-# render and confuses LLM clients that filter by Content-Type.
+# force .md to be served as text/markdown
+# without this some cdns send application/octet-stream and browsers download
+# instead of rendering, plus llm clients that filter on Content-Type drop us
 /*.md
   Content-Type: text/markdown; charset=utf-8
   Vary: Accept

@@ -12,18 +12,17 @@
       "releaseYear": "2025",
       "status": "live",
       "playMode": "MultiPlayer",
-      "numberOfPlayers": "2-32",
+      "numberOfPlayers": "1-32",
       "inLanguage": "en",
       "audience": "13+",
       "body": [
         "ERADICATION is a team-based PvE shooter on Roblox where squads fight to reclaim a town overrun by Furries, once-ordinary townspeople who spent too long online and changed into something else. The transformation gave them anthropomorphic, feral features: whiskers, tails, claws. Survivors coined the nickname Furry as a cruel joke. The name stuck.",
-        "Players are contractors hired to push the Furries back and take the town, block by block. The threat escalates as matches progress, and the mountain past the fog at the edge of the map. Whiskspire, hides something the briefings won't talk about."
+        "Players are contractors hired to push the Furries back and take the town, block by block."
       ],
       "features": [
         "Team-based PvE against escalating Furry waves",
         "Territory control across a full reclaimable town",
         "Deep weapon sandbox with vehicles, helicopters, and tactical loadouts",
-        "Layered map with a gated frontier zone and a hidden boss encounter",
         "Regular balance updates and seasonal content"
       ],
       "media": [

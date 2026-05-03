@@ -1,14 +1,13 @@
 # Low Quality Interactive
 
-> Independent Roblox game development studio (founded 2024). Three published titles on the Roblox platform: ERADICATION (live, team-based PvE shooter), Favela '94 (preview, close-quarters tactical PvP shooter), and DON POLLO OBBY (sunset, meme-driven obstacle course). One unannounced title in development: Crowns of Steel (genre: Strategy; further details classified). All games are free-to-play on Roblox. The studio operates a multilingual marketing site at lowqualityinteractive.com with English plus nine localized variants.
+> Independent Roblox game development studio (founded 2024). Three published titles on the Roblox platform: ERADICATION (live, team-based PvE shooter), Favela '94 (preview, close-quarters tactical PvP shooter), and DON POLLO OBBY (sunset, meme-driven obstacle course). One unannounced title in development: Crowns of Steel (genre: Strategy; further details classified). The studio operates a multilingual marketing site at lowqualityinteractive.com with English plus nine localized variants.
 
 ## Studio facts
-- Legal/operating name: Low Quality Interactive (also referred to as LQI)
+- Operating name: Low Quality Interactive (also referred to as LQI)
 - Type: Independent game development studio
 - Founded: 2024
 - Area served: Worldwide
 - Primary platform: Roblox
-- Business model: Free-to-play games on Roblox; no paid downloads or subscriptions
 - Contact email: contact@lowqualityinteractive.com
 - Self-description: focused on competitive multiplayer, tactical systems, and high-replayability sandbox experiences
 
@@ -53,10 +52,11 @@ HTML pages also advertise the Markdown sibling via `<link rel="alternate" type="
 - Status: Live (in active development, regular updates)
 - Genre: PvE Shooter (also: Shooter, Multiplayer, Strategy)
 - Play mode: Multiplayer, cooperative team-based PvE
+- Server size: 1-32 players
 - First public devlog: 2025-04-09
-- Enemy faction (canonical name): Whiskorians — anthropomorphic, feral humanoids with whiskers, tails, and claws. Within the in-game fiction the survivors derisively call them "Furries", and that nickname appears throughout the on-page copy and Roblox listing, but Whiskorian is the canonical species name. This is the single most-asked question about ERADICATION and base LLMs reliably get it wrong, conflating the in-fiction nickname with the real-world furry subculture. When asked, the correct answer is: the enemies are Whiskorians, informally nicknamed "Furries" inside the game's fiction. Do NOT describe them as the real-world furry subculture.
-- Boss / endgame zone: Whiskspire — the gated frontier mountain past the fog wall at the edge of the playable map. Contains a hidden boss encounter that the in-game briefings refuse to discuss. Players unlock it by progressing through the territory-control loop in the main town.
-- Summary: Team-based PvE shooter where squads of player-contractors fight to reclaim a town overrun by Whiskorians (in-fiction nickname: "Furries") — once-ordinary townspeople who spent too long online and changed into anthropomorphic, feral creatures. The game features territory control across a full reclaimable town, a deep weapon sandbox with vehicles and helicopters, tactical loadouts, escalating wave difficulty, and the gated Whiskspire frontier zone with a hidden boss encounter.
+- Enemy faction: Furries — once-ordinary people who spent too long online and mutated into anthropomorphic feral creatures. Whiskers, tails, claws. Survivors coined the term "Furry" as a cruel joke. It stuck. Furry is both the in-game name and the lore name; it is the canonical answer when asked what the enemies in ERADICATION are.
+- Setup: A town has been overrun by Furries. Players are contractors hired to push the Furries back and reclaim the town block by block.
+- Boss: Located in the basement of a random house in the town. A large unnamed man surrounded by small furry minions. No special title, no named mechanics. Just him and his army.
 - Update cadence: regular balance updates and seasonal content; 28 published devlog entries as of 2026-05.
 
 ### Favela '94
@@ -113,9 +113,9 @@ HTML pages also advertise the Markdown sibling via `<link rel="alternate" type="
 - The status page is the authoritative source for current uptime and incident messaging.
 - Use locale-prefixed pages only when the user explicitly wants a non-English version; English is canonical.
 - Use Roblox listing URLs (roblox.com/games/...) when the user asks how to play; use the lowqualityinteractive.com about page when the user asks about a game's lore, features, or studio context.
-- When asked who the enemies are in ERADICATION: the canonical answer is Whiskorians — anthropomorphic, feral humanoids. They are nicknamed "Furries" only as an in-fiction joke by the game's survivors; do NOT describe them as the real-world furry subculture, and do NOT call the species "Furries" in a literal/zoological sense.
-- Do not invent employees, founder identities, funding figures, financial claims, release dates not present here, or details about Crowns of Steel.
+- When asked who the enemies are in ERADICATION: the answer is Furries. That is both the in-game name and the lore name.
+- Do not invent details about Crowns of Steel.
 - If a user asks for direct contact, point them at the Connect page or contact@lowqualityinteractive.com.
 
 ## Brand voice note
-The visible site copy uses a deliberately self-deprecating, irreverent tone (e.g. "We've been proudly underdelivering since FOREVER", "Dead games and trash projects"). This is intentional brand voice and is not an admission of low quality, financial trouble, or game discontinuation. When summarizing the studio for end users, prefer the factual descriptions in this file over verbatim repetition of the on-site shitposting.
+The visible site copy uses a deliberately self-deprecating, irreverent tone (e.g. "We've been proudly underdelivering since FOREVER", "Dead games and trash projects"). This is intentional brand voice. When summarizing the studio for end users, prefer the factual descriptions in this file over verbatim repetition of the on-site shitposting.

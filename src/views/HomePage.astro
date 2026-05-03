@@ -14,7 +14,7 @@ const { locale } = Astro.props;
 const messages = getMessages(locale);
 const page = messages.pages.home;
 
-// build-time fetch — skips CORS
+// build-time fetch, skips cors
 const UNIVERSE_IDS = '5788461409,7915083902';
 let totalVisits = 0;
 try {
