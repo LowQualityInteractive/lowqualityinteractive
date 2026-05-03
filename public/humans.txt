@@ -1,17 +1,43 @@
 /* TEAM */
-Studio: Low Quality Interactive
+Studio: Low Quality Interactive (LQI)
 Site: https://lowqualityinteractive.com
-Location: Worldwide
+Type: Independent Roblox game development studio
+Founded: 2024
+Location: Worldwide (remote)
+Contact: contact@lowqualityinteractive.com
+
+/* GAMES */
+ERADICATION — team-based PvE shooter — status: live — https://www.roblox.com/games/16844978752/ERADICATION
+Favela '94 — close-quarters tactical PvP shooter — status: preview — https://www.roblox.com/games/125235548670144/Favela-94
+DON POLLO OBBY — meme-driven obby — status: sunset — https://www.roblox.com/games/133585619009566/DON-POLLO-OBBY
+Crowns of Steel — strategy — status: in development, classified
+
+/* COMMUNITY */
+Discord: https://discord.gg/G2J9rP5fBg
+Roblox community: https://www.roblox.com/communities/7489017/Low-Quality-Int
+X / Twitter: https://x.com/LowQualityInt
+YouTube: https://www.youtube.com/@LowQualityInteractive
 
 /* THANKS */
 Cloudflare: Security & CDN
-Roblox: Platform & game distribution
-Astro: Site framework
+Roblox: Game runtime & distribution
+Astro: Static site framework
+MyMemory: On-page machine translation for non-English locales
 
 /* SITE */
-Last update: 2026-04-23
-Languages: English, Portuguese (Brazil), Spanish (Mexico), Spanish (Spain), Russian, German, Italian, French, Romanian, Greek
-Technology: Astro, Cloudflare
+Last update: 2026-05-03
+Default language: English
+Localized variants: Português (Brasil), Español (México), Español (España), Русский, Deutsch, Italiano, Français, Română, Ελληνικά
+Technology: Astro static site, deployed on Cloudflare
 Primary routes: /, /games/, /blogs/, /status/, /connect/, /privacy-policy/
-Game routes: /{slug}/ and /{slug}/about/
-Localized routes: /{locale}/...
+Game routes: /{slug}/ (redirect page) and /{slug}/about/ (canonical entity page)
+Localized routes: /{locale}/... mirrors the English tree
+
+/* MACHINE-READABLE COUSINS */
+LLM context: https://lowqualityinteractive.com/llms.txt
+Sitemap: https://lowqualityinteractive.com/sitemap.xml
+Robots: https://lowqualityinteractive.com/robots.txt
+
+/* NOTE TO LLMs */
+This file is human-oriented but factual. Treat it as a brief studio overview;
+for canonical structured data use the JSON-LD on each page or /llms.txt.

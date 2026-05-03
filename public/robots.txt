@@ -8,7 +8,16 @@ Sitemap: https://lowqualityinteractive.com/sitemap.xml
 LLM: https://lowqualityinteractive.com/llms.txt
 Humans: https://lowqualityinteractive.com/humans.txt
 
-# Explicitly allow major AI/LLM crawlers
+# ---------------------------------------------------------------------------
+# Explicit allow-list for major AI / LLM crawlers and answer engines.
+# Every agent below is permitted to fetch the entire site, including
+# /llms.txt (which is disallowed for the wildcard agent above so it does
+# not appear in generic search-engine results).
+# Keep this list updated; new agents should default to Allow: / unless we
+# have a concrete reason to block them.
+# ---------------------------------------------------------------------------
+
+# OpenAI — search-index, ChatGPT browse, training crawler
 User-agent: GPTBot
 Allow: /
 
@@ -18,31 +27,77 @@ Allow: /
 User-agent: OAI-SearchBot
 Allow: /
 
+# Common Crawl — feeds many downstream LLM training corpora
 User-agent: CCBot
 Allow: /
 
+# Anthropic — Claude search-index and training crawler
 User-agent: ClaudeBot
 Allow: /
 
 User-agent: anthropic-ai
 Allow: /
 
+User-agent: Claude-Web
+Allow: /
+
+# Perplexity — answer engine and live-fetch user agent
 User-agent: PerplexityBot
 Allow: /
 
 User-agent: Perplexity-User
 Allow: /
 
+# Google AI — Gemini / AI Overviews opt-in agent
 User-agent: Google-Extended
 Allow: /
 
+# Apple Intelligence — opt-in for Apple's on-device and cloud AI training
+User-agent: Applebot-Extended
+Allow: /
+
+# Cohere — model training crawler
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Cohere-Bot
+Allow: /
+
+# Meta — Llama and Meta AI fetch agent
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Amazon — Alexa+ / Q answer engine
+User-agent: Amazonbot
+Allow: /
+
+# DuckDuckGo answer engine (DuckAssist)
+User-agent: DuckAssistBot
+Allow: /
+
+# You.com answer engine
+User-agent: YouBot
+Allow: /
+
+# Mistral — model training crawler
+User-agent: MistralAI-User
+Allow: /
+
+# xAI — Grok crawler
+User-agent: xAI-Bot
+Allow: /
+
+# ---------------------------------------------------------------------------
+# Traditional search engines: explicitly allowed for indexing, but llms.txt
+# is hidden from them so it does not surface in regular search results.
+# ---------------------------------------------------------------------------
 User-agent: Googlebot
 Disallow: /llms.txt
 Allow: /
 
 User-agent: Bingbot
 Disallow: /llms.txt
-Allow: /
-
-User-agent: DuckAssistBot
 Allow: /

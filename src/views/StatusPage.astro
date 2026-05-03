@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getGames } from '../data/games';
+import { getGames, getStatusJsonLd } from '../data/games';
 import { getSiteTitle, normalizePublicHttpUrl } from '../data/site';
 import { getStatusScript, type StatusGameMeta } from '../scripts/status';
 import { getMessages, sanitizeInlineScript, type Locale } from '../i18n/messages';
@@ -58,6 +58,7 @@ const statusScript = sanitizeInlineScript(getStatusScript(workerUrl, gameMeta, {
   currentPage="status"
   routePath="status"
   noLocaleRedirect={true}
+  jsonLd={getStatusJsonLd(locale)}
   extraScripts={[statusScript]}
   extraConnectSrc={workerUrl ? [workerUrl] : []}
 >

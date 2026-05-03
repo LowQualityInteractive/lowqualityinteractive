@@ -7,7 +7,7 @@ import {
   getGameUpdateHref,
 } from '../data/games';
 import { getSiteTitle, toAbsoluteSiteUrl } from '../data/site';
-import { getLocalePath, getMessages, type Locale } from '../i18n/messages';
+import { getLocalePath, getMessages, interpolate, type Locale } from '../i18n/messages';
 
 interface Props {
   locale: Locale;
@@ -32,6 +32,7 @@ if (!game) {
   routePath={game.slug}
   jsonLd={getGameJsonLd(locale, game)}
   ogImage={game.artwork.src}
+  ogImageAlt={game.artwork.alt}
 >
   <link slot="head-extra" rel="about" href={toAbsoluteSiteUrl(getGameAboutPath(locale, game))} />
   <section class="hero">
@@ -39,7 +40,8 @@ if (!game) {
     <h1>{game.name}</h1>
     <p class="lead">{game.pageLead}</p>
     <div class="cta-row">
-      <a class="button primary button-play" target="_blank" rel="noopener noreferrer" href={game.robloxUrl}>{page.openGame}</a>
+      {/* aria-label adds game name + platform so the link is self-describing in the accessibility tree (visible label is just "Play now"). */}
+      <a class="button primary button-play" target="_blank" rel="noopener noreferrer" href={game.robloxUrl} aria-label={interpolate(page.openGameOn, { game: game.name })}>{page.openGame}</a>
       <a class="button ghost" href={getGameUpdateHref(locale, game)}>{page.latestUpdate}</a>
       <a class="button ghost" href={getLocalePath(locale, 'games')}>{page.backToGames}</a>
     </div>

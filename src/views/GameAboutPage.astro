@@ -1,6 +1,4 @@
 ---
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import {
   getGameBySlug,
@@ -8,8 +6,9 @@ import {
   getGameHref,
   getGameUpdateHref,
 } from '../data/games';
+import { getGameAbout } from '../data/gameAbout';
 import { getSiteTitle, SITE_NAME, toAbsoluteSiteUrl } from '../data/site';
-import { getMessages, sanitizeInlineScript, type Locale } from '../i18n/messages';
+import { getMessages, interpolate, sanitizeInlineScript, type Locale } from '../i18n/messages';
 import { getAboutTranslateScript } from '../scripts/translate';
 
 interface Props {
@@ -39,92 +38,7 @@ const aboutLabels = page.about ?? {
   linksHeading: 'Official links',
 };
 
-interface GameAboutData {
-  body: string[];
-  features: string[];
-  media: { src: string; alt: string; caption?: string }[];
-  links: { label: string; href: string; external: boolean }[];
-}
-
-const emptyAboutData: GameAboutData = { body: [], features: [], media: [], links: [] };
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return value !== null && typeof value === 'object' && !Array.isArray(value);
-}
-
-function stringValue(value: unknown) {
-  return typeof value === 'string' ? value.trim() : '';
-}
-
-function stringArray(value: unknown) {
-  return Array.isArray(value) ? value.map(stringValue).filter(Boolean) : [];
-}
-
-function normalizeAssetSrc(value: unknown) {
-  const raw = stringValue(value);
-  if (!raw || /^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(raw) || raw.includes('\\')) return '';
-  const normalized = `/${raw.replace(/^\/+/, '')}`;
-  return normalized.startsWith('/assets/') && !normalized.includes('..') ? normalized : '';
-}
-
-function normalizeInternalHref(value: unknown) {
-  const raw = stringValue(value);
-  if (!raw || !raw.startsWith('/') || raw.startsWith('//') || raw.includes('\\')) return '';
-  return raw.includes('\0') ? '' : raw;
-}
-
-function normalizeExternalHref(value: unknown) {
-  const raw = stringValue(value);
-  if (!raw) return '';
-
-  try {
-    const url = new URL(raw);
-    return url.protocol === 'https:' ? url.toString() : '';
-  } catch {
-    return '';
-  }
-}
-
-function normalizeAboutData(value: unknown): GameAboutData {
-  if (!isRecord(value)) return emptyAboutData;
-
-  const media = Array.isArray(value.media)
-    ? value.media.flatMap((item) => {
-        if (!isRecord(item)) return [];
-        const src = normalizeAssetSrc(item.src);
-        const alt = stringValue(item.alt);
-        if (!src || !alt) return [];
-        const caption = stringValue(item.caption);
-        return [{ src, alt, ...(caption ? { caption } : {}) }];
-      })
-    : [];
-
-  const links = Array.isArray(value.links)
-    ? value.links.flatMap((item) => {
-        if (!isRecord(item)) return [];
-        const label = stringValue(item.label);
-        const external = item.external === true;
-        const href = external ? normalizeExternalHref(item.href) : normalizeInternalHref(item.href);
-        return label && href ? [{ label, href, external }] : [];
-      })
-    : [];
-
-  return {
-    body: stringArray(value.body),
-    features: stringArray(value.features),
-    media,
-    links,
-  };
-}
-
-let aboutData = emptyAboutData;
-
-try {
-  const raw = JSON.parse(readFileSync(resolve('public/data/game-about.json'), 'utf-8'));
-  const entries = isRecord(raw) && Array.isArray(raw.games) ? raw.games : [];
-  const entry = entries.find((item): item is Record<string, unknown> => isRecord(item) && item.id === game.id);
-  if (entry) aboutData = normalizeAboutData(entry);
-} catch {}
+const aboutData = getGameAbout(game.id);
 
 const aboutTranslateScript = sanitizeInlineScript(getAboutTranslateScript());
 ---
@@ -135,8 +49,9 @@ const aboutTranslateScript = sanitizeInlineScript(getAboutTranslateScript());
   description={game.pageDescription}
   currentPage="games"
   routePath={aboutRoutePath}
-  jsonLd={getGameAboutJsonLd(locale, game)}
+  jsonLd={getGameAboutJsonLd(locale, game, aboutData)/* aboutData passed explicitly so the page only reads the JSON file once; the JSON-LD generator reuses it for description/featureList/identifiers */}
   ogImage={game.artwork.src}
+  ogImageAlt={game.artwork.alt}
   extraScripts={[aboutTranslateScript]}
 >
   <link slot="head-extra" rel="up" href={toAbsoluteSiteUrl(getGameHref(locale, game))} />
@@ -146,7 +61,8 @@ const aboutTranslateScript = sanitizeInlineScript(getAboutTranslateScript());
     <h1>{game.name}</h1>
     <p class="lead">{game.pageLead}</p>
     <div class="cta-row">
-      <a class="button primary button-play" target="_blank" rel="noopener noreferrer" href={game.robloxUrl}>{page.openGame}</a>
+      {/* aria-label adds game name + platform so the link is self-describing in the accessibility tree (visible label is just "Play now"). */}
+      <a class="button primary button-play" target="_blank" rel="noopener noreferrer" href={game.robloxUrl} aria-label={interpolate(page.openGameOn, { game: game.name })}>{page.openGame}</a>
       <a class="button ghost" href={getGameUpdateHref(locale, game)}>{page.latestUpdate}</a>
       <a class="button ghost" href={getGameHref(locale, game)}>{page.backToGames}</a>
     </div>

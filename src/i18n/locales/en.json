@@ -66,7 +66,7 @@
   "pages": {
     "home": {
       "label": "Home",
-      "description": "Official website for Low Quality Interactive, a Roblox indie studio.",
+      "description": "Low Quality Interactive — independent Roblox game studio (founded 2024). Developers of ERADICATION (live PvE shooter), Favela '94 (preview tactical PvP shooter), and DON POLLO OBBY (sunset obby). Studio updates, devlogs, and community links.",
       "kicker": "tuffest games oat",
       "heading": "We've been proudly underdelivering since FOREVER.",
       "lead": "We produce the most niche Roblox games of all time.",
@@ -90,7 +90,7 @@
     },
     "games": {
       "label": "Games",
-      "description": "Current and upcoming games by Low Quality Interactive.",
+      "description": "Low Quality Interactive's full Roblox catalog: ERADICATION (PvE shooter, live), Favela '94 (tactical PvP shooter, preview), DON POLLO OBBY (obby, sunset), and unannounced in-development projects including Crowns of Steel.",
       "kicker": "Technically playable",
       "heading": "Dead games and trash projects",
       "lead": "Tap any live game card to jump directly to that game's page, or use the update button to view the latest patch note.",
@@ -99,6 +99,7 @@
       "gameListAriaLabel": "Game list",
       "viewGameDetails": "View {game} details",
       "playGame": "Play now",
+      "playGameOn": "Play {game} on Roblox",
       "updates": "Updates",
       "about": "About",
       "inWorksHeading": "In works",
@@ -110,7 +111,7 @@
     },
     "blogs": {
       "label": "Updates",
-      "description": "Development updates and patch notes from Low Quality Interactive.",
+      "description": "Per-game devlogs and patch notes for Low Quality Interactive's Roblox titles. Pick a game to read its full update history, including ERADICATION's ongoing balance and content drops.",
       "kicker": "Dead ahh updates",
       "heading": "Update logs & patch notes",
       "lead": "Pick a game below to open its devlog.",
@@ -122,7 +123,7 @@
     },
     "connect": {
       "label": "Connect",
-      "description": "Join our community today!",
+      "description": "Official community and contact channels for Low Quality Interactive: Discord, X (Twitter), YouTube, the Roblox community group, and the business inquiry email contact@lowqualityinteractive.com.",
       "kicker": "please dont connect with us",
       "heading": "Connect with us",
       "lead": "We read every message. We respond to some of them.",
@@ -136,6 +137,7 @@
     "game": {
       "kicker": "Game page",
       "openGame": "Play now",
+      "openGameOn": "Play {game} on Roblox",
       "latestUpdate": "Latest update",
       "backToGames": "Back to games",
       "about": {

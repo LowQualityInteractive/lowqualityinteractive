@@ -1,7 +1,20 @@
 {
+  "_comment": "Long-form per-game data consumed by the about pages and by the JSON-LD generator in src/data/games.ts. Structured fields (genre, robloxGameId, etc.) mirror catalog data so a single source can populate both schema.org markup and the LLM-facing /llms.txt without re-reading the engineering catalog. Fields are intentionally optional on the consumer side; missing values are dropped from schema output.",
   "games": [
     {
       "id": "eradication",
+      "genre": ["Shooter", "Multiplayer", "PvE", "Strategy"],
+      "genreLabel": "PvE Shooter",
+      "gamePlatform": "Roblox",
+      "applicationCategory": "Game",
+      "robloxGameId": "16844978752",
+      "robloxUniverseId": "5788461409",
+      "releaseYear": "2025",
+      "status": "live",
+      "playMode": "MultiPlayer",
+      "numberOfPlayers": "2-32",
+      "inLanguage": "en",
+      "audience": "13+",
       "body": [
         "ERADICATION is a team-based PvE shooter on Roblox where squads fight to reclaim a town overrun by Furries, once-ordinary townspeople who spent too long online and changed into something else. The transformation gave them anthropomorphic, feral features: whiskers, tails, claws. Survivors coined the nickname Furry as a cruel joke. The name stuck.",
         "Players are contractors hired to push the Furries back and take the town, block by block. The threat escalates as matches progress, and the mountain past the fog at the edge of the map. Whiskspire, hides something the briefings won't talk about."
@@ -35,6 +48,18 @@
     },
     {
       "id": "favela-94",
+      "genre": ["Shooter", "Multiplayer", "Tactical", "PvP"],
+      "genreLabel": "Tactical Shooter",
+      "gamePlatform": "Roblox",
+      "applicationCategory": "Game",
+      "robloxGameId": "125235548670144",
+      "robloxUniverseId": "",
+      "releaseYear": "2026",
+      "status": "preview",
+      "playMode": "MultiPlayer",
+      "numberOfPlayers": "2-16",
+      "inLanguage": "en",
+      "audience": "13+",
       "body": [
         "Favela '94 is a close-quarters tactical shooter set in the tight alleyways and rooftops of a 1994 Brazilian favela. Every engagement is pretty personal, map knowledge and positioning are everything.",
         "Currently in preview. Expect rough edges, rapid updates, and a dev that's watching closely."
@@ -62,6 +87,18 @@
     },
     {
       "id": "donpollo-obby",
+      "genre": ["Platformer", "Obby"],
+      "genreLabel": "Obby",
+      "gamePlatform": "Roblox",
+      "applicationCategory": "Game",
+      "robloxGameId": "133585619009566",
+      "robloxUniverseId": "7915083902",
+      "releaseYear": "2025",
+      "status": "sunset",
+      "playMode": "MultiPlayer",
+      "numberOfPlayers": "1-30",
+      "inLanguage": "en",
+      "audience": "All ages",
       "body": [
         "DON POLLO OBBY is a tuff obstacle course built around the legend of Don Pollo. Dumb easy stages, you just hearing Don Pollo in the back 🥀🥀😭",
         "This game has been sunset. It remains playable as a piece of Low Quality Interactive history."

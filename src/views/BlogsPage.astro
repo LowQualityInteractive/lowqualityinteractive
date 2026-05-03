@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getPublishedGames } from '../data/games';
+import { getBlogsJsonLd, getPublishedGames } from '../data/games';
 import { getSiteTitle } from '../data/site';
 import { getBlogsScript } from '../scripts/blogs';
 import { getMessages, sanitizeInlineScript, type Locale } from '../i18n/messages';
@@ -33,6 +33,7 @@ const blogsScript = sanitizeInlineScript(
   description={page.description}
   currentPage="blogs"
   routePath="blogs"
+  jsonLd={getBlogsJsonLd(locale)}
   extraScripts={[blogsScript]}
 >
   <section class="hero">
