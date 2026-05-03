@@ -1,0 +1,375 @@
+# LLM-discoverability HTTP headers.
+#
+# WHY THIS FILE EXISTS:
+# Per Evil Martians research (April 2026), AI agents that fetch HTTP
+# responses without parsing HTML rely on the response `Link` header to
+# discover a markdown rendering of a page. Headless tools (Claude Code
+# fetcher, Cursor file reader, future ChatGPT browse modes) read the
+# header and skip the HTML body entirely. JSON-LD does not reach those
+# tools — only the wire-level HTTP signals do.
+#
+# WHEN THIS FILE ACTIVATES:
+# `_headers` is a Cloudflare Pages and Netlify deploy-time configuration
+# file. The current production deployment is GitHub Pages with Cloudflare
+# DNS in front, and GitHub Pages IGNORES this file. So today the
+# per-route `Link` headers below are NOT served by the CDN — only the
+# `<link rel="alternate" type="text/markdown">` HTML tag and the visible
+# `.md` endpoints are doing real work for LLM discovery.
+#
+# To activate these headers without leaving GitHub Pages, the cheapest
+# path is a Cloudflare Worker / Transform Rule on the existing zone that
+# injects the same `Link` header per pathname. See
+# `functions/_middleware.ts` in this repo for the equivalent runtime
+# implementation if/when the deployment moves to Cloudflare Pages or any
+# host that runs edge functions. Vercel reads its own `vercel.json`
+# headers config; the same rules can be ported by hand.
+#
+# All `.md` endpoints used below are emitted at build time by
+# `src/pages/[...path].md.ts`.
+
+# -----------------------------------------------------------------------
+# Default headers on every URL. Points headless agents at the studio-wide
+# llms.txt + llms-full.txt context maps regardless of which page they hit.
+# -----------------------------------------------------------------------
+/*
+  Link: </llms.txt>; rel="alternate"; type="text/plain"; title="LLM context", </llms-full.txt>; rel="alternate"; type="text/markdown"; title="Full LLM context"
+  Vary: Accept
+
+# -----------------------------------------------------------------------
+# Per-route Link header pointing at this page's matching `.md` endpoint.
+# Cloudflare Pages and Netlify combine matching `_headers` rules, so the
+# default rule above and the per-route rule below both apply.
+# -----------------------------------------------------------------------
+
+# English (unprefixed) home + sections + game-about pages.
+/
+  Link: </index.md>; rel="alternate"; type="text/markdown"
+/games
+  Link: </games/index.md>; rel="alternate"; type="text/markdown"
+/games/
+  Link: </games/index.md>; rel="alternate"; type="text/markdown"
+/blogs
+  Link: </blogs/index.md>; rel="alternate"; type="text/markdown"
+/blogs/
+  Link: </blogs/index.md>; rel="alternate"; type="text/markdown"
+/connect
+  Link: </connect/index.md>; rel="alternate"; type="text/markdown"
+/connect/
+  Link: </connect/index.md>; rel="alternate"; type="text/markdown"
+/status
+  Link: </status/index.md>; rel="alternate"; type="text/markdown"
+/status/
+  Link: </status/index.md>; rel="alternate"; type="text/markdown"
+/privacy-policy
+  Link: </privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/privacy-policy/
+  Link: </privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/eradication/about
+  Link: </eradication/about.md>; rel="alternate"; type="text/markdown"
+/favela-94/about
+  Link: </favela-94/about.md>; rel="alternate"; type="text/markdown"
+/donpollo-obby/about
+  Link: </donpollo-obby/about.md>; rel="alternate"; type="text/markdown"
+
+# -----------------------------------------------------------------------
+# Localized variants. Same routes mirrored under each locale prefix.
+# Cloudflare Pages does not robustly support placeholder substitution in
+# header values across multi-segment paths, so we enumerate explicitly.
+# Update this block in lockstep with `LOCALES` in src/i18n/messages.ts.
+# -----------------------------------------------------------------------
+
+# pt-BR
+/pt-BR
+  Link: </pt-BR/index.md>; rel="alternate"; type="text/markdown"
+/pt-BR/
+  Link: </pt-BR/index.md>; rel="alternate"; type="text/markdown"
+/pt-BR/games
+  Link: </pt-BR/games/index.md>; rel="alternate"; type="text/markdown"
+/pt-BR/games/
+  Link: </pt-BR/games/index.md>; rel="alternate"; type="text/markdown"
+/pt-BR/blogs
+  Link: </pt-BR/blogs/index.md>; rel="alternate"; type="text/markdown"
+/pt-BR/blogs/
+  Link: </pt-BR/blogs/index.md>; rel="alternate"; type="text/markdown"
+/pt-BR/connect
+  Link: </pt-BR/connect/index.md>; rel="alternate"; type="text/markdown"
+/pt-BR/connect/
+  Link: </pt-BR/connect/index.md>; rel="alternate"; type="text/markdown"
+/pt-BR/status
+  Link: </pt-BR/status/index.md>; rel="alternate"; type="text/markdown"
+/pt-BR/status/
+  Link: </pt-BR/status/index.md>; rel="alternate"; type="text/markdown"
+/pt-BR/privacy-policy
+  Link: </pt-BR/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/pt-BR/privacy-policy/
+  Link: </pt-BR/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/pt-BR/eradication/about
+  Link: </pt-BR/eradication/about.md>; rel="alternate"; type="text/markdown"
+/pt-BR/favela-94/about
+  Link: </pt-BR/favela-94/about.md>; rel="alternate"; type="text/markdown"
+/pt-BR/donpollo-obby/about
+  Link: </pt-BR/donpollo-obby/about.md>; rel="alternate"; type="text/markdown"
+
+# es-MX
+/es-MX
+  Link: </es-MX/index.md>; rel="alternate"; type="text/markdown"
+/es-MX/
+  Link: </es-MX/index.md>; rel="alternate"; type="text/markdown"
+/es-MX/games
+  Link: </es-MX/games/index.md>; rel="alternate"; type="text/markdown"
+/es-MX/games/
+  Link: </es-MX/games/index.md>; rel="alternate"; type="text/markdown"
+/es-MX/blogs
+  Link: </es-MX/blogs/index.md>; rel="alternate"; type="text/markdown"
+/es-MX/blogs/
+  Link: </es-MX/blogs/index.md>; rel="alternate"; type="text/markdown"
+/es-MX/connect
+  Link: </es-MX/connect/index.md>; rel="alternate"; type="text/markdown"
+/es-MX/connect/
+  Link: </es-MX/connect/index.md>; rel="alternate"; type="text/markdown"
+/es-MX/status
+  Link: </es-MX/status/index.md>; rel="alternate"; type="text/markdown"
+/es-MX/status/
+  Link: </es-MX/status/index.md>; rel="alternate"; type="text/markdown"
+/es-MX/privacy-policy
+  Link: </es-MX/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/es-MX/privacy-policy/
+  Link: </es-MX/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/es-MX/eradication/about
+  Link: </es-MX/eradication/about.md>; rel="alternate"; type="text/markdown"
+/es-MX/favela-94/about
+  Link: </es-MX/favela-94/about.md>; rel="alternate"; type="text/markdown"
+/es-MX/donpollo-obby/about
+  Link: </es-MX/donpollo-obby/about.md>; rel="alternate"; type="text/markdown"
+
+# es-ES
+/es-ES
+  Link: </es-ES/index.md>; rel="alternate"; type="text/markdown"
+/es-ES/
+  Link: </es-ES/index.md>; rel="alternate"; type="text/markdown"
+/es-ES/games
+  Link: </es-ES/games/index.md>; rel="alternate"; type="text/markdown"
+/es-ES/games/
+  Link: </es-ES/games/index.md>; rel="alternate"; type="text/markdown"
+/es-ES/blogs
+  Link: </es-ES/blogs/index.md>; rel="alternate"; type="text/markdown"
+/es-ES/blogs/
+  Link: </es-ES/blogs/index.md>; rel="alternate"; type="text/markdown"
+/es-ES/connect
+  Link: </es-ES/connect/index.md>; rel="alternate"; type="text/markdown"
+/es-ES/connect/
+  Link: </es-ES/connect/index.md>; rel="alternate"; type="text/markdown"
+/es-ES/status
+  Link: </es-ES/status/index.md>; rel="alternate"; type="text/markdown"
+/es-ES/status/
+  Link: </es-ES/status/index.md>; rel="alternate"; type="text/markdown"
+/es-ES/privacy-policy
+  Link: </es-ES/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/es-ES/privacy-policy/
+  Link: </es-ES/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/es-ES/eradication/about
+  Link: </es-ES/eradication/about.md>; rel="alternate"; type="text/markdown"
+/es-ES/favela-94/about
+  Link: </es-ES/favela-94/about.md>; rel="alternate"; type="text/markdown"
+/es-ES/donpollo-obby/about
+  Link: </es-ES/donpollo-obby/about.md>; rel="alternate"; type="text/markdown"
+
+# ru
+/ru
+  Link: </ru/index.md>; rel="alternate"; type="text/markdown"
+/ru/
+  Link: </ru/index.md>; rel="alternate"; type="text/markdown"
+/ru/games
+  Link: </ru/games/index.md>; rel="alternate"; type="text/markdown"
+/ru/games/
+  Link: </ru/games/index.md>; rel="alternate"; type="text/markdown"
+/ru/blogs
+  Link: </ru/blogs/index.md>; rel="alternate"; type="text/markdown"
+/ru/blogs/
+  Link: </ru/blogs/index.md>; rel="alternate"; type="text/markdown"
+/ru/connect
+  Link: </ru/connect/index.md>; rel="alternate"; type="text/markdown"
+/ru/connect/
+  Link: </ru/connect/index.md>; rel="alternate"; type="text/markdown"
+/ru/status
+  Link: </ru/status/index.md>; rel="alternate"; type="text/markdown"
+/ru/status/
+  Link: </ru/status/index.md>; rel="alternate"; type="text/markdown"
+/ru/privacy-policy
+  Link: </ru/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/ru/privacy-policy/
+  Link: </ru/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/ru/eradication/about
+  Link: </ru/eradication/about.md>; rel="alternate"; type="text/markdown"
+/ru/favela-94/about
+  Link: </ru/favela-94/about.md>; rel="alternate"; type="text/markdown"
+/ru/donpollo-obby/about
+  Link: </ru/donpollo-obby/about.md>; rel="alternate"; type="text/markdown"
+
+# de
+/de
+  Link: </de/index.md>; rel="alternate"; type="text/markdown"
+/de/
+  Link: </de/index.md>; rel="alternate"; type="text/markdown"
+/de/games
+  Link: </de/games/index.md>; rel="alternate"; type="text/markdown"
+/de/games/
+  Link: </de/games/index.md>; rel="alternate"; type="text/markdown"
+/de/blogs
+  Link: </de/blogs/index.md>; rel="alternate"; type="text/markdown"
+/de/blogs/
+  Link: </de/blogs/index.md>; rel="alternate"; type="text/markdown"
+/de/connect
+  Link: </de/connect/index.md>; rel="alternate"; type="text/markdown"
+/de/connect/
+  Link: </de/connect/index.md>; rel="alternate"; type="text/markdown"
+/de/status
+  Link: </de/status/index.md>; rel="alternate"; type="text/markdown"
+/de/status/
+  Link: </de/status/index.md>; rel="alternate"; type="text/markdown"
+/de/privacy-policy
+  Link: </de/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/de/privacy-policy/
+  Link: </de/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/de/eradication/about
+  Link: </de/eradication/about.md>; rel="alternate"; type="text/markdown"
+/de/favela-94/about
+  Link: </de/favela-94/about.md>; rel="alternate"; type="text/markdown"
+/de/donpollo-obby/about
+  Link: </de/donpollo-obby/about.md>; rel="alternate"; type="text/markdown"
+
+# it
+/it
+  Link: </it/index.md>; rel="alternate"; type="text/markdown"
+/it/
+  Link: </it/index.md>; rel="alternate"; type="text/markdown"
+/it/games
+  Link: </it/games/index.md>; rel="alternate"; type="text/markdown"
+/it/games/
+  Link: </it/games/index.md>; rel="alternate"; type="text/markdown"
+/it/blogs
+  Link: </it/blogs/index.md>; rel="alternate"; type="text/markdown"
+/it/blogs/
+  Link: </it/blogs/index.md>; rel="alternate"; type="text/markdown"
+/it/connect
+  Link: </it/connect/index.md>; rel="alternate"; type="text/markdown"
+/it/connect/
+  Link: </it/connect/index.md>; rel="alternate"; type="text/markdown"
+/it/status
+  Link: </it/status/index.md>; rel="alternate"; type="text/markdown"
+/it/status/
+  Link: </it/status/index.md>; rel="alternate"; type="text/markdown"
+/it/privacy-policy
+  Link: </it/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/it/privacy-policy/
+  Link: </it/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/it/eradication/about
+  Link: </it/eradication/about.md>; rel="alternate"; type="text/markdown"
+/it/favela-94/about
+  Link: </it/favela-94/about.md>; rel="alternate"; type="text/markdown"
+/it/donpollo-obby/about
+  Link: </it/donpollo-obby/about.md>; rel="alternate"; type="text/markdown"
+
+# fr
+/fr
+  Link: </fr/index.md>; rel="alternate"; type="text/markdown"
+/fr/
+  Link: </fr/index.md>; rel="alternate"; type="text/markdown"
+/fr/games
+  Link: </fr/games/index.md>; rel="alternate"; type="text/markdown"
+/fr/games/
+  Link: </fr/games/index.md>; rel="alternate"; type="text/markdown"
+/fr/blogs
+  Link: </fr/blogs/index.md>; rel="alternate"; type="text/markdown"
+/fr/blogs/
+  Link: </fr/blogs/index.md>; rel="alternate"; type="text/markdown"
+/fr/connect
+  Link: </fr/connect/index.md>; rel="alternate"; type="text/markdown"
+/fr/connect/
+  Link: </fr/connect/index.md>; rel="alternate"; type="text/markdown"
+/fr/status
+  Link: </fr/status/index.md>; rel="alternate"; type="text/markdown"
+/fr/status/
+  Link: </fr/status/index.md>; rel="alternate"; type="text/markdown"
+/fr/privacy-policy
+  Link: </fr/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/fr/privacy-policy/
+  Link: </fr/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/fr/eradication/about
+  Link: </fr/eradication/about.md>; rel="alternate"; type="text/markdown"
+/fr/favela-94/about
+  Link: </fr/favela-94/about.md>; rel="alternate"; type="text/markdown"
+/fr/donpollo-obby/about
+  Link: </fr/donpollo-obby/about.md>; rel="alternate"; type="text/markdown"
+
+# ro
+/ro
+  Link: </ro/index.md>; rel="alternate"; type="text/markdown"
+/ro/
+  Link: </ro/index.md>; rel="alternate"; type="text/markdown"
+/ro/games
+  Link: </ro/games/index.md>; rel="alternate"; type="text/markdown"
+/ro/games/
+  Link: </ro/games/index.md>; rel="alternate"; type="text/markdown"
+/ro/blogs
+  Link: </ro/blogs/index.md>; rel="alternate"; type="text/markdown"
+/ro/blogs/
+  Link: </ro/blogs/index.md>; rel="alternate"; type="text/markdown"
+/ro/connect
+  Link: </ro/connect/index.md>; rel="alternate"; type="text/markdown"
+/ro/connect/
+  Link: </ro/connect/index.md>; rel="alternate"; type="text/markdown"
+/ro/status
+  Link: </ro/status/index.md>; rel="alternate"; type="text/markdown"
+/ro/status/
+  Link: </ro/status/index.md>; rel="alternate"; type="text/markdown"
+/ro/privacy-policy
+  Link: </ro/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/ro/privacy-policy/
+  Link: </ro/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/ro/eradication/about
+  Link: </ro/eradication/about.md>; rel="alternate"; type="text/markdown"
+/ro/favela-94/about
+  Link: </ro/favela-94/about.md>; rel="alternate"; type="text/markdown"
+/ro/donpollo-obby/about
+  Link: </ro/donpollo-obby/about.md>; rel="alternate"; type="text/markdown"
+
+# el
+/el
+  Link: </el/index.md>; rel="alternate"; type="text/markdown"
+/el/
+  Link: </el/index.md>; rel="alternate"; type="text/markdown"
+/el/games
+  Link: </el/games/index.md>; rel="alternate"; type="text/markdown"
+/el/games/
+  Link: </el/games/index.md>; rel="alternate"; type="text/markdown"
+/el/blogs
+  Link: </el/blogs/index.md>; rel="alternate"; type="text/markdown"
+/el/blogs/
+  Link: </el/blogs/index.md>; rel="alternate"; type="text/markdown"
+/el/connect
+  Link: </el/connect/index.md>; rel="alternate"; type="text/markdown"
+/el/connect/
+  Link: </el/connect/index.md>; rel="alternate"; type="text/markdown"
+/el/status
+  Link: </el/status/index.md>; rel="alternate"; type="text/markdown"
+/el/status/
+  Link: </el/status/index.md>; rel="alternate"; type="text/markdown"
+/el/privacy-policy
+  Link: </el/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/el/privacy-policy/
+  Link: </el/privacy-policy/index.md>; rel="alternate"; type="text/markdown"
+/el/eradication/about
+  Link: </el/eradication/about.md>; rel="alternate"; type="text/markdown"
+/el/favela-94/about
+  Link: </el/favela-94/about.md>; rel="alternate"; type="text/markdown"
+/el/donpollo-obby/about
+  Link: </el/donpollo-obby/about.md>; rel="alternate"; type="text/markdown"
+
+# Force the .md endpoints to serve as markdown even on hosts that infer
+# Content-Type from extension. Without this some CDNs send `application/
+# octet-stream` for `.md`, which causes browsers to download instead of
+# render and confuses LLM clients that filter by Content-Type.
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+  Vary: Accept
