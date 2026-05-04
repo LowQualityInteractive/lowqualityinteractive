@@ -6,6 +6,34 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v50h",
+          "version": "v5.0h",
+          "date": "5/4/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Boosted and added velocity-based blast physics, launching players and entities on explosion impact.",
+              "Added multi-vehicular support, allowing multiple instances of the same vehicle to coexist.",
+              "Added a selection UI to RallyDrop settings so players can clearly identify which vehicle they are configuring."
+            ],
+            "changes": [
+              "Overhauled explosion visuals for a better overall feel.",
+              "Significant security improvements across the game."
+            ],
+            "bugs": [
+              "Fixed incorrect and inaccurate explosion blast radius.",
+              "Fixed an issue causing tanks to totally lose functionality in water.",
+              "Fixed the Panzer IV failing to move."
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": [
+              "Use code LOWQUALITY for 1 cash and 1 XP."
+            ]
+          }
+        },
+        {
           "id": "eradication-v50g",
           "version": "v5.0g",
           "date": "5/4/26",
