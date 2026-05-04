@@ -6,6 +6,29 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v50g",
+          "version": "v5.0g",
+          "date": "5/4/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added a Codes section within the Rewards UI, allowing you to redeem codes for in-game rewards, this will soon support weapons."
+            ],
+            "changes": [
+              "Rebranded SkyDrop to RallyDrop.",
+              "Revamped the RallyDrop system with overall structural and performance improvements.",
+              "General optimizations and improvements across the game."
+            ],
+            "bugs": [],
+            "removals": [],
+            "misc": [],
+            "footnotes": [
+              "Use code ERADICATION for 2,000 cash and 1,000 XP!"
+            ]
+          }
+        },
+        {
           "id": "eradication-v50f",
           "version": "v5.0f",
           "date": "5/2/26",
