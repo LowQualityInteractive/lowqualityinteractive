@@ -36,6 +36,7 @@ export function getBlogsScript(
     year: 'numeric',
     month: 'short',
     day: 'numeric',
+    timeZone: 'UTC',
   });
 
   const gameButtonsContainer = document.getElementById('devlog-game-buttons');
