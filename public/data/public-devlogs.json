@@ -6,6 +6,30 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v50i",
+          "version": "v5.0i",
+          "date": "5/4/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added a /votekick command, allowing players to initiate a vote to remove a disruptive player via chat."
+            ],
+            "changes": [
+              "Finalized and hardened the anti-cheat system to a production-ready state."
+            ],
+            "bugs": [
+              "Fixed various issues occurring on the client's first death.",
+              "Fixed menu camera and start state issues encountered after dying."
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": [
+              "With the anti-cheat now production-ready, an unban wave has been issued. Previously flagged players affected by false positives have been reviewed and reinstated."
+            ]
+          }
+        },
+        {
           "id": "eradication-v50h",
           "version": "v5.0h",
           "date": "5/4/26",
