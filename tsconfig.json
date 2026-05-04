@@ -5,5 +5,5 @@
     "module": "ESNext",
     "target": "ESNext"
   },
-  "exclude": ["status-worker", "node_modules", "dist", "functions"]
+  "exclude": ["node_modules", "dist", "functions"]
 }

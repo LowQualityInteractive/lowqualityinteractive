@@ -29,7 +29,7 @@ Last update: 2026-05-03
 Default language: English
 Localized variants: Português (Brasil), Español (México), Español (España), Русский, Deutsch, Italiano, Français, Română, Ελληνικά
 Technology: Astro static site, deployed on Cloudflare
-Primary routes: /, /games/, /blogs/, /status/, /connect/, /privacy-policy/
+Primary routes: /, /games/, /blogs/, /connect/, /privacy-policy/
 Game routes: /{slug}/ (redirect page) and /{slug}/about/ (canonical entity page)
 Localized routes: /{locale}/... mirrors the English tree
 

@@ -5,8 +5,6 @@ import {
   SITE_URL,
   SOCIAL_LINKS,
   DISCORD_GUILD_ID,
-  getPublicHttpOrigin,
-  normalizePublicHttpUrl,
   toAbsoluteSiteUrl,
 } from '../data/site';
 import {
@@ -33,7 +31,7 @@ interface Props {
   locale: Locale;
   title: string;
   description: string;
-  currentPage?: 'home' | 'games' | 'blogs' | 'connect' | 'status';
+  currentPage?: 'home' | 'games' | 'blogs' | 'connect';
   jsonLd?: string;
   ogImage?: string;
   // alt text for the share image, screen readers and llms read this
@@ -41,7 +39,6 @@ interface Props {
   ogImageAlt?: string;
   routePath?: string;
   extraScripts?: string[];
-  extraConnectSrc?: string[];
   noAlternates?: boolean;
   noLocaleRedirect?: boolean;
 }
@@ -49,7 +46,7 @@ interface Props {
 const {
   locale, title, description, currentPage, jsonLd, ogImage, ogImageAlt,
   routePath = '', extraScripts = [],
-  extraConnectSrc = [], noAlternates = false, noLocaleRedirect = false,
+  noAlternates = false, noLocaleRedirect = false,
 } = Astro.props;
 const currentYear = new Date().getFullYear();
 const messages = getMessages(locale);
@@ -57,7 +54,6 @@ const homeHref = getLocalePath(locale);
 const gamesHref = getLocalePath(locale, 'games');
 const blogsHref = getLocalePath(locale, 'blogs');
 const connectHref = getLocalePath(locale, 'connect');
-const statusHref = getLocalePath(locale, 'status');
 const privacyPolicyHref = getLocalePath(locale, 'privacy-policy');
 const canonicalUrl = getLocaleAbsolutePath(locale, routePath);
 const alternateLinks = getAlternateLinks(routePath);
@@ -83,14 +79,11 @@ const liveGamesForScript = getGames(locale).filter((g) => g.status !== 'in-devel
   status: g.status,
   universeId: g.universeId,
 }));
-const statusWorkerUrl = normalizePublicHttpUrl(import.meta.env.PUBLIC_STATUS_API_URL);
-const statusWorkerOrigin = getPublicHttpOrigin(statusWorkerUrl);
 const liveScript = sanitizeInlineScript(
   getLiveScript(
-    { ...messages.chrome.live, alertBar: messages.chrome.alertBar },
+    messages.chrome.live,
     liveGamesForScript,
     DISCORD_GUILD_ID,
-    statusWorkerUrl,
   ),
 );
 const translateBootstrap = sanitizeInlineScript(getTranslateBootstrap(locale));
@@ -135,8 +128,6 @@ const connectSources = [
   'https://games.roblox.com',
   'https://groups.roblox.com',
   'https://discord.com',
-  statusWorkerOrigin,
-  ...extraConnectSrc.map(getPublicHttpOrigin),
 ].filter(Boolean);
 const csp = [
   "default-src 'self'",
@@ -229,10 +220,6 @@ const csp = [
           <span class="nav-update-badge" data-update-badge hidden aria-hidden="true"></span>
         </a>
         <a class="button primary" href={connectHref} aria-current={currentPage === 'connect' ? 'page' : undefined}>{messages.chrome.nav.connect}</a>
-        <a class="status-nav-btn" href={statusHref} aria-label="Site status" aria-current={currentPage === 'status' ? 'page' : undefined}>
-          <span class="status-nav-dot" data-status-nav-dot aria-hidden="true"></span>
-          <span class="status-nav-label">Status</span>
-        </a>
       </nav>
       <div class="header-controls">
         <div class="locale-switcher" data-locale-switcher>
@@ -295,14 +282,6 @@ const csp = [
     </div>
   </header>
 
-  <div id="site-alert-bar" class="site-alert-bar" hidden aria-live="polite" role="alert">
-    <div class="container site-alert-inner">
-      <span class="site-alert-dot" aria-hidden="true"></span>
-      <span class="site-alert-text"></span>
-      <a class="site-alert-link" href={statusHref}>{messages.chrome.alertBar.viewStatus}</a>
-    </div>
-  </div>
-
   <main id="main-content">
     <div class="container">
       <slot />
@@ -325,7 +304,6 @@ const csp = [
           <a href={gamesHref}>{messages.chrome.nav.games}</a>
           <a href={blogsHref}>{messages.chrome.nav.updates}</a>
           <a href={connectHref}>{messages.chrome.nav.connect}</a>
-          <a href={statusHref}>{messages.pages.status.label}</a>
         </div>
         <div class="footer-col">
           <h3>{messages.chrome.footer.connectHeading}</h3>

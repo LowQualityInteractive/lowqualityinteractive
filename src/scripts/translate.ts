@@ -75,7 +75,7 @@ export function getTranslateBootstrap(locale: string) {
     translateAll();
   }
 
-  // re-run when blogs/status inject new DOM
+  // re-run when blogs inject new DOM
   const mo = new MutationObserver(() => translateAll());
   if (document.body) {
     mo.observe(document.body, { childList: true, subtree: true });

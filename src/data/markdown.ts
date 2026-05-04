@@ -26,9 +26,9 @@ import {
 
 // route keys the renderer knows about
 // empty string is home, the rest match the page dir names
-type SectionKey = '' | 'games' | 'blogs' | 'connect' | 'status' | 'privacy-policy';
+type SectionKey = '' | 'games' | 'blogs' | 'connect' | 'privacy-policy';
 
-const SECTION_KEYS: readonly SectionKey[] = ['', 'games', 'blogs', 'connect', 'status', 'privacy-policy'];
+const SECTION_KEYS: readonly SectionKey[] = ['', 'games', 'blogs', 'connect', 'privacy-policy'];
 
 export function isSectionKey(value: string): value is SectionKey {
   return (SECTION_KEYS as readonly string[]).includes(value);
@@ -335,26 +335,6 @@ function renderConnectMarkdown(locale: Locale) {
   ]);
 }
 
-function renderStatusMarkdown(locale: Locale) {
-  const messages = getMessages(locale);
-  const url = pageUrl(locale, 'status');
-  const games = getPublishedGames(locale);
-
-  const monitored = games
-    .map((g) => `- **${g.name}** — current state surfaced live; static fallback is ${statusLabel(g.status)}.`)
-    .join('\n');
-
-  return compose([
-    `# ${messages.pages.status.label}`,
-    `> ${messages.pages.status.description}`,
-    `Canonical URL: ${url}`,
-    `The HTML status page polls a Cloudflare Worker every 60 seconds for live player counts and Roblox API health. AI tools cannot fetch live numbers from this markdown; the canonical source for live state is the JSON endpoint behind the worker, exposed via \`PUBLIC_STATUS_API_URL\` at build time.`,
-    section('Monitored services', monitored),
-    section('Roblox platform', '- The page also surfaces an aggregate Roblox API health indicator. For the authoritative platform state, see https://status.roblox.com.'),
-    aiFooter(),
-  ]);
-}
-
 function renderPrivacyMarkdown(locale: Locale) {
   const messages = getMessages(locale);
   const url = pageUrl(locale, 'privacy-policy');
@@ -408,7 +388,6 @@ export function getMarkdownForRoute(locale: Locale, route: string): string {
   if (route === 'games') return renderGamesMarkdown(locale);
   if (route === 'blogs') return renderBlogsMarkdown(locale);
   if (route === 'connect') return renderConnectMarkdown(locale);
-  if (route === 'status') return renderStatusMarkdown(locale);
   if (route === 'privacy-policy') return renderPrivacyMarkdown(locale);
   if (route.endsWith('/about')) {
     const slug = route.replace(/\/about$/, '');

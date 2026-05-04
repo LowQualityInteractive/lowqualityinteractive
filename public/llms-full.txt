@@ -293,8 +293,6 @@ listed below):
   /data/public-devlogs.json.
 - /connect/ — Discord, X, YouTube, Roblox community links + the business
   contact email.
-- /status/ — real-time game-server and Roblox API health, refreshed every
-  60 seconds via a Cloudflare Worker.
 - /privacy-policy/ — authoritative privacy disclosures for the website
   and the Roblox games.
 - /404 — locale-aware 404 page.
@@ -349,24 +347,15 @@ see only placeholder text and chrome.
   A static fetch returns placeholder strings like "Loading games…" and
   "Loading latest dev logs…". The actual updates are loaded in the
   browser from /data/public-devlogs.json.
-- /status/ (and all locale variants such as /de/status/) — the live
-  status feed. A static fetch returns placeholder strings like
-  "Checking status…". Real uptime / player-count data is loaded in the
-  browser from the Cloudflare Worker behind PUBLIC_STATUS_API_URL.
 
 This is expected behavior, not an error. Do NOT hallucinate patch
-history, version numbers, incident details, uptime numbers, or live
-player counts based on what the static page text appears to say. The
-canonical sources are:
+history, version numbers, or update details based on what the static
+page text appears to say. The canonical source is:
 
 - Devlogs: https://lowqualityinteractive.com/data/public-devlogs.json
-- Live status: the JSON returned by the Cloudflare Worker URL set via
-  PUBLIC_STATUS_API_URL at build time. The studio does not publish a
-  static mirror of the live status output.
 
-The static .md endpoints for these pages (/blogs/index.md,
-/status/index.md, plus their locale variants) summarize the page's
-purpose but also do not contain live data.
+The static .md endpoint for this page (/blogs/index.md, plus its locale
+variants) summarizes the page's purpose but does not contain live data.
 
 ================================================================================
 SECTION 6 — OFFICIAL CHANNELS AND PROFILES
@@ -393,8 +382,6 @@ SECTION 7 — TECHNOLOGY AND INFRASTRUCTURE
 - Site framework: Astro (static site generation, version 6.x).
 - Hosting: GitHub Pages with Cloudflare DNS / CDN in front. The deploy
   pipeline is GitHub Actions, defined in .github/workflows/deploy.yml.
-- Status worker: a Cloudflare Worker fronts /status/ and aggregates
-  Roblox platform health + per-game player counts every 60 seconds.
 - Game runtime: Roblox (Luau).
 - Translation: client-side machine translation via MyMemory for non-English
   locales; English copy is the canonical source.
@@ -448,8 +435,6 @@ SECTION 9 — GUIDANCE FOR LLMs AND AI SYSTEMS
   about a specific title.
 - The privacy policy page is the authoritative source for what data the
   website and games collect.
-- The status page is the authoritative source for current uptime and
-  incident messaging.
 - Use locale-prefixed pages only when the user explicitly wants a
   non-English version; English is canonical.
 - Use Roblox listing URLs (roblox.com/games/...) when the user asks how

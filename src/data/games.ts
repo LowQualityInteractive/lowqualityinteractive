@@ -146,7 +146,6 @@ const BREADCRUMB_LABELS = {
   games: 'Games',
   blogs: 'Updates',
   connect: 'Connect',
-  status: 'Status',
   'privacy-policy': 'Privacy Policy',
 } as const;
 
@@ -406,7 +405,7 @@ export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutE
 }
 
 // fallback json-ld builder for pages that arent really an entity
-// blogs, connect, status, privacy, etc
+// blogs, connect, privacy, etc
 // without this they show up as plain html to schema-aware crawlers
 interface SectionPageOptions {
   description: string;
@@ -463,19 +462,6 @@ export function getConnectJsonLd(locale: Locale) {
     pageUrl,
     routeKey: 'connect',
     title: getSiteTitle(messages.pages.connect.label),
-  });
-}
-
-export function getStatusJsonLd(locale: Locale) {
-  const messages = getMessages(locale);
-  const pageUrl = getLocaleAbsolutePath(locale, 'status');
-  return getSectionJsonLd({
-    description: messages.pages.status.description,
-    inLanguage: locale,
-    pageType: 'WebPage',
-    pageUrl,
-    routeKey: 'status',
-    title: getSiteTitle(messages.pages.status.label),
   });
 }
 
