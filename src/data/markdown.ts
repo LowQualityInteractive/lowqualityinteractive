@@ -30,10 +30,6 @@ type SectionKey = '' | 'games' | 'blogs' | 'connect' | 'privacy-policy';
 
 const SECTION_KEYS: readonly SectionKey[] = ['', 'games', 'blogs', 'connect', 'privacy-policy'];
 
-export function isSectionKey(value: string): value is SectionKey {
-  return (SECTION_KEYS as readonly string[]).includes(value);
-}
-
 // canonical url for a (locale, route) pair, keeps the locale prefix
 function pageUrl(locale: Locale, route: string) {
   return getLocaleAbsolutePath(locale, route);
@@ -167,7 +163,7 @@ function renderGameAboutMarkdown(locale: Locale, game: Game, about: GameAboutEnt
   ]);
 }
 
-export function getGameAboutMarkdown(locale: Locale, slug: string) {
+function getGameAboutMarkdown(locale: Locale, slug: string) {
   const games = getGames(locale);
   const game = games.find((g) => g.slug === slug);
   if (!game) {

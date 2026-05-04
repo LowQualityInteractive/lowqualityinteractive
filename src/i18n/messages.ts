@@ -24,10 +24,6 @@ export const LOCALES = [
   'el',
 ] as const;
 
-export const NON_DEFAULT_LOCALES = LOCALES.filter(
-  (locale) => locale !== DEFAULT_LOCALE,
-) as Exclude<Locale, typeof DEFAULT_LOCALE>[];
-
 export type Locale = (typeof LOCALES)[number];
 export type Messages = typeof en;
 
@@ -97,10 +93,6 @@ function mergeWithEnglishFallback(base: unknown, override: unknown): unknown {
   return override;
 }
 
-export function isLocale(value: string | undefined): value is Locale {
-  return value !== undefined && LOCALES.includes(value as Locale);
-}
-
 export function getMessages(locale: Locale): Messages {
   if (!mergedMessages.has(locale)) {
     mergedMessages.set(
@@ -137,16 +129,6 @@ export function getAlternateLinks(path = '') {
 export function getLocaleOptionLabel(locale: Locale) {
   const option = LOCALE_OPTIONS[locale];
   return option.nativeName;
-}
-
-export function getLocaleFromPathname(pathname: string) {
-  const normalizedPath = pathname.toLowerCase();
-  const matchedLocale = NON_DEFAULT_LOCALES.find((locale) => {
-    const localePath = `/${locale.toLowerCase()}`;
-    return normalizedPath === localePath || normalizedPath.startsWith(`${localePath}/`);
-  });
-
-  return matchedLocale ?? DEFAULT_LOCALE;
 }
 
 export function interpolate(

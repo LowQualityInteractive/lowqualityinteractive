@@ -86,8 +86,3 @@ export function getTranslateBootstrap(locale: string) {
   }
 })();`;
 }
-
-export function getAboutTranslateScript() {
-  // back-compat shim, global auto-translate handles this now
-  return String.raw`(() => {})();`;
-}

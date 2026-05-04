@@ -8,8 +8,7 @@ import {
 } from '../data/games';
 import { getGameAbout } from '../data/gameAbout';
 import { getSiteTitle, SITE_NAME, toAbsoluteSiteUrl } from '../data/site';
-import { getMessages, interpolate, sanitizeInlineScript, type Locale } from '../i18n/messages';
-import { getAboutTranslateScript } from '../scripts/translate';
+import { getMessages, interpolate, type Locale } from '../i18n/messages';
 
 interface Props {
   locale: Locale;
@@ -49,8 +48,6 @@ type AboutModule = { Content: (props: Record<string, unknown>) => unknown };
 const aboutMarkdownModules = import.meta.glob<AboutModule>('../data/about/*.md', { eager: true });
 const aboutMarkdown = aboutMarkdownModules[`../data/about/${game.id}.md`] ?? null;
 const AboutMarkdownContent = aboutMarkdown?.Content;
-
-const aboutTranslateScript = sanitizeInlineScript(getAboutTranslateScript());
 ---
 
 <BaseLayout
@@ -62,7 +59,6 @@ const aboutTranslateScript = sanitizeInlineScript(getAboutTranslateScript());
   jsonLd={getGameAboutJsonLd(locale, game, aboutData)/* aboutData passed explicitly so the page only reads the JSON file once; the JSON-LD generator reuses it for description/featureList/identifiers */}
   ogImage={game.artwork.src}
   ogImageAlt={game.artwork.alt}
-  extraScripts={[aboutTranslateScript]}
 >
   <link slot="head-extra" rel="up" href={toAbsoluteSiteUrl(getGameHref(locale, game))} />
 

@@ -16,24 +16,6 @@ export function toAbsoluteSiteUrl(path: string) {
   return new URL(path, SITE_URL).toString();
 }
 
-export function normalizePublicHttpUrl(value: unknown) {
-  if (typeof value !== 'string') return '';
-  const trimmed = value.trim();
-  if (!trimmed) return '';
-
-  try {
-    const url = new URL(trimmed);
-    return url.protocol === 'https:' || url.protocol === 'http:' ? url.toString() : '';
-  } catch {
-    return '';
-  }
-}
-
-export function getPublicHttpOrigin(value: unknown) {
-  const normalized = normalizePublicHttpUrl(value);
-  return normalized ? new URL(normalized).origin : '';
-}
-
 export function getSiteTitle(pageTitle: string) {
   return `${SITE_NAME} | ${pageTitle}`;
 }
