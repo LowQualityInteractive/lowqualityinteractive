@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getGameBySlug } from '../data/games';
 import { getSiteTitle } from '../data/site';
 import {
+  getCategoryIntro,
   getCategoryLabel,
   getEntityHref,
   getWikiCategory,
@@ -26,7 +27,12 @@ if (!category) throw new Error(`Unknown wiki category: ${gameSlug}/${categorySlu
 
 const label = getCategoryLabel(category.category);
 const title = getSiteTitle(`${game.name} ${label.plural}`);
-const description = `Every ${label.singular.toLowerCase()} in ${game.name}: ${category.entities.map((e) => e.name).join(', ')}.`;
+const intro = getCategoryIntro(category.category, game.name);
+// prefer the prose intro for the meta description when one exists —
+// it reads as a real summary instead of a comma-separated entity dump.
+// the entity-list fallback stays for unrecognised categories.
+const description = intro
+  || `Every ${label.singular.toLowerCase()} in ${game.name}: ${category.entities.map((e) => e.name).join(', ')}.`;
 ---
 
 <BaseLayout
@@ -41,7 +47,10 @@ const description = `Every ${label.singular.toLowerCase()} in ${game.name}: ${ca
   <section class="hero">
     <span class="kicker hero-enter" style="--enter-delay: 40ms">{game.name} · {label.plural}</span>
     <h1 class="hero-enter" style="--enter-delay: 120ms">{label.plural}</h1>
-    <p class="lead hero-enter" style="--enter-delay: 220ms">
+    {intro && (
+      <p class="lead hero-enter" style="--enter-delay: 200ms">{intro}</p>
+    )}
+    <p class="hero-enter wiki-category-count" style="--enter-delay: 280ms">
       {category.entities.length} {label.singular.toLowerCase()}{category.entities.length === 1 ? '' : 's'} catalogued.
     </p>
     <div class="cta-row hero-enter" style="--enter-delay: 300ms">

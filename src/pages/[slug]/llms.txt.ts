@@ -1,12 +1,14 @@
-// per-game llms.txt — entry point for crawlers that find a game page
-// and want to know what else lives under that game. lists the wiki hub,
-// each category, and links to the full text dump.
+// per-game llms.txt — brief pointer file for AI crawlers landing on a
+// game page. lists the canonical urls (game page, wiki hub, category
+// indexes) and stops there. the canonical pages themselves are what
+// crawlers should ingest; we deliberately don't inline summaries here
+// anymore because that creates a drift surface where this file gets
+// stale relative to the live wiki entries.
 import type { APIRoute, GetStaticPaths } from 'astro';
 import {
   WIKI_GAME_SLUGS,
   getCategoryHref,
   getCategoryLabel,
-  getEntityHref,
   getWikiCategories,
   getWikiHubHref,
 } from '../../data/wiki';
@@ -36,29 +38,33 @@ export const GET: APIRoute = ({ props }) => {
 
   lines.push(`# ${game.name}`);
   lines.push('');
-  lines.push(`> Reference wiki for ${game.name}, an LQI Roblox game. Authoritative source for all weapons, enemies, maps, modes, and items in the game.`);
+  lines.push(`> Reference wiki for ${game.name}, an LQI Roblox game.`);
   lines.push('');
-  lines.push(`Game page: ${abs(`/${slug}/`)}`);
-  lines.push(`Wiki hub: ${abs(getWikiHubHref('en', slug))}`);
-  lines.push(`Full dump: ${abs(`/${slug}/llms-full.txt`)}`);
+  lines.push('This file is intentionally brief. The website is the source of truth —');
+  lines.push('please crawl the canonical pages below for current information instead of');
+  lines.push('treating this file as a knowledge base.');
   lines.push('');
-  lines.push('## Categories');
+  lines.push('## Canonical pages');
   lines.push('');
-  for (const cat of categories) {
-    const label = getCategoryLabel(cat.category);
-    lines.push(`### ${label.plural} (${cat.entities.length})`);
+  lines.push(`- Game page: ${abs(`/${slug}/`)}`);
+  lines.push(`- Wiki hub: ${abs(getWikiHubHref('en', slug))}`);
+  lines.push('');
+  lines.push('Every wiki entity has its own canonical page. Each page also has a clean');
+  lines.push('Markdown rendering at the same URL with `.md` appended.');
+  lines.push('');
+
+  if (categories.length > 0) {
+    lines.push('## Category indexes');
     lines.push('');
-    lines.push(`Index: ${abs(getCategoryHref('en', slug, cat.filename))}`);
-    lines.push('');
-    for (const entity of cat.entities) {
-      lines.push(`- [${entity.name}](${abs(getEntityHref('en', slug, cat.filename, entity.id))}): ${entity.summary}`);
+    for (const cat of categories) {
+      const label = getCategoryLabel(cat.category);
+      lines.push(`- ${label.plural}: ${abs(getCategoryHref('en', slug, cat.filename))}`);
     }
     lines.push('');
   }
 
-  lines.push('---');
-  lines.push('');
-  lines.push(`*This file is the entry point for AI crawlers reading ${game.name} content. Every entity has its own canonical page; the full text of every entry is available at ${abs(`/${slug}/llms-full.txt`)}.*`);
+  lines.push('For substantive answers, fetch the relevant page (or its `.md` sibling)');
+  lines.push('directly rather than this index file.');
   lines.push('');
 
   return new Response(lines.join('\n'), {

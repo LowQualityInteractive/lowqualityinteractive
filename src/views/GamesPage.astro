@@ -6,10 +6,12 @@ import {
   getGameUpdateHref,
   getGamesJsonLd,
   getPublishedGames,
+  getWebpSrc,
 } from '../data/games';
 import { getSiteTitle } from '../data/site';
 import { getInWorkProjects } from '../data/inWorks';
 import { getLocalePath, getMessages, interpolate, type Locale } from '../i18n/messages';
+import { getWikiHubHref, hasWiki } from '../data/wiki';
 
 interface Props {
   locale: Locale;
@@ -47,14 +49,24 @@ const projects = getInWorkProjects(locale);
       <article class="game-card" data-game-id={game.id} data-game-status={game.status} data-reveal data-reveal-i={String(Math.min(i + 1, 6))}>
         <div class="game-card-image">
           <a href={getGameHref(locale, game)} aria-label={interpolate(page.viewGameDetails, { game: game.name })}>
-            <img
-              src={game.artwork.src}
-              alt={game.artwork.alt}
-              width={game.artwork.width}
-              height={game.artwork.height}
-              loading="lazy"
-              data-fade
-            />
+            {/* webp sibling is generated at build time for every card
+                artwork. browsers that don't support webp (~3% globally)
+                fall through to the png. width/height are mandatory to
+                reserve layout space and avoid CLS. */}
+            <picture>
+              {getWebpSrc(game.artwork.src) && (
+                <source type="image/webp" srcset={getWebpSrc(game.artwork.src)} />
+              )}
+              <img
+                src={game.artwork.src}
+                alt={game.artwork.alt}
+                width={game.artwork.width}
+                height={game.artwork.height}
+                loading="lazy"
+                decoding="async"
+                data-fade
+              />
+            </picture>
           </a>
         </div>
         <div class="game-card-body">
@@ -77,6 +89,12 @@ const projects = getInWorkProjects(locale);
           <a class="button primary button-play" target="_blank" rel="noopener noreferrer" href={game.robloxUrl} aria-label={interpolate(page.playGameOn, { game: game.name })}>{page.playGame}</a>
           <a class="button ghost" href={getGameUpdateHref(locale, game)}>{page.updates}</a>
           <a class="button ghost" href={getGameAboutPath(locale, game)}>{page.about}</a>
+          {/* surface the wiki entry-point from the catalog page so the
+              wiki hub gets an internal link from one extra surface,
+              improving crawler discovery beyond the per-game about page. */}
+          {hasWiki(game.slug) && (
+            <a class="button ghost" href={getWikiHubHref(locale, game.slug)}>Wiki</a>
+          )}
         </div>
       </article>
     ))}

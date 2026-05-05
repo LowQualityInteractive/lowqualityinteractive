@@ -3,7 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import {
   getGameBySlug,
   getGameAboutJsonLd,
+  getGameFaqs,
   getGameUpdateHref,
+  getWebpSrc,
 } from '../data/games';
 import { getGameAbout } from '../data/gameAbout';
 import { getSiteTitle, SITE_NAME } from '../data/site';
@@ -39,6 +41,7 @@ const aboutLabels = page.about ?? {
 };
 
 const aboutData = getGameAbout(game.id);
+const gameFaqs = getGameFaqs(game, aboutData);
 
 // optional per-game markdown file at src/data/about/<id>.md.
 // drop a file there and it replaces the body+features block on this
@@ -100,14 +103,21 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
 
   <section class="game-presence" data-reveal data-game-id={game.id} aria-label={`${game.name} at a glance`}>
     <div class="game-presence-art">
-      <img
-        src={game.artwork.src}
-        alt={game.artwork.alt}
-        width={game.artwork.width}
-        height={game.artwork.height}
-        loading="eager"
-        data-fade
-      />
+      <picture>
+        {getWebpSrc(game.artwork.src) && (
+          <source type="image/webp" srcset={getWebpSrc(game.artwork.src)} />
+        )}
+        <img
+          src={game.artwork.src}
+          alt={game.artwork.alt}
+          width={game.artwork.width}
+          height={game.artwork.height}
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          data-fade
+        />
+      </picture>
     </div>
     <aside class="game-presence-meta">
       <dl class="game-presence-meta-grid">
@@ -203,6 +213,27 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
             </li>
           ))}
         </ul>
+      </div>
+    )}
+
+    {/* visible faq block. the same Q/A pairs are emitted as FAQPage
+        json-ld in getGameAboutJsonLd. google's faq rich-result spec
+        requires the answers to be visible on the page; if they aren't,
+        the schema is treated as spam. <details> gives a free
+        progressive-disclosure ui without javascript. */}
+    {gameFaqs.length > 0 && (
+      <div class="about-faq" data-reveal data-reveal-i="3" id="faq">
+        <h2>Frequently asked</h2>
+        <dl class="faq-list">
+          {gameFaqs.map((faq) => (
+            <details class="faq-item">
+              <summary>
+                <span class="faq-q">{faq.q}</span>
+              </summary>
+              <p class="faq-a">{faq.a}</p>
+            </details>
+          ))}
+        </dl>
       </div>
     )}
   </section>

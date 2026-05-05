@@ -5,6 +5,7 @@ import {
   getGameAboutPath,
   getGameJsonLd,
   getGameUpdateHref,
+  getWebpSrc,
 } from '../data/games';
 import { getSiteTitle, toAbsoluteSiteUrl } from '../data/site';
 import { getLocalePath, getMessages, interpolate, type Locale } from '../i18n/messages';
@@ -77,13 +78,20 @@ const aboutLabels = page.about ?? {
           <span>{statusLabel}</span>
         </span>
       )}
-      <img
-        src={game.artwork.src}
-        alt={game.artwork.alt}
-        width={game.artwork.width}
-        height={game.artwork.height}
-        loading="eager"
-      />
+      <picture>
+        {getWebpSrc(game.artwork.src) && (
+          <source type="image/webp" srcset={getWebpSrc(game.artwork.src)} />
+        )}
+        <img
+          src={game.artwork.src}
+          alt={game.artwork.alt}
+          width={game.artwork.width}
+          height={game.artwork.height}
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </picture>
     </div>
     <aside class="game-presence-meta">
       <dl class="game-presence-meta-grid">

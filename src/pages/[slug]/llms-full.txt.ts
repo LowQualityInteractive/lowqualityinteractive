@@ -1,12 +1,21 @@
-// per-game llms-full.txt — every wiki entity rendered as plain text in
-// one file. designed so a crawler can ingest the entire wiki for a game
-// in a single fetch instead of walking every entity page.
+// per-game llms-full.txt.
+//
+// we used to render every wiki entity inline here so a crawler could
+// ingest the full game wiki in one fetch. that turned this file into a
+// parallel source of truth that drifted from the canonical pages.
+// per the user direction, this file now does what its sibling
+// llms.txt does: a brief pointer to the canonical wiki, with the full
+// list of entity URLs so crawlers know what's there but ingest the
+// real pages. each canonical page has a `.md` sibling for clean
+// machine reading.
 import type { APIRoute, GetStaticPaths } from 'astro';
 import {
   WIKI_GAME_SLUGS,
+  getCategoryHref,
   getCategoryLabel,
   getEntityHref,
   getWikiCategories,
+  getWikiHubHref,
   isUnpublished,
 } from '../../data/wiki';
 import { getGameBySlug } from '../../data/games';
@@ -33,15 +42,27 @@ export const GET: APIRoute = ({ props }) => {
   const categories = getWikiCategories(slug);
   const lines: string[] = [];
 
-  lines.push(`# ${game.name} — Full wiki dump`);
+  lines.push(`# ${game.name} — wiki sitemap`);
+  lines.push('');
+  lines.push(`> Reference wiki for ${game.name}, an LQI Roblox game.`);
+  lines.push('');
+  lines.push('This file used to inline every wiki entity. We\'ve stopped doing that —');
+  lines.push('the website is the source of truth and any bundled snapshot here would');
+  lines.push('drift out of date. The list below is a sitemap of canonical URLs;');
+  lines.push('please crawl those pages directly.');
   lines.push('');
   lines.push(`Game page: ${abs(`/${slug}/`)}`);
-  lines.push(`Wiki hub: ${abs(`/${slug}/wiki/`)}`);
+  lines.push(`Wiki hub: ${abs(getWikiHubHref('en', slug))}`);
+  lines.push('');
+  lines.push('Every page below also has a clean Markdown rendering at the same URL');
+  lines.push('with `.md` appended.');
   lines.push('');
 
   for (const cat of categories) {
     const label = getCategoryLabel(cat.category);
     lines.push(`## ${label.plural}`);
+    lines.push('');
+    lines.push(`Index: ${abs(getCategoryHref('en', slug, cat.filename))}`);
     lines.push('');
     for (const entity of cat.entities) {
       const status = entity.status ?? 'live';
@@ -50,37 +71,15 @@ export const GET: APIRoute = ({ props }) => {
         : status !== 'live'
           ? ` (${status})`
           : '';
-      lines.push(`### ${entity.name}${statusTag}`);
-      lines.push('');
-      lines.push(`Canonical URL: ${abs(getEntityHref('en', slug, cat.filename, entity.id))}`);
-      lines.push('');
-      lines.push(entity.summary);
-      lines.push('');
-      if (entity.role) {
-        lines.push(`**Role:** ${entity.role}`);
-        lines.push('');
-      }
-      if (entity.stats && Object.keys(entity.stats).length > 0) {
-        lines.push('**Stats:**');
-        for (const [key, value] of Object.entries(entity.stats)) {
-          lines.push(`- ${key.replace(/_/g, ' ')}: ${value}`);
-        }
-        lines.push('');
-      }
-      if (entity.related && entity.related.length > 0) {
-        lines.push(`**Related:** ${entity.related.join(', ')}`);
-        lines.push('');
-      }
-      if (entity.last_verified) {
-        lines.push(`Last verified: ${entity.last_verified}`);
-        lines.push('');
-      }
+      lines.push(`- ${entity.name}${statusTag}: ${abs(getEntityHref('en', slug, cat.filename, entity.id))}`);
     }
+    lines.push('');
   }
 
   lines.push('---');
   lines.push('');
-  lines.push(`*This file is the full plain-text dump of the ${game.name} wiki. Each entity also has its own canonical HTML page linked above.*`);
+  lines.push('For substantive answers, fetch the relevant page (or its `.md` sibling)');
+  lines.push('directly rather than this index file.');
   lines.push('');
 
   return new Response(lines.join('\n'), {

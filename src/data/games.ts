@@ -17,6 +17,17 @@ export interface GameArtwork {
   width: number;
 }
 
+// derives the webp sibling for a given image src. we generate webp
+// variants of every card artwork at build time (see scripts/ +
+// public/assets); files that don't have one fall back to the original.
+// kept inline here so views can use it without importing from a fs path.
+export function getWebpSrc(src: string): string | null {
+  if (typeof src !== 'string') return null;
+  const match = src.match(/^(.+)\.(png|jpg|jpeg)$/i);
+  if (!match) return null;
+  return `${match[1]}.webp`;
+}
+
 export interface Game {
   artwork: GameArtwork;
   description: string;
@@ -300,6 +311,55 @@ export function getGameAboutPath(locale: Locale, game: Pick<Game, 'slug'>) {
   return getGameHref(locale, game);
 }
 
+// game-page faqs derived from the existing game data. used twice: once
+// to render the visible <details>/<summary> block on the page, once to
+// emit FAQPage json-ld. shared so the visible answers and the schema
+// answers can never disagree (which is what would make google demote
+// the rich result).
+export interface GameFaq {
+  q: string;
+  a: string;
+}
+
+export function getGameFaqs(game: Game, about: GameAboutEntry = getGameAbout(game.id)): GameFaq[] {
+  const bodyText = about.body.join(' ').trim();
+  const statusAnswer =
+    about.status === 'sunset'
+      ? `${game.name} is in sunset status — playable, but no longer in active development.`
+      : about.status === 'preview'
+        ? `${game.name} is currently in preview. The game is playable on Roblox while we iterate on it.`
+        : `${game.name} is live on Roblox and in active development.`;
+  const playerAnswer = about.numberOfPlayers
+    ? `${game.name} supports ${about.numberOfPlayers} players per session.`
+    : `${game.name} is a ${about.playMode === 'SinglePlayer' ? 'single-player' : 'multiplayer'} experience on Roblox.`;
+  return [
+    {
+      q: `What is ${game.name}?`,
+      a: bodyText || game.pageLead || `${game.name} is a ${game.genreLabel.toLowerCase()} on Roblox by ${SITE_NAME}.`,
+    },
+    {
+      q: `Is ${game.name} free to play?`,
+      a: `Yes. ${game.name} is free to play on Roblox. Optional gamepasses may be available in-game.`,
+    },
+    {
+      q: `What platforms does ${game.name} run on?`,
+      a: `${game.name} runs on the Roblox platform, which is available on PC (Windows, macOS), mobile (iOS, Android), and Xbox.`,
+    },
+    {
+      q: `Who made ${game.name}?`,
+      a: `${game.name} is developed and published by ${SITE_NAME}, an independent Roblox studio founded in 2024.`,
+    },
+    {
+      q: `How many players can play ${game.name} at once?`,
+      a: playerAnswer,
+    },
+    {
+      q: `Is ${game.name} still being updated?`,
+      a: statusAnswer,
+    },
+  ];
+}
+
 export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutEntry = getGameAbout(game.id)) {
   // /<slug> is now the only page for the game (no separate /about), so
   // the "about" url and the "game" url are the same — but the function
@@ -390,6 +450,21 @@ export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutE
     ...(sameAs.length ? { sameAs } : {}),
   };
 
+  // FAQPage covers the questions LLMs and "people also ask" search
+  // surfaces grab most readily for a roblox title. shared with the
+  // visible faq block on the page so the schema answers always match
+  // what the user can see (google demotes the rich result otherwise).
+  const faqs = getGameFaqs(game, about);
+  const faqPage = {
+    '@type': 'FAQPage',
+    '@id': `${localizedAboutUrl}#faq`,
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  };
+
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@graph': [
@@ -403,6 +478,7 @@ export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutE
         about: { '@id': `${SITE_URL}/#${game.id}` },
       },
       videoGame,
+      faqPage,
       // breadcrumb is just home → games → <game> now. there's no longer
       // a separate "About" leaf to add; the slug page IS the about page.
       getBreadcrumbList(localizedAboutUrl, [

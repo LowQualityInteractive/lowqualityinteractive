@@ -1,16 +1,18 @@
 User-agent: *
-Disallow: /llms.txt
 Allow: /
 
 Sitemap: https://lowqualityinteractive.com/sitemap.xml
 
-# LLM-oriented content map and site metadata
+# llms.txt / llms-full.txt are now brief pointer files (the website is the
+# source of truth — they redirect crawlers back to the canonical pages
+# rather than serving as a parallel content surface). they are listed in
+# sitemap.xml and intentionally allowed for every crawler, including
+# traditional search engines. earlier revisions disallowed them for
+# google/bing to keep an llm-oriented dump out of regular search results;
+# that justification no longer applies.
 
 # ---------------------------------------------------------------------------
 # Explicit allow-list for major AI / LLM crawlers and answer engines.
-# Every agent below is permitted to fetch the entire site, including
-# /llms.txt (which is disallowed for the wildcard agent above so it does
-# not appear in generic search-engine results).
 # Keep this list updated; new agents should default to Allow: / unless we
 # have a concrete reason to block them.
 # ---------------------------------------------------------------------------
@@ -89,13 +91,11 @@ User-agent: xAI-Bot
 Allow: /
 
 # ---------------------------------------------------------------------------
-# Traditional search engines: explicitly allowed for indexing, but llms.txt
-# is hidden from them so it does not surface in regular search results.
+# Traditional search engines: explicitly allowed for full indexing,
+# including the llms.txt / llms-full.txt pointer files (now sitemapped).
 # ---------------------------------------------------------------------------
 User-agent: Googlebot
-Disallow: /llms.txt
 Allow: /
 
 User-agent: Bingbot
-Disallow: /llms.txt
 Allow: /

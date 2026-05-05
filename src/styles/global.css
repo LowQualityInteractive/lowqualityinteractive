@@ -2091,11 +2091,56 @@ main { padding-block: 3.5rem 5rem; }
 }
 
 .about-features h2,
-.about-links h2 {
+.about-links h2,
+.about-faq h2 {
   font-size: var(--fs-xl);
   font-weight: 800;
   margin-bottom: 0.85rem;
   letter-spacing: -0.02em;
+}
+
+/* visible faq block paired with FAQPage json-ld. uses native
+   <details> so it works without js, with a brand-tinted disclosure
+   marker. each row has its own border so questions read as discrete
+   units rather than one wall of text. */
+.about-faq { margin-top: var(--space-5); }
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: 0.85rem 1.1rem;
+}
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  font-weight: 700;
+  color: var(--brand);
+  font-size: 1.2em;
+  transition: transform var(--t-press) var(--ease);
+}
+.faq-item[open] summary::after { content: "−"; }
+.faq-item .faq-q { font-size: var(--fs-md); }
+.faq-item .faq-a {
+  margin-top: 0.6rem;
+  color: var(--text-2);
+  line-height: 1.65;
 }
 
 .about-features ul {
@@ -2883,6 +2928,14 @@ footer {
   flex-direction: column;
   gap: 0.85rem;
   margin-top: 0.5rem;
+}
+
+/* small caption under the prose intro on category pages, so the visible
+   count still reads at a glance without competing with the .lead. */
+.wiki-category-count {
+  color: var(--muted);
+  font-size: var(--fs-sm);
+  margin-top: 0.4rem;
 }
 
 .wiki-row {

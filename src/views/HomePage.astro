@@ -5,6 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getHomeJsonLd, getPublishedGames, publishedGameCount } from '../data/games';
 import { getSiteTitle } from '../data/site';
 import { getLocalePath, getMessages, type Locale } from '../i18n/messages';
+import { getWikiHubHref, hasWiki } from '../data/wiki';
 
 interface Props {
   locale: Locale;
@@ -42,8 +43,17 @@ try {
 
 // game names for the hero marquee. we duplicate them inline so the css
 // translateX(-50%) loop reads as continuous instead of a panicked snap.
-const marqueeGames = getPublishedGames(locale).map((g) => g.name);
+const publishedGames = getPublishedGames(locale);
+const marqueeGames = publishedGames.map((g) => g.name);
 const marqueeLoop = marqueeGames.length > 0 ? [...marqueeGames, ...marqueeGames, ...marqueeGames, ...marqueeGames] : [];
+
+// wiki hubs surfaced directly from the homepage hero. crawler-discovery
+// of /eradication/wiki/ benefits from a link on a high-pagerank surface;
+// google's seo guide explicitly says new pages need to be discoverable
+// through links from already-important pages.
+const wikiCtas = publishedGames
+  .filter((g) => hasWiki(g.slug))
+  .map((g) => ({ name: g.name, href: getWikiHubHref(locale, g.slug) }));
 
 // counter text rendered server-side. js resets it to 0 and animates up
 // when the element scrolls into view. no-js users see the real number
@@ -107,6 +117,17 @@ const headingTail = splitMatch ? splitMatch[2] : '';
           <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
+      {/* descriptive anchor text on purpose — "wiki" alone would be
+          generic. each cta names the game it belongs to so the link
+          context is obvious to humans, screen readers, and crawlers. */}
+      {wikiCtas.map((cta) => (
+        <a class="button ghost" href={cta.href}>
+          <span>{cta.name} wiki</span>
+          <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      ))}
     </div>
     {marqueeLoop.length > 0 && (
       <div class="hero-marquee hero-enter" style="--enter-delay: 380ms" aria-hidden="true">

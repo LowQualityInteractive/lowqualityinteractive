@@ -51,6 +51,40 @@ const CATEGORY_LABELS: Record<string, { singular: string; plural: string }> = {
   vehicle: { singular: 'Vehicle', plural: 'Vehicles' },
 };
 
+// short prose intro for each category, rendered above the entity list
+// on category pages. without this, category pages were just card grids
+// over a one-line "N items catalogued" lead — google flags those as
+// thin template pages, which hurts indexing of the entities they
+// surface. {game} is interpolated by the caller.
+const CATEGORY_INTROS: Record<string, string> = {
+  weapon:
+    'Reference for every documented firearm, melee, and equipment piece in {game}, including roles, key stats, and which gameplay systems each weapon interacts with.',
+  enemy:
+    'Bestiary of every hostile NPC in {game}, with behavior summaries, stats, and notes on where each enemy spawns and how to counter it.',
+  map:
+    'Field guide to every map in {game}, covering layout, key territories, mode rotation, and the hazards or callouts each location is known for.',
+  mode:
+    'All playable modes in {game} explained: objectives, win conditions, supported player counts, and how the mode interacts with the rest of the game.',
+  item:
+    'Catalog of pickups, consumables, and inventory items in {game}, with descriptions of effects, where they drop, and how each item fits into a loadout.',
+  mechanic:
+    'Underlying gameplay systems in {game} — movement, combat, economy, and progression rules — described so new players can reach competent play faster.',
+  gamepass:
+    'Every gamepass available for {game}, listed with what it unlocks, whether it grants in-match advantages, and how the pass interacts with regular progression.',
+  progression:
+    'Level, currency, and unlock paths in {game}: how players earn rewards, what each tier grants, and the long-term goals that drive return play.',
+  territory:
+    'Map territories that change hands during a {game} match: capture rules, defensive value, and the strategic role each zone plays in the larger objective.',
+  vehicle:
+    'All drivable, mountable, and deployable vehicles in {game}, with handling notes, seat counts, weapon mounts, and battlefield roles.',
+};
+
+export function getCategoryIntro(category: string, gameName: string): string {
+  const template = CATEGORY_INTROS[category];
+  if (!template) return '';
+  return template.replace(/\{game\}/g, gameName);
+}
+
 const slugify = (value: string) =>
   value
     .toLowerCase()
@@ -76,7 +110,18 @@ for (const [path, raw] of Object.entries(wikiFiles)) {
 
   // category type defaults to filename minus the trailing 's' if any.
   // entities can override per-row via the type field.
-  const fallbackType = filename.endsWith('s') ? filename.slice(0, -1) : filename;
+  // file -> category-key. naive `slice(-1)` fails on -ies and -sses
+  // ("enemies" -> "enemie", "gamepasses" -> "gamepasse"), which makes
+  // CATEGORY_LABELS / CATEGORY_INTROS misses and produces "every enemie
+  // in <game>" in meta descriptions. handle the common english plural
+  // patterns explicitly. order matters: -ies before -sses before -s.
+  const filenameToCategory = (name: string): string => {
+    if (name.endsWith('ies')) return name.slice(0, -3) + 'y';     // enemies -> enemy
+    if (name.endsWith('sses')) return name.slice(0, -2);           // gamepasses -> gamepass
+    if (name.endsWith('s') && !name.endsWith('ss')) return name.slice(0, -1);
+    return name;
+  };
+  const fallbackType = filenameToCategory(filename);
 
   const entities: WikiEntity[] = items
     .filter((item) => item && typeof item.id === 'string' && typeof item.name === 'string')

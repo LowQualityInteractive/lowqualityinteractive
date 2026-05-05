@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Low Quality Interactive — updates</title>
+    <link>https://lowqualityinteractive.com/updates/</link>
+    <atom:link href="https://lowqualityinteractive.com/updates.xml" rel="self" type="application/rss+xml" />
+    <description>Devlogs and patch notes for Low Quality Interactive's Roblox games (ERADICATION, Favela '94, DON POLLO OBBY).</description>
+    <language>en</language>
+    <lastBuildDate>Mon, 04 May 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>ERADICATION v5.0j</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v50j</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50j</guid>
+      <pubDate>Mon, 04 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added rewards for defending a territory, claiming a territory, and engaging Whiskorians on a territory.</li><li>Added a reward for using the callout menu.</li><li>Added an assist system to credit players for contributing to kills.</li><li>Added a round end UI to display key stats at the conclusion of each round.</li></ul><h3>Changes</h3><ul><li>Slightly improved death feedback to better communicate the cause and context of a player&apos;s death.</li></ul><h3>Removals</h3><ul><li>Temporarily pulled back the Infection game mode pending further development.</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v5.0i</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v50i</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50i</guid>
+      <pubDate>Mon, 04 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added a /votekick command, allowing players to initiate a vote to remove a disruptive player via chat.</li></ul><h3>Changes</h3><ul><li>Finalized and hardened the anti-cheat system to a production-ready state.</li></ul><h3>Bug fixes</h3><ul><li>Fixed various issues occurring on the client&apos;s first death.</li><li>Fixed menu camera and start state issues encountered after dying.</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v5.0h</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v50h</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50h</guid>
+      <pubDate>Mon, 04 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Boosted and added velocity-based blast physics, launching players and entities on explosion impact.</li><li>Added multi-vehicular support, allowing multiple instances of the same vehicle to coexist.</li><li>Added a selection UI to RallyDrop settings so players can clearly identify which vehicle they are configuring.</li></ul><h3>Changes</h3><ul><li>Overhauled explosion visuals for a better overall feel.</li><li>Significant security improvements across the game.</li></ul><h3>Bug fixes</h3><ul><li>Fixed incorrect and inaccurate explosion blast radius.</li><li>Fixed an issue causing tanks to totally lose functionality in water.</li><li>Fixed the Panzer IV failing to move.</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v5.0g</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v50g</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50g</guid>
+      <pubDate>Mon, 04 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added a Codes section within the Rewards UI, allowing you to redeem codes for in-game rewards, this will soon support weapons.</li></ul><h3>Changes</h3><ul><li>Rebranded SkyDrop to RallyDrop.</li><li>Revamped the RallyDrop system with overall structural and performance improvements.</li><li>General optimizations and improvements across the game.</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v5.0f</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v50f</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50f</guid>
+      <pubDate>Sat, 02 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added the M60, only available to group users</li><li>Added a dedicated Rewards section GUI, allowing players to view and claim all available rewards in one place.</li></ul><h3>Changes</h3><ul><li>Improved the level system UX for smoother progression.</li><li>Limited private server rewards to prevent reward farming.</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v5.0e</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v50e</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50e</guid>
+      <pubDate>Sat, 02 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>Changes</h3><ul><li>Revamped and standardized every GUI element across the game for a consistent visual experience.</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v5.0d</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v50d</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50d</guid>
+      <pubDate>Fri, 01 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>Changes</h3><ul><li>Reworked and rebalanced the Furry team.</li></ul><h3>Bug fixes</h3><ul><li>Fixed anti-cheat false positives incorrectly flagging legitimate players.</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v5.0c</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v50c</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50c</guid>
+      <pubDate>Wed, 29 Apr 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added a daily login bonus for all players.</li><li>New players now receive a complimentary 2-hour x2 cash and XP boost upon joining.</li><li>Added the option to kick players from a vehicle you own.</li><li>Pushed SkyDrop elements to free users.</li><li>Migrated cash SkyDrop to a per-round basis.</li></ul><h3>Changes</h3><ul><li>Replaced the existing backpack with a cleaner, improved alternative.</li><li>Deployed a new networking library to reduce client-to-server communication issues.</li></ul><h3>Bug fixes</h3><ul><li>Resolved an internal engine bug affecting vehicle tracks.</li><li>Fixed anti-cheat false positives incorrectly flagging legitimate players.</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v5.0b</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v50b</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50b</guid>
+      <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>Changes</h3><ul><li>Increased respawn time from 3 seconds to 6 seconds.</li></ul><h3>Bug fixes</h3><ul><li>Resolved runtime errors occurring in private servers.</li><li>Resolved defective datastore code causing data handling issues.</li><li>Fixed a visual ragdoll bug affecting player death animations.</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v5.0a</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v50a</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50a</guid>
+      <pubDate>Fri, 24 Apr 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added multiple game modes: Traditional, Infection, and Rush.</li><li>Introduced the MTV-92, a new vehicle available.</li><li>Added the M keybind for quick map access.</li><li>Implemented aim assist support for console players.</li><li>Extended laptop support for vehicles.</li></ul><h3>Changes</h3><ul><li>Overhauled the Furry boss system, only available in Traditional.</li><li>Revamped the vehicle system with significant structural and functional improvements.</li><li>Implemented player scaling to better accommodate solo players.</li><li>Extended background terrain, just so the map doesn&apos;t feel empty.</li><li>Performed extensive performance optimizations across the experience.</li></ul><h3>Bug fixes</h3><ul><li>Resolved inconsistent Furry attack patterns.</li><li>Fixed buggy callout UI elements displaying incorrectly during gameplay.</li></ul><h3>Removals</h3><ul><li>Removed the loading screen to reduce memory usage.</li><li>Eliminated erroneous tree collision geometry.</li></ul>]]></description>
+    </item>
+    <item>
+      <title>DON POLLO OBBY v1.2</title>
+      <link>https://lowqualityinteractive.com/updates/#donpollo-obby-v12</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#donpollo-obby-v12</guid>
+      <pubDate>Thu, 16 Apr 2026 00:00:00 GMT</pubDate>
+      <category>DON POLLO OBBY update</category>
+      <description><![CDATA[<h3>Changes</h3><ul><li>Refactored the frontend and backend codebase</li><li>Adjusted several models</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.1.0</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v410</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v410</guid>
+      <pubDate>Tue, 14 Apr 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added dynamic spawning based on player count</li><li>Added Furry variant: Bloater</li><li>Added Furry variant: Spitter</li><li>Added Furry variant: Leader</li><li>Added Furry variant: Robot</li></ul><h3>Changes</h3><ul><li>Reduced the effectiveness of the Furry variant: Pimple</li></ul><h3>Bug fixes</h3><ul><li>Resolved an issue that could cause vehicles to fly unexpectedly</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.9</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v409</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v409</guid>
+      <pubDate>Mon, 13 Apr 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added controller haptics</li><li>Added kill toasts</li><li>Added Furry defense logic</li></ul><h3>Changes</h3><ul><li>Increased base capture time by 60%</li><li>Reworked footstep audio</li><li>Reworked the Furry variant: Pimple</li></ul><h3>Bug fixes</h3><ul><li>Resolved a silent error affecting broken weapon gamepasses</li><li>Fixed an issue that prevented Furries from appearing on the map</li><li>Fixed an issue that prevented Furries from attacking during continuous contact</li><li>Fixed the callout enabled setting</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.8</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v408</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v408</guid>
+      <pubDate>Sun, 12 Apr 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>Changes</h3><ul><li>Reduced network latency and overhead by 60% to 75%</li><li>Reduced client CPU overhead by 25%</li><li>Overhauled Furry rendering</li><li>Improved server and client performance, freeing 2 to 5 frames</li><li>Increased server capacity from 25 to 32 players</li><li>Increased Furry spawn rate by 20%</li><li>Reduced vehicle damage caused by Furries by 90%</li><li>Revamped the anti-cheat system</li><li>Revamped the loading screen</li><li>Updated deprecated sounds</li></ul><h3>Bug fixes</h3><ul><li>Fixed a premium benefits logic issue that incorrectly granted 4x rewards</li></ul><h3>Misc</h3><ul><li>Overall game stability and performance have been significantly improved</li><li>Improved server stability to support longer uptime with fewer slowdowns</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.7.2</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v4072</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v4072</guid>
+      <pubDate>Fri, 10 Apr 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added gamepass: Hand Charge</li></ul><h3>Changes</h3><ul><li>Reduced ammo crate interaction time from 3s to 0.1s</li><li>Overhauled the M134 Minigun</li></ul><h3>Bug fixes</h3><ul><li>Fixed various bugs and made general codebase improvements</li></ul><h3>Removals</h3><ul><li>Removed the Mechanical Grenadier</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.7.1</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v4071</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v4071</guid>
+      <pubDate>Tue, 10 Mar 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>Bug fixes</h3><ul><li>Fixed blocky ragdolls after death</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.7</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v407</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v407</guid>
+      <pubDate>Mon, 02 Mar 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added universal gyroscopic stabilization for turrets</li><li>Added additional gameplay integrity protections</li></ul><h3>Bug fixes</h3><ul><li>Adjusted aiming and firing alignment so weapons shoot more accurately</li><li>Fixed ghost driving</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.6.3</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v4063</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v4063</guid>
+      <pubDate>Sat, 28 Feb 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added weapon: FX-05 Xiuhcoatl</li><li>Added helicopter: MH-60 Blackhawk (pilot minigun)</li></ul><h3>Bug fixes</h3><ul><li>Fixed helicopter tooltips</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.6.2</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v4062</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v4062</guid>
+      <pubDate>Wed, 25 Feb 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added SkyDrop variant: Aviation (98R$)</li><li>Added helicopter: MH-60 Blackhawk (transport)</li></ul><h3>Bug fixes</h3><ul><li>Fixed callout activation</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.6.1</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v4061</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v4061</guid>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added a callout menu with settings (V)</li></ul><h3>Changes</h3><ul><li>Updated refueling visuals</li><li>Adjusted how vehicle health is affected when running over Furries</li></ul><h3>Bug fixes</h3><ul><li>Fixed Furry-related vehicle damage behavior</li><li>Fixed camera interference while operating vehicles</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.6</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v406</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v406</guid>
+      <pubDate>Sat, 06 Sep 2025 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>Changes</h3><ul><li>Improved vehicle gunplay</li><li>Improved automatic suspension physics</li><li>Improved attachment models</li><li>Improved vehicle gunsights</li><li>Improved loading times</li><li>Readjusted the vehicle control interface</li><li>Readjusted attachment balance so all attachments now include tradeoffs</li><li>Readjusted vehicle torque</li></ul><h3>Bug fixes</h3><ul><li>Fixed several issues involving vehicle-to-player collisions</li><li>Fixed several respawn issues</li><li>Fixed several main menu issues</li><li>Fixed an issue that allowed weapon duplication while seated</li><li>Fixed the excessive suspension height on the LTV-300</li><li>Fixed an issue with sight placement during reloads</li><li>Fixed an issue involving explosion craters in the boss den</li><li>Fixed false-positive anti-cheat bans</li><li>Fixed the toggle aim keybind (P key / mobile button)</li><li>Fixed capture UI scaling across all devices</li></ul><h3>Removals</h3><ul><li>Temporarily removed server-side attachment models</li><li>Removed safe mode</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.5</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v405</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v405</guid>
+      <pubDate>Thu, 04 Sep 2025 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added weapon attachment: Optic</li><li>Added weapon attachment: Barrel</li><li>Added weapon attachment: Underbarrel</li><li>Added weapon attachment: Bipod</li><li>Added vehicle: LTV-300</li><li>Added weapon: Musket</li><li>Added tracers to all weapons</li><li>Added small trench bridges across the map</li></ul><h3>Changes</h3><ul><li>Renamed vehicle: MBT-52 Panthera to MBT-800</li><li>Renamed vehicle: RR-20P Sentinel to ACV-120</li><li>Updated the settings menu design</li><li>Reduced gore intensity to preserve performance</li><li>Adjusted hipfire movement</li><li>Optimized explosion networking to reduce server lag</li></ul><h3>Bug fixes</h3><ul><li>Fixed an issue that caused inventory duplication when entering or exiting vehicles</li></ul><h3>Removals</h3><ul><li>Removed vehicle: Greasehog</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.4</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v404</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v404</guid>
+      <pubDate>Wed, 27 Aug 2025 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added weapon: AX-50</li><li>Added weapon: Remington Model 870</li><li>Added weapon: MP5A3</li><li>Added weapon: Krag-Jørgensen</li><li>Added weapon: Toka</li><li>Added purchasable: x2 Cash (15m/30m/60m)</li><li>Added purchasable: x2 XP (15m/30m/60m)</li><li>Added purchasable: x2 Ammunition Canister</li><li>Added badge: First Blood</li><li>Added badge: Fighter</li><li>Added badge: Hunter</li><li>Added badge: Exterminator</li><li>Added badge: Arms Dealer</li><li>Added setting: Toggle Aim</li><li>Added the Greasehog to SkyDrop</li><li>Added the contributor factor to the Furry boss fight</li><li>Added loadout weapon locks</li><li>Added a server migration system</li><li>Added additional creators to the credits</li><li>Added a donations page</li><li>Added a vignette overlay to the AX-50 scope</li></ul><h3>Changes</h3><ul><li>Reworked sniper rifles</li><li>Reworked the credits</li><li>Updated hitmarkers</li><li>Adjusted Glock audio</li><li>Adjusted the notification UI</li><li>Increased ammunition canister capacity from 5k to 10k</li><li>Made the AK-74 free</li><li>Reduced weapon spread</li></ul><h3>Bug fixes</h3><ul><li>Fixed an issue that caused territories to remain stuck at 6/7</li><li>Fixed an issue involving a secondary weapon challenge</li><li>Fixed an issue affecting loadout saves</li><li>Fixed overlapping text in the credits</li><li>Fixed a vehicle issue where owners leaving caused weapons to disappear</li><li>Fixed engine audio</li><li>Fixed an issue that exposed the qaAdmin panel to unintended users</li><li>Fixed an issue affecting the Arms Dealer badge</li><li>Fixed an issue affecting leaderboard updates</li><li>Permanently fixed an issue that allowed Furries to access weapons (shooting as a Furry now results in an auto-ban)</li></ul><h3>Removals</h3><ul><li>Removed weapon: Makeshift AK</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.3.5</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v4035</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v4035</guid>
+      <pubDate>Wed, 20 Aug 2025 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added secondary weapon: Bodeo 1889</li></ul><h3>Changes</h3><ul><li>Revamped and reinforced the purchase backend for gamepasses and developer products</li><li>Updated the Mechanical Grenadier explosion VFX</li><li>Increased the Furry count</li></ul><h3>Bug fixes</h3><ul><li>Fixed an issue that prevented SkyDrop from spawning</li><li>Fixed an issue that caused the den to count territories incorrectly</li><li>Fixed an issue that prevented Furries from spawning correctly</li><li>Fixed an issue that caused the Remington Rolling Block to cock back slowly</li><li>Fixed the incorrect ammo type for the VSS Vintorez</li><li>Fixed the incorrect ammo type for the RPK-74</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.3</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v403</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v403</guid>
+      <pubDate>Tue, 19 Aug 2025 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added SkyDrop setting: Lock Driver</li><li>Added server location display to the main menu</li><li>Added game version display to the main menu</li><li>Added explosion gore</li></ul><h3>Changes</h3><ul><li>Reworked ammo boxes</li><li>Relaxed anti-alt detection to support higher player counts</li><li>Increased the default ADS FOV for sniper rifles</li><li>Increased the Furry count</li><li>Reduced hitmarker size</li></ul><h3>Bug fixes</h3><ul><li>Fixed an issue involving building collisions</li><li>Fixed an issue that caused the Furry count to increase exponentially after each round or death</li><li>Fixed an issue that prevented explosion splash damage from working</li><li>Fixed the black screen of death</li><li>Resolved a recurring invalid sound issue</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.2</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v402</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v402</guid>
+      <pubDate>Sun, 17 Aug 2025 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>Changes</h3><ul><li>Converted the MBT-52 Panthera to a one-man vehicle</li><li>Converted the RR-20P Sentinel to a one-man vehicle</li></ul><h3>Bug fixes</h3><ul><li>Fixed an issue that prevented vehicle armaments from damaging Furries</li><li>Fixed an issue that allowed Furries to mount SkyDrop vehicles</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.1</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v401</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v401</guid>
+      <pubDate>Sat, 16 Aug 2025 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added an in-game suggestions and feedback system</li><li>Added map pings</li><li>Added hitmarkers</li></ul><h3>Changes</h3><ul><li>Rearranged main menu assets</li><li>Changed the unstance keybind from Space to X</li><li>Adjusted the feel of the M249</li><li>Corrected the AK-74 ammo type</li><li>Corrected the Thompson M1928 magazine type</li></ul><h3>Bug fixes</h3><ul><li>Fixed an issue that prevented the boss from functioning after one round</li><li>Fixed a leaderboard loading issue</li><li>Fixed a critical issue that allowed Furries to wield weapons</li><li>Fixed a critical issue that prevented console players from selecting SkyDrop vehicles</li><li>Resolved bullet raycasting issues so Furries no longer absorb excessive shots</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.0.0</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v400</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v400</guid>
+      <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added an interactive map with mobile support, zoom, and a legend</li><li>Added persistent settings: aim sensitivity, graphics mode, tooltips, level UI, bloom, color correction, sunrays, camera shake</li><li>Added non-persistent settings: DOOM music and impact effects</li><li>Added weapon: Double-Barrel</li><li>Added weapon: AA-12</li><li>Added weapon: M249</li><li>Added weapon: Remington Rolling Block</li><li>Added weapon: M40A5</li><li>Added weapon: Makeshift AK</li><li>Added weapon: Makeshift Obrez</li><li>Added weapon: DF2000 (developer weapon)</li><li>Added weapon attachment: Optic</li><li>Added vehicle: MTP-92</li><li>Added vehicle: MTG-92</li><li>Added vehicle: RR-20P Sentinel</li><li>Added vehicle: MBT-52 Panthera</li><li>Added global leaderboards for Cash, Kills, and XP</li><li>Added the Defenders and Furries teams</li><li>Added commands: qaAirstrike1–4, qaCaptureAllFlags, qaResetAllFlags, qaRoundID, qaClockTime</li><li>Added Furry variants: Normal, Pimple, Watcher</li><li>Added 48-minute rounds to the core game loop</li><li>Added original Furry SFX</li><li>Re-added craters with a 3-minute despawn timer</li><li>Re-added secondary weapon holsters</li><li>Added notification audio</li><li>Added daily challenges</li><li>Added credits</li><li>Added friend invite tab</li><li>Added levels</li><li>Added tooltips</li><li>Added SkyDrop (replacing the RPG-26)</li><li>Added vehicle interactions for toppling and running over Furries and trees</li><li>Added contributor tag for bug reporters</li><li>Added weapon canting while crouched</li><li>Added fire blur</li><li>Added an inspect animation</li><li>Added camera shake to explosions</li><li>Added realistic bullet physics</li><li>Added sprint toggle for console</li><li>Re-added third-person weapon support</li></ul><h3>Changes</h3><ul><li>Converted Furries from R15 to R6</li><li>Reduced Furry attack range from 10 studs to 5 studs</li><li>Reduced Furry attack damage from 15 to 12.5</li><li>Increased Furry attack cooldown from 1.3s to 1.4s</li><li>Increased Furry respawn time from 4–6s to 10–15s</li><li>Reworked Furry AI</li><li>Increased territory decay rate from 0.002 to 0.003</li><li>Increased ammo reserves for gamepass weapons</li><li>Improved weapon loadout saving</li><li>Reworked footstep audio</li><li>Reworked the Furry boss</li><li>Reworked airstrikes</li><li>Reworked explosion logic and VFX</li><li>Reworked overhead ranks</li><li>Reworked the backpack</li><li>Reworked ProximityPrompts</li><li>Corrected territory capture logic</li><li>Changed premium benefits payout from 10k to 5k</li><li>Changed default aim sensitivity from 0.4 to 0.5</li><li>Changed stance transition time from 0.45s to 0.3s</li><li>Changed jump cooldown from 1.5s to 1.2s</li><li>Changed body despawn time from 30s to 8s</li><li>Changed body limit from 5 to 4</li><li>Changed blood color from red/dark red to pink/magenta</li><li>Adjusted viewmodel arm size</li><li>Readjusted ambience, flag audio, Furry audio, terrain, and ADS speed</li><li>Redesigned the chatbox, mobile controls, bullet casing models, both rivers, and muzzle flashes</li><li>Overhauled visual graphics, gamepass logic, and the shop UI</li><li>Refreshed all UI sounds and house models</li><li>Reworked the Weapon, Main Menu, Loadout, and Deploy UIs</li><li>Refreshed the Notification, Vehicle, and Capture UIs</li><li>Reworked reload animations for the AK and AR</li><li>Refreshed and readjusted the following weapons: AK-12, AK-74, AR-15, VSS Vintorez, M1911A1, Python, Z Custom, Five-seveN, P90, G36, G17 w/ Shield, G18, G19, Kar98k, Vector, L86A1, M16A2, Mechanical Grenadier, M4A1, M61 Vulcan, MK1 Carbine, M91/30, PPSh-41, RPG-7, RPK-74, P320, Saiga-12, Schwarzlose M.1898, Walther P99 AS, Thompson M1928</li></ul><h3>Bug fixes</h3><ul><li>Fixed Furrow&apos;s broken flag</li><li>Fixed craters</li><li>Fixed Furry ragdolls</li><li>Fixed mobile input for vehicle controls</li><li>Fixed the Furry attack animation</li><li>Fixed issues with premium benefits</li><li>Fixed an issue that caused player accessories to unanchor on death</li><li>Fixed an issue that allowed Furries to attack undeployed players</li><li>Fixed instant chambering during tactical reloads</li><li>Fixed a firing issue when equipping and unequipping weapons</li><li>Fixed an ADS issue when equipping and unequipping weapons</li><li>Fixed the loadout guard so players can no longer deploy without a weapon</li></ul><h3>Removals</h3><ul><li>Removed Furry decapitation chance (replaced with impact effects)</li><li>Removed the update logs UI</li><li>Removed fall damage</li><li>Removed Furry variants: Tank, Mini, Normal (legacy)</li><li>Removed weapon: Beretta 92X</li><li>Removed weapon: Chauchat M. 1915</li><li>Removed weapon: Gewehr 98</li><li>Removed weapon: MP5A5</li><li>Removed weapon: M45 MEUSOC</li><li>Removed weapon: M60E3</li><li>Removed weapon: M9A3</li><li>Removed weapon: MAC-10</li><li>Removed weapon: MAC-10S</li><li>Removed weapon: H.C.A.R</li><li>Removed weapon: MP-40</li><li>Removed weapon: Martini-Henry</li><li>Removed weapon: Mei-294</li><li>Removed weapon: Mei-494</li><li>Removed weapon: Nailgun</li><li>Removed weapon: PM Makarov</li><li>Removed weapon: RPG-26</li><li>Removed weapon: SVT-40M</li><li>Removed weapon: G43</li><li>Removed weapon: AKM</li><li>Removed weapon: M3A1 Grease Gun</li><li>Removed weapon: StG-44</li><li>Removed weapon: MAS-49</li><li>Removed weapon: RM-277</li><li>Removed weapon: RS-556</li><li>Removed weapon: APR .308</li></ul><h3>Misc</h3><ul><li>Overhauled and strengthened the anti-cheat system</li><li>Re-enabled StreamingEnabled</li><li>Completed extensive optimization</li><li>Restored all animations</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v3.5.5</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v355</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v355</guid>
+      <pubDate>Mon, 23 Jun 2025 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added a developer panel for private server owners</li><li>Added primary weapon: G36</li><li>Added automatic Arabic localization support</li></ul><h3>Changes</h3><ul><li>Updated crouch animations</li><li>Updated prone animations</li><li>Updated UI audio</li><li>Updated Gewehr 43 animations</li></ul><h3>Bug fixes</h3><ul><li>Fixed broken animations</li><li>Fixed menu reset issues</li><li>Fixed a bloom lighting glitch</li><li>Fixed additional loading screen issues</li></ul><h3>Removals</h3><ul><li>Removed developer weapon: Elysium AK</li><li>Removed developer command: Nuke</li></ul>]]></description>
+    </item>
+    <item>
+      <title>DON POLLO OBBY v1.1</title>
+      <link>https://lowqualityinteractive.com/updates/#donpollo-v11</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#donpollo-v11</guid>
+      <pubDate>Sat, 21 Jun 2025 00:00:00 GMT</pubDate>
+      <category>DON POLLO OBBY update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added a join badge</li><li>Added a completion badge</li><li>Added a Rainbow Carpet at the finish</li><li>Added a Flying Cloud at the finish</li></ul><h3>Changes</h3><ul><li>Increased the stage cap from 50 to 51</li><li>Added logic to the invisible map boundaries</li></ul><h3>Bug fixes</h3><ul><li>Resolved a minor gamepass issue affecting tools on join</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v3.5.1</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v351</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v351</guid>
+      <pubDate>Wed, 18 Jun 2025 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>Changes</h3><ul><li>Updated the game icon</li><li>Updated the game thumbnail</li><li>Updated the game description</li><li>Updated the game name</li></ul><h3>Bug fixes</h3><ul><li>Resolved an infinite loop in the loading screen logic</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v3.5.0</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v350</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v350</guid>
+      <pubDate>Mon, 21 Apr 2025 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added notifications</li></ul><h3>Changes</h3><ul><li>Updated main menu logic</li><li>Overhauled the respawn and death system</li><li>Overhauled Furry AI logic</li><li>Overhauled Furry spawn logic</li><li>Updated UI audio and visuals</li></ul><h3>Bug fixes</h3><ul><li>Resolved the long-standing broken alt detection issue</li></ul><h3>Removals</h3><ul><li>Removed excess voxel terrain</li><li>Temporarily removed free daily premium cash</li><li>Removed all interactable doors</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v4.1.1</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v411</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v411</guid>
+      <pubDate>Tue, 15 Apr 2025 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added localization support for international players</li></ul><h3>Changes</h3><ul><li>Refactored major portions of the codebase to improve stability and maintainability</li><li>Overhauled the anti-cheat system to improve detection accuracy and reliability</li></ul><h3>Bug fixes</h3><ul><li>Resolved multiple runtime errors that could disrupt gameplay</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v3.0.5</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v305</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v305</guid>
+      <pubDate>Wed, 09 Apr 2025 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added cardinal direction UI</li><li>Added walking and running animations</li></ul><h3>Changes</h3><ul><li>Updated the vehicle system</li><li>Updated Furry visuals</li><li>Updated footstep audio</li></ul>]]></description>
+    </item>
+  </channel>
+</rss>

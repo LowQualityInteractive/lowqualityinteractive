@@ -21,7 +21,7 @@
 # conservative 6 months without preload until we've verified https only on
 # every subdomain — once verified, bump max-age to 31536000 and add preload.
 /*
-  Link: </llms.txt>; rel="alternate"; type="text/plain"; title="LLM context", </llms-full.txt>; rel="alternate"; type="text/markdown"; title="Full LLM context"
+  Link: </llms.txt>; rel="alternate"; type="text/plain"; title="LLM pointer (crawl the site for content)", </llms-full.txt>; rel="alternate"; type="text/plain"; title="LLM pointer (crawl the site for content)"
   Vary: Accept
   Strict-Transport-Security: max-age=15552000; includeSubDomains
   X-Frame-Options: DENY
