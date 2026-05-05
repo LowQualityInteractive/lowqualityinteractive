@@ -403,6 +403,11 @@ export function getSiteScript(
 
     event.preventDefault();
     body.classList.add('is-leaving');
+    // bring the loading overlay back so the fade-out hands off cleanly
+    // to the next page (which boots with the overlay already visible).
+    if (window.__lqiLoader && typeof window.__lqiLoader.show === 'function') {
+      window.__lqiLoader.show();
+    }
     window.setTimeout(() => {
       window.location.href = destination.href;
     }, prefersReducedMotion.matches ? 0 : 800);

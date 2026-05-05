@@ -24,7 +24,13 @@ interface LqiMotionController {
   enter(root: HTMLElement): void;
 }
 
+interface LqiLoaderController {
+  show(): void;
+  hide(): void;
+}
+
 interface Window {
   __lqiMotion?: LqiMotionController;
   __lqiTheme?: LqiThemeController;
+  __lqiLoader?: LqiLoaderController;
 }

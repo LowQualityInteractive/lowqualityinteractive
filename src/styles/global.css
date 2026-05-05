@@ -151,6 +151,73 @@ body {
    instead of the viewport. ask me how i know. */
 body.is-leaving { opacity: 0; }
 
+/* full-viewport loading overlay. visible by default; hidden once
+   <html> gets the .lqi-ready class (set by scripts/loader.ts on
+   window 'load' or via a failsafe timeout). pointer-events stay live
+   while shown so clicks don't slip through to half-loaded content.
+   z-index sits above everything except the cookie banner does not
+   matter here — the overlay is gone before the user can interact. */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity    320ms var(--ease-out),
+    visibility 0s linear 320ms,
+    background-color var(--t-theme) var(--ease);
+}
+:root.lqi-ready .page-loader {
+  opacity: 0;
+  visibility: hidden;
+  /* delay the visibility flip until after the fade so the overlay
+     stays clickable-blocking until it's actually invisible. */
+  transition:
+    opacity    320ms var(--ease-out),
+    visibility 0s linear 320ms;
+}
+.page-loader-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+.page-loader-logo {
+  width: 64px;
+  height: 64px;
+  display: block;
+  animation: lqi-loader-pulse 1.6s var(--ease) infinite;
+}
+.page-loader-spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--brand-dim);
+  border-top-color: var(--brand);
+  animation: lqi-loader-spin 0.85s linear infinite;
+}
+@keyframes lqi-loader-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes lqi-loader-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(0.94); opacity: 0.78; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-loader-logo,
+  .page-loader-spinner {
+    animation: none;
+  }
+  .page-loader,
+  :root.lqi-ready .page-loader {
+    transition: opacity 1ms linear, visibility 0s linear 1ms;
+  }
+}
+
 body::before {
   content: "";
   position: fixed;

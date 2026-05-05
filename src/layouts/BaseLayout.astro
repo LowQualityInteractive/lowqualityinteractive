@@ -27,6 +27,7 @@ import { getLiveScript } from '../scripts/live';
 import { getMotionBootstrap, getMotionScript } from '../scripts/motion';
 import { getTranslateBootstrap } from '../scripts/translate';
 import { getCookiesBootstrap } from '../scripts/cookies';
+import { getLoaderBootstrap } from '../scripts/loader';
 
 interface Props {
   locale: Locale;
@@ -60,6 +61,7 @@ const canonicalUrl = getLocaleAbsolutePath(locale, routePath);
 const alternateLinks = getAlternateLinks(routePath);
 const xDefaultHref = getLocaleAbsolutePath('en', routePath);
 const cookiesBootstrap = sanitizeInlineScript(getCookiesBootstrap());
+const loaderBootstrap = sanitizeInlineScript(getLoaderBootstrap());
 const safeExtraScripts = extraScripts.map(sanitizeInlineScript);
 const themeScript = sanitizeInlineScript(getThemeScript(messages.chrome.theme));
 const siteScript = sanitizeInlineScript(
@@ -112,6 +114,7 @@ const safeJsonLd = jsonLd ? sanitizeInlineScript(jsonLd) : undefined;
 
 const allInlineScripts = [
   cookiesBootstrap,
+  loaderBootstrap,
   themeScript,
   motionBootstrap,
   ...(safeJsonLd ? [safeJsonLd] : []),
@@ -209,10 +212,21 @@ const csp = [
   <link rel="alternate" type="text/markdown" title="Markdown version" href={markdownUrl}>
   <slot name="head-extra" />
   <script is:inline set:html={cookiesBootstrap}></script>
+  <script is:inline set:html={loaderBootstrap}></script>
   <script is:inline set:html={themeScript}></script>
   <script is:inline set:html={motionBootstrap}></script>
 </head>
 <body>
+  {/* full-viewport loading overlay. visible until <html> gets the
+      .lqi-ready class on window 'load' (or after the failsafe timeout
+      in scripts/loader.ts). also re-shown on outbound navigation by the
+      site script. aria-hidden so screen readers don't dwell on it. */}
+  <div class="page-loader" id="page-loader" aria-hidden="true">
+    <div class="page-loader-card">
+      <img class="page-loader-logo" src="/assets/logo.png" alt="" width="64" height="64" />
+      <div class="page-loader-spinner" aria-hidden="true"></div>
+    </div>
+  </div>
   <a class="skip-link" href="#main-content">{messages.chrome.skipLink}</a>
   <header class="site-header">
     <div class="container header-row">

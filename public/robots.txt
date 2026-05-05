@@ -5,8 +5,6 @@ Allow: /
 Sitemap: https://lowqualityinteractive.com/sitemap.xml
 
 # LLM-oriented content map and site metadata
-LLM: https://lowqualityinteractive.com/llms.txt
-Humans: https://lowqualityinteractive.com/humans.txt
 
 # ---------------------------------------------------------------------------
 # Explicit allow-list for major AI / LLM crawlers and answer engines.
