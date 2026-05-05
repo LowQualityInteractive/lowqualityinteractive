@@ -67,113 +67,13 @@ le armi decidono il tipo di errore a cui un appaltatore può sopravvivere. le pi
 
 i caricamenti vengono salvati tra i round. la maggior parte delle armi si sblocca tramite contanti e XP. alcuni sono legati alla community LQI Roblox e ai gamepass.
 
-l'intero live pool:
-
-- AA-12
-- AK-74
-- AR-15
-- AX-50
-- Carabina Berthier
-- Bodeo 1889
-- C96Mauser
-- Chauchat
-- DF2000
-- DP-27
-- Doppia canna
-- FG-42
-- FX-05 Xiuhcoatl
-- Fedorov Avtomat
-- Cinque-sette
-- G17 con scudo
-- G18
-- G19
-- G36
-- Gewehr 41
-- Gewehr 43
-- Gewehr 98
-- Hamada tipo 1
-- Hamada tipo 2
-- Carica manuale
-- Moschettone 98k
-- Krag-Jorgensen
-- L86A1
-- Lebel M1886/93
-- Lewis Pistola
-- Lugger P08
-- Carabina M1
-- M1 Garand
-- M134
-- M16A2
-- Revolver M1892
-- M1903 Springfield
-- M1911A1
-- Carabina M2
-- M249
-- M40A5
-- M4A1
-- M60
-- MG-42
-- Carabina MK1
-- MP-18
-- MP-34
-- MP-40
-- MP7A1
-- Mosin-Nagant M1891/30
-- Carabina Mosin-Nagant M38
-- Moschetto
-- Nagant M1895
-- Nambu tipo 14
-- Nambu tipo 94
-- P320
-- P90
-- PPSh-41
-- PPSh-41 (tamburo)
-- PTRS-41
-- Panzerbuch 39
-- RPG-7
-- RPK-74
-- RSC M1917
-- Blocco rotante Remington
-- SVT-40
-- Saiga-12
-- AK recuperato
-- Carabina recuperata
-- Pistola recuperata
-- Gioco di ruolo recuperato
-- Mitragliatrice recuperata
-- Schwarzlose M.1898
-- Autocarro M1916
-- StG-44
-- Thomson M1928
-- Toka
-- Tokarev TT-33
-- Fucile tipo 100 (paracadutista)
-- Tipo 100 SMG (inizio)
-- Tipo 100 SMG (tardivo)
-- Tipo 100 SMG (paracadutista)
-- Carabina tipo 38
-- Fucile tipo 38
-- Cecchino tipo 97
-- Fucile tipo 99
-- Digita Be
-- Fucile di tipo I
-- VSS Vintorez
-- Vettore
-- Walther P.38
-- Walther P99AS
-- Winchester M1897
-- Winchester M1897 (pistola da trincea)
-- Zastava M92
+[maggiori informazioni sulla wiki delle armi](/eradication/wiki/weapons/)
 
 ## Veicoli e aerei
 
 i veicoli portano gli appaltatori su un terreno che non vale più la pena camminare. hanno punti ferita. possono essere disabilitati. possono esplodere. sono strumenti, non sicurezza.
 
-- ATV e camion leggeri per spostamenti veloci in solitaria.
-- LTV-300 e Mastiff per aver spostato la squadra.
-- Humvee, JLTV, famiglia MT per il trasporto armato.
-- Centurion, MBT-800, Panzer IV, T-34-76 per le cose che le armi leggere non possono veramente rispondere.
-- MH-60 Blackhawk, più una variante pilota-minigun, per mettere rapidamente undici appaltatori in una brutta situazione.
+[maggiori informazioni sulla wiki dei veicoli](/eradication/wiki/vehicles/)
 
 ## Il capo
 

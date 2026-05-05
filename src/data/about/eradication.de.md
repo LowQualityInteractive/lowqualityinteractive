@@ -26,7 +26,7 @@ Neugewonnener Boden ist kein sicherer Boden. den Furries zurückschieben. Sie po
 
 ## Der Furries
 
-Die Furries sind keine einzige Kreatur mit unterschiedlichen Gesundheitsbalken. Sie sind eine gegnerische Seite und das Spiel behandelt sie wie eine solche. manche jagen dich. einige Wachflaggen. Manche lehnen sich zurück und schießen. some are still dangerous after they die.
+Die Furries sind keine einzige Kreatur mit unterschiedlichen Gesundheitsbalken. Sie sind eine gegnerische Seite und das Spiel behandelt sie wie eine solche. manche jagen dich. einige Wachflaggen. Manche lehnen sich zurück und schießen. einige sind auch nach ihrem Tod noch gefährlich.
 
 | Type | Read |
 |---|---|
@@ -67,113 +67,13 @@ Waffen entscheiden darüber, welche Art von Fehler ein Auftragnehmer überleben 
 
 Loadouts werden zwischen den Runden gespeichert. Die meisten Waffen werden durch Bargeld und XP freigeschaltet. Einige sind an die LQI-Roblox-Community und Gamepasses gebunden.
 
-Der komplette Live-Pool:
-
-- AA-12
-- AK-74
-- AR-15
-- AX-50
-- Berthier-Karabiner
-- Bodeo 1889
-- C96 Mauser
-- Chauchat
-- DF2000
-- DP-27
-- Doppellauf
-- FG-42
-- FX-05 Xiuhcoatl
-- Fedorov Avtomat
-- Fünf-siebenN
-- G17 mit Schild
-- G18
-- G19
-- G36
-- Gewehr 41
-- Gewehr 43
-- Gewehr 98
-- Hamada Typ 1
-- Hamada Typ 2
-- Handladung
-- Karabiner 98k
-- Krag-Jorgensen
-- L86A1
-- Lebel M1886/93
-- Lewis Gun
-- Luger P08
-- M1-Karabiner
-- M1 Garand
-- M134
-- M16A2
-- M1892 Revolver
-- M1903 Springfield
-- M1911A1
-- M2-Karabiner
-- M249
-- M40A5
-- M4A1
-- M60
-- MG-42
-- MK1-Karabiner
-- MP-18
-- MP-34
-- MP-40
-- MP7A1
-- Mosin-Nagant M1891/30
-- Mosin-Nagant M38 Karabiner
-- Muskete
-- Nagant M1895
-- Nambu Typ 14
-- Nambu Typ 94
-- P320
-- P90
-- PPSh-41
-- PPSh-41 (Trommel)
-- PTRS-41
-- Panzerbuchse 39
-- RPG-7
-- RPK-74
-- RSC M1917
-- Remington Rollblock
-- SVT-40
-- Saiga-12
-- Geborgene AK
-- Geborgener Karabiner
-- Geborgene Pistole
-- Geborgenes Rollenspiel
-- Geborgene Maschinenpistole
-- Schwarzlose M.1898
-- Selbstlader M1916
-- StG-44
-- Thompson M1928
-- Toka
-- Tokarew TT-33
-- Gewehr Typ 100 (Fallschirmjäger)
-- Typ 100 SMG (früh)
-- Typ 100 SMG (spät)
-- Typ 100 SMG (Fallschirmjäger)
-- Karabiner Typ 38
-- Gewehr Typ 38
-- Typ 97 Scharfschütze
-- Gewehr Typ 99
-- Geben Sie Be ein
-- Typ-I-Gewehr
-- VSS Vintorez
-- Vektor
-- Walther S.38
-- Walther P99 AS
-- Winchester M1897
-- Winchester M1897 (Grabenkanone)
-- Zastava M92
+[Lesen Sie mehr im Waffen-Wiki](/eradication/wiki/weapons/)
 
 ## Fahrzeuge und Flugzeuge
 
 Fahrzeuge bringen Auftragnehmer über Gelände, das sich nicht mehr lohnt zu laufen. Sie haben Trefferpunkte. Sie können deaktiviert werden. sie können explodieren. Es handelt sich um Werkzeuge, nicht um Sicherheit.
 
-- Geländefahrzeuge und leichte Lastkraftwagen für schnelle Alleinfahrten.
-- LTV-300 und Mastiff für den Umzug des Teams.
-- Humvees, JLTVs, MT-Familie für bewaffnete Transporte.
-- Centurion, MBT-800, Panzer IV, T-34-76 für die Dinge, die Kleinwaffen wirklich nicht beantworten können.
-- MH-60 Blackhawk und eine Pilot-Minigun-Variante, um elf Kontraktoren schnell in eine schwierige Situation zu bringen.
+[Lesen Sie mehr im Fahrzeug-Wiki](/eradication/wiki/vehicles/)
 
 ## Der Chef
 

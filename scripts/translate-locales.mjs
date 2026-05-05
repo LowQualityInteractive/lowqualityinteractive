@@ -171,6 +171,25 @@ function shieldTerms(text) {
     }
     return tokenIndex.get(match);
   });
+  // shield markdown link targets: the (url) half of [text](url). google
+  // translates path segments otherwise (/vehicles/ -> /veículos/),
+  // breaking every internal link in the rendered page. pattern matches
+  // both inline links and reference-style brackets. each unique url
+  // gets a placeholder.
+  const urlIndex = new Map();
+  const reserveUrl = (url) => {
+    if (!urlIndex.has(url)) {
+      const idx = PROTECTED_TERMS.length + tokenIndex.size + urlIndex.size;
+      const placeholder = `XKEEP${idx}X`;
+      urlIndex.set(url, placeholder);
+      restore.push([placeholder, url]);
+    }
+    return urlIndex.get(url);
+  };
+  out = out.replace(/\]\(([^)]+)\)/g, (_, url) => `](${reserveUrl(url)})`);
+  // also shield bare absolute and root-relative urls that aren't inside
+  // a markdown link wrapper (occasionally the prose drops one inline).
+  out = out.replace(/https?:\/\/[^\s)]+/g, (m) => reserveUrl(m));
   return { shielded: out, restore };
 }
 

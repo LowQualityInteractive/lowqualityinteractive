@@ -67,113 +67,13 @@ les armes décident du type d’erreur auquel un entrepreneur peut survivre. les
 
 les chargements sont enregistrés entre les tours. la plupart des armes se débloquent grâce à l'argent et à l'XP. certains sont liés à la communauté et aux gamepass LQI Roblox.
 
-le live pool complet :
-
-- AA-12
-- AK-74
-- AR-15
-- AX-50
-- Carabine Berthier
-- Bodéo 1889
-- C96 Mauser
-- Chauchat
-- DF2000
-- DP-27
-- Double canon
-- FG-42
-- FX-05 Xiuhcoatl
-- Fedorov Automat
-- Cinq-sept
-- G17 avec bouclier
-- G18
-- G19
-- G36
-- Gewehr 41
-- Gewehr 43
-- Gewehr 98
-- Hamada Type 1
-- Hamada Type 2
-- Chargement manuel
-- Mousqueton 98k
-- Krag-Jorgensen
-- L86A1
-- Lebel M1886/93
-- Pistolet Lewis
-- Luger P08
-- Carabine M1
-- M1 Garand
-- M134
-- M16A2
-- Revolver M1892
-- M1903 Springfield
-- M1911A1
-- Carabine M2
-- M249
-- M40A5
-- M4A1
-- M60
-- MG-42
-- Carabine MK1
-- MP-18
-- MP-34
-- MP-40
-- MP7A1
-- Mosin-Nagant M1891/30
-- Carabine Mosin-Nagant M38
-- Mousquet
-- Nagant M1895
-- Nambu Type 14
-- Nambu Type 94
-- P320
-- P90
-- PPSh-41
-- PPSh-41 (tambour)
-- PTRS-41
-- Panzerbuchse 39
-- RPG-7
-- RPK-74
-- SRC M1917
-- Bloc roulant Remington
-- SVT-40
-- Saïga-12
-- AK récupéré
-- Carabine récupérée
-- Pistolet récupéré
-- RPG récupéré
-- SMG récupéré
-- Schwarzlose M.1898
-- Selbstlader M1916
-- StG-44
-- Thompson M1928
-- Toka
-- Tokarev TT-33
-- Fusil Type 100 (Parachutiste)
-- Type 100 SMG (début)
-- Type 100 SMG (tardif)
-- Type 100 SMG (Parachutiste)
-- Carabine de type 38
-- Fusil Type 38
-- Tireur d'élite de type 97
-- Fusil Type 99
-- Tapez être
-- Fusil de type I
-- VSS Vintorez
-- Vecteur
-- Walther P.38
-- Walther P99 AS
-- Winchester M1897
-- Winchester M1897 (pistolet de tranchée)
-- Zastava M92
+[en savoir plus sur le wiki des armes](/eradication/wiki/weapons/)
 
 ## Véhicules et avions
 
 les véhicules amènent les entrepreneurs sur un terrain qui ne vaut plus la peine de marcher. ils ont des points de vie. ils peuvent être désactivés. ils peuvent exploser. ce sont des outils, pas de sécurité.
 
-- VTT et camions légers pour des déplacements rapides en solo.
-- LTV-300 et Mastiff pour avoir déplacé l'équipe.
-- Humvees, JLTV, famille MT pour le transport armé.
-- Centurion, MBT-800, Panzer IV, T-34-76 pour les choses auxquelles les armes légères ne peuvent vraiment pas répondre.
-- MH-60 Blackhawk, plus une variante pilote-minigun, pour mettre rapidement onze entrepreneurs dans une mauvaise situation.
+[en savoir plus sur le wiki des véhicules](/eradication/wiki/vehicles/)
 
 ## Le patron
 

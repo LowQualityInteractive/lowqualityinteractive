@@ -67,113 +67,13 @@ as armas decidem o tipo de erro que um empreiteiro pode sobreviver. pistolas cob
 
 loadouts são salvos entre as rodadas. a maioria das armas é desbloqueada por meio de dinheiro e XP. alguns estão vinculados à comunidade LQI Roblox e aos gamepasses.
 
-a piscina ao vivo completa:
-
-- AA-12
-- AK-74
-- AR-15
-- AX-50
-- Carabina Berthier
-- Bodeu 1889
-- Mauser C96
-- Chauchat
-- DF2000
-- DP-27
-- Cano Duplo
-- FG-42
-- FX-05 Xiuhcoatl
-- Automático Fedorov
-- Cinco e seteN
-- G17 com Escudo
-- G18
-- G19
-- G36
-- Gewehr 41
-- Gewehr 43
-- Gewehr 98
-- Hamada Tipo 1
-- Hamada Tipo 2
-- Carga manual
-- Mosquetão 98k
-- Krag-Jorgensen
-- L86A1
-- Lebel M1886/93
-- Arma Lewis
-- Luger P08
-- Carabina M1
-- M1 Garand
-- M134
-- M16A2
-- Revólver M1892
-- M1903 Springfield
-- M1911A1
-- Carabina M2
-- M249
-- M40A5
-- M4A1
-- M60
-- MG-42
-- Carabina MK1
-- MP-18
-- MP-34
-- MP-40
-- MP7A1
-- Mosin-Nagant M1891/30
-- Carabina Mosin-Nagant M38
-- Mosquete
-- Nagant M1895
-- Nambu Tipo 14
-- Nambu Tipo 94
-- P320
-- P90
-- PPSh-41
-- PPSh-41 (Tambor)
-- PTRS-41
-- Panzerbuchse 39
-- RPG-7
-- RPK-74
-- RSC M1917
-- Bloco rolante Remington
-- SVT-40
-- Saiga-12
-- AK resgatado
-- Carabina Resgatada
-- Pistola Recuperada
-- RPG resgatado
-- SMG resgatado
-- Schwarzlose M.1898
-- Selbstlader M1916
-- StG-44
-- Thompson M1928
-- Toka
-- Tokarev TT-33
-- Rifle Tipo 100 (Pára-quedista)
-- Tipo 100 SMG (inicial)
-- Tipo 100 SMG (tarde)
-- Tipo 100 SMG (pára-quedista)
-- Carabina Tipo 38
-- Rifle Tipo 38
-- Atirador Tipo 97
-- Rifle Tipo 99
-- Digite Ser
-- Rifle Tipo I
-- VSS Vintorez
-- Vetor
-- Valter P.38
-- Walther P99 AS
-- Winchester M1897
-- Winchester M1897 (arma de trincheira)
-- Zastava M92
+[leia mais no wiki de armas](/eradication/wiki/weapons/)
 
 ## Veículos e aeronaves
 
 os veículos conduzem os empreiteiros por terrenos que não valem mais a pena caminhar. eles atingiram pontos. eles podem ser desativados. eles podem explodir. são ferramentas, não segurança.
 
-- ATVs e caminhões leves para movimentos individuais rápidos.
-- LTV-300 e Mastiff pela movimentação da equipe.
-- Humvees, JLTVs, família MT para transporte armado.
-- Centurion, MBT-800, Panzer IV, T-34-76 para as coisas que as armas leves realmente não podem responder.
-- MH-60 Blackhawk, mais uma variante piloto-minigun, por colocar rapidamente onze empreiteiros em uma situação ruim.
+[leia mais na wiki de veículos](/eradication/wiki/vehicles/)
 
 ## O chefe
 

@@ -67,113 +67,13 @@ armele decid tipul de greșeală pe care un antreprenor poate supraviețui. pist
 
 încărcările sunt salvate între runde. majoritatea armelor se deblochează prin numerar și XP. unele sunt legate de comunitatea LQI Roblox și gamepass-uri.
 
-piscina plină de viață:
-
-- AA-12
-- AK-74
-- AR-15
-- AX-50
-- Berthier Carabine
-- Bodeo 1889
-- C96 Mauser
-- Chauchat
-- DF2000
-- DP-27
-- Butoi dublu
-- FG-42
-- FX-05 Xiuhcoatl
-- Fedorov Avtomat
-- Cinci-şapteN
-- G17 cu scut
-- G18
-- G19
-- G36
-- Gewehr 41
-- Gewehr 43
-- Gewehr 98
-- Hamada tip 1
-- Hamada tip 2
-- Încărcare manuală
-- Carabiner 98k
-- Krag-Jorgensen
-- L86A1
-- Lebel M1886/93
-- Lewis Gun
-- Luger P08
-- Carabina M1
-- M1 Garand
-- M134
-- M16A2
-- Revolver M1892
-- M1903 Springfield
-- M1911A1
-- Carabina M2
-- M249
-- M40A5
-- M4A1
-- M60
-- MG-42
-- Carabina MK1
-- MP-18
-- MP-34
-- MP-40
-- MP7A1
-- Mosin-Nagant M1891/30
-- Carabina Mosin-Nagant M38
-- Muschetă
-- Nagant M1895
-- Nambu tip 14
-- Nambu Tip 94
-- P320
-- P90
-- PPSh-41
-- PPSh-41 (tobă)
-- PTRS-41
-- Panzerbuchse 39
-- RPG-7
-- RPK-74
-- RSC M1917
-- Blocul de rulare Remington
-- SVT-40
-- Saiga-12
-- AK salvat
-- Carabină Salvată
-- Pistol Salvat
-- RPG salvat
-- SMG salvat
-- Schwarzlose M.1898
-- Selbstlader M1916
-- StG-44
-- Thompson M1928
-- Toka
-- Tokarev TT-33
-- Pușcă de tip 100 (parașutist)
-- Tip 100 SMG (început)
-- Tip 100 SMG (Târzie)
-- Tip 100 SMG (parașutist)
-- Carabină tip 38
-- Pușcă tip 38
-- Tip 97 Sniper
-- Pușcă tip 99
-- Tip Be
-- Pușcă de tip I
-- VSS Vintorez
-- Vector
-- Walther P.38
-- Walther P99 AS
-- Winchester M1897
-- Winchester M1897 (Trench Gun)
-- Zastava M92
+[citește mai multe pe wiki-ul arme](/eradication/wiki/weapons/)
 
 ## Vehicule și avioane
 
 vehiculele trec antreprenori pe terenuri care nu mai merită să fie plimbate. au puncte de lovitura. pot fi dezactivate. pot exploda. sunt instrumente, nu siguranță.
 
-- ATV-uri și camioane ușoare pentru mișcare rapidă solo.
-- LTV-300 și Mastiff pentru mutarea echipei.
-- Familia Humvee, JLTV, MT pentru transport armat.
-- Centurion, MBT-800, Panzer IV, T-34-76 pentru lucrurile pe care armele mici nu le pot răspunde cu adevărat.
-- MH-60 Blackhawk, plus o variantă pilot-minipistol, pentru a aduce rapid unsprezece antreprenori într-un loc prost.
+[citește mai multe pe wiki vehicule](/eradication/wiki/vehicles/)
 
 ## Șeful
 

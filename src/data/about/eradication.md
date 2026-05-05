@@ -67,113 +67,13 @@ weapons decide the kind of mistake a contractor can survive. pistols cover the m
 
 loadouts are saved between rounds. most weapons unlock through cash and XP. some are tied to the LQI Roblox community and gamepasses.
 
-the full live pool:
-
-- AA-12
-- AK-74
-- AR-15
-- AX-50
-- Berthier Carbine
-- Bodeo 1889
-- C96 Mauser
-- Chauchat
-- DF2000
-- DP-27
-- Double-Barrel
-- FG-42
-- FX-05 Xiuhcoatl
-- Fedorov Avtomat
-- Five-seveN
-- G17 w/ Shield
-- G18
-- G19
-- G36
-- Gewehr 41
-- Gewehr 43
-- Gewehr 98
-- Hamada Type 1
-- Hamada Type 2
-- Hand Charge
-- Karabiner 98k
-- Krag-Jorgensen
-- L86A1
-- Lebel M1886/93
-- Lewis Gun
-- Luger P08
-- M1 Carbine
-- M1 Garand
-- M134
-- M16A2
-- M1892 Revolver
-- M1903 Springfield
-- M1911A1
-- M2 Carbine
-- M249
-- M40A5
-- M4A1
-- M60
-- MG-42
-- MK1 Carbine
-- MP-18
-- MP-34
-- MP-40
-- MP7A1
-- Mosin-Nagant M1891/30
-- Mosin-Nagant M38 Carbine
-- Musket
-- Nagant M1895
-- Nambu Type 14
-- Nambu Type 94
-- P320
-- P90
-- PPSh-41
-- PPSh-41 (Drum)
-- PTRS-41
-- Panzerbuchse 39
-- RPG-7
-- RPK-74
-- RSC M1917
-- Remington Rolling Block
-- SVT-40
-- Saiga-12
-- Salvaged AK
-- Salvaged Carbine
-- Salvaged Pistol
-- Salvaged RPG
-- Salvaged SMG
-- Schwarzlose M.1898
-- Selbstlader M1916
-- StG-44
-- Thompson M1928
-- Toka
-- Tokarev TT-33
-- Type 100 Rifle (Paratrooper)
-- Type 100 SMG (Early)
-- Type 100 SMG (Late)
-- Type 100 SMG (Paratrooper)
-- Type 38 Carbine
-- Type 38 Rifle
-- Type 97 Sniper
-- Type 99 Rifle
-- Type Be
-- Type I Rifle
-- VSS Vintorez
-- Vector
-- Walther P.38
-- Walther P99 AS
-- Winchester M1897
-- Winchester M1897 (Trench Gun)
-- Zastava M92
+[read more on the weapons wiki](/eradication/wiki/weapons/)
 
 ## Vehicles and aircraft
 
 vehicles get contractors across ground that is no longer worth walking. they have hit points. they can be disabled. they can explode. they are tools, not safety.
 
-- ATVs and light trucks for fast solo movement.
-- LTV-300 and Mastiff for moving the team.
-- Humvees, JLTVs, MT family for armed transport.
-- Centurion, MBT-800, Panzer IV, T-34-76 for the things small arms genuinely cannot answer.
-- MH-60 Blackhawk, plus a pilot-minigun variant, for getting eleven contractors into a bad place quickly.
+[read more on the vehicles wiki](/eradication/wiki/vehicles/)
 
 ## The boss
 

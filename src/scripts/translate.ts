@@ -64,13 +64,24 @@ export function getTranslateBootstrap(locale: string) {
     inflight.set(key, p);
     return p;
   };
+  // when the runtime rewrites a node's textContent, the MutationObserver
+  // would otherwise fire for every change and bounce us back into
+  // translateAll(). a guard counter lets the observer skip mutations
+  // that were caused by our own writes.
+  let writing = 0;
   const translateNode = (node) => {
     if (!node || node.__lqiTranslated) return;
     const original = (node.textContent || '').trim();
     if (!original) return;
     node.__lqiTranslated = true;
     window.__lqiTranslate.one(original).then((translated) => {
-      if (translated && translated !== original) node.textContent = translated;
+      if (translated && translated !== original) {
+        writing += 1;
+        node.textContent = translated;
+        // step back out of the guard one rAF later so the observer
+        // doesn't see the write event before we've cleared the flag.
+        requestAnimationFrame(() => { writing = Math.max(0, writing - 1); });
+      }
     });
   };
 
@@ -134,7 +145,38 @@ export function getTranslateBootstrap(locale: string) {
   }
 
   // re-run when the blogs script injects fresh dom on its own schedule.
-  const mo = new MutationObserver(() => translateAll());
+  // observer is debounced to one rAF and only triggers on actual added
+  // nodes that look like they could carry translatable content. without
+  // this guard, every translateNode() write fires the observer, which
+  // re-queries the whole document and walks every leaf again - on a
+  // dense wiki entity page that o(n^2) cascade was costing 10-15s of
+  // jank during locale-switch navigation.
+  let scheduled = false;
+  const reSchedule = () => {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      scheduled = false;
+      translateAll();
+    });
+  };
+  const observerCallback = (mutations) => {
+    if (writing > 0) return;
+    for (const m of mutations) {
+      if (m.type !== 'childList' || m.addedNodes.length === 0) continue;
+      for (const node of m.addedNodes) {
+        if (!(node instanceof Element)) continue;
+        if (
+          node.matches?.('[data-translatable], [data-translatable-deep]')
+          || node.querySelector?.('[data-translatable], [data-translatable-deep]')
+        ) {
+          reSchedule();
+          return;
+        }
+      }
+    }
+  };
+  const mo = new MutationObserver(observerCallback);
   if (document.body) {
     mo.observe(document.body, { childList: true, subtree: true });
   } else {
