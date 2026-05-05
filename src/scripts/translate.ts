@@ -12,10 +12,11 @@
 // big visible surfaces (markdown bodies, faqs, page descriptions); the
 // runtime translator is only there for hardcoded inline strings the
 // build pipeline doesn't reach yet.
-export function getTranslateBootstrap(locale: string) {
+export function getTranslateBootstrap(locale: string, toastLabel: string) {
   return String.raw`(() => {
   if (window.__lqiTranslate) return;
   const LOCALE = ${JSON.stringify(locale)};
+  const TOAST_LABEL = ${JSON.stringify(toastLabel)};
   if (LOCALE === 'en') {
     window.__lqiTranslate = {
       enabled: false,
@@ -44,6 +45,78 @@ export function getTranslateBootstrap(locale: string) {
   const cacheSet = (k, v) => {
     try { localStorage.setItem(k, v); } catch {}
   };
+  // bottom-right toast that appears as soon as the first uncached
+  // translation is in flight and disappears once everything settles.
+  // a thin progress bar at the bottom of the toast fills from 0 -> 100
+  // based on done/total. cache hits don't count - the user only sees
+  // the toast for actual network work.
+  let toastEl = null;
+  let toastBarEl = null;
+  let toastHideTimer = 0;
+  let totalCalls = 0;
+  let doneCalls = 0;
+  const ensureToast = () => {
+    if (toastEl || !document.body) return;
+    toastEl = document.createElement('div');
+    toastEl.className = 'lqi-translate-toast';
+    toastEl.setAttribute('role', 'status');
+    toastEl.setAttribute('aria-live', 'polite');
+    const label = document.createElement('span');
+    label.className = 'lqi-translate-toast-label';
+    label.textContent = TOAST_LABEL;
+    toastEl.appendChild(label);
+    const dots = document.createElement('span');
+    dots.className = 'lqi-translate-toast-dots';
+    dots.setAttribute('aria-hidden', 'true');
+    dots.textContent = '...';
+    toastEl.appendChild(dots);
+    const bar = document.createElement('div');
+    bar.className = 'lqi-translate-toast-bar';
+    bar.setAttribute('aria-hidden', 'true');
+    const fill = document.createElement('div');
+    fill.className = 'lqi-translate-toast-fill';
+    bar.appendChild(fill);
+    toastEl.appendChild(bar);
+    toastBarEl = fill;
+    document.body.appendChild(toastEl);
+  };
+  const updateToast = () => {
+    if (!toastEl) return;
+    const ratio = totalCalls === 0 ? 0 : Math.min(1, doneCalls / totalCalls);
+    if (toastBarEl) toastBarEl.style.width = (ratio * 100).toFixed(1) + '%';
+    if (doneCalls >= totalCalls) {
+      // all in-flight resolved. hold the bar full for a beat so the
+      // animation lands, then fade out. if a new translation starts in
+      // the meantime, cancel the timer and stay visible.
+      if (toastHideTimer) clearTimeout(toastHideTimer);
+      toastHideTimer = setTimeout(() => {
+        if (toastEl && doneCalls >= totalCalls) {
+          toastEl.classList.add('is-hiding');
+          setTimeout(() => {
+            if (toastEl && toastEl.parentNode) toastEl.parentNode.removeChild(toastEl);
+            toastEl = null;
+            toastBarEl = null;
+            totalCalls = 0;
+            doneCalls = 0;
+          }, 320);
+        }
+      }, 250);
+    } else {
+      if (toastHideTimer) { clearTimeout(toastHideTimer); toastHideTimer = 0; }
+      toastEl.classList.remove('is-hiding');
+    }
+  };
+  const trackCall = (promise) => {
+    totalCalls += 1;
+    ensureToast();
+    updateToast();
+    promise.then(() => {
+      doneCalls += 1;
+      updateToast();
+    });
+    return promise;
+  };
+
   const inflight = new Map();
   const one = (text) => {
     if (!text || !text.trim()) return Promise.resolve(text);
@@ -62,6 +135,7 @@ export function getTranslateBootstrap(locale: string) {
       })
       .catch(() => text);
     inflight.set(key, p);
+    trackCall(p);
     return p;
   };
   // when the runtime rewrites a node's textContent, the MutationObserver

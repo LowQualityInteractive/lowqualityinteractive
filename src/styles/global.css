@@ -219,6 +219,102 @@ body.is-leaving { opacity: 0; }
   }
 }
 
+/* runtime translation toast. injected by src/scripts/translate.ts when
+   the first uncached translation goes in flight; removed once every
+   in-flight call settles. visual: small surface in the bottom-right
+   with a label, animated dots, and a thin progress bar that fills
+   based on done/total. position: fixed so it doesn't move when the
+   page scrolls. low-key on purpose - it's status feedback, not
+   something that should compete with content. */
+.lqi-translate-toast {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.85rem 0.55rem 0.95rem;
+  background: var(--surface);
+  color: var(--text-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+  transform: translate3d(0, 8px, 0);
+  animation: lqi-toast-in 220ms var(--ease-out) forwards;
+}
+.lqi-translate-toast.is-hiding {
+  animation: lqi-toast-out 300ms var(--ease) forwards;
+}
+.lqi-translate-toast-label {
+  white-space: nowrap;
+}
+.lqi-translate-toast-dots {
+  display: inline-block;
+  width: 1.1em;
+  text-align: left;
+  color: var(--brand);
+  animation: lqi-toast-dots 1.4s steps(4, end) infinite;
+  /* clip the trailing dots so the toast width doesn't dance frame to frame. */
+  overflow: hidden;
+}
+.lqi-translate-toast-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--brand-dim);
+}
+.lqi-translate-toast-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--brand);
+  transition: width 220ms var(--ease-out);
+}
+@keyframes lqi-toast-in {
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes lqi-toast-out {
+  to { opacity: 0; transform: translate3d(0, 8px, 0); }
+}
+@keyframes lqi-toast-dots {
+  0%   { clip-path: inset(0 100% 0 0); }
+  25%  { clip-path: inset(0 66% 0 0); }
+  50%  { clip-path: inset(0 33% 0 0); }
+  75%  { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 100% 0 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lqi-translate-toast,
+  .lqi-translate-toast.is-hiding {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .lqi-translate-toast-dots {
+    animation: none;
+    clip-path: none;
+  }
+  .lqi-translate-toast-fill {
+    transition: width 1ms linear;
+  }
+}
+@media (max-width: 480px) {
+  .lqi-translate-toast {
+    bottom: 0.6rem;
+    right: 0.6rem;
+    padding: 0.45rem 0.7rem;
+    font-size: var(--fs-xs);
+  }
+}
+
 body::before {
   content: "";
   position: fixed;

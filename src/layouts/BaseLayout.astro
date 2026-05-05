@@ -102,7 +102,16 @@ const liveScript = sanitizeInlineScript(
     robloxPresenceEnabled,
   ),
 );
-const translateBootstrap = sanitizeInlineScript(getTranslateBootstrap(locale));
+const translateBootstrap = sanitizeInlineScript(
+  getTranslateBootstrap(
+    locale,
+    // chrome.translateToast.label is "Loading language" in en, translated
+    // per-locale by scripts/translate-locales.mjs. falls back to the
+    // english source if a locale json is missing the key.
+    (messages.chrome as { translateToast?: { label?: string } })?.translateToast?.label
+      ?? 'Loading language',
+  ),
+);
 const motionBootstrap = sanitizeInlineScript(getMotionBootstrap());
 const motionScript = sanitizeInlineScript(getMotionScript());
 

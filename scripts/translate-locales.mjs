@@ -46,6 +46,7 @@ const skipWiki = process.argv.includes('--skip-wiki');
 // catalog entries iterate per game id; we expand them at run time.
 const KEY_PATHS = [
   'meta.organizationDescription',
+  'chrome.translateToast.label',
   'pages.game.faq.heading',
   'pages.game.faq.qWhatIs',
   'pages.game.faq.qFree',

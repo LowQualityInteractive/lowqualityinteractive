@@ -38,6 +38,9 @@
       "online": "{n} online",
       "updateBadgeLabel": "New update"
     },
+    "translateToast": {
+      "label": "Loading language"
+    },
     "footer": {
       "tagline": "Shipping since 2024. Finishing never.",
       "siteHeading": "Site",

@@ -45,6 +45,9 @@
       "discord": "Discord",
       "youtube": "YouTube",
       "robloxGroup": "Grupo do Roblox"
+    },
+    "translateToast": {
+      "label": "Carregando idioma"
     }
   },
   "pages": {
@@ -272,6 +275,7 @@
     "catalog.games.eradication.faqHowToPlay": "b4e01a20360d",
     "catalog.games.donpollo-obby.faqWhatIs": "261eea339a06",
     "catalog.games.favela-94.faqWhatIs": "c04fbab1bb56",
-    "catalog.games.favela-94.faqHowToPlay": "97c4f7d44f06"
+    "catalog.games.favela-94.faqHowToPlay": "97c4f7d44f06",
+    "chrome.translateToast.label": "053d76c8d935"
   }
 }
