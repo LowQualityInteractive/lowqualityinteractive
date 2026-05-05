@@ -28,22 +28,19 @@
         }
       ],
       "body": [
-        "ERADICATION drops contractors into a town that is no longer under control. The streets belong to Furries. The job is to take them back, hold them, and then deal with what is underneath the town.",
-        "Contractors begin at Whiskerhold, the only foothold left. Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, and Whiskspire begin in Furry hands. A flag is not yours because you reached it; it is yours when the Furries are off it and your side has held the ground long enough for the town to change hands.",
-        "Furries are not one creature with different health bars. Some chase, some hold flags, some shoot from range, some are dangerous when they die. Pressure scales with the player count and the mode, so cleared streets do not stay quiet.",
-        "Three modes are live. Traditional is the 48-minute full reclamation push that opens the boss route once the six territories are taken. Rush is a 7:30 single-objective hold on Furrow with every weapon unlocked and no boss. Infection is a 15-minute mode where Furry-held flags produce spawn pressure and downed contractors can come back on the wrong side.",
-        "Weapons decide the kind of mistake a contractor can survive. Vehicles, Blackhawks, armor, and rocket platforms move the team across ground that is no longer worth walking. None of them make the landing zone safe.",
-        "When the six reclaimable territories are taken in Traditional, the route goes below the town. Through the basement of a random house, down a tunnel, there is a large unnamed man surrounded by small Furries."
+        "the town is overrun. the Furries took it. the contractors are us, the people the town hired because nobody who actually lives there can do the job anymore.",
+        "you start at Whiskerhold. that's the only ground that's still yours. Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, and Whiskspire start in Furry hands. a flag isn't yours because you walked up to it. it's yours when you've held it long enough for the town to accept the change.",
+        "Furries aren't one creature with different health bars. some chase. some hold flags. some shoot from range. some are still a problem after they die. the pressure scales with the lobby, so cleared streets don't stay clear.",
+        "three modes. Traditional is the full job, 48 minutes, take the six and then go open the door under the town. Rush is 7:30 on a single flag at Furrow. Infection is 15 minutes and downed contractors come back on the wrong side.",
+        "guns, vehicles, helicopters. enough to make a mess. none of it makes the landing zone safe.",
+        "take the six in Traditional and the route opens under the town. through the basement of a random house, down a tunnel, there's a large unnamed man and a lot of small Furries."
       ],
       "features": [
-        "Seven named territories with flag capture, contest, and ownership tracked per round",
-        "Eight Furry types with distinct behavior - chasers, ranged Spitters, exploding Pimples and Bloaters, fast Robots, heavy Leaders, Watchers, and boss-area Helpers",
-        "Three modes: Traditional (48m, boss enabled), Rush (7:30, single objective, all weapons unlocked), Infection (15m, downed contractors convert)",
-        "Boss event gated behind reclaiming all six territories - cutscene, atmosphere shift, tunnel den, helper waves, and a large unnamed man at the end of it",
-        "Deep weapon roster spanning pistols, SMGs, rifles, shotguns, machine guns, anti-materiel rifles, and rockets",
-        "Vehicles, helicopters, and armor - ATVs, Humvees, JLTVs, Mastiff, Centurion, MBT-800, Panzer IV, T-34-76, MH-60 Blackhawk, rocket-armed transport",
-        "Saved loadouts, cash and XP progression, daily and group rewards, and challenge tracking for captures, defenses, headshots, sidearm work, and clean lives",
-        "Player counts scale up to 32, with Furry population and boss difficulty tuned to the lobby"
+        "seven territories. one of them is yours when the round starts. the other six aren't.",
+        "eight kinds of Furry. some chase, some explode, some sit at range, one's just a Watcher with pink spheres on his head.",
+        "three modes. Traditional is 48 minutes and ends at the boss. Rush is 7:30 on one flag. Infection ruins your day for 15.",
+        "guns, vehicles, helicopters. ATVs, Humvees, JLTVs, a Blackhawk, the occasional T-34. some of them work.",
+        "take the six in Traditional and a tunnel opens up. there's a large unnamed man at the end of it."
       ],
       "links": [
         {

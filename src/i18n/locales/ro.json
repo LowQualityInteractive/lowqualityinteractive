@@ -1,7 +1,7 @@
 {
   "meta": {
     "siteDescription": "Site-ul oficial Low Quality Interactive, un studio indie de Roblox.",
-    "organizationDescription": "Low Quality Interactive este un studio independent de dezvoltare pe Roblox, axat pe multiplayer competitiv, sisteme tactice și experiențe sandbox cu rejucabilitate mare.",
+    "organizationDescription": "Low Quality Interactive este un studio Roblox. facem împușcături tactice și obiecte. unele dintre ele sunt jucate de mai multe ori.",
     "llmContextTitle": "Context LLM"
   },
   "chrome": {
@@ -175,9 +175,9 @@
           "PvPvE",
           "Strategie"
         ],
-        "description": "Un shooter de control teritorial pe echipe în care jucătorii luptă să-și recucerească orașul de la Furries.",
-        "pageDescription": "ERADICATION - un shooter pe echipe cu control teritorial pe Roblox.",
-        "pageLead": "Treci prin valuri din ce în ce mai grele și supraviețuiește cât poți de mult.",
+        "description": "shooter de teritoriu bazat pe echipă. ia orașul înapoi de la blănari.",
+        "pageDescription": "ERADICATION este un shooter de echipă pe Roblox de către Low Quality Interactive. ia orașul înapoi de la Furries. gratuit pentru a juca.",
+        "pageLead": "luptă printre blănoși. supraviețuiește cât de mult poți.",
         "artworkAlt": "Artwork de luptă ERADICATION",
         "updateTag": "Update ERADICATION",
         "updateImageAlt": "Imagine update ERADICATION"
@@ -188,9 +188,9 @@
           "Platformer",
           "Obby"
         ],
-        "description": "Un obby propulsat de meme construit în jurul lui Don Pollo.",
-        "pageDescription": "DON POLLO OBBY - haos cu obstacole alimentat de meme pe Roblox.",
-        "pageLead": "Haos cu obstacole, restarturi rapide și trasee de speedrun.",
+        "description": "un alt clasic de calitate scăzută.",
+        "pageDescription": "DON POLLO OBBY este un obiect Roblox de la Low Quality Interactive. sunset. un alt clasic de calitate scăzută.",
+        "pageLead": "haos de obstacole. repornește rapid. rute de viteză, dacă le doriți.",
         "artworkAlt": "Artwork cu traseul plutitor Don Pollo Obby",
         "updateTag": "Update DON POLLO OBBY",
         "updateImageAlt": "Imagine update DON POLLO OBBY"
@@ -203,9 +203,9 @@
           "Tactic",
           "PvP"
         ],
-        "description": "Un shooter tactic întunecat de luptă la distanță mică în favelele din 1994.",
-        "pageDescription": "Favela '94 - un shooter tactic de luptă apropiată pe Roblox.",
-        "pageLead": "Luptă prin alei înguste și pe acoperișuri în lupte intense la distanță mică.",
+        "description": "shooter tactic de aproape stabilit în favelele din 1994.",
+        "pageDescription": "Favela '94 este un shooter tactic Roblox stabilit în 1994 Rio. de Low Quality Interactive. previzualizare.",
+        "pageLead": "alei, acoperișuri, lupte de aproape.",
         "artworkAlt": "Artwork Favela '94",
         "updateTag": "Update Favela '94",
         "updateImageAlt": "Imagine update Favela '94"
@@ -217,5 +217,17 @@
         "genre": "Strategie"
       }
     }
+  },
+  "__sourceHashes": {
+    "meta.organizationDescription": "8a69f9fb5e46",
+    "catalog.games.eradication.description": "86a303461182",
+    "catalog.games.eradication.pageDescription": "6c87db02b101",
+    "catalog.games.eradication.pageLead": "f8842d1da79c",
+    "catalog.games.donpollo-obby.description": "e31790a2d365",
+    "catalog.games.donpollo-obby.pageDescription": "fbd718f4161e",
+    "catalog.games.donpollo-obby.pageLead": "f5728fe68965",
+    "catalog.games.favela-94.description": "2c58c862fc6e",
+    "catalog.games.favela-94.pageDescription": "220ceb063d49",
+    "catalog.games.favela-94.pageLead": "b8b35f098996"
   }
 }

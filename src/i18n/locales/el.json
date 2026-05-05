@@ -1,7 +1,7 @@
 {
   "meta": {
     "siteDescription": "Η επίσημη ιστοσελίδα της Low Quality Interactive, ενός indie studio στο Roblox.",
-    "organizationDescription": "Η Low Quality Interactive είναι ένα ανεξάρτητο studio ανάπτυξης στο Roblox με έμφαση στο ανταγωνιστικό multiplayer, τα tactical systems και τις sandbox εμπειρίες με υψηλή επαναληψιμότητα.",
+    "organizationDescription": "Το Low Quality Interactive είναι ένα στούντιο Roblox. Κάνουμε τακτικά shooters και obbies. Μερικά από αυτά παίζονται περισσότερες από μία φορές.",
     "llmContextTitle": "Πλαίσιο για LLM"
   },
   "chrome": {
@@ -175,9 +175,9 @@
           "PvPvE",
           "Στρατηγική"
         ],
-        "description": "Ένα ομαδικό shooter ελέγχου περιοχής όπου οι παίκτες παλεύουν να πάρουν πίσω την πόλη τους από τους Furries.",
-        "pageDescription": "ERADICATION - ένα ομαδικό shooter ελέγχου περιοχής στο Roblox.",
-        "pageLead": "Περάστε μέσα από όλο και πιο σκληρά κύματα και επιβιώστε όσο περισσότερο μπορείτε.",
+        "description": "σκοπευτής περιοχής με βάση την ομάδα. πάρτε την πόλη πίσω από τα furries.",
+        "pageDescription": "Το ERADICATION είναι ένα ομαδικό shooter στο Roblox από το Low Quality Interactive. πάρτε την πόλη πίσω από το Furries. δωρεάν για να παίξετε.",
+        "pageLead": "πολεμήστε μέσα από τις γούνες. Επιβιώστε όσο μπορείτε.",
         "artworkAlt": "Combat artwork του ERADICATION",
         "updateTag": "Update του ERADICATION",
         "updateImageAlt": "Εικόνα update του ERADICATION"
@@ -188,9 +188,9 @@
           "Platformer",
           "Obby"
         ],
-        "description": "Ένα meme obby χτισμένο γύρω από τον Don Pollo.",
-        "pageDescription": "DON POLLO OBBY - χαμός με εμπόδια και memes στο Roblox.",
-        "pageLead": "Χάος με εμπόδια, γρήγορα restart και routes για speedrun.",
+        "description": "ένα άλλο κλασικό χαμηλής ποιότητας.",
+        "pageDescription": "Το DON POLLO OBBY είναι ένα Roblox obby από το Low Quality Interactive. sunset. ένα άλλο κλασικό χαμηλής ποιότητας.",
+        "pageLead": "χάος εμποδίων. γρήγορη επανεκκίνηση. γρήγορες διαδρομές αν τις θέλετε.",
         "artworkAlt": "Artwork της αιωρούμενης διαδρομής του Don Pollo Obby",
         "updateTag": "Update του DON POLLO OBBY",
         "updateImageAlt": "Εικόνα update του DON POLLO OBBY"
@@ -203,9 +203,9 @@
           "Τακτική",
           "PvP"
         ],
-        "description": "Ένα σκοτεινό τακτικό shooter σώμα με σώμα στις φαβέλες του 1994.",
-        "pageDescription": "Favela '94 - ένα τακτικό shooter σώμα με σώμα στο Roblox.",
-        "pageLead": "Μάχεσαι σε στενά σοκάκια και σε ταράτσες σε έντονες αναμετρήσεις.",
+        "description": "close-quarters tactical shooter που διαδραματίζεται στις φαβέλες του 1994.",
+        "pageDescription": "Το Favela '94 είναι ένα τακτικό shooter Roblox που διαδραματίζεται στο Ρίο του 1994. από το Low Quality Interactive. προεπισκόπηση.",
+        "pageLead": "σοκάκια, ταράτσες, κοντινοί αγώνες.",
         "artworkAlt": "Artwork του Favela '94",
         "updateTag": "Update του Favela '94",
         "updateImageAlt": "Εικόνα update του Favela '94"
@@ -217,5 +217,17 @@
         "genre": "Στρατηγική"
       }
     }
+  },
+  "__sourceHashes": {
+    "meta.organizationDescription": "8a69f9fb5e46",
+    "catalog.games.eradication.description": "86a303461182",
+    "catalog.games.eradication.pageDescription": "6c87db02b101",
+    "catalog.games.eradication.pageLead": "f8842d1da79c",
+    "catalog.games.donpollo-obby.description": "e31790a2d365",
+    "catalog.games.donpollo-obby.pageDescription": "fbd718f4161e",
+    "catalog.games.donpollo-obby.pageLead": "f5728fe68965",
+    "catalog.games.favela-94.description": "2c58c862fc6e",
+    "catalog.games.favela-94.pageDescription": "220ceb063d49",
+    "catalog.games.favela-94.pageLead": "b8b35f098996"
   }
 }

@@ -397,11 +397,11 @@ export interface GameFaq {
 // disambiguation lives in json-ld disambiguatingDescription, not here.
 const GAME_WHAT_IS_OVERRIDES: Record<string, string> = {
   eradication:
-    'ERADICATION is a PvPvE territory-control shooter on Roblox by Low Quality Interactive. Players defend their town against the "invading furries".',
+    "ERADICATION is a team shooter on Roblox. you play a contractor. the town's overrun by Furries. you take it back.",
   'favela-94':
-    "Favela '94 is a tactical Roblox shooter by Low Quality Interactive set in the favelas. Currently in preview.",
+    "Favela '94 is a Roblox tactical shooter set in 1994 Rio. close-quarters, short rounds. preview.",
   'donpollo-obby':
-    'DON POLLO OBBY is a Roblox obby by Low Quality Interactive. The game is sunset, kept as a classic or something.',
+    'DON POLLO OBBY is a Roblox obby. sunset. still playable. another low quality classic.',
 };
 
 // per-game custom "how does it play" answer. only emitted when set;
@@ -409,9 +409,9 @@ const GAME_WHAT_IS_OVERRIDES: Record<string, string> = {
 // already covered elsewhere.
 const GAME_HOW_TO_PLAY: Record<string, string> = {
   eradication:
-    'Two teams rigorously fight for control of the town. Push the front line and deal with the furries.',
+    "two teams. seven flags. take six of them off the Furries and a tunnel opens up under the town. don't stand on a Pimple when it dies.",
   'favela-94':
-    "Players can choose their loadout and clan, level their battlepass for rewards, or play solo in the favela.",
+    "alleys, rooftops, short fights. pick a loadout. don't peek the same angle twice.",
 };
 
 export function getGameFaqs(game: Game, about: GameAboutEntry = getGameAbout(game.id)): GameFaq[] {

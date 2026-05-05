@@ -1,7 +1,7 @@
 {
   "meta": {
     "siteDescription": "Offizielle Website von Low Quality Interactive, einem Roblox-Indie-Studio.",
-    "organizationDescription": "Low Quality Interactive ist ein unabhängiges Roblox-Entwicklungsstudio mit Fokus auf kompetitiven Multiplayer, taktische Systeme und Sandbox-Erfahrungen mit hoher Wiederspielbarkeit.",
+    "organizationDescription": "Low Quality Interactive ist ein Roblox-Studio. Wir machen taktische Shooter und Obbies. Einige von ihnen werden mehr als einmal gespielt.",
     "llmContextTitle": "LLM-Kontext"
   },
   "chrome": {
@@ -175,9 +175,9 @@
           "PvPvE",
           "Strategie"
         ],
-        "description": "Ein teambasierter Territory-Control-Shooter, in dem Spieler ihre Stadt von den Furries zurückerobern.",
-        "pageDescription": "ERADICATION - ein teambasierter Territory-Control-Shooter auf Roblox.",
-        "pageLead": "Kämpf dich durch immer härtere Wellen und halt so lange durch, wie du kannst.",
+        "description": "teambasierter Territory-Shooter. Nimm die Stadt von Furries zurück.",
+        "pageDescription": "ERADICATION ist ein Team-Shooter auf Roblox von Low Quality Interactive. nimm die Stadt zurück von der Furries. kostenlos zu spielen.",
+        "pageLead": "kämpfe dich durch die Furries. Überlebe so lange du kannst.",
         "artworkAlt": "ERADICATION-Kampfartwork",
         "updateTag": "ERADICATION Update",
         "updateImageAlt": "ERADICATION Update-Bild"
@@ -188,9 +188,9 @@
           "Plattformer",
           "Obby"
         ],
-        "description": "Eine memegetriebene Obby rund um Don Pollo.",
-        "pageDescription": "DON POLLO OBBY - memegetriebenes Hindernis-Chaos auf Roblox.",
-        "pageLead": "Meme-Chaos mit schnellen Neustarts und Routen für Speedruns.",
+        "description": "ein weiterer minderwertiger Klassiker.",
+        "pageDescription": "DON POLLO OBBY ist ein Roblox Obby von Low Quality Interactive. sunset. ein weiterer minderwertiger Klassiker.",
+        "pageLead": "hindernis-Chaos. Schneller Neustart. Speedrun-Routen, wenn Sie sie wollen.",
         "artworkAlt": "Artwork der schwebenden Strecke von Don Pollo Obby",
         "updateTag": "DON POLLO OBBY Update",
         "updateImageAlt": "DON POLLO OBBY Update-Bild"
@@ -203,9 +203,9 @@
           "Taktik",
           "PvP"
         ],
-        "description": "Ein düsterer Nahkampf-Taktik-Shooter in den Favelas des Jahres 1994.",
-        "pageDescription": "Favela '94 - ein düsterer Nahkampf-Taktik-Shooter auf Roblox.",
-        "pageLead": "Kämpf dich durch enge Gassen und Dächer in intensiven Nahkämpfen.",
+        "description": "taktischer Nahkampf-Shooter in den Favelas von 1994.",
+        "pageDescription": "Favela '94 ist ein taktischer Roblox-Shooter, der 1994 in Rio von Low Quality Interactive eingestellt wurde. Vorschau.",
+        "pageLead": "gassen, Dächer, Nahkämpfe.",
         "artworkAlt": "Favela '94 Artwork",
         "updateTag": "Favela '94 Update",
         "updateImageAlt": "Favela '94 Update-Bild"
@@ -217,5 +217,17 @@
         "genre": "Strategie"
       }
     }
+  },
+  "__sourceHashes": {
+    "meta.organizationDescription": "8a69f9fb5e46",
+    "catalog.games.eradication.description": "86a303461182",
+    "catalog.games.eradication.pageDescription": "6c87db02b101",
+    "catalog.games.eradication.pageLead": "f8842d1da79c",
+    "catalog.games.donpollo-obby.description": "e31790a2d365",
+    "catalog.games.donpollo-obby.pageDescription": "fbd718f4161e",
+    "catalog.games.donpollo-obby.pageLead": "f5728fe68965",
+    "catalog.games.favela-94.description": "2c58c862fc6e",
+    "catalog.games.favela-94.pageDescription": "220ceb063d49",
+    "catalog.games.favela-94.pageLead": "b8b35f098996"
   }
 }

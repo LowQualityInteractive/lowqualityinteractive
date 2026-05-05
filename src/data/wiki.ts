@@ -55,28 +55,29 @@ const CATEGORY_LABELS: Record<string, { singular: string; plural: string }> = {
 // on category pages. without this, category pages were just card grids
 // over a one-line "N items catalogued" lead - google flags those as
 // thin template pages, which hurts indexing of the entities they
-// surface. {game} is interpolated by the caller.
+// surface. {game} is interpolated by the caller. voice tracks the rest
+// of the site: lowercase, fragmented, no marketing nouns.
 const CATEGORY_INTROS: Record<string, string> = {
   weapon:
-    'Reference for every documented firearm, melee, and equipment piece in {game}, including roles, key stats, and which gameplay systems each weapon interacts with.',
+    "every gun, melee, and piece of kit in {game}. what it is, what it does, when not to bring it.",
   enemy:
-    'Bestiary of every hostile NPC in {game}, with behavior summaries, stats, and notes on where each enemy spawns and how to counter it.',
+    "every Furry that shows up in {game}. some chase, some shoot, some explode when they die. read before you walk into one.",
   map:
-    'Field guide to every map in {game}, covering layout, key territories, mode rotation, and the hazards or callouts each location is known for.',
+    "every map in {game}. the layout, the modes that run on it, the corners that get people killed.",
   mode:
-    'All playable modes in {game} explained: objectives, win conditions, supported player counts, and how the mode interacts with the rest of the game.',
+    "every mode in {game}. how long it runs, what you're trying to do, and what happens when you fail.",
   item:
-    'Catalog of pickups, consumables, and inventory items in {game}, with descriptions of effects, where they drop, and how each item fits into a loadout.',
+    "pickups and inventory items in {game}. what they do, where they drop, whether they're worth picking up.",
   mechanic:
-    'Underlying gameplay systems in {game} - movement, combat, economy, and progression rules - described so new players can reach competent play faster.',
+    "the systems that decide what happens in {game}. movement, fights, money, unlocks. read these before you wonder why you keep dying.",
   gamepass:
-    'Every gamepass available for {game}, listed with what it unlocks, whether it grants in-match advantages, and how the pass interacts with regular progression.',
+    "the gamepasses for {game}. what each one unlocks. some of them help. some of them are vibes.",
   progression:
-    'Level, currency, and unlock paths in {game}: how players earn rewards, what each tier grants, and the long-term goals that drive return play.',
+    "how you earn things in {game}. cash, XP, unlocks, the stuff that comes back round to round.",
   territory:
-    'Map territories that change hands during a {game} match: capture rules, defensive value, and the strategic role each zone plays in the larger objective.',
+    "the seven flags in {game}. one is yours at the start. the other six aren't. these are them.",
   vehicle:
-    'All drivable, mountable, and deployable vehicles in {game}, with handling notes, seat counts, weapon mounts, and battlefield roles.',
+    "everything in {game} you can drive, fly, or get run over by. some of them work.",
 };
 
 export function getCategoryIntro(category: string, gameName: string): string {

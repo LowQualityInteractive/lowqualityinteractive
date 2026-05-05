@@ -1,7 +1,7 @@
 {
   "meta": {
     "siteDescription": "Sito ufficiale di Low Quality Interactive, uno studio indie su Roblox.",
-    "organizationDescription": "Low Quality Interactive è uno studio indipendente di sviluppo su Roblox focalizzato su multiplayer competitivo, sistemi tattici ed esperienze sandbox ad alta rigiocabilità.",
+    "organizationDescription": "Low Quality Interactive è uno studio Roblox. facciamo sparatutto tattici e obbiettivi. alcuni di loro vengono giocati più di una volta.",
     "llmContextTitle": "Contesto per LLM"
   },
   "chrome": {
@@ -175,9 +175,9 @@
           "PvPvE",
           "Strategia"
         ],
-        "description": "Uno sparatutto a controllo territoriale a squadre in cui i giocatori combattono per riprendersi la loro città dai Furries.",
-        "pageDescription": "ERADICATION - uno sparatutto a controllo territoriale a squadre su Roblox.",
-        "pageLead": "Affronta ondate sempre più pesanti e resisti il più a lungo possibile.",
+        "description": "sparatore di territorio a squadre. Riprendi la città dalle pellicce.",
+        "pageDescription": "ERADICATION è uno sparatutto a squadre su Roblox di Low Quality Interactive. riprenditi la città da Furries. free to play.",
+        "pageLead": "lotta contro le pellicce. sopravvivi il più a lungo possibile.",
         "artworkAlt": "Artwork di battaglia di ERADICATION",
         "updateTag": "Aggiornamento di ERADICATION",
         "updateImageAlt": "Immagine aggiornamento di ERADICATION"
@@ -188,9 +188,9 @@
           "Platform",
           "Obby"
         ],
-        "description": "Un'obby guidata dai meme costruita attorno a Don Pollo.",
-        "pageDescription": "DON POLLO OBBY - caos a ostacoli alimentato dai meme su Roblox.",
-        "pageLead": "Caos a ostacoli con restart rapidi e percorsi da speedrun.",
+        "description": "un altro classico di bassa qualità.",
+        "pageDescription": "DON POLLO OBBY è un Roblox obby di Low Quality Interactive. sunset. un altro classico di bassa qualità.",
+        "pageLead": "caos degli ostacoli. ripartenze veloci. percorsi di speedrun se li vuoi.",
         "artworkAlt": "Artwork del percorso sospeso di Don Pollo Obby",
         "updateTag": "Aggiornamento di DON POLLO OBBY",
         "updateImageAlt": "Immagine aggiornamento di DON POLLO OBBY"
@@ -203,9 +203,9 @@
           "Tattico",
           "PvP"
         ],
-        "description": "Uno sparatutto tattico a distanza ravvicinata nelle favelas del 1994.",
-        "pageDescription": "Favela '94 - uno sparatutto tattico a distanza ravvicinata su Roblox.",
-        "pageLead": "Combatti in vicoli stretti e sui tetti in scontri ravvicinati intensi.",
+        "description": "sparatutto tattico a distanza ravvicinata ambientato nelle favelas del 1994.",
+        "pageDescription": "Favela '94 è uno sparatutto tattico Roblox ambientato nel 1994 Rio. by Low Quality Interactive. preview.",
+        "pageLead": "vicoli, tetti, combattimenti ravvicinati.",
         "artworkAlt": "Artwork di Favela '94",
         "updateTag": "Aggiornamento di Favela '94",
         "updateImageAlt": "Immagine aggiornamento di Favela '94"
@@ -217,5 +217,17 @@
         "genre": "Strategia"
       }
     }
+  },
+  "__sourceHashes": {
+    "meta.organizationDescription": "8a69f9fb5e46",
+    "catalog.games.eradication.description": "86a303461182",
+    "catalog.games.eradication.pageDescription": "6c87db02b101",
+    "catalog.games.eradication.pageLead": "f8842d1da79c",
+    "catalog.games.donpollo-obby.description": "e31790a2d365",
+    "catalog.games.donpollo-obby.pageDescription": "fbd718f4161e",
+    "catalog.games.donpollo-obby.pageLead": "f5728fe68965",
+    "catalog.games.favela-94.description": "2c58c862fc6e",
+    "catalog.games.favela-94.pageDescription": "220ceb063d49",
+    "catalog.games.favela-94.pageLead": "b8b35f098996"
   }
 }

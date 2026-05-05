@@ -1,7 +1,7 @@
 {
   "meta": {
     "siteDescription": "Low Quality Interactive. Roblox studio.",
-    "organizationDescription": "Low Quality Interactive is a generic Roblox development group. We make competitive multiplayer games, tactical shooters, and sandbox stuff people actually replay.",
+    "organizationDescription": "Low Quality Interactive is a Roblox studio. we make tactical shooters and obbies. some of them get played more than once.",
     "llmContextTitle": "LLM context"
   },
   "chrome": {
@@ -194,7 +194,7 @@
           "Strategy"
         ],
         "description": "team-based territory shooter. take the town back from furries.",
-        "pageDescription": "ERADICATION is a team-based PvPvE territory-control shooter on Roblox by Low Quality Interactive. Defend your town. Free to play.",
+        "pageDescription": "ERADICATION is a team shooter on Roblox by Low Quality Interactive. take the town back from the Furries. free to play.",
         "pageLead": "fight through the furries. survive as long as you can.",
         "artworkAlt": "ERADICATION battlefield artwork",
         "updateTag": "ERADICATION update",
@@ -207,7 +207,7 @@
           "Obby"
         ],
         "description": "another low quality classic.",
-        "pageDescription": "DON POLLO OBBY is a Roblox obby by Low Quality Interactive. Sunset status, kept playable as a low quality classic.",
+        "pageDescription": "DON POLLO OBBY is a Roblox obby by Low Quality Interactive. sunset. another low quality classic.",
         "pageLead": "obstacle chaos. fast restarts. speedrun routes if you want them.",
         "artworkAlt": "Don Pollo Obby floating course artwork",
         "updateTag": "DON POLLO OBBY update",
@@ -222,7 +222,7 @@
           "PvP"
         ],
         "description": "close-quarters tactical shooter set in the favelas of 1994.",
-        "pageDescription": "Favela '94 is a close-quarters tactical Roblox shooter set in 1994 Rio, by Low Quality Interactive. Currently in preview.",
+        "pageDescription": "Favela '94 is a tactical Roblox shooter set in 1994 Rio. by Low Quality Interactive. preview.",
         "pageLead": "alleys, rooftops, close range fights.",
         "artworkAlt": "Favela '94 cover art - armed operators in a 1994 Rio favela alley",
         "updateTag": "Favela '94 update",
