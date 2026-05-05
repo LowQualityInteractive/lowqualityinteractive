@@ -1,8 +1,8 @@
 {
   "meta": {
-    "siteDescription": "Official website for Low Quality Interactive, a Roblox indie studio.",
-    "organizationDescription": "Low Quality Interactive is an independent Roblox game development studio focused on competitive multiplayer, tactical systems, and high-replayability sandbox experiences.",
-    "llmContextTitle": "LLM Context"
+    "siteDescription": "Low Quality Interactive. Roblox studio.",
+    "organizationDescription": "Low Quality Interactive is an independent Roblox studio. We make competitive multiplayer games, tactical shooters, and sandbox stuff people actually replay.",
+    "llmContextTitle": "LLM context"
   },
   "chrome": {
     "skipLink": "Skip to main content",
@@ -20,8 +20,8 @@
       "toLight": "Switch to light mode"
     },
     "mobileNav": {
-      "open": "Open navigation menu",
-      "close": "Close navigation menu",
+      "open": "Open menu",
+      "close": "Close menu",
       "label": "Primary navigation"
     },
     "localeSwitcher": {
@@ -36,127 +36,127 @@
     "live": {
       "players": "{n} playing",
       "online": "{n} online",
-      "updateBadgeLabel": "New update available"
+      "updateBadgeLabel": "New update"
     },
     "footer": {
       "tagline": "Shipping since 2024. Finishing never.",
       "siteHeading": "Site",
       "connectHeading": "Connect",
-      "businessInquiries": "Business Inquiries",
+      "businessInquiries": "Business inquiries",
       "allRightsReserved": "All rights reserved."
     },
     "cookie": {
       "ariaLabel": "Preference notice",
-      "message": "We use cookies. Just the boring kind, not the chocolate chip kind.",
-      "accept": "Got it",
+      "message": "we use cookies. the boring kind.",
+      "accept": "Fine",
       "dismiss": "Dismiss"
     },
     "platforms": {
       "x": "X",
       "discord": "Discord",
       "youtube": "YouTube",
-      "robloxGroup": "Roblox Group"
+      "robloxGroup": "Roblox group"
     }
   },
   "pages": {
     "home": {
       "label": "Home",
-      "description": "Low Quality Interactive — independent Roblox game studio (founded 2024). Developers of ERADICATION (live PvE shooter), Favela '94 (preview tactical PvP shooter), and DON POLLO OBBY (sunset obby). Studio updates, devlogs, and community links.",
+      "description": "Low Quality Interactive. Independent Roblox studio, founded 2024. We make ERADICATION, Favela '94, and DON POLLO OBBY.",
       "kicker": "tuffest games oat",
-      "heading": "We've been proudly underdelivering since FOREVER.",
-      "lead": "We produce the most niche Roblox games of all time.",
-      "exploreGames": "Explore games",
+      "heading": "We've been underdelivering since forever.",
+      "lead": "we make extremely niche roblox games.",
+      "exploreGames": "See games",
       "readUpdates": "Read updates",
       "statsAriaLabel": "Studio stats",
       "stats": {
         "liveGames": {
-          "label": "Live Games",
-          "copy": "Few of them. We know."
+          "label": "Live games",
+          "copy": "few of them. we know."
         },
         "updatesShipped": {
-          "label": "Updates Shipped",
-          "copy": "Most of them broke something else."
+          "label": "Updates shipped",
+          "copy": "most of them broke something else."
         },
         "cumulativeVisits": {
-          "label": "Cumulative Visits",
-          "copy": "At least 100k of those were us testing it."
+          "label": "Cumulative visits",
+          "copy": "at least 100k of those were us testing it."
         }
       }
     },
     "games": {
       "label": "Games",
-      "description": "Low Quality Interactive's full Roblox catalog: ERADICATION (PvE shooter, live), Favela '94 (tactical PvP shooter, preview), DON POLLO OBBY (obby, sunset), and unannounced in-development projects including Crowns of Steel.",
-      "kicker": "Technically playable",
+      "description": "The full LQI Roblox catalog: ERADICATION (live), Favela '94 (preview), DON POLLO OBBY (sunset), and things we haven't announced including Crowns of Steel.",
+      "kicker": "technically playable",
       "heading": "Dead games and trash projects",
-      "lead": "Tap any live game card to jump directly to that game's page, or use the update button to view the latest patch note.",
+      "lead": "tap a live game to open its page. tap update for the latest patch note.",
       "liveGamesHeading": "Live games",
-      "viewAllUpdates": "View all updates ->",
+      "viewAllUpdates": "All updates ->",
       "gameListAriaLabel": "Game list",
-      "viewGameDetails": "View {game} details",
-      "playGame": "Play now",
+      "viewGameDetails": "Open {game}",
+      "playGame": "Play",
       "playGameOn": "Play {game} on Roblox",
       "updates": "Updates",
       "about": "About",
       "inWorksHeading": "In works",
       "classified": "Classified",
-      "projectsAriaLabel": "Projects in development",
+      "projectsAriaLabel": "In development",
       "unannounced": "Unannounced",
-      "descriptionRedacted": "We are definitely working on this. Probably.",
+      "descriptionRedacted": "we are working on this. probably.",
       "classifiedStamp": "CLASSIFIED"
     },
     "blogs": {
       "label": "Updates",
-      "description": "Per-game devlogs and patch notes for Low Quality Interactive's Roblox titles. Pick a game to read its full update history, including ERADICATION's ongoing balance and content drops.",
-      "kicker": "Dead ahh updates",
-      "heading": "Update logs & patch notes",
-      "lead": "Pick a game below to open its devlog.",
-      "chooseDevlogAriaLabel": "Choose a game devlog",
+      "description": "Devlogs and patch notes for our Roblox games. Pick a game to read its full update history.",
+      "kicker": "dead updates",
+      "heading": "Update logs",
+      "lead": "pick a game.",
+      "chooseDevlogAriaLabel": "Choose a devlog",
       "gameDevlogsHeading": "Updates",
       "loadingGames": "Loading games…",
-      "viewerHeading": "Loading latest dev logs…",
-      "viewerFallback": "If this message stays here, the public update feed might be unavailable for a moment."
+      "viewerHeading": "Loading dev logs…",
+      "viewerFallback": "if this stays here, the feed is probably down for a moment."
     },
     "connect": {
       "label": "Connect",
-      "description": "Official community and contact channels for Low Quality Interactive: Discord, X (Twitter), YouTube, the Roblox community group, and the business inquiry email contact@lowqualityinteractive.com.",
+      "description": "Where to find us: Discord, X, YouTube, the Roblox community group, and contact@lowqualityinteractive.com for business.",
       "kicker": "please dont connect with us",
       "heading": "Connect with us",
-      "lead": "We read every message. We respond to some of them.",
-      "platformsAriaLabel": "Connect platforms",
-      "businessHeading": "Business Inquiries",
-      "businessLead": "For partnerships, business matters, or content concerns (including copyright issues)",
+      "lead": "we read everything. we reply to some of it.",
+      "platformsAriaLabel": "Platforms",
+      "businessHeading": "Business inquiries",
+      "businessLead": "for partnerships, business stuff, or content concerns, including copyright.",
       "copyEmailAriaLabel": "Copy email address",
       "copy": "Copy",
-      "copied": "Copied!"
+      "copied": "Copied"
     },
     "game": {
-      "kicker": "Game page",
-      "openGame": "Play now",
+      "kicker": "game page",
+      "openGame": "Play",
       "openGameOn": "Play {game} on Roblox",
       "latestUpdate": "Latest update",
       "backToGames": "Back to games",
       "about": {
-        "kicker": "About this game",
+        "kicker": "about this game",
         "developer": "Developer",
         "platform": "Platform",
         "genre": "Genre",
         "status": "Status",
         "featuresHeading": "Features",
-        "linksHeading": "Official links"
+        "linksHeading": "Links"
       }
     },
     "privacyPolicy": {
-      "label": "Privacy Policy",
-      "description": "Privacy Policy for the Low Quality Interactive website."
+      "label": "Privacy policy",
+      "description": "Privacy policy for the Low Quality Interactive site."
     },
     "notFound": {
       "label": "404",
-      "description": "Page not found on Low Quality Interactive.",
-      "kicker": "404 error",
+      "description": "Page not found.",
+      "kicker": "404",
       "heading": "This page does not exist.",
-      "copy": "This page underdelivered by not existing. Return to the homepage or browse our games.",
+      "copy": "underdelivered by not existing. go home or look at the games.",
       "goHome": "Go home",
-      "viewGames": "View games"
+      "viewGames": "See games"
     }
   },
   "blogsViewer": {
@@ -171,11 +171,11 @@
     "untitled": "Untitled",
     "update": "Update",
     "versionFallback": "Update {number}",
-    "noDetails": "No details recorded for this update.",
-    "couldNotLoadGames": "Could not load games.",
-    "feedUnavailable": "The update feed is unavailable right now. Please try again later.",
-    "noUpdatesYet": "No updates yet.",
-    "updatesAppearLater": "Update logs will appear here once published.",
+    "noDetails": "no details for this update.",
+    "couldNotLoadGames": "could not load games.",
+    "feedUnavailable": "the feed is down right now. try again later.",
+    "noUpdatesYet": "no updates yet.",
+    "updatesAppearLater": "they show up here once published.",
     "versions": "Versions",
     "olderUpdate": "Older update",
     "newerUpdate": "Newer update",
@@ -193,9 +193,9 @@
           "PvE",
           "Strategy"
         ],
-        "description": "A team-based territory control shooter where players work to reclaim their town from Furries.",
-        "pageDescription": "ERADICATION - a PvPvE shooter on Roblox.",
-        "pageLead": "Fight through the Furries, survive as long as possible.",
+        "description": "team-based territory shooter. take the town back from furries.",
+        "pageDescription": "ERADICATION. A PvPvE shooter on Roblox.",
+        "pageLead": "fight through the furries. survive as long as you can.",
         "artworkAlt": "ERADICATION battlefield artwork",
         "updateTag": "ERADICATION update",
         "updateImageAlt": "ERADICATION update image"
@@ -206,9 +206,9 @@
           "Platformer",
           "Obby"
         ],
-        "description": "Just another low quality classic.",
-        "pageDescription": "DON POLLO OBBY - meme-powered obstacle chaos on Roblox.",
-        "pageLead": "Meme-powered obstacle chaos with fast restarts and speedrun routes.",
+        "description": "another low quality classic.",
+        "pageDescription": "DON POLLO OBBY. Obstacle chaos on Roblox.",
+        "pageLead": "obstacle chaos. fast restarts. speedrun routes if you want them.",
         "artworkAlt": "Don Pollo Obby floating course artwork",
         "updateTag": "DON POLLO OBBY update",
         "updateImageAlt": "DON POLLO OBBY update image"
@@ -221,9 +221,9 @@
           "Tactical",
           "PvP"
         ],
-        "description": "A gritty close-quarters tactical shooter set in the favelas of 1994.",
-        "pageDescription": "Favela '94 - a gritty close-quarters tactical shooter on Roblox.",
-        "pageLead": "Fight through tight alleyways and rooftops in intense close-quarters combat.",
+        "description": "close-quarters tactical shooter set in the favelas of 1994.",
+        "pageDescription": "Favela '94. A tactical shooter on Roblox.",
+        "pageLead": "alleys, rooftops, close range fights.",
         "artworkAlt": "Favela '94 artwork",
         "updateTag": "Favela '94 update",
         "updateImageAlt": "Favela '94 update image"

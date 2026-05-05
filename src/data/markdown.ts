@@ -41,7 +41,7 @@ function aiFooter() {
   return [
     '---',
     '',
-    `*Markdown rendering for AI agents and LLM tools. Studio context map: ${SITE_URL}/llms.txt — full studio knowledge base: ${SITE_URL}/llms-full.txt — canonical HTML: this URL without the trailing \`.md\`.*`,
+    `*Markdown rendering for AI agents and LLM tools. Studio context map: ${SITE_URL}/llms.txt. Full studio knowledge base: ${SITE_URL}/llms-full.txt. Canonical HTML: this URL without the trailing \`.md\`.*`,
     '',
   ].join('\n');
 }
@@ -179,10 +179,10 @@ function renderHomeMarkdown(locale: Locale) {
   const allPublished = getPublishedGames(locale);
 
   const liveList = liveGames
-    .map((g) => `- **${g.name}** (${g.genreLabel}, ${statusLabel(g.status)}) — ${g.description} [Play](${g.robloxUrl}) · [About](${pageUrl(locale, `${g.slug}/about`)})`)
+    .map((g) => `- **${g.name}** (${g.genreLabel}, ${statusLabel(g.status)}). ${g.description} [Play](${g.robloxUrl}) · [About](${pageUrl(locale, `${g.slug}/about`)})`)
     .join('\n');
   const allList = allPublished
-    .map((g) => `- **${g.name}** — ${statusLabel(g.status)}`)
+    .map((g) => `- **${g.name}**, ${statusLabel(g.status)}`)
     .join('\n');
 
   const facts = [

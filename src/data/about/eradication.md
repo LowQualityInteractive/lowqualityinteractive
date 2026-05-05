@@ -1,73 +1,73 @@
-ERADICATION is a team shooter on Roblox. You play a contractor, the town hires your kind because nobody who actually lives there can do the job anymore. The streets belong to Furries. Your job is to push them off, hold what you take, and eventually go deal with the thing waiting underneath all of it.
+ERADICATION is a team shooter on Roblox. you play a contractor, the town hires your kind because nobody who actually lives there can do the job anymore. the streets belong to Furries. your job is to push them off, hold what you take, and eventually go deal with the thing waiting underneath all of it.
 
-You start at Whiskerhold. That is the only ground that is still yours. Everything past it is enemy territory. A flag does not become yours because you walked up and touched it. It becomes yours when the Furries are off it long enough for the town to actually accept the change.
+you start at Whiskerhold. that's the only ground that's still yours. everything past it is enemy territory. a flag doesn't become yours because you walked up and touched it. it becomes yours when the Furries are off it long enough for the town to actually accept the change.
 
-## The Setup
+## The setup
 
-A town got overrun by Furries. They used to be normal people. They spent too long online and changed into something else. I know your boiling mad right now, but chill.
+a town got overrun by Furries. they used to be normal people. they spent too long online and changed into something else. i know your boiling mad right now, but chill.
 
-You are not a soldier. You are a contractor. The town pays you to clear the streets, hold the ground after, and keep the line moving forward.
+you are not a soldier. you are a contractor. the town pays you to clear the streets, hold the ground after, and keep the line moving forward.
 
-## The Town
+## The town
 
-The map is split into seven named territories. One of them is yours when the round starts. The other six are not.
+the map is split into seven named territories. one of them is yours when the round starts. the other six are not.
 
-- **Whiskerhold**. Base territory. Spawn-only foothold. The only ground you start on.
-- **Furward**. Furry ground at round start. Reclaimable.
-- **Furrow**. Furry ground at round start. Reclaimable. The single objective in Rush mode.
-- **Purridge**. Furry ground at round start. Reclaimable.
-- **Whisken**. Furry ground at round start. Reclaimable.
-- **Bloodwhisk Reach**. Furry ground at round start. Reclaimable.
-- **Whiskspire**. Furry ground at round start. Reclaimable.
+- **Whiskerhold**. base territory. spawn-only foothold. the only ground you start on.
+- **Furward**. Furry ground at round start. reclaimable.
+- **Furrow**. Furry ground at round start. reclaimable. the single objective in Rush mode.
+- **Purridge**. Furry ground at round start. reclaimable.
+- **Whisken**. Furry ground at round start. reclaimable.
+- **Bloodwhisk Reach**. Furry ground at round start. reclaimable.
+- **Whiskspire**. Furry ground at round start. reclaimable.
 
-Each territory has a flag. A flag belongs to the contractors, the Furries, or nobody, and either side can contest it. The minimap shows a running count: TERRITORIES RECLAIMED: X / Y. Whiskerhold does not count toward that number. It is where you come from, not what you take back.
+each territory has a flag. a flag belongs to the contractors, the Furries, or nobody, and either side can contest it. the minimap shows a running count: TERRITORIES RECLAIMED: X / Y. Whiskerhold doesn't count toward that number. it's where you come from, not what you take back.
 
-Reclaimed ground is not safe ground. The Furries push back. They post bodies around the flags they hold, contest the ones you take, and come back in numbers tuned to the player count and the mode you picked.
+reclaimed ground is not safe ground. the Furries push back. they post bodies around the flags they hold, contest the ones you take, and come back in numbers tuned to the player count and the mode you picked.
 
 ## The Furries
 
-The Furries are not one creature with different health bars. They are an opposing side and the game treats them like one. Some chase you. Some guard flags. Some sit back and shoot. Some are still dangerous after they die.
+the Furries are not one creature with different health bars. they are an opposing side and the game treats them like one. some chase you. some guard flags. some sit back and shoot. some are still dangerous after they die.
 
 | Type | Read |
 |---|---|
-| Normal | Baseline Furry. Closes in, attacks, dies. Absolute cinema. |
-| Watcher | He's watching you... Nah, I genuinely just put some pink spheres on his head and called it a day. |
-| Spitter | Stays at range. Hits from a distance. Punishes anyone who treats every Furry as a close-range problem. |
-| Pimple | Explodes on death. Standing on the body when it drops is a mistake. |
-| Bloater | Larger explosion on death. Dropping it close to the team kills the team. |
-| Robot | Fast attack cooldown. Shreds anyone caught alone. Just pour some water on him and he'll die instantly. |
-| Leader | Heavy. Takes genuine fire to sleep. |
-| Helper | Small Furry tied to the boss area. Damn minions. |
+| Normal | baseline Furry. closes in, attacks, dies. absolute cinema. |
+| Watcher | he's watching you... nah, we genuinely just put some pink spheres on his head and called it a day. |
+| Spitter | stays at range. hits from a distance. punishes anyone who treats every Furry as a close-range problem. |
+| Pimple | explodes on death. standing on the body when it drops is a mistake. |
+| Bloater | larger explosion on death. dropping it close to the team kills the team. |
+| Robot | fast attack cooldown. shreds anyone caught alone. just pour some water on him and he'll die instantly. |
+| Leader | heavy. takes genuine fire to sleep. |
+| Helper | small Furry tied to the boss area. damn minions. |
 
-Furry pressure scales with the server. A solo run is still crowded. A full lobby is not the same town with more witnesses. It is a denser problem with more bodies in it.
+Furry pressure scales with the server. a solo run is still crowded. a full lobby is not the same town with more witnesses. it's a denser problem with more bodies in it.
 
 ## Modes
 
-There are three modes live. They give the same town different rules.
+three modes are live. they give the same town different rules.
 
 ### Traditional
 
-The full job. 48 minutes. Start at Whiskerhold, push through the six Furry-held territories, hold them long enough for the count to climb. When all six are reclaimed, the boss route opens.
+the full job. 48 minutes. start at Whiskerhold, push through the six Furry-held territories, hold them long enough for the count to climb. when all six are reclaimed, the boss route opens.
 
 ### Rush
 
-The compressed version. 7 minutes 30. One objective: Furrow. The contractors begin with it already captured. The Furries only need to take it once. There is no boss.
+the compressed version. 7 minutes 30. one objective: Furrow. the contractors begin with it already captured. the Furries only need to take it once. there is no boss.
 
 ### Infection
 
-15 minutes. The map gets worse the longer the Furries hold ground. Furry-held flags produce spawn pressure in a radius around themselves, so cleared streets next to enemy ground stay loud. Downed contractors can come back on the wrong side. There is no boss in this mode. The mode is its own problem.
+15 minutes. the map gets worse the longer the Furries hold ground. Furry-held flags produce spawn pressure in a radius around themselves, so cleared streets next to enemy ground stay loud. downed contractors can come back on the wrong side. there is no boss in this mode. the mode is its own problem.
 
 ## Deployment
 
-You do not spawn anywhere you feel like. Where you can deploy is gated by who owns the ground. Whiskerhold is always available. Forward deploys depend on what your side has reclaimed. Lose a flag and your respawn options shrink.
+you don't spawn anywhere you feel like. where you can deploy is gated by who owns the ground. Whiskerhold is always available. forward deploys depend on what your side has reclaimed. lose a flag and your respawn options shrink.
 
-## The Arsenal
+## The arsenal
 
-Weapons decide the kind of mistake a contractor can survive. Pistols cover the moment your primary fails on you. Shotguns answer bad distances. Rifles carry long distance fights. Machine guns, uhh, just go Rambo with it. Anti-materiel rifles, rockets, and vehicle weapons are there for the targets that should not be solved with small arms.
+weapons decide the kind of mistake a contractor can survive. pistols cover the moment your primary fails on you. shotguns answer bad distances. rifles carry long distance fights. machine guns, uhh, just go Rambo with it. anti-materiel rifles, rockets, and vehicle weapons are there for the targets that should not be solved with small arms.
 
-Loadouts are saved between rounds. Most weapons unlock through cash and XP. Some are tied to the LQI Roblox community amd gamepasses.
+loadouts are saved between rounds. most weapons unlock through cash and XP. some are tied to the LQI Roblox community and gamepasses.
 
-The full live pool:
+the full live pool:
 
 - AA-12
 - AK-74
@@ -165,9 +165,9 @@ The full live pool:
 - Winchester M1897 (Trench Gun)
 - Zastava M92
 
-## Vehicles and Aircraft
+## Vehicles and aircraft
 
-Vehicles get contractors across ground that is no longer worth walking. They have hit points. They can be disabled. They can explode. They are tools, not safety.
+vehicles get contractors across ground that is no longer worth walking. they have hit points. they can be disabled. they can explode. they are tools, not safety.
 
 - ATVs and light trucks for fast solo movement.
 - LTV-300 and Mastiff for moving the team.
@@ -175,30 +175,30 @@ Vehicles get contractors across ground that is no longer worth walking. They hav
 - Centurion, MBT-800, Panzer IV, T-34-76 for the things small arms genuinely cannot answer.
 - MH-60 Blackhawk, plus a pilot-minigun variant, for getting eleven contractors into a bad place quickly.
 
-## The Boss
+## The boss
 
-The boss is locked at the start of every Traditional round. He is not part of the street population. He only becomes available after the six reclaimable territories are in contractor hands.
+the boss is locked at the start of every Traditional round. he is not part of the street population. he only becomes available after the six reclaimable territories are in contractor hands.
 
-When that happens, the route opens. There is a cutscene. There is an atmosphere change (quite literally). There is a tunnel, reached through the basement of a random house somewhere on the map. There is a core to deal with. There are small Furries, Helpers, moving through the tunnel system like its Vietnam.
+when that happens, the route opens. there is a cutscene. there is an atmosphere change (quite literally). there is a tunnel, reached through the basement of a random house somewhere on the map. there is a core to deal with. there are small Furries, Helpers, moving through the tunnel system like its Vietnam.
 
-At the end of it, a large unnamed man guarded by small Furries.
+at the end of it, a large unnamed man guarded by small Furries.
 
-Who is this large unnamed man? Well, we know that he's missing, unemployed, and a dangerous man, therefore we need to slime him, completely original outcome. There's just posters yearning for his presence to grace the town again, and also a massive bounty on his head.
+who is this large unnamed man? well, we know that he's missing, unemployed, and a dangerous man, therefore we need to slime him, completely original outcome. there's just posters yearning for his presence to grace the town again, and also a massive bounty on his head.
 
-He has no title. There are no phases to memorize. The fight scales with how many contractors are in the den. More fighters means more Furries, more health, more damage. The job ends here or it does not end this round.
+he has no title. there are no phases to memorize. the fight scales with how many contractors are in the den. more fighters means more Furries, more health, more damage. the job ends here or it does not end this round.
 
-Rush has no boss. Infection has no boss. The boss is the Traditional ending, and only after the town is taken.
+Rush has no boss. Infection has no boss. the boss is the Traditional ending, and only after the town is taken.
 
-## Field Voice
+## Field voice
 
-Why callouts? Blame your government. Anyway, callouts in-game are short and dry: Contact. Multiple hostiles. Heavy incoming. Boss spotted. Need backup. Hold position. Fall back. Help me. I'm down. Nobody has time for speeches. Do not expect any.
+why callouts? blame your government. anyway, callouts in-game are short and dry: contact. multiple hostiles. heavy incoming. boss spotted. need backup. hold position. fall back. help me. i'm down. nobody has time for speeches. do not expect any.
 
-## The Short Version
+## The short version
 
-Start at Whiskerhold. Take Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, and Whiskspire away from the Furries. Hold what you take. Use vehicles when walking is a bad idea. Use Blackhawks when distance is the problem.
+start at Whiskerhold. take Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, and Whiskspire away from the Furries. hold what you take. use vehicles when walking is a bad idea. use Blackhawks when distance is the problem.
 
-When the six are reclaimed, the route goes below the town. Under a random house, in a tunnel, there is a large unemployed dude with imaginary small Furries around him.
+when the six are reclaimed, the route goes below the town. under a random house, in a tunnel, there is a large unemployed dude with imaginary small Furries around him.
 
-You are quite literally fighting his imagination.
+you are quite literally fighting his imagination.
 
-That is the job. Slime him, get paid.
+that is the job. slime him, get paid.
