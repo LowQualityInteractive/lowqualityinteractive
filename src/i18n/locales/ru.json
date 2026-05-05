@@ -168,11 +168,11 @@
   "catalog": {
     "games": {
       "eradication": {
-        "genreLabel": "PvE-шутер",
+        "genreLabel": "PvPvE-шутер",
         "genre": [
           "Шутер",
           "Мультиплеер",
-          "PvE",
+          "PvPvE",
           "Стратегия"
         ],
         "description": "Командный шутер про контроль территории, где игроки пытаются отбить свой город у Furries.",

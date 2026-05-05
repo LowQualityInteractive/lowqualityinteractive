@@ -1,7 +1,10 @@
 ---
+// the canonical game page lives at /<slug> now. this file exists only
+// so cached /<slug>/about urls — bookmarks, address-bar autocomplete,
+// links shared from old chats — don't 404. it does nothing except
+// permanent-redirect to the canonical path.
 import type { GetStaticPaths } from 'astro';
 import { publishedGameSlugs } from '../../data/games';
-import GameAboutPage from '../../views/GameAboutPage.astro';
 
 export const getStaticPaths: GetStaticPaths = () =>
   publishedGameSlugs.map((slug) => ({
@@ -13,7 +16,5 @@ interface Props {
   slug: string;
 }
 
-const { slug } = Astro.props;
+return Astro.redirect(`/${Astro.props.slug}/`, 301);
 ---
-
-<GameAboutPage locale="en" slug={slug} />

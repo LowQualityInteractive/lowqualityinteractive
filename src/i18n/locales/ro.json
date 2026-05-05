@@ -168,11 +168,11 @@
   "catalog": {
     "games": {
       "eradication": {
-        "genreLabel": "Shooter PvE",
+        "genreLabel": "Shooter PvPvE",
         "genre": [
           "Shooter",
           "Multiplayer",
-          "PvE",
+          "PvPvE",
           "Strategie"
         ],
         "description": "Un shooter de control teritorial pe echipe în care jucătorii luptă să-și recucerească orașul de la Furries.",

@@ -6,10 +6,10 @@
       "genre": [
         "Shooter",
         "Multiplayer",
-        "PvE",
+        "PvPvE",
         "Strategy"
       ],
-      "genreLabel": "PvE Shooter",
+      "genreLabel": "PvPvE Shooter",
       "gamePlatform": "Roblox",
       "applicationCategory": "Game",
       "robloxGameId": "16844978752",

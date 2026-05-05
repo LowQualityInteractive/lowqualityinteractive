@@ -115,7 +115,7 @@ function gameLoreNote(game: Game): string {
 }
 
 function renderGameAboutMarkdown(locale: Locale, game: Game, about: GameAboutEntry) {
-  const url = pageUrl(locale, `${game.slug}/about`);
+  const url = pageUrl(locale, game.slug);
   const playOnRoblox = about.links.find(
     (link) => link.external && /^https:\/\/(?:www\.)?roblox\.com\//i.test(link.href),
   )?.href ?? game.robloxUrl;
@@ -184,7 +184,7 @@ function renderHomeMarkdown(locale: Locale) {
   const allPublished = getPublishedGames(locale);
 
   const liveList = liveGames
-    .map((g) => `- **${g.name}** (${g.genreLabel}, ${statusLabel(g.status)}). ${g.description} [Play](${g.robloxUrl}) · [About](${pageUrl(locale, `${g.slug}/about`)})`)
+    .map((g) => `- **${g.name}** (${g.genreLabel}, ${statusLabel(g.status)}). ${g.description} [Play](${g.robloxUrl}) · [About](${pageUrl(locale, g.slug)})`)
     .join('\n');
   const allList = allPublished
     .map((g) => `- **${g.name}**, ${statusLabel(g.status)}`)
@@ -230,7 +230,7 @@ function renderGamesMarkdown(locale: Locale) {
       `### ${game.name}`,
       `- **Status:** ${statusLabel(game.status)}`,
       `- **Genre:** ${game.genreLabel}${about.genre ? ` (${about.genre.join(', ')})` : ''}`,
-      `- **About page:** ${pageUrl(locale, `${game.slug}/about`)}`,
+      `- **About page:** ${pageUrl(locale, game.slug)}`,
       `- **Roblox listing:** ${game.robloxUrl}`,
       '',
       game.description,
@@ -391,9 +391,13 @@ export function getMarkdownForRoute(locale: Locale, route: string): string {
   if (route === 'blogs') return renderBlogsMarkdown(locale);
   if (route === 'connect') return renderConnectMarkdown(locale);
   if (route === 'privacy-policy') return renderPrivacyMarkdown(locale);
+  // game pages used to live at <slug>/about; now they're at just
+  // <slug>. accept either form so old .md links don't 404.
   if (route.endsWith('/about')) {
-    const slug = route.replace(/\/about$/, '');
-    return getGameAboutMarkdown(locale, slug);
+    return getGameAboutMarkdown(locale, route.replace(/\/about$/, ''));
+  }
+  if ((publishedGameSlugs as readonly string[]).includes(route)) {
+    return getGameAboutMarkdown(locale, route);
   }
   throw new Error(`Unknown markdown route: ${route}`);
 }

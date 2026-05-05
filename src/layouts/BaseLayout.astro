@@ -94,15 +94,12 @@ const motionScript = sanitizeInlineScript(getMotionScript());
 const ogImageUrl = ogImage ? toAbsoluteSiteUrl(ogImage) : toAbsoluteSiteUrl('/assets/logo.png');
 
 // the .md sibling url we advertise to llm crawlers so they don't have
-// to render html. /about pages get <route>.md, everything else gets
-// <route>/index.md. an empty routePath means we're at the locale home
-// (so <locale>/index.md).
+// to render the html. every page now uses the same shape:
+// <route>/index.md, where an empty routePath is the locale home.
 const localePrefix = locale === 'en' ? '' : `/${locale}`;
 const trimmedRoute = routePath.replace(/^\/+|\/+$/g, '');
 const markdownPathname = trimmedRoute
-  ? trimmedRoute.endsWith('/about')
-    ? `${localePrefix}/${trimmedRoute}.md`
-    : `${localePrefix}/${trimmedRoute}/index.md`
+  ? `${localePrefix}/${trimmedRoute}/index.md`
   : `${localePrefix}/index.md`;
 const markdownUrl = toAbsoluteSiteUrl(markdownPathname);
 // fallback alt for the default share image (the logo).

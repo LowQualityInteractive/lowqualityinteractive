@@ -23,13 +23,14 @@ type PagesContext = {
   next: (input?: Request | string) => Promise<Response>;
 };
 
-// page url -> .md sibling url. matches what [...path].md.ts emits
-// /<slug>/about -> append .md
-// everything else -> <dir>/index.md
+// page url -> .md sibling url. matches what [...path].md.ts emits.
+// every page now uses the same <dir>/index.md shape; the document
+// root maps to /index.md. game pages used to live at /<slug>/about
+// with a sibling /<slug>/about.md — that's gone now, /<slug>/about
+// 301-redirects to /<slug>/.
 function deriveMarkdownPath(pathname: string): string {
   if (pathname === '' || pathname === '/') return '/index.md';
   const trimmed = pathname.replace(/\/$/, '');
-  if (trimmed.endsWith('/about')) return `${trimmed}.md`;
   return `${trimmed}/index.md`;
 }
 

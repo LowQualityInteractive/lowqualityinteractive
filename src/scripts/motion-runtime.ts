@@ -101,17 +101,32 @@ window.__lqiMotion = {
 };
 
 // hero entrance.
-// runs immediately on load. the hero kids carry .hero-enter with an
-// --enter-delay var (kept around for the css fallback). when the runtime
-// is alive we hand the stagger over to motion one, because it's nicer.
+// runs immediately on load. .hero-enter children carry an --enter-delay
+// var (kept around for the css fallback). when the runtime is alive,
+// motion one handles the stagger.
 const heroChildren = Array.from(document.querySelectorAll<HTMLElement>('.hero-enter'));
 if (heroChildren.length > 0) {
   if (reduce) {
-    heroChildren.forEach(releaseToCSS);
+    // reduce-motion users still get a short opacity-only fade. no
+    // transform = no translation = nothing that would trip vestibular
+    // sensitivities, but the page doesn't look fully static either.
+    heroChildren.forEach((el) => {
+      el.style.opacity = '0';
+      el.style.transform = '';
+    });
+    animate(
+      heroChildren,
+      { opacity: [0, 1] },
+      { duration: 0.45, delay: stagger(0.05), ease: easeEnter },
+    ).finished.then(() => {
+      heroChildren.forEach(releaseToCSS);
+    }).catch(() => {
+      heroChildren.forEach(releaseToCSS);
+    });
   } else {
-    // pin the start state explicitly so nothing flashes before we get
-    // going. 60px is movement you can actually see; the previous 22px
-    // was basically a polite suggestion.
+    // pin the start state explicitly so nothing flashes before we go.
+    // 60px is movement you can actually see; the previous 22px was a
+    // polite suggestion of motion.
     heroChildren.forEach((el) => {
       el.style.opacity = '0';
       el.style.transform = 'translate3d(0, 60px, 0) scale(0.92)';
@@ -133,6 +148,10 @@ if (heroChildren.length > 0) {
     ).finished.then(() => {
       // hand the resting state back to css so hover transforms work.
       heroChildren.forEach(releaseToCSS);
+    }).catch(() => {
+      // belt-and-braces: if the animation rejects for any reason, never
+      // leave the user staring at invisible elements.
+      heroChildren.forEach(releaseToCSS);
     });
   }
 }
@@ -145,9 +164,25 @@ if (heroChildren.length > 0) {
 const reveals = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
 if (reveals.length > 0) {
   if (reduce) {
+    // reduce-motion path: opacity-only fade-in on enter, no translate.
+    // we still gate on inView so off-screen content doesn't flash all at
+    // once when the page first loads.
     reveals.forEach((el) => {
-      el.classList.add('is-revealed');
-      releaseToCSS(el);
+      el.style.opacity = '0';
+      el.style.transform = '';
+    });
+    reveals.forEach((el) => {
+      inView(
+        el,
+        () => {
+          el.classList.add('is-revealed');
+          animate(el, { opacity: [0, 1] }, { duration: 0.45, ease: easeEnter })
+            .finished.then(() => releaseToCSS(el))
+            .catch(() => releaseToCSS(el));
+          return undefined;
+        },
+        { margin: '0px 0px -10% 0px' },
+      );
     });
   } else {
     // pin the initial offset so the js-driven animation has somewhere
@@ -181,6 +216,9 @@ if (reveals.length > 0) {
             // (.game-card:hover etc.) and the magnetic rule can apply.
             // this is the surgical fix for the bug where every revealed
             // card stayed pinned and quietly ignored every hover attempt.
+            releaseToCSS(el);
+          }).catch(() => {
+            // if the animation rejects, never leave the element invisible.
             releaseToCSS(el);
           });
           // inView callbacks can return a cleanup that fires on leave.
@@ -281,40 +319,32 @@ if (hoverable && !reduce) {
       if (!raf) raf = requestAnimationFrame(apply);
     });
     el.addEventListener('pointerleave', () => {
-      // ease back to rest with motion one, no harsh snap.
-      animate(
-        el,
-        { '--mx': '0px', '--my': '0px' },
-        { duration: 1.25, ease: easeEnter },
-      );
+      // crucial: cancel any pointermove rAF still queued. without this
+      // it would fire AFTER our spring-back starts, snap --mx/--my to
+      // the latest tx/ty (which we're about to zero anyway), and the
+      // animate() call below would have nothing left to animate from
+      // — the bigger ctas (PLAY) showed this clearly because they had
+      // bigger pre-animate offsets to fail to spring back from.
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
       tx = 0;
       ty = 0;
+      // capture the live offsets as the start of the spring-back so the
+      // animation has something to interpolate from regardless of when
+      // the browser last committed the inline style.
+      const fromX = el.style.getPropertyValue('--mx') || '0px';
+      const fromY = el.style.getPropertyValue('--my') || '0px';
+      animate(
+        el,
+        { '--mx': [fromX, '0px'], '--my': [fromY, '0px'] },
+        { duration: 0.55, ease: easeEnter },
+      );
     });
   });
 
-  // hero spotlight.
-  const spotlights = document.querySelectorAll<HTMLElement>('[data-spotlight]');
-  spotlights.forEach((el) => {
-    let raf = 0;
-    let px = 50;
-    let py = 50;
-    const apply = () => {
-      raf = 0;
-      el.style.setProperty('--sx', px.toFixed(1) + '%');
-      el.style.setProperty('--sy', py.toFixed(1) + '%');
-    };
-    el.addEventListener('pointermove', (e) => {
-      const r = el.getBoundingClientRect();
-      px = ((e.clientX - r.left) / r.width) * 100;
-      py = ((e.clientY - r.top) / r.height) * 100;
-      if (!raf) raf = requestAnimationFrame(apply);
-    });
-    el.addEventListener('pointerleave', () => {
-      px = 50;
-      py = 50;
-      if (!raf) raf = requestAnimationFrame(apply);
-    });
-  });
+  // (cursor spotlight intentionally removed — was decorative noise.)
 }
 
 // image fade-in on load.

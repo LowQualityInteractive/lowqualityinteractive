@@ -1,7 +1,9 @@
 ---
+// canonical game page is /it/<slug> now. this file is here only so
+// cached /it/<slug>/about urls don't 404 — permanent redirect to the
+// canonical path.
 import type { GetStaticPaths } from 'astro';
 import { publishedGameSlugs } from '../../../data/games';
-import GameAboutPage from '../../../views/GameAboutPage.astro';
 
 export const getStaticPaths: GetStaticPaths = () =>
   publishedGameSlugs.map((slug) => ({
@@ -13,7 +15,5 @@ interface Props {
   slug: string;
 }
 
-const { slug } = Astro.props;
+return Astro.redirect(`/it/${Astro.props.slug}/`, 301);
 ---
-
-<GameAboutPage locale="it" slug={slug} />

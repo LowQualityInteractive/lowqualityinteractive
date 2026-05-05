@@ -61,27 +61,63 @@ export function getLiveScript(messages: LiveMessages, games: LiveGame[], discord
       });
   }
 
-  // "new update" badge. hint that something shipped, somewhere.
+  // "new update" badge. we want this to be ACCURATE across reloads and
+  // tab closes — not flicker back on every refresh, not survive once the
+  // user has actually seen the latest update.
+  //
+  // strategy: build a fingerprint of "the latest update id per game"
+  // from the devlog json. compare with localStorage. if they differ,
+  // the user hasn't acknowledged whatever's currently live, so the dot
+  // shows. visiting /blogs writes the current fingerprint, which kills
+  // the dot until something new ships.
+  const SEEN_KEY = 'lqi-seen-updates';
+  const onBlogs = window.location.pathname.includes('/blogs');
+
+  const readSeen = () => {
+    try { return localStorage.getItem(SEEN_KEY) || ''; } catch { return ''; }
+  };
+  const writeSeen = (value) => {
+    try { localStorage.setItem(SEEN_KEY, value); } catch {}
+  };
+  const showBadges = () => {
+    document.querySelectorAll('[data-update-badge]').forEach((el) => {
+      el.removeAttribute('hidden');
+      el.setAttribute('aria-label', MESSAGES.updateBadgeLabel);
+    });
+  };
+  const hideBadges = () => {
+    document.querySelectorAll('[data-update-badge]').forEach((el) => {
+      el.setAttribute('hidden', '');
+    });
+  };
+
   fetch('/data/public-devlogs.json', { cache: 'no-store', signal: AbortSignal.timeout(8000) })
     .then((res) => res.ok ? res.json() : null)
     .catch(() => null)
     .then((payload) => {
       if (!payload) return;
-
       const games = Array.isArray(payload.games) ? payload.games : [];
-      const hasNew = games.some((game) =>
-        Array.isArray(game.updates) &&
-        game.updates.some((u, idx) => (typeof u.isNew === 'boolean' ? u.isNew : idx === 0))
-      );
 
-      if (hasNew) {
-        try {
-          if (sessionStorage.getItem('lqi-blogs-visited')) return;
-        } catch {}
-        document.querySelectorAll('[data-update-badge]').forEach((el) => {
-          el.removeAttribute('hidden');
-          el.setAttribute('aria-label', MESSAGES.updateBadgeLabel);
-        });
+      // fingerprint = latest update id from each game, joined. if any
+      // game ships a new update, this string changes; if nothing changes,
+      // the user's stored fingerprint still matches and the dot stays off.
+      const latestIds = games
+        .map((g) => Array.isArray(g.updates) && g.updates.length > 0 ? g.updates[0].id : null)
+        .filter((id) => typeof id === 'string' && id.length > 0);
+      const fingerprint = latestIds.join('|');
+
+      if (!fingerprint) return;
+
+      if (onBlogs) {
+        // user is on /blogs right now. they've seen what's live, so
+        // record this fingerprint and make sure the dot is hidden.
+        writeSeen(fingerprint);
+        hideBadges();
+        return;
+      }
+
+      if (fingerprint !== readSeen()) {
+        showBadges();
       }
     });
 
@@ -102,12 +138,9 @@ export function getLiveScript(messages: LiveMessages, games: LiveGame[], discord
       });
   }
 
-  // visiting /blogs counts as "seen" — drops the new-update dot.
-  if (window.location.pathname.includes('/blogs')) {
-    try { sessionStorage.setItem('lqi-blogs-visited', '1'); } catch {}
-    document.querySelectorAll('[data-update-badge]').forEach((el) => {
-      el.setAttribute('hidden', '');
-    });
-  }
+  // (the /blogs "seen" tracking now lives inside the fetch above so it
+  // can write the actual current fingerprint to localStorage. visiting
+  // /blogs without devlog data ever loading shouldn't permanently mark
+  // anything as seen.)
 })();`;
 }

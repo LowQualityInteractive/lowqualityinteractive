@@ -293,15 +293,21 @@ export function getGameJsonLd(locale: Locale, game: Game) {
   });
 }
 
+// game pages live at /<slug> directly now — no /about subpath, no
+// redirect. kept as an alias of getGameHref so any caller that used to
+// say "give me the about page" still gets the right url.
 export function getGameAboutPath(locale: Locale, game: Pick<Game, 'slug'>) {
-  return getLocalePath(locale, `${game.slug}/about`);
+  return getGameHref(locale, game);
 }
 
 export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutEntry = getGameAbout(game.id)) {
-  const localizedAboutUrl = getLocaleAbsolutePath(locale, `${game.slug}/about`);
+  // /<slug> is now the only page for the game (no separate /about), so
+  // the "about" url and the "game" url are the same — but the function
+  // still exposes both names so the schema graph below stays readable.
   const localizedGameUrl = getLocaleAbsolutePath(locale, game.slug);
+  const localizedAboutUrl = localizedGameUrl;
   const gamesIndexUrl = getLocaleAbsolutePath(locale, 'games');
-  const canonicalAboutUrl = `${SITE_URL}/${game.slug}/about`;
+  const canonicalAboutUrl = `${SITE_URL}/${game.slug}/`;
 
   const bodyText = about.body.join(' ').trim();
   const featuresText = about.features.join(', ').trim();
@@ -388,21 +394,21 @@ export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutE
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': 'AboutPage',
+        '@type': 'WebPage',
         '@id': `${localizedAboutUrl}#webpage`,
-        name: getSiteTitle(`About ${game.name}`),
+        name: getSiteTitle(game.name),
         url: localizedAboutUrl,
         description: game.pageDescription,
         inLanguage: locale,
-        isPartOf: { '@id': `${localizedGameUrl}#webpage` },
         about: { '@id': `${SITE_URL}/#${game.id}` },
       },
       videoGame,
+      // breadcrumb is just home → games → <game> now. there's no longer
+      // a separate "About" leaf to add; the slug page IS the about page.
       getBreadcrumbList(localizedAboutUrl, [
         { name: BREADCRUMB_LABELS.home, url: getLocaleAbsolutePath(locale) },
         { name: BREADCRUMB_LABELS.games, url: gamesIndexUrl },
         { name: game.name, url: localizedGameUrl },
-        { name: 'About', url: localizedAboutUrl },
       ]),
     ],
   });

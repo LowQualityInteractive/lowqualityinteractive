@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import { publishedGameSlugs } from '../../data/games';
+import GameAboutPage from '../../views/GameAboutPage.astro';
 
 export const getStaticPaths: GetStaticPaths = () =>
   publishedGameSlugs.map((slug) => ({
@@ -12,5 +13,7 @@ interface Props {
   slug: string;
 }
 
-return Astro.redirect(`/ru/${Astro.props.slug}/about`, 301);
+const { slug } = Astro.props;
 ---
+
+<GameAboutPage locale="ru" slug={slug} />

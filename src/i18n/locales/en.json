@@ -186,11 +186,11 @@
   "catalog": {
     "games": {
       "eradication": {
-        "genreLabel": "PvE Shooter",
+        "genreLabel": "PvPvE Shooter",
         "genre": [
           "Shooter",
           "Multiplayer",
-          "PvE",
+          "PvPvE",
           "Strategy"
         ],
         "description": "team-based territory shooter. take the town back from furries.",

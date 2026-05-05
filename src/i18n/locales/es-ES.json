@@ -168,11 +168,11 @@
   "catalog": {
     "games": {
       "eradication": {
-        "genreLabel": "Shooter PvE",
+        "genreLabel": "Shooter PvPvE",
         "genre": [
           "Shooter",
           "Multijugador",
-          "PvE",
+          "PvPvE",
           "Estrategia"
         ],
         "description": "Un shooter de control territorial por equipos donde los jugadores luchan por recuperar su ciudad de los Furries.",

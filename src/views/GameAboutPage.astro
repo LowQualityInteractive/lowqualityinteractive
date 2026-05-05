@@ -3,12 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import {
   getGameBySlug,
   getGameAboutJsonLd,
-  getGameHref,
   getGameUpdateHref,
 } from '../data/games';
 import { getGameAbout } from '../data/gameAbout';
-import { getSiteTitle, SITE_NAME, toAbsoluteSiteUrl } from '../data/site';
-import { getMessages, interpolate, type Locale } from '../i18n/messages';
+import { getSiteTitle, SITE_NAME } from '../data/site';
+import { getLocalePath, getMessages, interpolate, type Locale } from '../i18n/messages';
 
 interface Props {
   locale: Locale;
@@ -25,7 +24,8 @@ if (!game) {
   throw new Error(`Unknown game slug: ${slug}`);
 }
 
-const aboutRoutePath = `${game.slug}/about`;
+// route is just /<slug> now — there's no separate /about subpath.
+const aboutRoutePath = game.slug;
 const statusLabel = statusLabels[game.status as keyof typeof statusLabels] ?? game.status;
 const aboutLabels = page.about ?? {
   kicker: 'About this game',
@@ -61,8 +61,6 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
   ogImage={game.artwork.src}
   ogImageAlt={game.artwork.alt}
 >
-  <link slot="head-extra" rel="up" href={toAbsoluteSiteUrl(getGameHref(locale, game))} />
-
   <section class="hero">
     <span class="kicker hero-enter" style="--enter-delay: 40ms">{aboutLabels.kicker}</span>
     <h1 class="hero-enter" style="--enter-delay: 120ms">{game.name}</h1>
@@ -82,7 +80,7 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
           <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
-      <a class="button ghost" href={getGameHref(locale, game)}>
+      <a class="button ghost" href={getLocalePath(locale, 'games')}>
         <span>{page.backToGames}</span>
       </a>
     </div>

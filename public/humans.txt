@@ -7,7 +7,7 @@ Location: Worldwide (remote)
 Contact: contact@lowqualityinteractive.com
 
 /* GAMES */
-ERADICATION — team-based PvE shooter — status: live — https://www.roblox.com/games/16844978752/ERADICATION
+ERADICATION — team-based PvPvE shooter — status: live — https://www.roblox.com/games/16844978752/ERADICATION
 Favela '94 — close-quarters tactical PvP shooter — status: preview — https://www.roblox.com/games/125235548670144/Favela-94
 DON POLLO OBBY — meme obby — status: sunset — https://www.roblox.com/games/133585619009566/DON-POLLO-OBBY
 Crowns of Steel — strategy — status: in development, classified
@@ -30,7 +30,7 @@ Default language: English
 Localized variants: Português (Brasil), Español (México), Español (España), Русский, Deutsch, Italiano, Français, Română, Ελληνικά
 Technology: Astro static site, deployed on Cloudflare
 Primary routes: /, /games/, /blogs/, /connect/, /privacy-policy/
-Game routes: /{slug}/ (redirect page) and /{slug}/about/ (canonical entity page)
+Game routes: /{slug}/ (redirect page) and /{slug}/ (canonical entity page)
 Localized routes: /{locale}/... mirrors the English tree
 
 /* MACHINE-READABLE COUSINS */

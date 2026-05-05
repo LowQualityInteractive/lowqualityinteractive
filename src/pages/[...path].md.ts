@@ -12,9 +12,9 @@
 // output examples:
 //   /index.md
 //   /games/index.md
-//   /eradication/about.md
+//   /eradication/index.md
 //   /de/index.md
-//   /de/eradication/about.md
+//   /de/eradication/index.md
 
 import type { APIRoute, GetStaticPaths } from 'astro';
 import { LOCALES, type Locale } from '../i18n/messages';
@@ -49,11 +49,13 @@ export const getStaticPaths: GetStaticPaths = () => {
     }
 
     for (const slug of MARKDOWN_GAME_SLUGS) {
-      // game-about pages emit <prefix>/<slug>/about.md.
-      const segments = [localeSegment, slug, 'about'].filter(Boolean);
+      // game pages used to emit <prefix>/<slug>/about.md. they now sit
+      // at <prefix>/<slug>/index.md to mirror the html route, which is
+      // /<slug>/ directly (no /about subpath, no redirect).
+      const segments = [localeSegment, slug, 'index'].filter(Boolean);
       entries.push({
         params: { path: segments.join('/') },
-        props: { locale, route: `${slug}/about` },
+        props: { locale, route: slug },
       });
     }
   }
