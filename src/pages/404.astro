@@ -6,6 +6,7 @@ import { getNotFoundScript } from '../scripts/notFound';
 import { getSiteScript } from '../scripts/site';
 import { getThemeScript } from '../scripts/theme';
 import { getCookiesBootstrap } from '../scripts/cookies';
+import { getMotionBootstrap, getMotionScript } from '../scripts/motion';
 
 const english = getMessages('en');
 const page = english.pages.notFound;
@@ -46,8 +47,10 @@ const notFoundScriptRaw = sanitizeInlineScript(
   ),
 );
 const notFoundScript = notFoundScriptRaw;
+const motionBootstrap = sanitizeInlineScript(getMotionBootstrap());
+const motionScript = sanitizeInlineScript(getMotionScript());
 
-const scripts404 = [cookiesBootstrap, themeScript, siteScript, notFoundScript];
+const scripts404 = [cookiesBootstrap, themeScript, motionBootstrap, siteScript, notFoundScript, motionScript];
 const scriptHashes = (await Promise.all(scripts404.map((s) => cspScriptHash(s)))).join(' ');
 const csp404 = [
   "default-src 'self'",
@@ -80,22 +83,37 @@ const csp404 = [
   <link rel="alternate" type="text/plain" title={english.meta.llmContextTitle} href="/llms.txt">
   <script is:inline set:html={cookiesBootstrap}></script>
   <script is:inline set:html={themeScript}></script>
+  <script is:inline set:html={motionBootstrap}></script>
 </head>
 <body>
   <main class="not-found-main">
     <div class="container not-found-shell">
       <div class="not-found-card">
-        <p class="kicker" id="not-found-kicker">{page.kicker}</p>
-        <h1 class="not-found-title" id="not-found-heading">{page.heading}</h1>
-        <p class="not-found-copy" id="not-found-copy">{page.copy}</p>
-        <div class="cta-row not-found-actions">
-          <a class="button primary" id="not-found-home" href={getLocalePath('en')}>{page.goHome}</a>
-          <a class="button ghost" id="not-found-games" href={getLocalePath('en', 'games')}>{page.viewGames}</a>
+        <p class="kicker hero-enter" style="--enter-delay: 40ms" id="not-found-kicker">{page.kicker}</p>
+        <h1 class="not-found-title hero-enter" style="--enter-delay: 120ms" id="not-found-heading">{page.heading}</h1>
+        <p class="not-found-copy hero-enter" style="--enter-delay: 220ms" id="not-found-copy">{page.copy}</p>
+        <div class="cta-row not-found-actions hero-enter" style="--enter-delay: 300ms">
+          <a class="button primary" id="not-found-home" href={getLocalePath('en')}>
+            <span>{page.goHome}</span>
+            <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a class="button ghost" id="not-found-games" href={getLocalePath('en', 'games')}>
+            <span>{page.viewGames}</span>
+            <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
   </main>
   <script is:inline set:html={siteScript}></script>
   <script is:inline set:html={notFoundScript}></script>
+  <script is:inline set:html={motionScript}></script>
+  <script>
+    import '../scripts/motion-runtime.ts';
+  </script>
 </body>
 </html>

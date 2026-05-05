@@ -19,6 +19,12 @@ interface LqiThemeController {
   syncToggleButton(): void;
 }
 
+interface LqiMotionController {
+  replaceChildren(root: HTMLElement, children: Node[]): void;
+  enter(root: HTMLElement): void;
+}
+
 interface Window {
+  __lqiMotion?: LqiMotionController;
   __lqiTheme?: LqiThemeController;
 }

@@ -27,7 +27,7 @@ export function getLiveScript(messages: LiveMessages, games: LiveGame[], discord
     return String(n);
   };
 
-  // live player counts on game cards
+  // live player counts on game cards. yes, sometimes it says zero.
   const allGames = GAMES.filter((g) => g.universeId);
   if (allGames.length > 0) {
     const universeIds = allGames.map((g) => g.universeId).join(',');
@@ -61,7 +61,7 @@ export function getLiveScript(messages: LiveMessages, games: LiveGame[], discord
       });
   }
 
-  // "new update" badge
+  // "new update" badge. hint that something shipped, somewhere.
   fetch('/data/public-devlogs.json', { cache: 'no-store', signal: AbortSignal.timeout(8000) })
     .then((res) => res.ok ? res.json() : null)
     .catch(() => null)
@@ -85,7 +85,7 @@ export function getLiveScript(messages: LiveMessages, games: LiveGame[], discord
       }
     });
 
-  // discord online count
+  // discord online count. proof that someone, somewhere, is awake.
   if (DISCORD_GUILD_ID) {
     fetch('https://discord.com/api/guilds/' + DISCORD_GUILD_ID + '/widget.json', {
       signal: AbortSignal.timeout(6000),
@@ -102,7 +102,7 @@ export function getLiveScript(messages: LiveMessages, games: LiveGame[], discord
       });
   }
 
-  // hitting /blogs counts as "seen"
+  // visiting /blogs counts as "seen" — drops the new-update dot.
   if (window.location.pathname.includes('/blogs')) {
     try { sessionStorage.setItem('lqi-blogs-visited', '1'); } catch {}
     document.querySelectorAll('[data-update-badge]').forEach((el) => {

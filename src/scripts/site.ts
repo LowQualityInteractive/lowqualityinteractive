@@ -149,8 +149,8 @@ export function getSiteScript(
     }
   }
 
-  // on en pages: redirect if user has a stored non-en pref, or browser
-  // wants non-en on first visit
+  // on en pages: redirect if the user has a stored non-en preference,
+  // or if the browser politely insists on non-en on first visit.
   if (CONFIG.isDefaultLocale && !CONFIG.noLocaleRedirect) {
     const preferredLocale = getStoredLocale() || detectPreferredLocale();
     setStoredLocale(preferredLocale);
@@ -263,7 +263,7 @@ export function getSiteScript(
         closeListbox();
         localeBtn.focus();
       } else if (e.key.length === 1) {
-        // type-ahead
+        // jump to whichever option starts with the key the user pressed.
         const match = opts.findIndex((opt) =>
           (opt.textContent || '').trim().toLowerCase().startsWith(e.key.toLowerCase())
         );
@@ -271,14 +271,15 @@ export function getSiteScript(
       }
     });
 
-    // close on outside click
+    // close when the user clicks anywhere outside the dropdown.
     document.addEventListener('click', (e) => {
       if (!localeSwitcher.contains(e.target instanceof Element ? e.target : null)) {
         closeListbox();
       }
     });
 
-    // focus the listbox when open so keys land on it
+    // shift focus to the listbox when it opens so keypresses land here
+    // and not on whatever the user happened to click last.
     const observer = new MutationObserver(() => {
       if (!localeListbox.hidden) localeListbox.focus();
     });
@@ -404,11 +405,12 @@ export function getSiteScript(
     body.classList.add('is-leaving');
     window.setTimeout(() => {
       window.location.href = destination.href;
-    }, prefersReducedMotion.matches ? 0 : 240);
+    }, prefersReducedMotion.matches ? 0 : 800);
   });
 
-  // strip the fade-out class on pageshow
-  // bfcache restore would otherwise leave the body invisible
+  // strip the fade-out class on pageshow. bfcache restore would
+  // otherwise leave the body invisible, which is a fun way to make
+  // people think the site is broken.
   window.addEventListener('pageshow', () => {
     body.classList.remove('is-leaving');
   });

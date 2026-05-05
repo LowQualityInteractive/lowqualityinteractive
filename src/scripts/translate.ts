@@ -1,5 +1,7 @@
-// iife that sets up window.__lqiTranslate (mymemory + sessionStorage cache)
-// re-inlining is fine, first one wins
+// iife that sets up window.__lqiTranslate. mymemory api + sessionStorage
+// cache so we don't re-translate the same string fifteen times.
+// re-inlining this script is fine — first one to set the global wins,
+// the rest gracefully back off.
 export function getTranslateBootstrap(locale: string) {
   return String.raw`(() => {
   if (window.__lqiTranslate) return;
@@ -75,7 +77,7 @@ export function getTranslateBootstrap(locale: string) {
     translateAll();
   }
 
-  // re-run when blogs inject new DOM
+  // re-run when the blogs script injects fresh dom on its own schedule.
   const mo = new MutationObserver(() => translateAll());
   if (document.body) {
     mo.observe(document.body, { childList: true, subtree: true });

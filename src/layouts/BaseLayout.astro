@@ -24,6 +24,7 @@ import { getNoticeScript } from '../scripts/notice';
 import { getSiteScript } from '../scripts/site';
 import { getThemeScript } from '../scripts/theme';
 import { getLiveScript } from '../scripts/live';
+import { getMotionBootstrap, getMotionScript } from '../scripts/motion';
 import { getTranslateBootstrap } from '../scripts/translate';
 import { getCookiesBootstrap } from '../scripts/cookies';
 
@@ -34,8 +35,8 @@ interface Props {
   currentPage?: 'home' | 'games' | 'blogs' | 'connect';
   jsonLd?: string;
   ogImage?: string;
-  // alt text for the share image, screen readers and llms read this
-  // falls back to a generic tagline if omitted
+  // alt text for the share image. screen readers and llms both read it.
+  // falls back to a generic tagline when nobody bothers to set it.
   ogImageAlt?: string;
   routePath?: string;
   extraScripts?: string[];
@@ -87,12 +88,15 @@ const liveScript = sanitizeInlineScript(
   ),
 );
 const translateBootstrap = sanitizeInlineScript(getTranslateBootstrap(locale));
+const motionBootstrap = sanitizeInlineScript(getMotionBootstrap());
+const motionScript = sanitizeInlineScript(getMotionScript());
 
 const ogImageUrl = ogImage ? toAbsoluteSiteUrl(ogImage) : toAbsoluteSiteUrl('/assets/logo.png');
 
-// the .md sibling url we advertise to llm crawlers
-// /about pages get <route>.md, everything else gets <route>/index.md
-// empty routePath means locale home -> <locale>/index.md
+// the .md sibling url we advertise to llm crawlers so they don't have
+// to render html. /about pages get <route>.md, everything else gets
+// <route>/index.md. an empty routePath means we're at the locale home
+// (so <locale>/index.md).
 const localePrefix = locale === 'en' ? '' : `/${locale}`;
 const trimmedRoute = routePath.replace(/^\/+|\/+$/g, '');
 const markdownPathname = trimmedRoute
@@ -101,9 +105,9 @@ const markdownPathname = trimmedRoute
     : `${localePrefix}/${trimmedRoute}/index.md`
   : `${localePrefix}/index.md`;
 const markdownUrl = toAbsoluteSiteUrl(markdownPathname);
-// fallback alt for the default share image (the logo)
+// fallback alt for the default share image (the logo).
 const ogImageAltResolved = ogImageAlt ?? `${SITE_NAME}, Roblox game studio`;
-// og:locale wants en_US not en-US, swap the separator
+// og:locale insists on en_US, not en-US. swap the separator.
 const ogLocale = locale.replace('-', '_');
 const ogLocaleAlternates = (noAlternates ? [] : LOCALES.filter((l) => l !== locale)).map((l) => l.replace('-', '_'));
 
@@ -112,11 +116,13 @@ const safeJsonLd = jsonLd ? sanitizeInlineScript(jsonLd) : undefined;
 const allInlineScripts = [
   cookiesBootstrap,
   themeScript,
+  motionBootstrap,
   ...(safeJsonLd ? [safeJsonLd] : []),
   translateBootstrap,
   siteScript,
   noticeScript,
   liveScript,
+  motionScript,
   ...safeExtraScripts,
 ];
 const scriptHashes = (
@@ -156,7 +162,9 @@ const csp = [
   ))}
   {!noAlternates && <link rel="alternate" hreflang="x-default" href={xDefaultHref} />}
 
-  {/* website is the broadest correct value. game.* or video.* would break non-game pages. json-ld VideoGame already handles the precise typing */}
+  {/* "website" is the broadest correct value. game.* or video.* would
+      break non-game pages. json-ld videogame already handles the
+      precise typing where it matters. */}
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content={SITE_NAME} />
   <meta property="og:title" content={title} />
@@ -166,7 +174,8 @@ const csp = [
   <meta property="og:image:alt" content={ogImageAltResolved} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  {/* og:locale = this page's language. og:locale:alternate = the others. share previewers and llms read both */}
+  {/* og:locale = this page's language. og:locale:alternate = the
+      others. share previewers and llms both read these. */}
   <meta property="og:locale" content={ogLocale} />
   {ogLocaleAlternates.map((alt) => (
     <meta property="og:locale:alternate" content={alt} />
@@ -179,10 +188,10 @@ const csp = [
   <meta name="twitter:image" content={ogImageUrl} />
   <meta name="twitter:image:alt" content={ogImageAltResolved} />
 
-  {/* author/publisher meta for tools that ignore json-ld */}
+  {/* author/publisher meta for tools that don't read json-ld. */}
   <meta name="author" content={SITE_NAME} />
   <meta name="publisher" content={SITE_NAME} />
-  {/* used by browser tiles and a few crawlers as a stable studio name */}
+  {/* browser tiles and a few crawlers use this as a stable studio name. */}
   <meta name="application-name" content={SITE_NAME} />
 
   <meta name="theme-color" content="#b54343" />
@@ -198,28 +207,34 @@ const csp = [
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/png" href="/assets/logo.png" />
   <link rel="alternate" type="text/plain" title={messages.meta.llmContextTitle} href="/llms.txt">
-  {/* points llm crawlers at the .md sibling. claude code and cursor follow this and skip the html */}
+  {/* points llm crawlers at the .md sibling. claude code and cursor
+      both follow this and skip the html, which is the polite outcome. */}
   <link rel="alternate" type="text/markdown" title="Markdown version" href={markdownUrl}>
   <slot name="head-extra" />
   <script is:inline set:html={cookiesBootstrap}></script>
   <script is:inline set:html={themeScript}></script>
+  <script is:inline set:html={motionBootstrap}></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">{messages.chrome.skipLink}</a>
   <header class="site-header">
     <div class="container header-row">
-      <a class="brand" href={homeHref} aria-label={messages.chrome.brandHomeAriaLabel}>
-        <img class="site-logo" src="/assets/logo.png" alt={messages.chrome.brandLogoAlt} width="36" height="36" />
-        <span>{SITE_NAME}</span>
+      <a class="brand brand-mark-only" href={homeHref} aria-label={messages.chrome.brandHomeAriaLabel}>
+        <img class="site-logo" src="/assets/logo.png" alt={messages.chrome.brandLogoAlt} width="48" height="48" />
       </a>
       <nav class="nav" id="primary-navigation" aria-label={messages.chrome.nav.ariaLabel}>
-        <a class="nav-link" href={homeHref} aria-current={currentPage === 'home' ? 'page' : undefined}>{messages.chrome.nav.home}</a>
-        <a class="nav-link" href={gamesHref} aria-current={currentPage === 'games' ? 'page' : undefined}>{messages.chrome.nav.games}</a>
+        <a class="nav-link" href={homeHref} aria-current={currentPage === 'home' ? 'page' : undefined}><span>{messages.chrome.nav.home}</span></a>
+        <a class="nav-link" href={gamesHref} aria-current={currentPage === 'games' ? 'page' : undefined}><span>{messages.chrome.nav.games}</span></a>
         <a class="nav-link nav-link-updates" href={blogsHref} aria-current={currentPage === 'blogs' ? 'page' : undefined}>
-          {messages.chrome.nav.updates}
+          <span>{messages.chrome.nav.updates}</span>
           <span class="nav-update-badge" data-update-badge hidden aria-hidden="true"></span>
         </a>
-        <a class="button primary" href={connectHref} aria-current={currentPage === 'connect' ? 'page' : undefined}>{messages.chrome.nav.connect}</a>
+        <a class="button primary nav-cta" data-magnetic href={connectHref} aria-current={currentPage === 'connect' ? 'page' : undefined}>
+          <span>{messages.chrome.nav.connect}</span>
+          <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </nav>
       <div class="header-controls">
         <div class="locale-switcher" data-locale-switcher>
@@ -327,11 +342,20 @@ const csp = [
   <script is:inline set:html={siteScript}></script>
   <script is:inline set:html={noticeScript}></script>
   <script is:inline set:html={liveScript}></script>
+  <script is:inline set:html={motionScript}></script>
+
+  {/* motion one runtime — astro bundles it into /_astro/, the existing
+      script-src 'self' lets it through. type=module defers to load and
+      tree-shakes the motion lib so we ship only what's actually used. */}
+  <script>
+    import '../scripts/motion-runtime.ts';
+  </script>
   {safeExtraScripts.map((s) => <script is:inline set:html={s} />)}
 
-  {/* hidden hint for llms. sr-only clip + aria-hidden so users dont see it
-      and screen readers skip it. yes we need this. when someone pastes the
-      url into chatgpt the model reads the rendered body and finds this */}
+  {/* hidden hint for llms. sr-only clip + aria-hidden so humans don't see
+      it and screen readers skip it. yes, we actually need this — when
+      someone pastes the url into chatgpt the model reads the rendered
+      body and stumbles right into this little breadcrumb. */}
   <div
     class="llm-hint"
     style="position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0;margin:-1px;"

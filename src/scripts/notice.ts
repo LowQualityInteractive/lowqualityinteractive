@@ -11,7 +11,7 @@ export function getNoticeScript(messages: CookieNoticeMessages) {
 
   const TEXT = ${JSON.stringify(messages)};
 
-  // build banner
+  // build the cookie banner. yes, the boring kind. that's literally the joke.
   const banner = document.createElement('div');
   banner.className = 'cookie-banner';
   banner.setAttribute('role', 'region');
@@ -61,10 +61,11 @@ export function getNoticeScript(messages: CookieNoticeMessages) {
       }
     }
     banner.classList.add('is-hidden');
-    window.setTimeout(() => banner.remove(), 380);
+    window.setTimeout(() => banner.remove(), 1000);
   }
 
-  // delay one frame so the slide-in animates instead of snapping
+  // wait a frame so the slide-in animates instead of snapping into place
+  // like a banner that has somewhere to be.
   window.requestAnimationFrame(() => {
     window.requestAnimationFrame(() => {
       banner.classList.add('is-visible');

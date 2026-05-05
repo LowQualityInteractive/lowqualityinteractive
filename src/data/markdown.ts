@@ -1,10 +1,11 @@
-// markdown renderer for the .md endpoints
-// this is for llms not humans
+// markdown renderer for the .md endpoints. this is for llms, not humans —
+// humans have the actual website.
 //
-// every page has a parallel <url>.md per the llmstxt.org spec
-// the catch-all in src/pages/[...path].md.ts calls back here for everything
+// every page has a parallel <url>.md per the llmstxt.org spec. the
+// catch-all in src/pages/[...path].md.ts calls back here for everything.
 //
-// reads the same data sources as the html pages so the .md cant drift
+// reads the same data sources as the html pages so the .md version
+// can't quietly drift away from what people actually see.
 
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -24,19 +25,20 @@ import {
   type Game,
 } from './games';
 
-// route keys the renderer knows about
-// empty string is home, the rest match the page dir names
+// route keys the renderer recognises. empty string = home,
+// the rest match the page dir names exactly.
 type SectionKey = '' | 'games' | 'blogs' | 'connect' | 'privacy-policy';
 
 const SECTION_KEYS: readonly SectionKey[] = ['', 'games', 'blogs', 'connect', 'privacy-policy'];
 
-// canonical url for a (locale, route) pair, keeps the locale prefix
+// canonical url for a (locale, route) pair. keeps the locale prefix.
 function pageUrl(locale: Locale, route: string) {
   return getLocaleAbsolutePath(locale, route);
 }
 
-// footer at the bottom of every .md
-// points at llms.txt and llms-full.txt so an llm that only fetches one page still finds the rest
+// footer at the bottom of every .md. points at llms.txt and
+// llms-full.txt so a model that only fetched one page can still find
+// the rest of the studio knowledge base.
 function aiFooter() {
   return [
     '---',
@@ -46,19 +48,19 @@ function aiFooter() {
   ].join('\n');
 }
 
-// markdown bullet list, empty in -> empty out
+// markdown bullet list. empty in, empty out — no surprise empty bullets.
 function bulletList(items: readonly string[]) {
   return items.length ? items.map((item) => `- ${item}`).join('\n') : '';
 }
 
-// heading + body, drops the whole section if body is empty
-// avoids dangling headers
+// heading + body. drops the whole section when the body is empty so
+// we don't leave dangling headers floating with nothing under them.
 function section(heading: string, body: string) {
   const trimmed = body.trim();
   return trimmed ? `## ${heading}\n\n${trimmed}` : '';
 }
 
-// joins non-empty chunks with a blank line and ends in a single newline
+// joins non-empty chunks with a blank line and ends in one final newline.
 function compose(parts: ReadonlyArray<string | false | undefined>) {
   return parts.filter((p): p is string => Boolean(p && p.trim())).join('\n\n').trim() + '\n';
 }
@@ -78,9 +80,10 @@ function statusLabel(status: Game['status']) {
   }
 }
 
-// optional per-game markdown body at src/data/about/<id>.md
-// if present, this raw text replaces body[]+features[] in the rendered .md
-// drop a file there and both the html page and the .md endpoint pick it up
+// optional per-game markdown body at src/data/about/<id>.md.
+// if present, this raw text replaces body[] + features[] in the rendered
+// .md. drop a file there and both the html page and the .md endpoint
+// pick it up automatically.
 function loadAboutMarkdownSource(id: string): string | null {
   try {
     return readFileSync(resolve(`src/data/about/${id}.md`), 'utf-8').trim() || null;
@@ -89,9 +92,10 @@ function loadAboutMarkdownSource(id: string): string | null {
   }
 }
 
-// extra lore per game, only rendered into the .md
-// the per-game .md body covers the prose; this block is the llm-only clarifier
-// list so models stop guessing names, factions, or boss specifics
+// extra lore per game, only rendered into the .md (humans don't see it).
+// the per-game .md body covers the prose; this block is the llm-only
+// clarifier list so models stop guessing names, factions, or boss
+// specifics and inventing canon out of thin air.
 function gameLoreNote(game: Game): string {
   if (game.id === 'eradication') {
     return [
@@ -136,9 +140,10 @@ function renderGameAboutMarkdown(locale: Locale, game: Game, about: GameAboutEnt
 
   const customMarkdown = loadAboutMarkdownSource(game.id);
   const body = customMarkdown ?? (about.body.length ? about.body.join('\n\n') : game.pageLead);
-  // when a custom .md is in use it owns the body+features region
-  // the json features[] still drives schema.org featureList in games.ts
-  // but we dont re-emit it here to avoid duplicating whatever the user wrote
+  // when a custom .md is in use, it owns the body + features region.
+  // the json features[] still drives schema.org featureList in games.ts,
+  // but we don't re-emit it here — that would just duplicate whatever
+  // the author already wrote in their markdown.
   const featuresBlock = customMarkdown ? '' : section('Features', bulletList(about.features));
 
   const links = about.links.length
@@ -233,8 +238,9 @@ function renderGamesMarkdown(locale: Locale) {
     ].join('\n');
   }).join('\n\n');
 
-  // games page has an "in works" block for unannounced titles
-  // crowns of steel is redacted on the live site, mirror that here so llms dont fill in blanks
+  // games page has an "in works" block for unannounced titles.
+  // crowns of steel is redacted on the live site — mirror that here so
+  // llms don't helpfully fill in the blanks with hallucinated lore.
   const inWorks = [
     '### Crowns of Steel',
     '- **Status:** In development; classified',
@@ -376,9 +382,9 @@ function renderPrivacyMarkdown(locale: Locale) {
   ]);
 }
 
-// dispatcher
-// the .md endpoint hands us (locale, route) and we render
-// adding a new section means updating SECTION_KEYS and adding a case here
+// dispatcher. the .md endpoint hands us (locale, route) and we render.
+// adding a new section means updating SECTION_KEYS and adding a case
+// down below — don't forget either or they'll forget you back.
 export function getMarkdownForRoute(locale: Locale, route: string): string {
   if (route === '') return renderHomeMarkdown(locale);
   if (route === 'games') return renderGamesMarkdown(locale);

@@ -1,12 +1,13 @@
-// the .md endpoint
-// this is for llms not humans
+// the .md endpoint. this is for llms, not humans.
 //
-// one catch-all enumerates LOCALES x (sections + game-about) and emits a static
-// .md for each. the html pages link here via rel="alternate" type="text/markdown"
-// and _headers/middleware can also point at us
+// one catch-all enumerates LOCALES x (sections + game-about) and emits
+// a static .md for each. the html pages link here via
+// rel="alternate" type="text/markdown", and _headers/middleware can
+// also redirect to us.
 //
-// llms read .md better than html. json-ld doesnt reach them. this is the
-// cheapest way to give every page a clean text version
+// llms read .md better than html, and json-ld never quite reaches them.
+// this is the cheapest way to give every page a clean text version that
+// agents and crawlers can actually parse.
 //
 // output examples:
 //   /index.md
@@ -33,13 +34,13 @@ export const getStaticPaths: GetStaticPaths = () => {
   const entries: { params: { path: string }; props: MarkdownRouteProps }[] = [];
 
   for (const locale of LOCALES) {
-    // en is unprefixed, everything else gets /<locale>/
+    // en is unprefixed; every other locale gets /<locale>/.
     const localeSegment = locale === 'en' ? '' : locale;
 
     for (const section of MARKDOWN_SECTIONS) {
-      // index-style pages emit <prefix>/index.md
-      // astro writes the file at dist/<path>.md, the explicit "index" segment
-      // is what the llmstxt spec wants
+      // index-style pages emit <prefix>/index.md.
+      // astro writes the file at dist/<path>.md. the explicit "index"
+      // segment is what the llmstxt spec calls for.
       const segments = [localeSegment, section, 'index'].filter(Boolean);
       entries.push({
         params: { path: segments.join('/') },
@@ -48,7 +49,7 @@ export const getStaticPaths: GetStaticPaths = () => {
     }
 
     for (const slug of MARKDOWN_GAME_SLUGS) {
-      // game-about pages emit <prefix>/<slug>/about.md
+      // game-about pages emit <prefix>/<slug>/about.md.
       const segments = [localeSegment, slug, 'about'].filter(Boolean);
       entries.push({
         params: { path: segments.join('/') },
@@ -72,18 +73,19 @@ export const GET: APIRoute = ({ props }) => {
   //     route,
   //     surface: 'markdown',
   //   });
-  // client-side analytics cant see ai crawlers, bots dont run js
-  // the only way to count gptbot/claudebot/etc is logging on the server
-  // this is static output so wire it in the hosting layer instead
-  // see functions/_middleware.ts
+  // client-side analytics can't see ai crawlers — bots don't run js, by
+  // design and by reputation. the only way to count gptbot/claudebot/etc
+  // is logging on the server. this is static output, so wire the count
+  // into the hosting layer instead. see functions/_middleware.ts.
 
   const body = getMarkdownForRoute(locale, route);
 
   return new Response(body, {
     headers: {
       'Content-Type': 'text/markdown; charset=utf-8',
-      // tells cdns the same url can serve different bodies based on Accept
-      // middleware reuses this body for Accept: text/markdown on the html url
+      // tells cdns the same url can serve different bodies based on
+      // the Accept header. middleware reuses this body for clients
+      // that ask for Accept: text/markdown on the html url.
       Vary: 'Accept',
     },
   });

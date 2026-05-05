@@ -2,7 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getHomeJsonLd, publishedGameCount } from '../data/games';
+import { getHomeJsonLd, getPublishedGames, publishedGameCount } from '../data/games';
 import { getSiteTitle } from '../data/site';
 import { getLocalePath, getMessages, type Locale } from '../i18n/messages';
 
@@ -14,7 +14,7 @@ const { locale } = Astro.props;
 const messages = getMessages(locale);
 const page = messages.pages.home;
 
-// build-time fetch, skips cors
+// build-time fetch — happens on the server, so cors gets to sit this one out.
 const UNIVERSE_IDS = '5788461409,7915083902';
 let totalVisits = 0;
 try {
@@ -27,15 +27,7 @@ try {
   }
 } catch {}
 
-const formatVisits = (n: number) => {
-  if (n >= 1_000_000) return (n / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
-  if (n >= 1_000) return (n / 1_000).toFixed(1).replace(/\.0$/, '') + 'k';
-  return String(n);
-};
-
-const visitsDisplay = totalVisits > 0 ? formatVisits(totalVisits) : '—';
-
-// total update count from devlogs
+// total update count from devlogs. higher than you'd expect.
 let totalUpdates = 0;
 try {
   const devlogsPath = resolve('public/data/public-devlogs.json');
@@ -48,7 +40,36 @@ try {
   }
 } catch {}
 
-const updatesDisplay = totalUpdates > 0 ? `${totalUpdates}+` : '—';
+// game names for the hero marquee. we duplicate them inline so the css
+// translateX(-50%) loop reads as continuous instead of a panicked snap.
+const marqueeGames = getPublishedGames(locale).map((g) => g.name);
+const marqueeLoop = marqueeGames.length > 0 ? [...marqueeGames, ...marqueeGames, ...marqueeGames, ...marqueeGames] : [];
+
+// counter text rendered server-side. js resets it to 0 and animates up
+// when the element scrolls into view. no-js users see the real number
+// straight away — never an awkward idle zero pretending to be data.
+const formatAuto = (n: number) => {
+  if (n >= 1_000_000) {
+    const v = n / 1_000_000;
+    return (v >= 10 ? v.toFixed(0) : v.toFixed(1).replace(/\.0$/, '')) + 'M';
+  }
+  if (n >= 1_000) {
+    const v = n / 1_000;
+    return (v >= 10 ? v.toFixed(0) : v.toFixed(1).replace(/\.0$/, '')) + 'k';
+  }
+  return String(n);
+};
+const visitsText = totalVisits > 0 ? formatAuto(totalVisits) : '—';
+const updatesText = totalUpdates > 0 ? `${totalUpdates}+` : '—';
+
+// the headline usually ends with a punchy clause. we split off the
+// tail (last word and its punctuation) and render it in brand color
+// for emphasis. if the regex finds no split, we render the whole
+// thing untouched and move on with our lives.
+const heading: string = page.heading;
+const splitMatch = heading.match(/^(.+?)\s+([^\s.,!?]+[.!?]?)$/);
+const headingLead = splitMatch ? splitMatch[1] : heading;
+const headingTail = splitMatch ? splitMatch[2] : '';
 ---
 
 <BaseLayout
@@ -59,31 +80,79 @@ const updatesDisplay = totalUpdates > 0 ? `${totalUpdates}+` : '—';
   routePath=""
   jsonLd={getHomeJsonLd(locale)}
 >
-  <section class="hero">
-    <span class="kicker">{page.kicker}</span>
-    <h1>{page.heading}</h1>
-    <p class="lead">{page.lead}</p>
-    <div class="cta-row">
-      <a class="button primary" href={getLocalePath(locale, 'games')}>{page.exploreGames}</a>
-      <a class="button ghost" href={getLocalePath(locale, 'blogs')}>{page.readUpdates}</a>
+  <section class="hero" aria-labelledby="hero-heading" data-spotlight>
+    <span class="hero-eyebrow hero-enter" style="--enter-delay: 40ms">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span>{publishedGameCount} {publishedGameCount === 1 ? 'game live' : 'games live'}</span>
+    </span>
+    <h1 id="hero-heading" class="hero-enter" style="--enter-delay: 120ms">
+      {headingTail ? (
+        <>
+          {headingLead}{' '}
+          <span class="accent">{headingTail}</span>
+        </>
+      ) : heading}
+    </h1>
+    <p class="lead hero-enter" style="--enter-delay: 220ms">{page.lead}</p>
+    <div class="cta-row hero-enter" style="--enter-delay: 300ms">
+      <a class="button primary" data-magnetic href={getLocalePath(locale, 'games')}>
+        <span>{page.exploreGames}</span>
+        <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a class="button ghost" href={getLocalePath(locale, 'blogs')}>
+        <span>{page.readUpdates}</span>
+        <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
+    {marqueeLoop.length > 0 && (
+      <div class="hero-marquee hero-enter" style="--enter-delay: 380ms" aria-hidden="true">
+        <div class="hero-marquee-track">
+          {marqueeLoop.map((name) => (
+            <span class="hero-marquee-item">{name}</span>
+          ))}
+        </div>
+      </div>
+    )}
   </section>
 
-  <div class="stat-strip" aria-label={page.statsAriaLabel}>
-    <div class="stat-item">
-      <span class="stat-value">{publishedGameCount}</span>
-      <h2>{page.stats.liveGames.label}</h2>
-      <p>{page.stats.liveGames.copy}</p>
+  <div class="stat-bento" aria-label={page.statsAriaLabel}>
+    <div class="stat-feature" data-reveal>
+      <div class="stat-feature-inner">
+        <span class="stat-feature-label">{page.stats.cumulativeVisits.label}</span>
+        <span
+          class="stat-feature-value"
+          data-counter={totalVisits}
+          data-counter-format="auto"
+          data-counter-fallback="—"
+        >{visitsText}</span>
+        <p class="stat-feature-copy">{page.stats.cumulativeVisits.copy}</p>
+      </div>
     </div>
-    <div class="stat-item">
-      <span class="stat-value">{updatesDisplay}</span>
-      <h2>{page.stats.updatesShipped.label}</h2>
-      <p>{page.stats.updatesShipped.copy}</p>
-    </div>
-    <div class="stat-item">
-      <span class="stat-value">{visitsDisplay}</span>
-      <h2>{page.stats.cumulativeVisits.label}</h2>
-      <p>{page.stats.cumulativeVisits.copy}</p>
+    <div class="stat-supporting">
+      <div class="stat-tile" data-reveal data-reveal-i="1">
+        <span class="stat-tile-label">{page.stats.liveGames.label}</span>
+        <span
+          class="stat-tile-value"
+          data-counter={publishedGameCount}
+          data-counter-format="none"
+          data-counter-fallback="—"
+        >{publishedGameCount > 0 ? String(publishedGameCount) : '—'}</span>
+        <p class="stat-tile-copy">{page.stats.liveGames.copy}</p>
+      </div>
+      <div class="stat-tile" data-reveal data-reveal-i="2">
+        <span class="stat-tile-label">{page.stats.updatesShipped.label}</span>
+        <span
+          class="stat-tile-value"
+          data-counter={totalUpdates}
+          data-counter-format="plus"
+          data-counter-fallback="—"
+        >{updatesText}</span>
+        <p class="stat-tile-copy">{page.stats.updatesShipped.copy}</p>
+      </div>
     </div>
   </div>
 </BaseLayout>

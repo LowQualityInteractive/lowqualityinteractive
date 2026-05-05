@@ -186,6 +186,21 @@ export function getBlogsScript(
     return element;
   };
 
+  const replaceChildren = (root, children) => {
+    if (window.__lqiMotion) {
+      window.__lqiMotion.replaceChildren(root, children);
+      return;
+    }
+
+    root.replaceChildren(...children);
+  };
+
+  const enterChildren = (root) => {
+    if (window.__lqiMotion) {
+      window.__lqiMotion.enter(root);
+    }
+  };
+
   const renderChangelog = (update) => {
     const wrap = createElement('div', { className: 'changelog' });
     const sectionOrder = [...CHANGELOG_SECTIONS, 'footnotes'];
@@ -383,6 +398,7 @@ export function getBlogsScript(
       });
 
       versionList.replaceChildren(...versionButtons);
+      enterChildren(versionList);
       renderedGameIndex = state.currentGameIndex;
     };
 
@@ -433,7 +449,7 @@ export function getBlogsScript(
       }
 
       bodyChildren.push(renderChangelog(update));
-      body.replaceChildren(...bodyChildren);
+      replaceChildren(body, bodyChildren);
 
       if (TRANSLATE_ENABLED) {
         game.updates.forEach((_, i) => {

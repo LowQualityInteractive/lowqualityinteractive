@@ -23,19 +23,19 @@ const lastUpdated = 'April 23, 2026';
   jsonLd={getPrivacyPolicyJsonLd(locale)}
 >
   <section class="hero legal-shell">
-    <span class="kicker" data-translatable>{SITE_NAME}</span>
-    <h1 data-translatable>Privacy Policy</h1>
-    <p class="lead" data-translatable>
+    <span class="kicker hero-enter" style="--enter-delay: 40ms" data-translatable>{SITE_NAME}</span>
+    <h1 class="hero-enter" style="--enter-delay: 120ms" data-translatable>Privacy Policy</h1>
+    <p class="lead hero-enter" style="--enter-delay: 220ms" data-translatable>
       This policy covers information collected through our website and through our Roblox games and experiences.
     </p>
-    <p class="legal-meta">
+    <p class="legal-meta hero-enter" style="--enter-delay: 300ms">
       <span data-translatable>Last updated</span>
       <time datetime="2026-04-23">{lastUpdated}</time>
     </p>
   </section>
 
   <article class="legal-shell legal-copy" aria-label={page.label}>
-    <section class="legal-section">
+    <section class="legal-section" data-reveal>
       <h2 data-translatable>Who we are</h2>
       <p data-translatable>
         Low Quality Interactive (also referred to as LQI) is an independent Roblox game development studio. This
@@ -48,7 +48,7 @@ const lastUpdated = 'April 23, 2026';
       </p>
     </section>
 
-    <section class="legal-section">
+    <section class="legal-section" data-reveal>
       <h2 data-translatable>What this policy covers</h2>
       <p data-translatable>
         This policy applies to information collected through the Low Quality Interactive website and through our Roblox
@@ -56,7 +56,7 @@ const lastUpdated = 'April 23, 2026';
       </p>
     </section>
 
-    <section class="legal-section">
+    <section class="legal-section" data-reveal>
       <h2 data-translatable>Information we may receive</h2>
       <h3 data-translatable>Website</h3>
       <p data-translatable>
@@ -85,7 +85,7 @@ const lastUpdated = 'April 23, 2026';
       </p>
     </section>
 
-    <section class="legal-section">
+    <section class="legal-section" data-reveal>
       <h2 data-translatable>Cookies and browser storage</h2>
       <p data-translatable>
         Our website uses cookies and browser storage. When you first visit, you will be prompted to acknowledge our
@@ -109,7 +109,7 @@ const lastUpdated = 'April 23, 2026';
       </p>
     </section>
 
-    <section class="legal-section">
+    <section class="legal-section" data-reveal>
       <h2 data-translatable>How we use information</h2>
       <p data-translatable>
         We use the information described above to:
@@ -126,7 +126,7 @@ const lastUpdated = 'April 23, 2026';
       </ul>
     </section>
 
-    <section class="legal-section">
+    <section class="legal-section" data-reveal>
       <h2 data-translatable>Data retention</h2>
       <p data-translatable>General logs (joins, leaves, chat, feedback): up to 3 months</p>
       <p data-translatable>Anti-cheat and security logs: up to 6 months</p>
@@ -139,7 +139,7 @@ const lastUpdated = 'April 23, 2026';
       </p>
     </section>
 
-    <section class="legal-section">
+    <section class="legal-section" data-reveal>
       <h2 data-translatable>Third-party services</h2>
       <p data-translatable>
         We use the following third-party services, which may receive or process some of the data described in this
@@ -157,7 +157,7 @@ const lastUpdated = 'April 23, 2026';
       </p>
     </section>
 
-    <section class="legal-section">
+    <section class="legal-section" data-reveal>
       <h2 data-translatable>Data sharing</h2>
       <p data-translatable>
         Data may be transmitted to our internal dashboards and tools for moderation, analytics, and debugging
@@ -165,7 +165,7 @@ const lastUpdated = 'April 23, 2026';
       </p>
     </section>
 
-    <section class="legal-section">
+    <section class="legal-section" data-reveal>
       <h2 data-translatable>Age and audience</h2>
       <p data-translatable>
         Our website may be visited by people interested in Roblox experiences, but we do not knowingly ask children to
@@ -175,7 +175,7 @@ const lastUpdated = 'April 23, 2026';
       </p>
     </section>
 
-    <section class="legal-section">
+    <section class="legal-section" data-reveal>
       <h2 data-translatable>Security</h2>
       <p data-translatable>
         We take reasonable technical and organizational measures to protect the data we process. No system is perfectly
@@ -183,7 +183,7 @@ const lastUpdated = 'April 23, 2026';
       </p>
     </section>
 
-    <section class="legal-section">
+    <section class="legal-section" data-reveal>
       <h2 data-translatable>Your rights</h2>
       <p data-translatable>
         If you are located in the European Union or a region with similar data protection laws such as the GDPR, you
@@ -199,7 +199,7 @@ const lastUpdated = 'April 23, 2026';
       </p>
     </section>
 
-    <section class="legal-section">
+    <section class="legal-section" data-reveal>
       <h2 data-translatable>Changes to this policy</h2>
       <p data-translatable>
         We may update this policy from time to time. If we make changes, we will post the revised version here and
@@ -208,7 +208,7 @@ const lastUpdated = 'April 23, 2026';
       </p>
     </section>
 
-    <section class="legal-section">
+    <section class="legal-section" data-reveal>
       <h2 data-translatable>Contact</h2>
       <p data-translatable>Low Quality Interactive</p>
       <p>{CONTACT_EMAIL}</p>

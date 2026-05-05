@@ -145,7 +145,9 @@ export function sanitizeInlineScript(script: string) {
   return script.replace(/<\/script/gi, '<\\/script');
 }
 
-// sha256 for inline-script csp, must match the exact body between <script>...</script>
+// sha256 hash for the inline-script csp. has to match the exact body
+// between <script>...</script>, character for character — no trimming,
+// no creative reformatting, the browser is paying attention.
 export async function cspScriptHash(scriptBody: string) {
   const { createHash } = await import('node:crypto');
   return `'sha256-${createHash('sha256').update(scriptBody).digest('base64')}'`;

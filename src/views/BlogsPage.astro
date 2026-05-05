@@ -37,19 +37,19 @@ const blogsScript = sanitizeInlineScript(
   extraScripts={[blogsScript]}
 >
   <section class="hero">
-    <span class="kicker">{page.kicker}</span>
-    <h1>{page.heading}</h1>
-    <p class="lead">{page.lead}</p>
+    <span class="kicker hero-enter" style="--enter-delay: 40ms">{page.kicker}</span>
+    <h1 class="hero-enter" style="--enter-delay: 120ms">{page.heading}</h1>
+    <p class="lead hero-enter" style="--enter-delay: 220ms">{page.lead}</p>
   </section>
 
-  <div class="card" aria-label={page.chooseDevlogAriaLabel}>
+  <div class="card" aria-label={page.chooseDevlogAriaLabel} data-reveal>
     <h2>{page.gameDevlogsHeading}</h2>
     <div class="game-devlog-buttons" id="devlog-game-buttons">
       <p>{page.loadingGames}</p>
     </div>
   </div>
 
-  <div class="card devlog-viewer devlog-viewer-card" id="devlog-viewer" aria-live="polite">
+  <div class="card devlog-viewer devlog-viewer-card" id="devlog-viewer" aria-live="polite" data-reveal data-reveal-i="1">
     <h2>{page.viewerHeading}</h2>
     <p>{page.viewerFallback}</p>
   </div>
