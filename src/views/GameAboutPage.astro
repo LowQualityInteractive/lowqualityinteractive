@@ -176,7 +176,11 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
     })()}
 
     {AboutMarkdownContent ? (
-      <div class="about-body about-markdown" id="about-body" data-reveal>
+      // data-translatable-deep walks the rendered markdown and tags each
+      // paragraph / heading / list item for individual mymemory lookup.
+      // structure (<h2>, <ul>, <strong>) survives intact - only leaf text
+      // nodes get rewritten on non-en pages.
+      <div class="about-body about-markdown" id="about-body" data-reveal data-translatable-deep>
         <AboutMarkdownContent />
       </div>
     ) : (
@@ -227,14 +231,21 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
         progressive-disclosure ui without javascript. */}
     {gameFaqs.length > 0 && (
       <div class="about-faq" data-reveal data-reveal-i="3" id="faq">
-        <h2>Frequently asked</h2>
+        {/* heading + every question + every answer are tagged for the
+            mymemory runtime translator, so faqs render in the active
+            locale on non-en pages. the FAQPage json-ld stays english
+            on purpose: schema.org expects answers in the page's content
+            language and the canonical content language for these answers
+            is english (the source). visible answers get localized; the
+            crawler-facing structured data does not. */}
+        <h2 data-translatable>Frequently asked</h2>
         <dl class="faq-list">
           {gameFaqs.map((faq) => (
             <details class="faq-item">
               <summary>
-                <span class="faq-q">{faq.q}</span>
+                <span class="faq-q" data-translatable>{faq.q}</span>
               </summary>
-              <p class="faq-a">{faq.a}</p>
+              <p class="faq-a" data-translatable>{faq.a}</p>
             </details>
           ))}
         </dl>

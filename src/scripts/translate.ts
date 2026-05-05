@@ -58,10 +58,51 @@ export function getTranslateBootstrap(locale: string) {
     });
   };
 
+  // deep mode: rather than collapsing the whole subtree's textContent
+  // into one mymemory call (which loses structure and quickly exceeds
+  // the api's per-request length budget), translate each block-level
+  // element individually. used on rendered markdown so paragraphs,
+  // headings, list items each translate as their own short string.
+  // the structural tags survive the translation pass intact.
+  // BLOCK_TAGS picks the elements that read as standalone units. we
+  // skip <pre>/<code> on purpose - mymemory mangles code, and the few
+  // lines of code we ever ship in markdown should stay as-authored.
+  const BLOCK_TAGS = new Set([
+    'P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6',
+    'LI', 'BLOCKQUOTE', 'FIGCAPTION', 'DT', 'DD',
+  ]);
+  const translateDeep = (root) => {
+    if (!root || root.__lqiTranslatedDeep) return;
+    root.__lqiTranslatedDeep = true;
+    const walk = (el) => {
+      if (!(el instanceof Element)) return;
+      const tag = el.tagName;
+      if (tag === 'PRE' || tag === 'CODE' || tag === 'SCRIPT' || tag === 'STYLE') return;
+      if (BLOCK_TAGS.has(tag)) {
+        // only translate when the block has no block-level descendants
+        // (otherwise we'd duplicate work - the inner blocks will be hit
+        // by their own walk pass). a <p> with inline <strong>/<em> is a
+        // leaf for us; a <blockquote> wrapping <p>s is not.
+        let hasBlockChild = false;
+        for (const child of el.children) {
+          if (BLOCK_TAGS.has(child.tagName)) { hasBlockChild = true; break; }
+        }
+        if (!hasBlockChild) {
+          translateNode(el);
+          return;
+        }
+      }
+      for (const child of el.children) walk(child);
+    };
+    walk(root);
+  };
+
   const translateScope = (root) => {
     const scope = root || document;
     if (scope.matches && scope.matches('[data-translatable]')) translateNode(scope);
+    if (scope.matches && scope.matches('[data-translatable-deep]')) translateDeep(scope);
     scope.querySelectorAll('[data-translatable]').forEach(translateNode);
+    scope.querySelectorAll('[data-translatable-deep]').forEach(translateDeep);
   };
 
   window.__lqiTranslate = { enabled: true, one, translateScope };
