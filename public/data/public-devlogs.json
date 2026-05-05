@@ -6,6 +6,30 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v50j",
+          "version": "v5.0j",
+          "date": "5/4/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added rewards for defending a territory, claiming a territory, and engaging Whiskorians on a territory.",
+              "Added a reward for using the callout menu.",
+              "Added an assist system to credit players for contributing to kills.",
+              "Added a round end UI to display key stats at the conclusion of each round."
+            ],
+            "changes": [
+              "Slightly improved death feedback to better communicate the cause and context of a player's death."
+            ],
+            "bugs": [],
+            "removals": [
+              "Temporarily pulled back the Infection game mode pending further development."
+            ],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
           "id": "eradication-v50i",
           "version": "v5.0i",
           "date": "5/4/26",
