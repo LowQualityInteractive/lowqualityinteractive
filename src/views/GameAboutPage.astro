@@ -42,17 +42,22 @@ const aboutLabels = page.about ?? {
 };
 
 const aboutData = getGameAbout(game.id);
-const gameFaqs = getGameFaqs(game, aboutData);
+const gameFaqs = getGameFaqs(locale, game, aboutData);
 
-// optional per-game markdown file at src/data/about/<id>.md.
-// drop a file there and it replaces the body+features block on this
-// page and on the .md endpoint. no file = falls back to body[] and
-// features[] from the json. translation note: markdown content is not
-// auto-translated, so if you want translation hooks, write
-// data-translatable inline html instead.
+// per-game markdown file at src/data/about/<id>.md (english source).
+// per-locale translations live alongside as <id>.<locale>.md, generated
+// by scripts/translate-locales.mjs at the studio's discretion (so it
+// only hits mymemory when content actually changes). missing locale
+// file falls back to english.
 type AboutModule = { Content: (props: Record<string, unknown>) => unknown };
 const aboutMarkdownModules = import.meta.glob<AboutModule>('../data/about/*.md', { eager: true });
-const aboutMarkdown = aboutMarkdownModules[`../data/about/${game.id}.md`] ?? null;
+// try locale-specific first, then english.
+const localeKey = `../data/about/${game.id}.${locale}.md`;
+const englishKey = `../data/about/${game.id}.md`;
+const aboutMarkdown =
+  aboutMarkdownModules[localeKey]
+  ?? aboutMarkdownModules[englishKey]
+  ?? null;
 const AboutMarkdownContent = aboutMarkdown?.Content;
 ---
 
@@ -176,11 +181,16 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
     })()}
 
     {AboutMarkdownContent ? (
-      // data-translatable-deep walks the rendered markdown and tags each
-      // paragraph / heading / list item for individual mymemory lookup.
-      // structure (<h2>, <ul>, <strong>) survives intact - only leaf text
-      // nodes get rewritten on non-en pages.
-      <div class="about-body about-markdown" id="about-body" data-reveal data-translatable-deep>
+      // markdown body. translation is handled at BUILD time by
+      // scripts/translate-locales.mjs - it produces per-locale sibling
+      // files (eradication.pt-BR.md etc) that this view picks the right
+      // one from. we used to tag this with data-translatable-deep and
+      // let the runtime mymemory translator walk the dom, but a single
+      // long page issues 30+ api calls per visitor and instantly hit
+      // mymemory's free-tier rate limit (429 retry-after 24h, no
+      // translations for the rest of the day). build-time + cached on
+      // disk fixes that for good.
+      <div class="about-body about-markdown" id="about-body" data-reveal>
         <AboutMarkdownContent />
       </div>
     ) : (
@@ -228,24 +238,21 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
         json-ld in getGameAboutJsonLd. google's faq rich-result spec
         requires the answers to be visible on the page; if they aren't,
         the schema is treated as spam. <details> gives a free
-        progressive-disclosure ui without javascript. */}
+        progressive-disclosure ui without javascript.
+        translation note: getGameFaqs() reads the strings from the
+        active locale's message catalog now, so headings/questions/
+        answers are already in-language by the time they hit the dom.
+        no runtime translator hooks needed here. */}
     {gameFaqs.length > 0 && (
       <div class="about-faq" data-reveal data-reveal-i="3" id="faq">
-        {/* heading + every question + every answer are tagged for the
-            mymemory runtime translator, so faqs render in the active
-            locale on non-en pages. the FAQPage json-ld stays english
-            on purpose: schema.org expects answers in the page's content
-            language and the canonical content language for these answers
-            is english (the source). visible answers get localized; the
-            crawler-facing structured data does not. */}
-        <h2 data-translatable>Frequently asked</h2>
+        <h2>{messages.pages.game.faq?.heading ?? 'Frequently asked'}</h2>
         <dl class="faq-list">
           {gameFaqs.map((faq) => (
             <details class="faq-item">
               <summary>
-                <span class="faq-q" data-translatable>{faq.q}</span>
+                <span class="faq-q">{faq.q}</span>
               </summary>
-              <p class="faq-a" data-translatable>{faq.a}</p>
+              <p class="faq-a">{faq.a}</p>
             </details>
           ))}
         </dl>

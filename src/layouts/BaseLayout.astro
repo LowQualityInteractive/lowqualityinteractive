@@ -147,7 +147,10 @@ const scriptHashes = (
 // now talks to the same-origin /api/roblox-presence proxy ('self').
 const connectSources = [
   "'self'",
-  'https://api.mymemory.translated.net',
+  // lingva.ml is the runtime translation backend (a foss google
+  // translate proxy that returns CORS headers, unlike google's own
+  // endpoint). used by src/scripts/translate.ts.
+  'https://lingva.ml',
   'https://discord.com',
 ].filter(Boolean);
 const csp = [

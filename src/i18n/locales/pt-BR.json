@@ -1,7 +1,7 @@
 {
   "meta": {
     "siteDescription": "Site oficial da Low Quality Interactive, um estúdio indie de Roblox.",
-    "organizationDescription": "Low Quality Interactive é um estúdio Roblox. Fazemos shooters e obbies táticos. Alguns deles são jogados mais de uma vez.",
+    "organizationDescription": "Low Quality Interactive ​​é um estúdio Roblox. fazemos atiradores táticos e obbies. alguns deles são jogados mais de uma vez.",
     "llmContextTitle": "Contexto para LLM"
   },
   "chrome": {
@@ -129,6 +129,24 @@
         "status": "Status",
         "featuresHeading": "Recursos",
         "linksHeading": "Links oficiais"
+      },
+      "faq": {
+        "heading": "Perguntas frequentes",
+        "qWhatIs": "O que é {game}?",
+        "qFree": "O {game} é gratuito para jogar?",
+        "qPlatforms": "Em quais plataformas o {game} é executado?",
+        "qHowToPlay": "Como o {game} joga?",
+        "qWhoMade": "Quem fez o {game}?",
+        "qPlayers": "Quantos jogadores podem jogar {game} ao mesmo tempo?",
+        "qUpdates": "O {game} ainda está sendo atualizado?",
+        "aFree": "Sim. {game} é gratuito para jogar no Roblox. Gamepasses opcionais podem estar disponíveis no jogo.",
+        "aPlatforms": "O {game} é executado em todas as plataformas suportadas pelo Roblox: PC (Windows, macOS), dispositivos móveis (iOS, Android) e Xbox.",
+        "aWhoMade": "{game} é desenvolvido e publicado pela Low Quality Interactive.",
+        "aPlayersGeneric": "{game} é uma experiência multijogador no Roblox.",
+        "aPlayersCount": "{game} oferece suporte a jogadores {n} por sessão.",
+        "aStatusLive": "{game} está ativo no Roblox e em desenvolvimento ativo. Notas de patch e devlogs são publicadas na página Atualizações.",
+        "aStatusPreview": "{game} está atualmente em pré-visualização. O jogo pode ser jogado no Roblox enquanto iteramos nele.",
+        "aStatusSunset": "{game} é pôr do sol. jogável, mas não está mais em desenvolvimento ativo."
       }
     },
     "notFound": {
@@ -175,12 +193,14 @@
           "PvPvE",
           "Estratégia"
         ],
-        "description": "atirador de território baseado em equipe. tomar a cidade de volta de furries.",
-        "pageDescription": "ERADICATION é um jogo de tiro em equipe no Roblox by Low Quality Interactive. leve a cidade de volta do Furries. grátis para jogar.",
-        "pageLead": "lutar contra os furries. Sobreviva o máximo que puder.",
+        "description": "atirador de território baseado em equipe. recuperar a cidade dos furries.",
+        "pageDescription": "ERADICATION é um jogo de tiro em equipe no Roblox da Low Quality Interactive. leve a cidade de volta do Furries. livre para jogar.",
+        "pageLead": "lutar contra os furries. sobreviva o máximo que puder.",
         "artworkAlt": "Arte de combate de ERADICATION",
         "updateTag": "Update de ERADICATION",
-        "updateImageAlt": "Imagem da update de ERADICATION"
+        "updateImageAlt": "Imagem da update de ERADICATION",
+        "faqWhatIs": "ERADICATION é um jogo de tiro em equipe no Roblox. você interpreta um empreiteiro. a cidade foi invadida por Furries. você retira isso.",
+        "faqHowToPlay": "duas equipes. sete bandeiras. tire seis deles do Furries e um túnel se abrirá sob a cidade. não pise em uma espinha quando ela morrer."
       },
       "donpollo-obby": {
         "genreLabel": "Obby",
@@ -189,11 +209,12 @@
           "Obby"
         ],
         "description": "outro clássico de baixa qualidade.",
-        "pageDescription": "DON POLLO OBBY é um Roblox obby por Low Quality Interactive. sunset. outro clássico de baixa qualidade.",
-        "pageLead": "caos de obstáculos. reinicializações rápidas. rotas de speedrun se você quiser.",
+        "pageDescription": "DON POLLO OBBY é um obby Roblox da Low Quality Interactive. pôr do sol. outro clássico de baixa qualidade.",
+        "pageLead": "caos de obstáculos. reinicializações rápidas. rotas speedrun se você quiser.",
         "artworkAlt": "Arte do percurso flutuante de Don Pollo Obby",
         "updateTag": "Update de DON POLLO OBBY",
-        "updateImageAlt": "Imagem da update de DON POLLO OBBY"
+        "updateImageAlt": "Imagem da update de DON POLLO OBBY",
+        "faqWhatIs": "DON POLLO OBBY é um obby do Roblox. pôr do sol. ainda jogável. outro clássico de baixa qualidade."
       },
       "favela-94": {
         "genreLabel": "Shooter tático",
@@ -203,12 +224,14 @@
           "Tático",
           "PvP"
         ],
-        "description": "shooter tático de perto ambientado nas favelas de 1994.",
-        "pageDescription": "Favela '94 é um shooter tático Roblox ambientado no Rio de Janeiro de 1994. por Low Quality Interactive. pré-visualização.",
-        "pageLead": "becos, telhados, lutas a curta distância.",
+        "description": "Atirador tático de curta distância ambientado nas favelas de 1994.",
+        "pageDescription": "Favela '94 é um jogo de tiro tático Roblox ambientado no Rio de 1994. por Low Quality Interactive. visualização.",
+        "pageLead": "becos, telhados, lutas de perto.",
         "artworkAlt": "Arte de Favela '94",
         "updateTag": "Update de Favela '94",
-        "updateImageAlt": "Imagem da update de Favela '94"
+        "updateImageAlt": "Imagem da update de Favela '94",
+        "faqWhatIs": "Favela '94 é um jogo de tiro tático Roblox ambientado no Rio de 1994. de perto, rodadas curtas. visualização.",
+        "faqHowToPlay": "becos, telhados, brigas curtas. escolha um carregamento. não espreite o mesmo ângulo duas vezes."
       }
     },
     "inWorks": {
@@ -228,6 +251,27 @@
     "catalog.games.donpollo-obby.pageLead": "f5728fe68965",
     "catalog.games.favela-94.description": "2c58c862fc6e",
     "catalog.games.favela-94.pageDescription": "220ceb063d49",
-    "catalog.games.favela-94.pageLead": "b8b35f098996"
+    "catalog.games.favela-94.pageLead": "b8b35f098996",
+    "pages.game.faq.heading": "0b8a19ed98cb",
+    "pages.game.faq.qWhatIs": "088e4d1f6d97",
+    "pages.game.faq.qFree": "eb9c05cdef6f",
+    "pages.game.faq.qPlatforms": "c47fb3552b44",
+    "pages.game.faq.qHowToPlay": "03b7a199f585",
+    "pages.game.faq.qWhoMade": "efa1bc5eacdf",
+    "pages.game.faq.qPlayers": "91bea465283e",
+    "pages.game.faq.qUpdates": "ac279f1d7d03",
+    "pages.game.faq.aFree": "bbcb53214484",
+    "pages.game.faq.aPlatforms": "c2f834ddb80c",
+    "pages.game.faq.aWhoMade": "eb44ddad2c70",
+    "pages.game.faq.aPlayersGeneric": "fc99c6ef1cee",
+    "pages.game.faq.aPlayersCount": "ecab017bb701",
+    "pages.game.faq.aStatusLive": "172ebc9c0142",
+    "pages.game.faq.aStatusPreview": "9fa6a7997d65",
+    "pages.game.faq.aStatusSunset": "277012ec1e36",
+    "catalog.games.eradication.faqWhatIs": "39ae0fcaced0",
+    "catalog.games.eradication.faqHowToPlay": "b4e01a20360d",
+    "catalog.games.donpollo-obby.faqWhatIs": "261eea339a06",
+    "catalog.games.favela-94.faqWhatIs": "c04fbab1bb56",
+    "catalog.games.favela-94.faqHowToPlay": "97c4f7d44f06"
   }
 }

@@ -1,7 +1,17 @@
-// iife that sets up window.__lqiTranslate. mymemory api + sessionStorage
-// cache so we don't re-translate the same string fifteen times.
-// re-inlining this script is fine - first one to set the global wins,
-// the rest gracefully back off.
+// iife that sets up window.__lqiTranslate. backend is lingva.ml (a foss
+// google-translate proxy that returns access-control-allow-origin: *,
+// so we can call it from the browser - google's own translate_a/single
+// endpoint omits cors and is unreachable from a non-google origin).
+//
+// localStorage cache (persistent across sessions) keyed by source-text
+// hash. inflight de-dup so simultaneous calls for the same string
+// share one fetch. on failure the runtime returns the english source
+// silently - never an empty node.
+//
+// the build-time pipeline (scripts/translate-locales.mjs) covers the
+// big visible surfaces (markdown bodies, faqs, page descriptions); the
+// runtime translator is only there for hardcoded inline strings the
+// build pipeline doesn't reach yet.
 export function getTranslateBootstrap(locale: string) {
   return String.raw`(() => {
   if (window.__lqiTranslate) return;
@@ -14,8 +24,9 @@ export function getTranslateBootstrap(locale: string) {
     };
     return;
   }
+  // lingva collapses regional variants (es-MX/es-ES -> es, pt-BR -> pt).
   const MAP = {
-    'pt-BR': 'pt-BR', 'es-MX': 'es', 'es-ES': 'es',
+    'pt-BR': 'pt', 'es-MX': 'es', 'es-ES': 'es',
     ru: 'ru', de: 'de', it: 'it', fr: 'fr', ro: 'ro', el: 'el',
   };
   const target = MAP[LOCALE] || LOCALE;
@@ -24,24 +35,29 @@ export function getTranslateBootstrap(locale: string) {
     for (let i = 0; i < s.length; i++) h = ((h << 5) + h) ^ s.charCodeAt(i);
     return (h >>> 0).toString(36);
   };
+  // localStorage > sessionStorage so a returning visitor doesn't pay
+  // for the same translations again. quotas are per-origin so we have
+  // ~5MB to play with - more than enough for the strings we tag.
+  const cacheGet = (k) => {
+    try { return localStorage.getItem(k); } catch { return null; }
+  };
+  const cacheSet = (k, v) => {
+    try { localStorage.setItem(k, v); } catch {}
+  };
   const inflight = new Map();
   const one = (text) => {
     if (!text || !text.trim()) return Promise.resolve(text);
     const key = 'lqi-tx-' + LOCALE + '-' + hash(text);
-    try {
-      const cached = sessionStorage.getItem(key);
-      if (cached !== null) return Promise.resolve(cached);
-    } catch {}
+    const cached = cacheGet(key);
+    if (cached !== null) return Promise.resolve(cached);
     if (inflight.has(key)) return inflight.get(key);
-    const p = fetch(
-      'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=en|' + target,
-      { signal: AbortSignal.timeout(8000) },
-    )
-      .then((r) => { if (!r.ok) throw new Error(); return r.json(); })
+    const url = 'https://lingva.ml/api/v1/en/' + target + '/' + encodeURIComponent(text);
+    const p = fetch(url, { signal: AbortSignal.timeout(8000) })
+      .then((r) => { if (!r.ok) throw new Error('lingva ' + r.status); return r.json(); })
       .then((data) => {
-        const result = (data && data.responseData && data.responseData.translatedText) || text;
-        const out = (!result.trim() || result === text) ? text : result;
-        try { sessionStorage.setItem(key, out); } catch {}
+        const result = (data && data.translation) || text;
+        const out = (!result || !result.trim() || result === text) ? text : result;
+        cacheSet(key, out);
         return out;
       })
       .catch(() => text);
@@ -59,14 +75,13 @@ export function getTranslateBootstrap(locale: string) {
   };
 
   // deep mode: rather than collapsing the whole subtree's textContent
-  // into one mymemory call (which loses structure and quickly exceeds
-  // the api's per-request length budget), translate each block-level
-  // element individually. used on rendered markdown so paragraphs,
-  // headings, list items each translate as their own short string.
-  // the structural tags survive the translation pass intact.
+  // into one backend call (which loses structure), translate each
+  // block-level element individually. used on rendered markdown so
+  // paragraphs, headings, list items each translate as their own short
+  // string. structural tags survive the translation pass intact.
   // BLOCK_TAGS picks the elements that read as standalone units. we
-  // skip <pre>/<code> on purpose - mymemory mangles code, and the few
-  // lines of code we ever ship in markdown should stay as-authored.
+  // skip <pre>/<code> on purpose - the backend mangles code, and the
+  // few lines of code we ever ship in markdown should stay as-authored.
   const BLOCK_TAGS = new Set([
     'P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6',
     'LI', 'BLOCKQUOTE', 'FIGCAPTION', 'DT', 'DD',

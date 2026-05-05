@@ -143,6 +143,24 @@
         "status": "Status",
         "featuresHeading": "Features",
         "linksHeading": "Links"
+      },
+      "faq": {
+        "heading": "Frequently asked",
+        "qWhatIs": "What is {game}?",
+        "qFree": "Is {game} free to play?",
+        "qPlatforms": "What platforms does {game} run on?",
+        "qHowToPlay": "How does {game} play?",
+        "qWhoMade": "Who made {game}?",
+        "qPlayers": "How many players can play {game} at once?",
+        "qUpdates": "Is {game} still being updated?",
+        "aFree": "Yes. {game} is free to play on Roblox. Optional gamepasses may be available in-game.",
+        "aPlatforms": "{game} runs on every Roblox-supported platform: PC (Windows, macOS), mobile (iOS, Android), and Xbox.",
+        "aWhoMade": "{game} is developed and published by Low Quality Interactive.",
+        "aPlayersGeneric": "{game} is a multiplayer experience on Roblox.",
+        "aPlayersCount": "{game} supports {n} players per session.",
+        "aStatusLive": "{game} is live on Roblox and in active development. Patch notes and devlogs are posted on the Updates page.",
+        "aStatusPreview": "{game} is currently in preview. The game is playable on Roblox while we iterate on it.",
+        "aStatusSunset": "{game} is sunset. playable, but no longer in active development."
       }
     },
     "privacyPolicy": {
@@ -198,7 +216,9 @@
         "pageLead": "fight through the furries. survive as long as you can.",
         "artworkAlt": "ERADICATION battlefield artwork",
         "updateTag": "ERADICATION update",
-        "updateImageAlt": "ERADICATION update image"
+        "updateImageAlt": "ERADICATION update image",
+        "faqWhatIs": "ERADICATION is a team shooter on Roblox. you play a contractor. the town's overrun by Furries. you take it back.",
+        "faqHowToPlay": "two teams. seven flags. take six of them off the Furries and a tunnel opens up under the town. don't stand on a Pimple when it dies."
       },
       "donpollo-obby": {
         "genreLabel": "Obby",
@@ -211,7 +231,8 @@
         "pageLead": "obstacle chaos. fast restarts. speedrun routes if you want them.",
         "artworkAlt": "Don Pollo Obby floating course artwork",
         "updateTag": "DON POLLO OBBY update",
-        "updateImageAlt": "DON POLLO OBBY update image"
+        "updateImageAlt": "DON POLLO OBBY update image",
+        "faqWhatIs": "DON POLLO OBBY is a Roblox obby. sunset. still playable. another low quality classic."
       },
       "favela-94": {
         "genreLabel": "Tactical Shooter",
@@ -226,7 +247,9 @@
         "pageLead": "alleys, rooftops, close range fights.",
         "artworkAlt": "Favela '94 cover art - armed operators in a 1994 Rio favela alley",
         "updateTag": "Favela '94 update",
-        "updateImageAlt": "Favela '94 update image"
+        "updateImageAlt": "Favela '94 update image",
+        "faqWhatIs": "Favela '94 is a Roblox tactical shooter set in 1994 Rio. close-quarters, short rounds. preview.",
+        "faqHowToPlay": "alleys, rooftops, short fights. pick a loadout. don't peek the same angle twice."
       }
     },
     "inWorks": {

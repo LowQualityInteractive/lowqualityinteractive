@@ -390,72 +390,72 @@ export interface GameFaq {
   a: string;
 }
 
-// per-game custom answers for the "what is" question. fall back to the
-// page body or generic genre line when a game has no entry. answers
-// are written for real player intent (play loop, factions, modes) and
-// deliberately do not mention competing brands - per the strategy doc,
-// disambiguation lives in json-ld disambiguatingDescription, not here.
-const GAME_WHAT_IS_OVERRIDES: Record<string, string> = {
-  eradication:
-    "ERADICATION is a team shooter on Roblox. you play a contractor. the town's overrun by Furries. you take it back.",
-  'favela-94':
-    "Favela '94 is a Roblox tactical shooter set in 1994 Rio. close-quarters, short rounds. preview.",
-  'donpollo-obby':
-    'DON POLLO OBBY is a Roblox obby. sunset. still playable. another low quality classic.',
-};
+// faq strings live in i18n now. en.json holds the english source; the
+// translate-locales.mjs script populates each non-en locale.
+// per-game faqWhatIs / faqHowToPlay are stored under catalog.games.<id>
+// and override the generic templates. faqHowToPlay is optional.
+//
+// the {game} placeholder gets replaced with game.name verbatim - we
+// don't translate the brand, ever.
+type FaqMessages = ReturnType<typeof getMessages>['pages']['game']['faq'];
+type GameCatalogEntry = ReturnType<typeof getMessages>['catalog']['games'][keyof ReturnType<typeof getMessages>['catalog']['games']];
 
-// per-game custom "how does it play" answer. only emitted when set;
-// defaults to omitting the question for games where the play loop is
-// already covered elsewhere.
-const GAME_HOW_TO_PLAY: Record<string, string> = {
-  eradication:
-    "two teams. seven flags. take six of them off the Furries and a tunnel opens up under the town. don't stand on a Pimple when it dies.",
-  'favela-94':
-    "alleys, rooftops, short fights. pick a loadout. don't peek the same angle twice.",
-};
+function fillTemplate(template: string, vars: Record<string, string>): string {
+  return template.replace(/\{(\w+)\}/g, (_, key) => (vars[key] !== undefined ? vars[key] : `{${key}}`));
+}
 
-export function getGameFaqs(game: Game, about: GameAboutEntry = getGameAbout(game.id)): GameFaq[] {
+export function getGameFaqs(
+  locale: Locale,
+  game: Game,
+  about: GameAboutEntry = getGameAbout(game.id),
+): GameFaq[] {
+  const messages = getMessages(locale);
+  const faq: FaqMessages = messages.pages.game.faq;
+  const catalog = messages.catalog.games[game.id as keyof typeof messages.catalog.games] as GameCatalogEntry & { faqWhatIs?: string; faqHowToPlay?: string };
   const bodyText = about.body.join(' ').trim();
-  const statusAnswer =
-    about.status === 'sunset'
-      ? `${game.name} is sunset, playable, but no longer in active development.`
-      : about.status === 'preview'
-        ? `${game.name} is currently in preview. The game is playable on Roblox while we iterate on it.`
-        : `${game.name} is live on Roblox and in active development. Patch notes and devlogs are posted on the Updates page.`;
+
+  const statusAnswer = fillTemplate(
+    about.status === 'sunset' ? faq.aStatusSunset
+      : about.status === 'preview' ? faq.aStatusPreview
+        : faq.aStatusLive,
+    { game: game.name },
+  );
   const playerAnswer = about.numberOfPlayers
-    ? `${game.name} supports ${about.numberOfPlayers} players per session.`
-    : `${game.name} is a ${about.playMode === 'SinglePlayer' ? 'single-player' : 'multiplayer'} experience on Roblox.`;
+    ? fillTemplate(faq.aPlayersCount, { game: game.name, n: about.numberOfPlayers })
+    : fillTemplate(faq.aPlayersGeneric, { game: game.name });
+
   const whatIs =
-    GAME_WHAT_IS_OVERRIDES[game.id]
+    catalog.faqWhatIs
     || bodyText
     || game.pageLead
     || `${game.name} is a ${game.genreLabel.toLowerCase()} on Roblox by ${SITE_NAME}.`;
-  const howToPlay = GAME_HOW_TO_PLAY[game.id];
+  const howToPlay = catalog.faqHowToPlay;
+
   const faqs: GameFaq[] = [
-    { q: `What is ${game.name}?`, a: whatIs },
+    { q: fillTemplate(faq.qWhatIs, { game: game.name }), a: whatIs },
     {
-      q: `Is ${game.name} free to play?`,
-      a: `Yes. ${game.name} is free to play on Roblox. Optional gamepasses may be available in-game.`,
+      q: fillTemplate(faq.qFree, { game: game.name }),
+      a: fillTemplate(faq.aFree, { game: game.name }),
     },
     {
-      q: `What platforms does ${game.name} run on?`,
-      a: `${game.name} runs on every Roblox-supported platform: PC (Windows, macOS), mobile (iOS, Android), and Xbox.`,
+      q: fillTemplate(faq.qPlatforms, { game: game.name }),
+      a: fillTemplate(faq.aPlatforms, { game: game.name }),
     },
   ];
   if (howToPlay) {
-    faqs.push({ q: `How does ${game.name} play?`, a: howToPlay });
+    faqs.push({ q: fillTemplate(faq.qHowToPlay, { game: game.name }), a: howToPlay });
   }
   faqs.push(
     {
-      q: `Who made ${game.name}?`,
-      a: `${game.name} is developed and published by ${SITE_NAME}.`,
+      q: fillTemplate(faq.qWhoMade, { game: game.name }),
+      a: fillTemplate(faq.aWhoMade, { game: game.name }),
     },
     {
-      q: `How many players can play ${game.name} at once?`,
+      q: fillTemplate(faq.qPlayers, { game: game.name }),
       a: playerAnswer,
     },
     {
-      q: `Is ${game.name} still being updated?`,
+      q: fillTemplate(faq.qUpdates, { game: game.name }),
       a: statusAnswer,
     },
   );
@@ -556,7 +556,7 @@ export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutE
   // surfaces grab most readily for a roblox title. shared with the
   // visible faq block on the page so the schema answers always match
   // what the user can see (google demotes the rich result otherwise).
-  const faqs = getGameFaqs(game, about);
+  const faqs = getGameFaqs(locale, game, about);
   const faqPage = {
     '@type': 'FAQPage',
     '@id': `${localizedAboutUrl}#faq`,
