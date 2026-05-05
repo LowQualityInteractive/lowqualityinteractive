@@ -414,7 +414,7 @@ SECTION 8 — STUDIO CONTEXT MAP (full /llms.txt content)
 > Independent Roblox game development studio (founded 2024). Three published
 > titles on the Roblox platform: ERADICATION (live, team-based PvE shooter),
 > Favela '94 (preview, close-quarters tactical PvP shooter), and DON POLLO
-> OBBY (sunset, meme-driven obstacle course). One unannounced title in
+> OBBY (sunset, meme obstacle course). One unannounced title in
 > development: Crowns of Steel (genre: Strategy; further details classified).
 > The studio operates a multilingual marketing site at
 > lowqualityinteractive.com with English plus nine localized variants.
