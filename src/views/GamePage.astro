@@ -117,9 +117,9 @@ const aboutLabels = page.about ?? {
           <span class="game-presence-live-label">Now playing</span>
           {/* live.ts targets [data-game-id] > .game-player-count and
               writes the localized "{n} playing" text into it. we render
-              "—" up front to reserve the row so the layout doesn't jump
+              "-" up front to reserve the row so the layout doesn't jump
               when the data finally lands. */}
-          <span class="game-presence-live-value game-player-count" data-translatable>—</span>
+          <span class="game-presence-live-value game-player-count" data-translatable>-</span>
         </div>
       )}
     </aside>

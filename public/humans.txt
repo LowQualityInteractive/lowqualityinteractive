@@ -7,10 +7,10 @@ Location: Worldwide (remote)
 Contact: contact@lowqualityinteractive.com
 
 /* GAMES */
-ERADICATION — team-based PvPvE shooter — status: live — https://www.roblox.com/games/16844978752/ERADICATION
-Favela '94 — close-quarters tactical PvP shooter — status: preview — https://www.roblox.com/games/125235548670144/Favela-94
-DON POLLO OBBY — meme obby — status: sunset — https://www.roblox.com/games/133585619009566/DON-POLLO-OBBY
-Crowns of Steel — strategy — status: in development, classified
+ERADICATION - team-based PvPvE shooter - status: live - https://www.roblox.com/games/16844978752/ERADICATION
+Favela '94 - close-quarters tactical PvP shooter - status: preview - https://www.roblox.com/games/125235548670144/Favela-94
+DON POLLO OBBY - meme obby - status: sunset - https://www.roblox.com/games/133585619009566/DON-POLLO-OBBY
+Crowns of Steel - strategy - status: in development, classified
 
 /* COMMUNITY */
 Discord: https://discord.gg/G2J9rP5fBg

@@ -1,0 +1,33 @@
+---
+import type { GetStaticPaths } from 'astro';
+import WikiEntityPage from '../../../../../../views/WikiEntityPage.astro';
+import { WIKI_GAME_SLUGS, getWikiCategories } from '../../../../../../data/wiki';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  const paths: Array<{
+    params: { slug: string; category: string; entity: string };
+    props: { slug: string; category: string; entity: string };
+  }> = [];
+  for (const slug of WIKI_GAME_SLUGS) {
+    for (const cat of getWikiCategories(slug)) {
+      for (const entity of cat.entities) {
+        paths.push({
+          params: { slug, category: cat.filename, entity: entity.id },
+          props: { slug, category: cat.filename, entity: entity.id },
+        });
+      }
+    }
+  }
+  return paths;
+};
+
+interface Props {
+  slug: string;
+  category: string;
+  entity: string;
+}
+
+const { slug, category, entity } = Astro.props;
+---
+
+<WikiEntityPage locale="fr" gameSlug={slug} categorySlug={category} entityId={entity} />

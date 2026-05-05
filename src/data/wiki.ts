@@ -32,7 +32,7 @@ export interface WikiEntity {
 export interface WikiCategory {
   game: string;
   category: string;       // singular, e.g. "weapon"
-  filename: string;       // plural, e.g. "weapons" — drives the url
+  filename: string;       // plural, e.g. "weapons" - drives the url
   entities: WikiEntity[];
 }
 
@@ -53,7 +53,7 @@ const CATEGORY_LABELS: Record<string, { singular: string; plural: string }> = {
 
 // short prose intro for each category, rendered above the entity list
 // on category pages. without this, category pages were just card grids
-// over a one-line "N items catalogued" lead — google flags those as
+// over a one-line "N items catalogued" lead - google flags those as
 // thin template pages, which hurts indexing of the entities they
 // surface. {game} is interpolated by the caller.
 const CATEGORY_INTROS: Record<string, string> = {
@@ -68,7 +68,7 @@ const CATEGORY_INTROS: Record<string, string> = {
   item:
     'Catalog of pickups, consumables, and inventory items in {game}, with descriptions of effects, where they drop, and how each item fits into a loadout.',
   mechanic:
-    'Underlying gameplay systems in {game} — movement, combat, economy, and progression rules — described so new players can reach competent play faster.',
+    'Underlying gameplay systems in {game} - movement, combat, economy, and progression rules - described so new players can reach competent play faster.',
   gamepass:
     'Every gamepass available for {game}, listed with what it unlocks, whether it grants in-match advantages, and how the pass interacts with regular progression.',
   progression:
@@ -134,7 +134,7 @@ for (const [path, raw] of Object.entries(wikiFiles)) {
       fun_facts: Array.isArray(item.fun_facts) ? item.fun_facts.filter((fact) => typeof fact === 'string') : [],
     }));
 
-  // empty categories are still registered — the wiki button on the
+  // empty categories are still registered - the wiki button on the
   // game page should stay visible while data is being populated, and
   // the hub/category pages render an "empty" state instead of 404.
 
@@ -232,9 +232,9 @@ export function resolveRelated(
   });
 }
 
-// url builders. wiki only renders at the default locale today; if the
-// site adds localised wikis later, these are the only call sites that
-// need to switch on locale.
+// url builders. wiki renders at every supported locale via per-locale
+// page wrappers under src/pages/<locale>/[slug]/wiki/...; getLocalePath
+// produces the right prefix so call sites just pass the active locale.
 export function getWikiHubHref(locale: Locale, gameSlug: string): string {
   return getLocalePath(locale, `${gameSlug}/wiki`);
 }
@@ -265,7 +265,7 @@ export function getCategoryLabel(category: string): { singular: string; plural: 
   return { singular: title, plural: title + 's' };
 }
 
-// status helpers — keeps "unpublished" a one-word check at call sites.
+// status helpers - keeps "unpublished" a one-word check at call sites.
 export function isUnpublished(entity: WikiEntity): boolean {
   return entity.status === 'unpublished';
 }

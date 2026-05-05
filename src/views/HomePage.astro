@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getHomeJsonLd, getPublishedGames, publishedGameCount } from '../data/games';
-import { getSiteTitle } from '../data/site';
+import { SITE_NAME } from '../data/site';
 import { getLocalePath, getMessages, type Locale } from '../i18n/messages';
 import { getWikiHubHref, hasWiki } from '../data/wiki';
 
@@ -15,7 +15,7 @@ const { locale } = Astro.props;
 const messages = getMessages(locale);
 const page = messages.pages.home;
 
-// build-time fetch — happens on the server, so cors gets to sit this one out.
+// build-time fetch - happens on the server, so cors gets to sit this one out.
 const UNIVERSE_IDS = '5788461409,7915083902';
 let totalVisits = 0;
 try {
@@ -57,7 +57,7 @@ const wikiCtas = publishedGames
 
 // counter text rendered server-side. js resets it to 0 and animates up
 // when the element scrolls into view. no-js users see the real number
-// straight away — never an awkward idle zero pretending to be data.
+// straight away - never an awkward idle zero pretending to be data.
 const formatAuto = (n: number) => {
   if (n >= 1_000_000) {
     const v = n / 1_000_000;
@@ -69,8 +69,8 @@ const formatAuto = (n: number) => {
   }
   return String(n);
 };
-const visitsText = totalVisits > 0 ? formatAuto(totalVisits) : '—';
-const updatesText = totalUpdates > 0 ? `${totalUpdates}+` : '—';
+const visitsText = totalVisits > 0 ? formatAuto(totalVisits) : '-';
+const updatesText = totalUpdates > 0 ? `${totalUpdates}+` : '-';
 
 // the headline usually ends with a punchy clause. we split off the
 // tail (last word and its punctuation) and render it in brand color
@@ -82,9 +82,15 @@ const headingLead = splitMatch ? splitMatch[1] : heading;
 const headingTail = splitMatch ? splitMatch[2] : '';
 ---
 
+{/* homepage title is the studio's brand statement, not "Home - <brand>".
+    on the homepage the page-specific keyword IS the brand, and leading
+    with "Home" wastes the highest-weight serp position on a generic
+    word. format follows the canonical naming convention: studio first,
+    one descriptor after. all other pages still use "<page> - <studio>"
+    via getSiteTitle. */}
 <BaseLayout
   locale={locale}
-  title={getSiteTitle(page.label)}
+  title={`${SITE_NAME} - Independent Roblox Studio`}
   description={page.description}
   currentPage="home"
   routePath=""
@@ -117,7 +123,7 @@ const headingTail = splitMatch ? splitMatch[2] : '';
           <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
-      {/* descriptive anchor text on purpose — "wiki" alone would be
+      {/* descriptive anchor text on purpose - "wiki" alone would be
           generic. each cta names the game it belongs to so the link
           context is obvious to humans, screen readers, and crawlers. */}
       {wikiCtas.map((cta) => (
@@ -148,7 +154,7 @@ const headingTail = splitMatch ? splitMatch[2] : '';
           class="stat-feature-value"
           data-counter={totalVisits}
           data-counter-format="auto"
-          data-counter-fallback="—"
+          data-counter-fallback="-"
         >{visitsText}</span>
         <p class="stat-feature-copy">{page.stats.cumulativeVisits.copy}</p>
       </div>
@@ -160,8 +166,8 @@ const headingTail = splitMatch ? splitMatch[2] : '';
           class="stat-tile-value"
           data-counter={publishedGameCount}
           data-counter-format="none"
-          data-counter-fallback="—"
-        >{publishedGameCount > 0 ? String(publishedGameCount) : '—'}</span>
+          data-counter-fallback="-"
+        >{publishedGameCount > 0 ? String(publishedGameCount) : '-'}</span>
         <p class="stat-tile-copy">{page.stats.liveGames.copy}</p>
       </div>
       <div class="stat-tile" data-reveal data-reveal-i="2">
@@ -170,7 +176,7 @@ const headingTail = splitMatch ? splitMatch[2] : '';
           class="stat-tile-value"
           data-counter={totalUpdates}
           data-counter-format="plus"
-          data-counter-fallback="—"
+          data-counter-fallback="-"
         >{updatesText}</span>
         <p class="stat-tile-copy">{page.stats.updatesShipped.copy}</p>
       </div>

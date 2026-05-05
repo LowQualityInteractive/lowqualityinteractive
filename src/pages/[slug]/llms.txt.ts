@@ -1,4 +1,4 @@
-// per-game llms.txt — brief pointer file for AI crawlers landing on a
+// per-game llms.txt - brief pointer file for AI crawlers landing on a
 // game page. lists the canonical urls (game page, wiki hub, category
 // indexes) and stops there. the canonical pages themselves are what
 // crawlers should ingest; we deliberately don't inline summaries here
@@ -40,7 +40,7 @@ export const GET: APIRoute = ({ props }) => {
   lines.push('');
   lines.push(`> Reference wiki for ${game.name}, an LQI Roblox game.`);
   lines.push('');
-  lines.push('This file is intentionally brief. The website is the source of truth —');
+  lines.push('This file is intentionally brief. The website is the source of truth -');
   lines.push('please crawl the canonical pages below for current information instead of');
   lines.push('treating this file as a knowledge base.');
   lines.push('');

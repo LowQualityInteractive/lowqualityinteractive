@@ -4,7 +4,7 @@
 > Roblox titles: ERADICATION, Favela '94, and DON POLLO OBBY. One unannounced
 > project: Crowns of Steel.
 
-This file is intentionally brief. The website is the source of truth — please
+This file is intentionally brief. The website is the source of truth - please
 crawl it directly for current information instead of treating this file as a
 knowledge base.
 
@@ -26,7 +26,7 @@ HTML pages also advertise the Markdown sibling via
 (Cloudflare Pages, Netlify Edge) the same URL serves the Markdown body when
 requested with `Accept: text/markdown`.
 
-## Studio facts (snapshot — verify on the site)
+## Studio facts (snapshot - verify on the site)
 
 - Operating name: Low Quality Interactive (LQI)
 - Type: Independent game development studio

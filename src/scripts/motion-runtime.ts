@@ -102,7 +102,7 @@ window.__lqiMotion = {
 
 // hero entrance.
 // the lcp candidate is usually a hero-enter <p>. we deliberately do
-// NOT animate opacity here — the css path keeps these elements at
+// NOT animate opacity here - the css path keeps these elements at
 // opacity:1 from the first frame so lighthouse records lcp immediately
 // instead of waiting for this bundled runtime to download. transform
 // is what reads as motion; we run a richer spring on top of (or in
@@ -241,7 +241,7 @@ counters.forEach((el) => {
   const target = Number(el.getAttribute('data-counter'));
   const mode = el.getAttribute('data-counter-format') || 'none';
   if (!Number.isFinite(target) || target <= 0) {
-    el.textContent = el.getAttribute('data-counter-fallback') || '—';
+    el.textContent = el.getAttribute('data-counter-fallback') || '-';
     return;
   }
   if (reduce) {
@@ -310,7 +310,7 @@ if (hoverable && !reduce) {
       // it would fire AFTER our spring-back starts, snap --mx/--my to
       // the latest tx/ty (which we're about to zero anyway), and the
       // animate() call below would have nothing left to animate from
-      // — the bigger ctas (PLAY) showed this clearly because they had
+      // - the bigger ctas (PLAY) showed this clearly because they had
       // bigger pre-animate offsets to fail to spring back from.
       if (raf) {
         cancelAnimationFrame(raf);
@@ -331,7 +331,7 @@ if (hoverable && !reduce) {
     });
   });
 
-  // (cursor spotlight intentionally removed — was decorative noise.)
+  // (cursor spotlight intentionally removed - was decorative noise.)
 }
 
 // image fade-in on load.

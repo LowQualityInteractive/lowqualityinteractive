@@ -13,7 +13,7 @@
           "imageAlt": "ERADICATION update screenshot",
           "contents": {
             "new": [
-              "Added rewards for defending a territory, claiming a territory, and engaging Whiskorians on a territory.",
+              "Added rewards for defending a territory, claiming a territory, and engaging Furries on a territory.",
               "Added a reward for using the callout menu.",
               "Added an assist system to credit players for contributing to kills.",
               "Added a round end UI to display key stats at the conclusion of each round."
@@ -772,7 +772,7 @@
               "Added vehicle: MBT-52 Panthera",
               "Added global leaderboards for Cash, Kills, and XP",
               "Added the Defenders and Furries teams",
-              "Added commands: qaAirstrike1–4, qaCaptureAllFlags, qaResetAllFlags, qaRoundID, qaClockTime",
+              "Added commands: qaAirstrike1-4, qaCaptureAllFlags, qaResetAllFlags, qaRoundID, qaClockTime",
               "Added Furry variants: Normal, Pimple, Watcher",
               "Added 48-minute rounds to the core game loop",
               "Added original Furry SFX",
@@ -800,7 +800,7 @@
               "Reduced Furry attack range from 10 studs to 5 studs",
               "Reduced Furry attack damage from 15 to 12.5",
               "Increased Furry attack cooldown from 1.3s to 1.4s",
-              "Increased Furry respawn time from 4–6s to 10–15s",
+              "Increased Furry respawn time from 4-6s to 10-15s",
               "Reworked Furry AI",
               "Increased territory decay rate from 0.002 to 0.003",
               "Increased ammo reserves for gamepass weapons",

@@ -50,22 +50,25 @@ const unpublished = isUnpublished(entity);
   ogImageAlt={game.artwork.alt}
 >
   <section class="hero">
-    <span class="kicker hero-enter" style="--enter-delay: 40ms">
+    {/* data-translatable hooks the mymemory runtime translator. proper
+        names (game name, entity name) stay in their own untagged spans
+        so the original brand text survives the translation pass. */}
+    <span class="kicker hero-enter" style="--enter-delay: 40ms" data-translatable>
       {game.name} · {label.singular}
     </span>
     <h1 class="hero-enter" style="--enter-delay: 120ms">
-      {entity.name}
-      {unpublished && <span class="wiki-pill wiki-pill-unpub">Unpublished</span>}
-      {entity.status === 'sunset' && <span class="wiki-pill">Sunset</span>}
-      {entity.status === 'preview' && <span class="wiki-pill wiki-pill-preview">Preview</span>}
+      <span>{entity.name}</span>
+      {unpublished && <span class="wiki-pill wiki-pill-unpub" data-translatable>Unpublished</span>}
+      {entity.status === 'sunset' && <span class="wiki-pill" data-translatable>Sunset</span>}
+      {entity.status === 'preview' && <span class="wiki-pill wiki-pill-preview" data-translatable>Preview</span>}
     </h1>
-    <p class="lead hero-enter" style="--enter-delay: 220ms">{entity.summary}</p>
+    <p class="lead hero-enter" style="--enter-delay: 220ms" data-translatable>{entity.summary}</p>
     <div class="cta-row hero-enter" style="--enter-delay: 300ms">
       <a class="button ghost" href={getCategoryHref(locale, gameSlug, category.filename)}>
-        <span>All {label.plural.toLowerCase()}</span>
+        <span data-translatable>All {label.plural.toLowerCase()}</span>
       </a>
       <a class="button ghost" href={getWikiHubHref(locale, gameSlug)}>
-        <span>Wiki home</span>
+        <span data-translatable>Wiki home</span>
       </a>
       <a class="button ghost" href={getLocalePath(locale, gameSlug)}>
         <span>{game.name}</span>
@@ -75,18 +78,22 @@ const unpublished = isUnpublished(entity);
 
   {entity.role && (
     <section class="wiki-section" data-reveal>
-      <h2 class="wiki-section-heading">Role</h2>
-      <p class="wiki-section-body">{entity.role}</p>
+      <h2 class="wiki-section-heading" data-translatable>Role</h2>
+      <p class="wiki-section-body" data-translatable>{entity.role}</p>
     </section>
   )}
 
   {statsEntries.length > 0 && (
     <section class="wiki-section" data-reveal>
-      <h2 class="wiki-section-heading">Stats</h2>
+      <h2 class="wiki-section-heading" data-translatable>Stats</h2>
       <dl class="wiki-stats">
         {statsEntries.map(([key, value]) => (
           <div class="wiki-stat">
-            <dt>{key.replace(/_/g, ' ')}</dt>
+            {/* stat keys are short generic words ("damage", "rate of
+                fire") that benefit from translation; values are
+                usually numbers/units, leave those as-is to avoid
+                mymemory turning "12" into something silly. */}
+            <dt data-translatable>{key.replace(/_/g, ' ')}</dt>
             <dd>{String(value)}</dd>
           </div>
         ))}
@@ -96,28 +103,28 @@ const unpublished = isUnpublished(entity);
 
   {funFacts.length > 0 && (
     <section class="wiki-section" data-reveal>
-      <h2 class="wiki-section-heading">Fun Facts</h2>
+      <h2 class="wiki-section-heading" data-translatable>Fun Facts</h2>
       <ul class="wiki-facts">
-        {funFacts.map((fact) => <li>{fact}</li>)}
+        {funFacts.map((fact) => <li data-translatable>{fact}</li>)}
       </ul>
     </section>
   )}
 
   {related.length > 0 && (
     <section class="wiki-section" data-reveal>
-      <h2 class="wiki-section-heading">Related</h2>
+      <h2 class="wiki-section-heading" data-translatable>Related</h2>
       <ul class="wiki-related" aria-label="Related entries">
         {related.map((relation) => (
           <li>
             {relation.resolved ? (
               <a class="wiki-related-link" href={relation.href}>
                 <span class="wiki-related-name">{relation.name}</span>
-                <span class="wiki-related-type">{getCategoryLabel(relation.type).singular}</span>
+                <span class="wiki-related-type" data-translatable>{getCategoryLabel(relation.type).singular}</span>
               </a>
             ) : (
               <span class="wiki-related-link wiki-related-link-missing" aria-label={`${relation.name} (unpublished)`}>
                 <span class="wiki-related-name">{relation.name}</span>
-                <span class="wiki-related-type">Unpublished</span>
+                <span class="wiki-related-type" data-translatable>Unpublished</span>
               </span>
             )}
           </li>
@@ -128,7 +135,7 @@ const unpublished = isUnpublished(entity);
 
   {unpublished && (
     <section class="wiki-section" data-reveal>
-      <p class="wiki-unpublished-note">
+      <p class="wiki-unpublished-note" data-translatable>
         This entry is marked unpublished. The structure is in place but the studio hasn't released its official details yet.
       </p>
     </section>
@@ -136,8 +143,8 @@ const unpublished = isUnpublished(entity);
 
   <footer class="wiki-doc-footer" data-reveal>
     <p>
-      Official documentation for {game.name}.
-      {entity.last_verified && <span class="wiki-doc-verified"> · Last verified <time datetime={entity.last_verified}>{entity.last_verified}</time></span>}
+      <span data-translatable>Official documentation for {game.name}.</span>
+      {entity.last_verified && <span class="wiki-doc-verified"> · <span data-translatable>Last verified</span> <time datetime={entity.last_verified}>{entity.last_verified}</time></span>}
     </p>
   </footer>
 </BaseLayout>

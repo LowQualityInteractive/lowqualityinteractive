@@ -4,6 +4,7 @@ import {
   getGameBySlug,
   getGameAboutJsonLd,
   getGameFaqs,
+  getGameTitleDescriptor,
   getGameUpdateHref,
   getWebpSrc,
 } from '../data/games';
@@ -27,7 +28,7 @@ if (!game) {
   throw new Error(`Unknown game slug: ${slug}`);
 }
 
-// route is just /<slug> now — there's no separate /about subpath.
+// route is just /<slug> now - there's no separate /about subpath.
 const aboutRoutePath = game.slug;
 const statusLabel = statusLabels[game.status as keyof typeof statusLabels] ?? game.status;
 const aboutLabels = page.about ?? {
@@ -55,12 +56,15 @@ const aboutMarkdown = aboutMarkdownModules[`../data/about/${game.id}.md`] ?? nul
 const AboutMarkdownContent = aboutMarkdown?.Content;
 ---
 
-{/* the page title leads with the game name + genre — that's what
-    people actually search for. "About <game>" wastes the high-value
-    first position that crawlers and SERPs pay most attention to. */}
+{/* canonical title: "<NAME> - <Roblox-qualified genre> by <Studio>".
+    leads with the game name (highest serp weight), names roblox in
+    the descriptor (helps win "<game> roblox" queries), and tails with
+    the studio so brand-qualified searches resolve here too. the "by
+    <studio>" clause comes from getSiteTitle adding " - <studio>", so
+    the visible separator stays consistent with the rest of the site. */}
 <BaseLayout
   locale={locale}
-  title={getSiteTitle(`${game.name} (${game.genreLabel})`)}
+  title={getSiteTitle(`${game.name} - ${getGameTitleDescriptor(game)}`)}
   description={game.pageDescription}
   currentPage="games"
   routePath={aboutRoutePath}
@@ -143,9 +147,9 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
           <span class="game-presence-live-label">Now playing</span>
           {/* live.ts targets [data-game-id] > .game-player-count and
               writes the localized "{n} playing" text into it. we render
-              "—" up front to reserve the row so the layout doesn't jump
+              "-" up front to reserve the row so the layout doesn't jump
               when the data finally lands. */}
-          <span class="game-presence-live-value game-player-count" data-translatable>—</span>
+          <span class="game-presence-live-value game-player-count" data-translatable>-</span>
         </div>
       )}
     </aside>

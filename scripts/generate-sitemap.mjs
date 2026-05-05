@@ -219,7 +219,7 @@ await writeFile(publicSitemapPath, sitemap, 'utf8');
 // rss feed for devlogs / patch notes. roblox studios live or die on
 // devlog cadence; an rss feed lets readers and feed readers (and
 // google news/discover) pick up new updates without scraping the page.
-// the feed mirrors the data in public-devlogs.json — single source of
+// the feed mirrors the data in public-devlogs.json - single source of
 // truth, no parallel content surface.
 //
 // each <item> uses the per-update anchor on /updates/ as the link.
@@ -294,7 +294,7 @@ try {
   }
   // newest first.
   items.sort((a, b) => b.date.getTime() - a.date.getTime());
-  // cap the feed at a reasonable size — most readers only show recent
+  // cap the feed at a reasonable size - most readers only show recent
   // entries anyway and a runaway feed bloats every poll.
   const capped = items.slice(0, 50);
   const lastBuild = capped[0]?.pubDate ?? rfc822(new Date());
@@ -309,7 +309,7 @@ try {
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Low Quality Interactive — updates</title>
+    <title>Low Quality Interactive - updates</title>
     <link>${SITE_URL}/updates/</link>
     <atom:link href="${SITE_URL}/updates.xml" rel="self" type="application/rss+xml" />
     <description>Devlogs and patch notes for Low Quality Interactive's Roblox games (ERADICATION, Favela '94, DON POLLO OBBY).</description>

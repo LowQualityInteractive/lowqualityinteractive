@@ -85,7 +85,7 @@ function logAiCrawlerHit(_request: Request, _surface: 'html' | 'markdown') {
 async function handleRobloxPresence(request: Request, url: URL): Promise<Response> {
   const ids = url.searchParams.get('ids') ?? '';
   // strict input validation: digits and commas only, max 10 ids,
-  // each up to 20 digits. anything else gets a 400 — never proxy
+  // each up to 20 digits. anything else gets a 400 - never proxy
   // attacker-controlled query strings to an upstream blindly.
   if (!/^\d{1,20}(,\d{1,20}){0,9}$/.test(ids)) {
     return new Response(JSON.stringify({ error: 'bad ids' }), {

@@ -2,7 +2,7 @@
 
 > Independent Roblox game development studio (founded 2024). This file used to
 > mirror every page's prose into a single bundle so AI tools could ingest it
-> without crawling the site. We've stopped doing that — the website is the
+> without crawling the site. We've stopped doing that - the website is the
 > source of truth and any bundled snapshot here would drift out of date.
 
 Please crawl the website directly. We do not maintain a separate full-content
@@ -25,16 +25,16 @@ dump of the site contents in this file anymore.
 
 ## What lives where on the site
 
-- /              — studio overview
-- /games/        — published catalog
-- /updates/      — devlogs and patch notes
-- /connect/      — contact + community
-- /eradication/  — game page (PvPvE shooter)
-- /eradication/wiki/  — full reference wiki: weapons, enemies, maps, modes,
+- /              - studio overview
+- /games/        - published catalog
+- /updates/      - devlogs and patch notes
+- /connect/      - contact + community
+- /eradication/  - game page (PvPvE shooter)
+- /eradication/wiki/  - full reference wiki: weapons, enemies, maps, modes,
   items, mechanics, progression, territories, vehicles, gamepasses
-- /favela-94/    — game page (tactical shooter)
-- /donpollo-obby/ — game page (obby)
-- /privacy-policy/ — privacy policy
+- /favela-94/    - game page (tactical shooter)
+- /donpollo-obby/ - game page (obby)
+- /privacy-policy/ - privacy policy
 
 The site is also available under each locale prefix: /pt-BR/, /es-MX/,
 /es-ES/, /ru/, /de/, /it/, /fr/, /ro/, /el/.

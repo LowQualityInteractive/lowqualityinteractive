@@ -315,9 +315,9 @@
   },
   {
     "id": "krag-jorgensen",
-    "name": "Krag–Jørgensen",
+    "name": "Krag-Jørgensen",
     "type": "weapon",
-    "summary": "Krag–Jørgensen is a low-cost primary rifle unlocked through cash and XP.",
+    "summary": "Krag-Jørgensen is a low-cost primary rifle unlocked through cash and XP.",
     "role": "Use it as an early progression rifle when you want a cheap step beyond the free pool.",
     "stats": {
       "slot": "Primary",
@@ -677,9 +677,9 @@
   },
   {
     "id": "mosin-nagant-m1891-30",
-    "name": "Mosin–Nagant M1891/30",
+    "name": "Mosin-Nagant M1891/30",
     "type": "weapon",
-    "summary": "Mosin–Nagant M1891/30 is a primary rifle unlocked through a gamepass.",
+    "summary": "Mosin-Nagant M1891/30 is a primary rifle unlocked through a gamepass.",
     "role": "Use it as a historical rifle for deliberate shots and longer sightlines.",
     "stats": {
       "slot": "Primary",
@@ -695,9 +695,9 @@
   },
   {
     "id": "mosin-nagant-m38-carbine",
-    "name": "Mosin–Nagant M38 Carbine",
+    "name": "Mosin-Nagant M38 Carbine",
     "type": "weapon",
-    "summary": "Mosin–Nagant M38 Carbine is a primary rifle unlocked through a gamepass.",
+    "summary": "Mosin-Nagant M38 Carbine is a primary rifle unlocked through a gamepass.",
     "role": "Use it as a carbine option once unlocked.",
     "stats": {
       "slot": "Primary",

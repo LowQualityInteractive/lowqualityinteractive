@@ -42,11 +42,11 @@ export const GET: APIRoute = ({ props }) => {
   const categories = getWikiCategories(slug);
   const lines: string[] = [];
 
-  lines.push(`# ${game.name} — wiki sitemap`);
+  lines.push(`# ${game.name} - wiki sitemap`);
   lines.push('');
   lines.push(`> Reference wiki for ${game.name}, an LQI Roblox game.`);
   lines.push('');
-  lines.push('This file used to inline every wiki entity. We\'ve stopped doing that —');
+  lines.push('This file used to inline every wiki entity. We\'ve stopped doing that -');
   lines.push('the website is the source of truth and any bundled snapshot here would');
   lines.push('drift out of date. The list below is a sitemap of canonical URLs;');
   lines.push('please crawl those pages directly.');

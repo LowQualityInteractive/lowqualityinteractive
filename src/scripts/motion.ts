@@ -1,6 +1,6 @@
 // tiny inline scripts that need to run synchronously and get hashed for
-// the strict csp. heavier work — reveals, counters, magnetic buttons,
-// hero spotlight, image fade — lives in scripts/motion-runtime.ts which
+// the strict csp. heavier work - reveals, counters, magnetic buttons,
+// hero spotlight, image fade - lives in scripts/motion-runtime.ts which
 // astro bundles and serves from /_astro/ (allowed by script-src 'self').
 
 export function getMotionBootstrap() {

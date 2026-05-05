@@ -1,4 +1,4 @@
-// markdown renderer for the .md endpoints. this is for llms, not humans —
+// markdown renderer for the .md endpoints. this is for llms, not humans -
 // humans have the actual website.
 //
 // every page has a parallel <url>.md per the llmstxt.org spec. the
@@ -48,7 +48,7 @@ function aiFooter() {
   ].join('\n');
 }
 
-// markdown bullet list. empty in, empty out — no surprise empty bullets.
+// markdown bullet list. empty in, empty out - no surprise empty bullets.
 function bulletList(items: readonly string[]) {
   return items.length ? items.map((item) => `- ${item}`).join('\n') : '';
 }
@@ -142,7 +142,7 @@ function renderGameAboutMarkdown(locale: Locale, game: Game, about: GameAboutEnt
   const body = customMarkdown ?? (about.body.length ? about.body.join('\n\n') : game.pageLead);
   // when a custom .md is in use, it owns the body + features region.
   // the json features[] still drives schema.org featureList in games.ts,
-  // but we don't re-emit it here — that would just duplicate whatever
+  // but we don't re-emit it here - that would just duplicate whatever
   // the author already wrote in their markdown.
   const featuresBlock = customMarkdown ? '' : section('Features', bulletList(about.features));
 
@@ -239,7 +239,7 @@ function renderGamesMarkdown(locale: Locale) {
   }).join('\n\n');
 
   // games page has an "in works" block for unannounced titles.
-  // crowns of steel is redacted on the live site — mirror that here so
+  // crowns of steel is redacted on the live site - mirror that here so
   // llms don't helpfully fill in the blanks with hallucinated lore.
   const inWorks = [
     '### Crowns of Steel',
@@ -384,7 +384,7 @@ function renderPrivacyMarkdown(locale: Locale) {
 
 // dispatcher. the .md endpoint hands us (locale, route) and we render.
 // adding a new section means updating SECTION_KEYS and adding a case
-// down below — don't forget either or they'll forget you back.
+// down below - don't forget either or they'll forget you back.
 export function getMarkdownForRoute(locale: Locale, route: string): string {
   if (route === '') return renderHomeMarkdown(locale);
   if (route === 'games') return renderGamesMarkdown(locale);

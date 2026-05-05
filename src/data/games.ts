@@ -182,11 +182,65 @@ function getBreadcrumbList(pageUrl: string, crumbs: BreadcrumbCrumb[]) {
   };
 }
 
+// human-readable title descriptor per game. used in <title> as
+// "<NAME> - <descriptor> - <studio>". picked per game (instead of
+// derived from genreLabel) so titles match the canonical naming
+// convention exactly: roblox as a platform keyword + the genre that
+// people actually search for. falls back to genreLabel for any game
+// without an explicit entry.
+const GAME_TITLE_DESCRIPTORS: Record<string, string> = {
+  eradication: 'PvPvE Roblox Shooter',
+  'favela-94': 'Tactical Roblox Shooter',
+  'donpollo-obby': 'Roblox Obby',
+};
+
+export function getGameTitleDescriptor(game: Pick<Game, 'id' | 'genreLabel'>): string {
+  return GAME_TITLE_DESCRIPTORS[game.id] ?? game.genreLabel;
+}
+
+// per-game brand-search variants (read by crawlers as alternateName) and
+// disambiguatingDescription strings. these only ever flow into json-ld
+// (never visible copy) — schema.org's disambiguatingDescription field
+// is built specifically for "we share a name with X, Y, Z" cases. the
+// site copy stays confident; the schema does the disambiguation work.
+const GAME_DISAMBIGUATION: Record<string, { alternateName: string[]; disambiguatingDescription: string }> = {
+  eradication: {
+    alternateName: [
+      'ERADICATION Roblox',
+      'ERADICATION by Low Quality Interactive',
+      'ERADICATION LQI',
+      'LQI ERADICATION',
+    ],
+    disambiguatingDescription:
+      'A team-based PvPvE territory-control shooter on Roblox by independent studio Low Quality Interactive (founded 2024). Distinct from the Eradicator tower in Tower Defense X and from the 2022 film of the same name.',
+  },
+  'favela-94': {
+    alternateName: [
+      'Favela 94',
+      "Favela '94 Roblox",
+      "Favela '94 by Low Quality Interactive",
+    ],
+    disambiguatingDescription:
+      "Close-quarters tactical Roblox shooter by Low Quality Interactive set in the favelas of 1994 Rio de Janeiro. Currently in preview.",
+  },
+  'donpollo-obby': {
+    alternateName: [
+      'Don Pollo Obby',
+      'DON POLLO OBBY Roblox',
+    ],
+    disambiguatingDescription:
+      'Roblox obby by independent studio Low Quality Interactive. Sunset status, kept playable as a low quality classic.',
+  },
+};
+
 function getGameSchema(game: Game) {
+  const disambig = GAME_DISAMBIGUATION[game.id];
   return {
     '@type': 'VideoGame',
     '@id': `${SITE_URL}/#${game.id}`,
     name: game.name,
+    ...(disambig ? { alternateName: disambig.alternateName } : {}),
+    ...(disambig ? { disambiguatingDescription: disambig.disambiguatingDescription } : {}),
     url: game.robloxUrl,
     image: toAbsoluteSiteUrl(game.artwork.src),
     description: game.description,
@@ -207,19 +261,34 @@ export function getHomeJsonLd(locale: Locale) {
       {
         // the org node lives here exactly once. every other page just
         // references it by id. sameAs lets crawlers cross-check us
-        // against roblox/discord/x/youtube — proof of identity, basically.
+        // against roblox/discord/x/youtube - proof of identity, basically.
+        // alternateName covers brand variants users actually search for.
+        // knowsAbout is a soft topical signal that helps llms answer
+        // "what does <studio> work on" without scraping the games list.
         '@type': 'Organization',
         '@id': `${SITE_URL}/#organization`,
         name: SITE_NAME,
+        alternateName: ['LQI', 'Low Quality Int'],
         url: `${SITE_URL}/`,
-        logo: toAbsoluteSiteUrl('/assets/logo.png'),
+        logo: {
+          '@type': 'ImageObject',
+          url: toAbsoluteSiteUrl('/assets/logo.png'),
+          width: 512,
+          height: 512,
+        },
         description: messages.meta.organizationDescription,
         foundingDate: '2024',
         areaServed: 'Worldwide',
+        knowsAbout: [
+          'Roblox game development',
+          'PvPvE shooters',
+          'tactical shooters',
+          'Roblox obby',
+        ],
         sameAs: [...SOCIAL_URLS, ...liveGames.map((game) => game.robloxUrl)],
       },
       {
-        // website covers the whole property. no SearchAction here —
+        // website covers the whole property. no SearchAction here -
         // we don't have site search, and lying to crawlers about it
         // would only end in tears.
         '@type': 'WebSite',
@@ -304,7 +373,7 @@ export function getGameJsonLd(locale: Locale, game: Game) {
   });
 }
 
-// game pages live at /<slug> directly now — no /about subpath, no
+// game pages live at /<slug> directly now - no /about subpath, no
 // redirect. kept as an alias of getGameHref so any caller that used to
 // say "give me the about page" still gets the right url.
 export function getGameAboutPath(locale: Locale, game: Pick<Game, 'slug'>) {
@@ -321,33 +390,65 @@ export interface GameFaq {
   a: string;
 }
 
+// per-game custom answers for the "what is" question. fall back to the
+// page body or generic genre line when a game has no entry. answers
+// are written for real player intent (play loop, factions, modes) and
+// deliberately do not mention competing brands - per the strategy doc,
+// disambiguation lives in json-ld disambiguatingDescription, not here.
+const GAME_WHAT_IS_OVERRIDES: Record<string, string> = {
+  eradication:
+    'ERADICATION is a PvPvE territory-control shooter on Roblox by Low Quality Interactive. Players defend their town against the "invading furries".',
+  'favela-94':
+    "Favela '94 is a tactical Roblox shooter by Low Quality Interactive set in the favelas. Currently in preview.",
+  'donpollo-obby':
+    'DON POLLO OBBY is a Roblox obby by Low Quality Interactive. The game is sunset, kept as a classic or something.',
+};
+
+// per-game custom "how does it play" answer. only emitted when set;
+// defaults to omitting the question for games where the play loop is
+// already covered elsewhere.
+const GAME_HOW_TO_PLAY: Record<string, string> = {
+  eradication:
+    'Two teams rigorously fight for control of the town. Push the front line and deal with the furries.',
+  'favela-94':
+    "Players can choose their loadout and clan, level their battlepass for rewards, or play solo in the favela.",
+};
+
 export function getGameFaqs(game: Game, about: GameAboutEntry = getGameAbout(game.id)): GameFaq[] {
   const bodyText = about.body.join(' ').trim();
   const statusAnswer =
     about.status === 'sunset'
-      ? `${game.name} is in sunset status — playable, but no longer in active development.`
+      ? `${game.name} is sunset, playable, but no longer in active development.`
       : about.status === 'preview'
         ? `${game.name} is currently in preview. The game is playable on Roblox while we iterate on it.`
-        : `${game.name} is live on Roblox and in active development.`;
+        : `${game.name} is live on Roblox and in active development. Patch notes and devlogs are posted on the Updates page.`;
   const playerAnswer = about.numberOfPlayers
     ? `${game.name} supports ${about.numberOfPlayers} players per session.`
     : `${game.name} is a ${about.playMode === 'SinglePlayer' ? 'single-player' : 'multiplayer'} experience on Roblox.`;
-  return [
-    {
-      q: `What is ${game.name}?`,
-      a: bodyText || game.pageLead || `${game.name} is a ${game.genreLabel.toLowerCase()} on Roblox by ${SITE_NAME}.`,
-    },
+  const whatIs =
+    GAME_WHAT_IS_OVERRIDES[game.id]
+    || bodyText
+    || game.pageLead
+    || `${game.name} is a ${game.genreLabel.toLowerCase()} on Roblox by ${SITE_NAME}.`;
+  const howToPlay = GAME_HOW_TO_PLAY[game.id];
+  const faqs: GameFaq[] = [
+    { q: `What is ${game.name}?`, a: whatIs },
     {
       q: `Is ${game.name} free to play?`,
       a: `Yes. ${game.name} is free to play on Roblox. Optional gamepasses may be available in-game.`,
     },
     {
       q: `What platforms does ${game.name} run on?`,
-      a: `${game.name} runs on the Roblox platform, which is available on PC (Windows, macOS), mobile (iOS, Android), and Xbox.`,
+      a: `${game.name} runs on every Roblox-supported platform: PC (Windows, macOS), mobile (iOS, Android), and Xbox.`,
     },
+  ];
+  if (howToPlay) {
+    faqs.push({ q: `How does ${game.name} play?`, a: howToPlay });
+  }
+  faqs.push(
     {
       q: `Who made ${game.name}?`,
-      a: `${game.name} is developed and published by ${SITE_NAME}, an independent Roblox studio founded in 2024.`,
+      a: `${game.name} is developed and published by ${SITE_NAME}.`,
     },
     {
       q: `How many players can play ${game.name} at once?`,
@@ -357,12 +458,13 @@ export function getGameFaqs(game: Game, about: GameAboutEntry = getGameAbout(gam
       q: `Is ${game.name} still being updated?`,
       a: statusAnswer,
     },
-  ];
+  );
+  return faqs;
 }
 
 export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutEntry = getGameAbout(game.id)) {
   // /<slug> is now the only page for the game (no separate /about), so
-  // the "about" url and the "game" url are the same — but the function
+  // the "about" url and the "game" url are the same - but the function
   // still exposes both names so the schema graph below stays readable.
   const localizedGameUrl = getLocaleAbsolutePath(locale, game.slug);
   const localizedAboutUrl = localizedGameUrl;
@@ -411,7 +513,7 @@ export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutE
       name: SITE_NAME,
       url: `${SITE_URL}/`,
     },
-    // full image list — multimodal llms pick whichever one is relevant.
+    // full image list - multimodal llms pick whichever one is relevant.
     image: allImages,
     // the prose body. richest signal for summaries.
     description: bodyText || game.pageLead,
@@ -426,16 +528,16 @@ export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutE
     inLanguage: about.inLanguage ?? 'en',
     // age suitability so llms don't suggest us in family contexts.
     ...(about.audience ? { audience: { '@type': 'Audience', suggestedMinAge: about.audience } } : {}),
-    // roblox ids — the only way to disambiguate us from the clones.
+    // roblox ids - the only way to disambiguate us from the clones.
     ...(about.robloxGameId
       ? {
-          identifier: [
-            { '@type': 'PropertyValue', propertyID: 'robloxPlaceId', value: about.robloxGameId },
-            ...(about.robloxUniverseId
-              ? [{ '@type': 'PropertyValue', propertyID: 'robloxUniverseId', value: about.robloxUniverseId }]
-              : []),
-          ],
-        }
+        identifier: [
+          { '@type': 'PropertyValue', propertyID: 'robloxPlaceId', value: about.robloxGameId },
+          ...(about.robloxUniverseId
+            ? [{ '@type': 'PropertyValue', propertyID: 'robloxUniverseId', value: about.robloxUniverseId }]
+            : []),
+        ],
+      }
       : {}),
     // roblox is the runtime. app-store-style crawlers like having this set.
     operatingSystem: 'Roblox',

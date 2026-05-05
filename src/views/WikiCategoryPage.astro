@@ -28,7 +28,7 @@ if (!category) throw new Error(`Unknown wiki category: ${gameSlug}/${categorySlu
 const label = getCategoryLabel(category.category);
 const title = getSiteTitle(`${game.name} ${label.plural}`);
 const intro = getCategoryIntro(category.category, game.name);
-// prefer the prose intro for the meta description when one exists —
+// prefer the prose intro for the meta description when one exists -
 // it reads as a real summary instead of a comma-separated entity dump.
 // the entity-list fallback stays for unrecognised categories.
 const description = intro
@@ -45,17 +45,20 @@ const description = intro
   ogImageAlt={game.artwork.alt}
 >
   <section class="hero">
-    <span class="kicker hero-enter" style="--enter-delay: 40ms">{game.name} · {label.plural}</span>
-    <h1 class="hero-enter" style="--enter-delay: 120ms">{label.plural}</h1>
+    {/* data-translatable lets the runtime mymemory translator replace
+        wiki copy on non-en pages. proper names (game/entity) stay in
+        their own non-translatable spans so they aren't transformed. */}
+    <span class="kicker hero-enter" style="--enter-delay: 40ms" data-translatable>{game.name} · {label.plural}</span>
+    <h1 class="hero-enter" style="--enter-delay: 120ms" data-translatable>{label.plural}</h1>
     {intro && (
-      <p class="lead hero-enter" style="--enter-delay: 200ms">{intro}</p>
+      <p class="lead hero-enter" style="--enter-delay: 200ms" data-translatable>{intro}</p>
     )}
-    <p class="hero-enter wiki-category-count" style="--enter-delay: 280ms">
+    <p class="hero-enter wiki-category-count" style="--enter-delay: 280ms" data-translatable>
       {category.entities.length} {label.singular.toLowerCase()}{category.entities.length === 1 ? '' : 's'} catalogued.
     </p>
     <div class="cta-row hero-enter" style="--enter-delay: 300ms">
       <a class="button ghost" href={getWikiHubHref(locale, gameSlug)}>
-        <span>Back to wiki</span>
+        <span data-translatable>Back to wiki</span>
       </a>
       <a class="button ghost" href={getLocalePath(locale, gameSlug)}>
         <span>{game.name}</span>
@@ -74,12 +77,12 @@ const description = intro
         <div class="wiki-row-main">
           <h2 class="wiki-row-title">
             <span>{entity.name}</span>
-            {isUnpublished(entity) && <span class="wiki-pill wiki-pill-unpub">Unpublished</span>}
-            {entity.status === 'sunset' && <span class="wiki-pill">Sunset</span>}
-            {entity.status === 'preview' && <span class="wiki-pill wiki-pill-preview">Preview</span>}
+            {isUnpublished(entity) && <span class="wiki-pill wiki-pill-unpub" data-translatable>Unpublished</span>}
+            {entity.status === 'sunset' && <span class="wiki-pill" data-translatable>Sunset</span>}
+            {entity.status === 'preview' && <span class="wiki-pill wiki-pill-preview" data-translatable>Preview</span>}
           </h2>
-          {entity.role && <p class="wiki-row-role">{entity.role}</p>}
-          <p class="wiki-row-summary">{entity.summary}</p>
+          {entity.role && <p class="wiki-row-role" data-translatable>{entity.role}</p>}
+          <p class="wiki-row-summary" data-translatable>{entity.summary}</p>
         </div>
         <span class="wiki-row-arrow" aria-hidden="true">
           <svg viewBox="0 0 16 16" width="14" height="14" fill="none">
@@ -90,7 +93,7 @@ const description = intro
     ))}
   </div>
 
-  <p class="wiki-doc-footer" data-reveal>
+  <p class="wiki-doc-footer" data-reveal data-translatable>
     Official documentation for {game.name}.
   </p>
 </BaseLayout>

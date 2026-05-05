@@ -49,7 +49,7 @@ export function getLiveScript(
   // we now hit a same-origin proxy at /api/roblox-presence?ids=...
   // that path is served by functions/_middleware.ts on cloudflare
   // pages / netlify edge. on github pages (current host) the path 404s
-  // and the catch swallows it silently — no CORS error, no console
+  // and the catch swallows it silently - no CORS error, no console
   // noise. live counts will simply stay hidden until we move hosts,
   // which is the cleaner of the available trade-offs.
   const allGames = GAMES.filter((g) => g.universeId);
@@ -95,7 +95,7 @@ export function getLiveScript(
   }
 
   // "new update" badge. we want this to be ACCURATE across reloads and
-  // tab closes — not flicker back on every refresh, not survive once the
+  // tab closes - not flicker back on every refresh, not survive once the
   // user has actually seen the latest update.
   //
   // strategy: build a fingerprint of "the latest update id per game"

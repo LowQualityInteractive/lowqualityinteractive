@@ -4,7 +4,7 @@ Allow: /
 Sitemap: https://lowqualityinteractive.com/sitemap.xml
 
 # llms.txt / llms-full.txt are now brief pointer files (the website is the
-# source of truth — they redirect crawlers back to the canonical pages
+# source of truth - they redirect crawlers back to the canonical pages
 # rather than serving as a parallel content surface). they are listed in
 # sitemap.xml and intentionally allowed for every crawler, including
 # traditional search engines. earlier revisions disallowed them for
@@ -17,7 +17,7 @@ Sitemap: https://lowqualityinteractive.com/sitemap.xml
 # have a concrete reason to block them.
 # ---------------------------------------------------------------------------
 
-# OpenAI — search-index, ChatGPT browse, training crawler
+# OpenAI - search-index, ChatGPT browse, training crawler
 User-agent: GPTBot
 Allow: /
 
@@ -27,11 +27,11 @@ Allow: /
 User-agent: OAI-SearchBot
 Allow: /
 
-# Common Crawl — feeds many downstream LLM training corpora
+# Common Crawl - feeds many downstream LLM training corpora
 User-agent: CCBot
 Allow: /
 
-# Anthropic — Claude search-index and training crawler
+# Anthropic - Claude search-index and training crawler
 User-agent: ClaudeBot
 Allow: /
 
@@ -41,36 +41,36 @@ Allow: /
 User-agent: Claude-Web
 Allow: /
 
-# Perplexity — answer engine and live-fetch user agent
+# Perplexity - answer engine and live-fetch user agent
 User-agent: PerplexityBot
 Allow: /
 
 User-agent: Perplexity-User
 Allow: /
 
-# Google AI — Gemini / AI Overviews opt-in agent
+# Google AI - Gemini / AI Overviews opt-in agent
 User-agent: Google-Extended
 Allow: /
 
-# Apple Intelligence — opt-in for Apple's on-device and cloud AI training
+# Apple Intelligence - opt-in for Apple's on-device and cloud AI training
 User-agent: Applebot-Extended
 Allow: /
 
-# Cohere — model training crawler
+# Cohere - model training crawler
 User-agent: cohere-ai
 Allow: /
 
 User-agent: Cohere-Bot
 Allow: /
 
-# Meta — Llama and Meta AI fetch agent
+# Meta - Llama and Meta AI fetch agent
 User-agent: Meta-ExternalAgent
 Allow: /
 
 User-agent: FacebookBot
 Allow: /
 
-# Amazon — Alexa+ / Q answer engine
+# Amazon - Alexa+ / Q answer engine
 User-agent: Amazonbot
 Allow: /
 
@@ -82,11 +82,11 @@ Allow: /
 User-agent: YouBot
 Allow: /
 
-# Mistral — model training crawler
+# Mistral - model training crawler
 User-agent: MistralAI-User
 Allow: /
 
-# xAI — Grok crawler
+# xAI - Grok crawler
 User-agent: xAI-Bot
 Allow: /
 

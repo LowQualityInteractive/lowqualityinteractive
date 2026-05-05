@@ -35,14 +35,20 @@ const description = `Reference wiki for ${game.name}: weapons, enemies, maps, mo
   ogImageAlt={game.artwork.alt}
 >
   <section class="hero">
-    <span class="kicker hero-enter" style="--enter-delay: 40ms">{game.name} wiki</span>
-    <h1 class="hero-enter" style="--enter-delay: 120ms">{game.name} Wiki</h1>
-    <p class="lead hero-enter" style="--enter-delay: 220ms">
-      {totalEntities} {totalEntities === 1 ? 'entry' : 'entries'} across {categories.length} {categories.length === 1 ? 'category' : 'categories'}. 
+    {/* data-translatable hooks the runtime mymemory translator. wiki
+        copy is generated in english; the existing translate.ts walks
+        these nodes after paint and swaps in the locale text. game and
+        entity proper names are wrapped in their own non-translatable
+        spans so we don't mangle them ("ERADICATION" should stay
+        "ERADICATION" in every language). */}
+    <span class="kicker hero-enter" style="--enter-delay: 40ms" data-translatable>{game.name} wiki</span>
+    <h1 class="hero-enter" style="--enter-delay: 120ms" data-translatable>{game.name} Wiki</h1>
+    <p class="lead hero-enter" style="--enter-delay: 220ms" data-translatable>
+      {totalEntities} {totalEntities === 1 ? 'entry' : 'entries'} across {categories.length} {categories.length === 1 ? 'category' : 'categories'}.
     </p>
     <div class="cta-row hero-enter" style="--enter-delay: 300ms">
       <a class="button ghost" href={getLocalePath(locale, gameSlug)}>
-        <span>Back to {game.name}</span>
+        <span data-translatable>Back to {game.name}</span>
       </a>
     </div>
   </section>
@@ -58,14 +64,14 @@ const description = `Reference wiki for ${game.name}: weapons, enemies, maps, mo
           data-reveal-i={String(Math.min(i + 1, 6))}
         >
           <div class="wiki-card-head">
-            <span class="wiki-card-kicker">{category.entities.length} {category.entities.length === 1 ? 'entry' : 'entries'}</span>
-            <h2 class="wiki-card-title">{label.plural}</h2>
+            <span class="wiki-card-kicker" data-translatable>{category.entities.length} {category.entities.length === 1 ? 'entry' : 'entries'}</span>
+            <h2 class="wiki-card-title" data-translatable>{label.plural}</h2>
           </div>
           <ul class="wiki-card-preview" aria-hidden="true">
             {category.entities.slice(0, 3).map((entity) => (
               <li>{entity.name}</li>
             ))}
-            {category.entities.length > 3 && <li class="wiki-card-preview-more">+{category.entities.length - 3} more</li>}
+            {category.entities.length > 3 && <li class="wiki-card-preview-more" data-translatable>+{category.entities.length - 3} more</li>}
           </ul>
           <span class="wiki-card-arrow" aria-hidden="true">
             <svg viewBox="0 0 16 16" width="14" height="14" fill="none">
@@ -77,7 +83,7 @@ const description = `Reference wiki for ${game.name}: weapons, enemies, maps, mo
     })}
   </div>
 
-  <p class="wiki-doc-footer" data-reveal>
+  <p class="wiki-doc-footer" data-reveal data-translatable>
     Official documentation for {game.name}.
   </p>
 </BaseLayout>

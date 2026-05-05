@@ -145,7 +145,7 @@ body {
 ::selection { background: var(--brand); color: #fff; }
 ::-moz-selection { background: var(--brand); color: #fff; }
 
-/* page-leave: opacity-only fade. never put a transform on body itself —
+/* page-leave: opacity-only fade. never put a transform on body itself -
    body becomes the containing block for fixed-positioned descendants
    (cookie banner, toasts) and they'd suddenly anchor to body's bottom
    instead of the viewport. ask me how i know. */
@@ -156,7 +156,7 @@ body.is-leaving { opacity: 0; }
    window 'load' or via a failsafe timeout). pointer-events stay live
    while shown so clicks don't slip through to half-loaded content.
    z-index sits above everything except the cookie banner does not
-   matter here — the overlay is gone before the user can interact. */
+   matter here - the overlay is gone before the user can interact. */
 .page-loader {
   position: fixed;
   inset: 0;
@@ -180,44 +180,37 @@ body.is-leaving { opacity: 0; }
     opacity    320ms var(--ease-out),
     visibility 0s linear 320ms;
 }
-.page-loader-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-3);
+/* the brand logo IS the loading indicator now. one keyframe drives
+   both the spin (rotate 360deg) and the pulse (scale + opacity) so the
+   two motions stay locked together; using two separate animations on
+   the same element led to a perceptible stutter when their cycles
+   drifted out of phase. duration is tuned long enough that the spin
+   doesn't feel frantic but short enough that one full cycle completes
+   on a normal page load. */
+.page-loader-logo {
+  display: block;
+  width: 96px;
+  height: 96px;
+  filter: drop-shadow(var(--shadow-md));
+  animation: lqi-loader-logo 1.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  transform-origin: 50% 50%;
 }
-/* css-drawn brand mark. no network request, no lcp candidate, but
-   visually anchors the overlay so it doesn't look broken. a soft
-   radial fill on the brand color reads as "logo placeholder" without
-   actually being one. */
-.page-loader-mark {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.18), transparent 55%),
-    var(--brand);
-  box-shadow: var(--shadow-md);
-  animation: lqi-loader-pulse 1.6s var(--ease) infinite;
-}
-.page-loader-spinner {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 2px solid var(--brand-dim);
-  border-top-color: var(--brand);
-  animation: lqi-loader-spin 0.85s linear infinite;
-}
-@keyframes lqi-loader-spin {
-  to { transform: rotate(360deg); }
-}
-@keyframes lqi-loader-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50%      { transform: scale(0.94); opacity: 0.78; }
+@keyframes lqi-loader-logo {
+  0% {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(180deg) scale(0.88);
+    opacity: 0.7;
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    opacity: 1;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .page-loader-mark,
-  .page-loader-spinner {
+  .page-loader-logo {
     animation: none;
   }
   .page-loader,
@@ -237,7 +230,7 @@ body::before {
 
 /* second fixed layer carries an svg grain texture. inline data-uri so
    no extra request, and the csp already permits it via img-src data:.
-   opacity is tuned per theme — lighter on light, heavier on dark. adds
+   opacity is tuned per theme - lighter on light, heavier on dark. adds
    a tactile feel without any specks you can actually point to. */
 body::after {
   content: "";
@@ -283,7 +276,7 @@ body::after {
 }
 
 /* skip-link rests above the viewport. transform instead of `top` so
-   the focus animation doesn't reflow — `top` would force a full layout
+   the focus animation doesn't reflow - `top` would force a full layout
    pass on every focus, which is rude. translateY is gpu-composited. */
 .skip-link {
   position: absolute;
@@ -334,7 +327,7 @@ main { padding-block: 3.5rem 5rem; }
 }
 
 /* on scroll the header gains a hairline and a faint shadow. height
-   stays constant so we never reflow — cls would jump the content
+   stays constant so we never reflow - cls would jump the content
    below as the sticky element shrunk and we'd all feel bad about it.
    animation only touches border-color and box-shadow, both cheap. */
 .site-header.is-scrolled {
@@ -405,7 +398,7 @@ main { padding-block: 3.5rem 5rem; }
   transition: transform var(--t-hover) var(--ease-out);
 }
 
-/* header brand is logo-only now — give it a bit more presence so the
+/* header brand is logo-only now - give it a bit more presence so the
    lockup doesn't feel undersized without a wordmark next to it. */
 .brand-mark-only .site-logo { width: 48px; height: 48px; border-radius: 11px; }
 
@@ -780,7 +773,7 @@ main { padding-block: 3.5rem 5rem; }
   isolation: isolate;
 }
 
-/* (cursor spotlight removed — see motion-runtime.ts.) */
+/* (cursor spotlight removed - see motion-runtime.ts.) */
 
 .hero-eyebrow {
   display: inline-flex;
@@ -855,7 +848,7 @@ main { padding-block: 3.5rem 5rem; }
 /* marquee under the ctas: pulls published-game names from the data
    layer and drifts them across the bottom of the hero. decorative,
    aria-hidden. uses a single duplicated track in css so there's no
-   js loop driving it — the browser does all the heavy lifting. */
+   js loop driving it - the browser does all the heavy lifting. */
 .hero-marquee {
   margin-top: 2.5rem;
   border-top: 1px solid var(--border);
@@ -1331,7 +1324,7 @@ main { padding-block: 3.5rem 5rem; }
 
 .inworks-card:active { transform: translate3d(0, -2px, 0) scale(0.99); }
 
-/* the CLASSIFIED stamp wiggles on hover — small payoff for poking at
+/* the CLASSIFIED stamp wiggles on hover - small payoff for poking at
    a card you're not allowed to read. transform-origin centred so it
    pivots around the stamp's middle, not the corner. */
 .inworks-stamp { transition: transform var(--t-hover) var(--ease-pop); transform-origin: center; }
@@ -1482,7 +1475,7 @@ main { padding-block: 3.5rem 5rem; }
 }
 
 /* featured-plus-supporting platform layout. discord gets its own row
-   at the top — it's where the community actually lives, and the
+   at the top - it's where the community actually lives, and the
    previous four-equal-boxes treatment buried it next to a dead x
    account. the rest of the platforms sit in a 3-column row below.
    stacks on narrow viewports so a phone never gets a 1/3-width card. */
@@ -1533,7 +1526,7 @@ main { padding-block: 3.5rem 5rem; }
 }
 
 /* the generic .platform-card svg rotate would also fire on the featured
-   icon. we animate the wrapper, not the inner svg — double-animating
+   icon. we animate the wrapper, not the inner svg - double-animating
    the same element compounds the transforms and looks stuttery. */
 .platform-card.platform-card-featured:hover .platform-card-icon svg { transform: none; }
 
@@ -1986,7 +1979,7 @@ main { padding-block: 3.5rem 5rem; }
 
 /* astro renders the about/<id>.md file inline. these styles cover the
    headings, lists, and tables that the structured json body[] never
-   produces — keeps bullets aligned with paragraph text and gives
+   produces - keeps bullets aligned with paragraph text and gives
    tables real borders/padding instead of the default browser look. */
 .about-markdown { gap: 1.25rem; }
 .about-markdown > * { margin: 0; }
@@ -2056,7 +2049,7 @@ main { padding-block: 3.5rem 5rem; }
 }
 
 /* table block. keep display:table (the default) so the outer border
-   lines up with the cell border grid — switching to display:block
+   lines up with the cell border grid - switching to display:block
    decouples them and the right edge floats off into space. */
 .about-markdown table {
   width: 100%;
@@ -2135,7 +2128,7 @@ main { padding-block: 3.5rem 5rem; }
   font-size: 1.2em;
   transition: transform var(--t-press) var(--ease);
 }
-.faq-item[open] summary::after { content: "−"; }
+.faq-item[open] summary::after { content: "-"; }
 .faq-item .faq-q { font-size: var(--fs-md); }
 .faq-item .faq-a {
   margin-top: 0.6rem;
@@ -2725,7 +2718,7 @@ footer {
 /* reveal-on-scroll: animation, not transition.
    the pre-reveal style is scoped to :not(.is-revealed) so once the
    class lands and the animation finishes (no fill mode), the element
-   has no transform of its own — leaving hover translates on cards
+   has no transform of its own - leaving hover translates on cards
    free to actually do their job. */
 .js-motion [data-reveal]:not(.is-revealed) {
   opacity: 0;
@@ -2733,7 +2726,7 @@ footer {
   will-change: opacity, transform;
 }
 
-/* reveal fallback keyframe. same role as .hero-enter — this only
+/* reveal fallback keyframe. same role as .hero-enter - this only
    fires when motion-runtime.ts hasn't loaded. the runtime sets
    .motion-active which switches this off so the waapi instance owns
    the timeline. */
@@ -2781,7 +2774,7 @@ footer {
    render-delay because the hero <p> sat at opacity 0 until the runtime
    woke up and faded it in.
 
-   only the transform animates here — a short slide-and-settle that
+   only the transform animates here - a short slide-and-settle that
    reads as motion without hiding the element. the bundled runtime
    (motion-runtime.ts) still runs its richer waapi animation on top via
    .motion-active, but its job is now embellishment, not "make content
@@ -2796,7 +2789,7 @@ footer {
 
 /* once the runtime is live, suppress the css keyframe so motion one's
    waapi instance owns transform without fighting the keyframe. opacity
-   was already 1 — runtime keeps it that way. */
+   was already 1 - runtime keeps it that way. */
 .motion-active .hero-enter {
   animation: none;
   transform: none;
@@ -3018,7 +3011,7 @@ footer {
   color: var(--muted);
 }
 
-/* entity page sections — match the legal page rhythm so prose has air. */
+/* entity page sections - match the legal page rhythm so prose has air. */
 .wiki-section {
   margin-top: 2rem;
   padding-block: 1.4rem;

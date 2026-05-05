@@ -75,7 +75,7 @@ export const GET: APIRoute = ({ props }) => {
   //     route,
   //     surface: 'markdown',
   //   });
-  // client-side analytics can't see ai crawlers — bots don't run js, by
+  // client-side analytics can't see ai crawlers - bots don't run js, by
   // design and by reputation. the only way to count gptbot/claudebot/etc
   // is logging on the server. this is static output, so wire the count
   // into the hosting layer instead. see functions/_middleware.ts.

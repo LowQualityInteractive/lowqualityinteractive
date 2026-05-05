@@ -1,0 +1,19 @@
+---
+import type { GetStaticPaths } from 'astro';
+import WikiHubPage from '../../../../views/WikiHubPage.astro';
+import { WIKI_GAME_SLUGS } from '../../../../data/wiki';
+
+export const getStaticPaths: GetStaticPaths = () =>
+  WIKI_GAME_SLUGS.map((slug) => ({
+    params: { slug },
+    props: { slug },
+  }));
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+<WikiHubPage locale="ro" gameSlug={slug} />

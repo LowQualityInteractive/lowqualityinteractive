@@ -17,7 +17,7 @@
       "releaseYear": "2025",
       "status": "live",
       "playMode": "MultiPlayer",
-      "numberOfPlayers": "1-32",
+      "numberOfPlayers": "32",
       "inLanguage": "en",
       "audience": "13+",
       "media": [
@@ -37,11 +37,11 @@
       ],
       "features": [
         "Seven named territories with flag capture, contest, and ownership tracked per round",
-        "Eight Furry types with distinct behavior — chasers, ranged Spitters, exploding Pimples and Bloaters, fast Robots, heavy Leaders, Watchers, and boss-area Helpers",
+        "Eight Furry types with distinct behavior - chasers, ranged Spitters, exploding Pimples and Bloaters, fast Robots, heavy Leaders, Watchers, and boss-area Helpers",
         "Three modes: Traditional (48m, boss enabled), Rush (7:30, single objective, all weapons unlocked), Infection (15m, downed contractors convert)",
-        "Boss event gated behind reclaiming all six territories — cutscene, atmosphere shift, tunnel den, helper waves, and a large unnamed man at the end of it",
+        "Boss event gated behind reclaiming all six territories - cutscene, atmosphere shift, tunnel den, helper waves, and a large unnamed man at the end of it",
         "Deep weapon roster spanning pistols, SMGs, rifles, shotguns, machine guns, anti-materiel rifles, and rockets",
-        "Vehicles, helicopters, and armor — ATVs, Humvees, JLTVs, Mastiff, Centurion, MBT-800, Panzer IV, T-34-76, MH-60 Blackhawk, rocket-armed transport",
+        "Vehicles, helicopters, and armor - ATVs, Humvees, JLTVs, Mastiff, Centurion, MBT-800, Panzer IV, T-34-76, MH-60 Blackhawk, rocket-armed transport",
         "Saved loadouts, cash and XP progression, daily and group rewards, and challenge tracking for captures, defenses, headshots, sidearm work, and clean lives",
         "Player counts scale up to 32, with Furry population and boss difficulty tuned to the lobby"
       ],
@@ -74,7 +74,7 @@
       "releaseYear": "2026",
       "status": "preview",
       "playMode": "MultiPlayer",
-      "numberOfPlayers": "2-16",
+      "numberOfPlayers": "32",
       "inLanguage": "en",
       "audience": "13+",
       "media": [
@@ -106,7 +106,7 @@
       "releaseYear": "2025",
       "status": "sunset",
       "playMode": "MultiPlayer",
-      "numberOfPlayers": "1-30",
+      "numberOfPlayers": "32",
       "inLanguage": "en",
       "audience": "All ages",
       "media": [
