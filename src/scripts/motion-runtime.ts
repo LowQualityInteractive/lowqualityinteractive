@@ -101,40 +101,27 @@ window.__lqiMotion = {
 };
 
 // hero entrance.
-// runs immediately on load. .hero-enter children carry an --enter-delay
-// var (kept around for the css fallback). when the runtime is alive,
-// motion one handles the stagger.
+// the lcp candidate is usually a hero-enter <p>. we deliberately do
+// NOT animate opacity here — the css path keeps these elements at
+// opacity:1 from the first frame so lighthouse records lcp immediately
+// instead of waiting for this bundled runtime to download. transform
+// is what reads as motion; we run a richer spring on top of (or in
+// place of) the css keyframe.
 const heroChildren = Array.from(document.querySelectorAll<HTMLElement>('.hero-enter'));
 if (heroChildren.length > 0) {
   if (reduce) {
-    // reduce-motion users still get a short opacity-only fade. no
-    // transform = no translation = nothing that would trip vestibular
-    // sensitivities, but the page doesn't look fully static either.
-    heroChildren.forEach((el) => {
-      el.style.opacity = '0';
-      el.style.transform = '';
-    });
-    animate(
-      heroChildren,
-      { opacity: [0, 1] },
-      { duration: 0.45, delay: stagger(0.05), ease: easeEnter },
-    ).finished.then(() => {
-      heroChildren.forEach(releaseToCSS);
-    }).catch(() => {
-      heroChildren.forEach(releaseToCSS);
-    });
+    // reduce-motion: no translate, no fade. the css path already shows
+    // the element. nothing to do here.
+    heroChildren.forEach(releaseToCSS);
   } else {
-    // pin the start state explicitly so nothing flashes before we go.
-    // 60px is movement you can actually see; the previous 22px was a
-    // polite suggestion of motion.
+    // pin start transform so the spring has somewhere to come from.
+    // opacity stays at 1 throughout. 60px is movement you can see.
     heroChildren.forEach((el) => {
-      el.style.opacity = '0';
       el.style.transform = 'translate3d(0, 60px, 0) scale(0.92)';
     });
     animate(
       heroChildren,
       {
-        opacity: [0, 1],
         transform: [
           'translate3d(0, 60px, 0) scale(0.92)',
           'translate3d(0, 0, 0) scale(1)',
@@ -150,7 +137,7 @@ if (heroChildren.length > 0) {
       heroChildren.forEach(releaseToCSS);
     }).catch(() => {
       // belt-and-braces: if the animation rejects for any reason, never
-      // leave the user staring at invisible elements.
+      // leave the user staring at translated elements.
       heroChildren.forEach(releaseToCSS);
     });
   }

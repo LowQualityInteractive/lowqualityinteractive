@@ -2729,40 +2729,42 @@ footer {
 [data-reveal-i="5"] { --reveal-delay: 300ms; }
 [data-reveal-i="6"] { --reveal-delay: 360ms; }
 
-/* hero entrance fallback. motion-runtime.ts is the primary driver —
-   it adds .motion-active to <html> and runs a spring with a 60px
-   displacement you can actually see. this css keyframe is the safety
-   net for users where the bundled js never loads (cache miss + network
-   drop), so the hero still appears instead of staying invisible. */
+/* hero entrance.
+   stays visible (opacity:1) the entire time so the lcp candidate is
+   painted on the first frame instead of waiting on the bundled motion
+   runtime to download and resolve. lighthouse used to log a 2.3s lcp
+   render-delay because the hero <p> sat at opacity 0 until the runtime
+   woke up and faded it in.
+
+   only the transform animates here — a short slide-and-settle that
+   reads as motion without hiding the element. the bundled runtime
+   (motion-runtime.ts) still runs its richer waapi animation on top via
+   .motion-active, but its job is now embellishment, not "make content
+   appear". */
 .hero-enter {
-  opacity: 0;
-  transform: translate3d(0, 22px, 0) scale(0.965);
-  animation: hero-rise 1800ms cubic-bezier(0.2, 0.85, 0.25, 1) forwards;
+  opacity: 1;
+  transform: translate3d(0, 18px, 0) scale(0.985);
+  animation: hero-rise 900ms cubic-bezier(0.2, 0.85, 0.25, 1) forwards;
   animation-delay: var(--enter-delay, 0ms);
-  will-change: opacity, transform;
+  will-change: transform;
 }
 
-/* when the runtime is live, suppress the css keyframe so motion one's
-   waapi instance is the only thing driving the property. */
+/* once the runtime is live, suppress the css keyframe so motion one's
+   waapi instance owns transform without fighting the keyframe. opacity
+   was already 1 — runtime keeps it that way. */
 .motion-active .hero-enter {
   animation: none;
-  opacity: 1;
   transform: none;
 }
 
 @keyframes hero-rise {
   0% {
-    opacity: 0;
-    transform: translate3d(0, 22px, 0) scale(0.965) rotate(-0.4deg);
-  }
-  50% {
-    opacity: 1;
+    transform: translate3d(0, 18px, 0) scale(0.985) rotate(-0.3deg);
   }
   70% {
     transform: translate3d(0, -2px, 0) scale(1.005) rotate(0deg);
   }
   100% {
-    opacity: 1;
     transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
   }
 }

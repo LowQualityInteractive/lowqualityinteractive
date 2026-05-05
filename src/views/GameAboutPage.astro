@@ -52,9 +52,12 @@ const aboutMarkdown = aboutMarkdownModules[`../data/about/${game.id}.md`] ?? nul
 const AboutMarkdownContent = aboutMarkdown?.Content;
 ---
 
+{/* the page title leads with the game name + genre — that's what
+    people actually search for. "About <game>" wastes the high-value
+    first position that crawlers and SERPs pay most attention to. */}
 <BaseLayout
   locale={locale}
-  title={getSiteTitle(`About ${game.name}`)}
+  title={getSiteTitle(`${game.name} (${game.genreLabel})`)}
   description={game.pageDescription}
   currentPage="games"
   routePath={aboutRoutePath}

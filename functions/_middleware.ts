@@ -78,10 +78,56 @@ function logAiCrawlerHit(_request: Request, _surface: 'html' | 'markdown') {
   // empty until we wire a logger
 }
 
+// roblox presence proxy. the public games endpoint is browser-blocked
+// by cors, so we relay it here from a same-origin path. live.ts hits
+// /api/roblox-presence?ids=<csv-of-universe-ids> when PUBLIC_ROBLOX_PROXY=1
+// is set at build time. response shape is the upstream payload as-is.
+async function handleRobloxPresence(request: Request, url: URL): Promise<Response> {
+  const ids = url.searchParams.get('ids') ?? '';
+  // strict input validation: digits and commas only, max 10 ids,
+  // each up to 20 digits. anything else gets a 400 — never proxy
+  // attacker-controlled query strings to an upstream blindly.
+  if (!/^\d{1,20}(,\d{1,20}){0,9}$/.test(ids)) {
+    return new Response(JSON.stringify({ error: 'bad ids' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  const upstream = `https://games.roblox.com/v1/games?universeIds=${ids}`;
+  try {
+    const res = await fetch(upstream, {
+      headers: { Accept: 'application/json' },
+      signal: AbortSignal.timeout(5000),
+    });
+    const body = await res.text();
+    return new Response(body, {
+      status: res.status,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        // short cache. presence is volatile but we still want repeat
+        // visitors within a tab session to skip the upstream hop.
+        'Cache-Control': 'public, max-age=30',
+        'Access-Control-Allow-Origin': new URL(request.url).origin,
+      },
+    });
+  } catch {
+    return new Response(JSON.stringify({ error: 'upstream' }), {
+      status: 502,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+}
+
 export const onRequest = async (context: PagesContext): Promise<Response> => {
   const { request, next } = context;
   const url = new URL(request.url);
   const pathname = url.pathname;
+
+  // same-origin proxies for browser-cors-blocked apis. lives behind
+  // /api/* so static asset detection above doesn't try to serve them.
+  if (pathname === '/api/roblox-presence') {
+    return handleRobloxPresence(request, url);
+  }
 
   // skip assets, they dont need Link headers or content negotiation
   if (!isPagePath(pathname)) {

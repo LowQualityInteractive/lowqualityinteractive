@@ -16,6 +16,11 @@ export function toAbsoluteSiteUrl(path: string) {
   return new URL(path, SITE_URL).toString();
 }
 
+// page-first title convention: "<page> — <brand>". SEO best practice
+// puts the page-specific keyword at the front so it isn't truncated in
+// SERPs and so each page's title is distinctively unique on first read.
+// the em dash separator is friendlier than a pipe and reads naturally
+// when shown in browser tabs and share previews.
 export function getSiteTitle(pageTitle: string) {
-  return `${SITE_NAME} | ${pageTitle}`;
+  return `${pageTitle} — ${SITE_NAME}`;
 }

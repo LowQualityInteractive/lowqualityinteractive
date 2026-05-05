@@ -82,11 +82,16 @@ const liveGamesForScript = getGames(locale).filter((g) => g.status !== 'in-devel
   status: g.status,
   universeId: g.universeId,
 }));
+// only enable the live-presence call on hosts that ship the proxy
+// (cloudflare pages / netlify edge). on github pages the proxy 404s
+// and the call would pollute the console + every lighthouse run.
+const robloxPresenceEnabled = import.meta.env.PUBLIC_ROBLOX_PROXY === '1';
 const liveScript = sanitizeInlineScript(
   getLiveScript(
     messages.chrome.live,
     liveGamesForScript,
     DISCORD_GUILD_ID,
+    robloxPresenceEnabled,
   ),
 );
 const translateBootstrap = sanitizeInlineScript(getTranslateBootstrap(locale));
@@ -128,11 +133,13 @@ const allInlineScripts = [
 const scriptHashes = (
   await Promise.all(allInlineScripts.map((s) => cspScriptHash(s)))
 ).join(' ');
+// connect-src: only origins the BROWSER hits at runtime. roblox APIs
+// (games.roblox.com, groups.roblox.com) are called server-side from
+// astro frontmatter at build time, so they don't belong here. live.ts
+// now talks to the same-origin /api/roblox-presence proxy ('self').
 const connectSources = [
   "'self'",
   'https://api.mymemory.translated.net',
-  'https://games.roblox.com',
-  'https://groups.roblox.com',
   'https://discord.com',
 ].filter(Boolean);
 const csp = [
@@ -144,7 +151,15 @@ const csp = [
   `connect-src ${[...new Set(connectSources)].join(' ')}`,
   "base-uri 'self'",
   "form-action 'self'",
-  "frame-ancestors 'none'",
+  // frame-ancestors intentionally NOT included here: per the csp spec,
+  // browsers ignore frame-ancestors when the policy is delivered via a
+  // <meta> element, and lighthouse flags its presence as a warning.
+  // the real frame-ancestors directive is emitted from
+  // functions/_middleware.ts and public/_headers, which fires on
+  // cloudflare pages / netlify edge. on github pages neither fires;
+  // x-frame-options support there falls back to whatever the host
+  // sends (github pages currently doesn't set one, so embedding is
+  // not blocked at the http layer until the host migrates).
   "object-src 'none'",
 ].join('; ');
 ---
@@ -251,7 +266,12 @@ const csp = [
   <header class="site-header">
     <div class="container header-row">
       <a class="brand brand-mark-only" href={homeHref} aria-label={messages.chrome.brandHomeAriaLabel}>
-        <img class="site-logo" src="/assets/logo.png" alt={messages.chrome.brandLogoAlt} width="48" height="48" fetchpriority="high" decoding="async" />
+        {/* logo-96.png is a 96x96 (≈2.5kb) variant of the 512x512
+            original. covers up to 2x DPR for the 48px header render
+            without shipping the full 30kb source on every page. the
+            512x512 logo.png stays in use for <link rel="icon"> below
+            and as the og:image fallback, where larger source helps. */}
+        <img class="site-logo" src="/assets/logo-96.png" alt={messages.chrome.brandLogoAlt} width="48" height="48" fetchpriority="high" decoding="async" />
       </a>
       <nav class="nav" id="primary-navigation" aria-label={messages.chrome.nav.ariaLabel}>
         <a class="nav-link" href={homeHref} aria-current={currentPage === 'home' ? 'page' : undefined}><span>{messages.chrome.nav.home}</span></a>
@@ -339,7 +359,7 @@ const csp = [
       <div class="footer-inner">
         <div class="footer-brand">
           <a class="brand" href={homeHref}>
-            <img class="site-logo" src="/assets/logo.png" alt={messages.chrome.brandLogoAlt} width="36" height="36" />
+            <img class="site-logo" src="/assets/logo-96.png" alt={messages.chrome.brandLogoAlt} width="36" height="36" />
             <span>{SITE_NAME}</span>
           </a>
           <p>{messages.chrome.footer.tagline}</p>
