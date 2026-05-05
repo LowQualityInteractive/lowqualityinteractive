@@ -1,0 +1,221 @@
+[
+  {
+    "id": "territory-capture",
+    "name": "Territory Capture",
+    "type": "mechanic",
+    "summary": "Territory capture is the core objective system for flags, ownership, contesting, and territory rewards.",
+    "role": "Stand in a non-spawn-only flag area to build defender capture progress. Furries in the zone contest the flag, pause defender progress, and can drain captured progress when defenders are gone.",
+    "stats": {
+      "one_defender_capture_time_seconds": 30,
+      "base_capture_increment_per_second": 0.03,
+      "neutral_decay_per_second": 0.003,
+      "captured_recovery_per_second": 0.003,
+      "capture_cash_reward": 250,
+      "capture_xp_reward": 750,
+      "defense_interval_seconds": 45,
+      "defense_cash_reward": 35,
+      "defense_xp_reward": 125
+    },
+    "related": [
+      "whiskerhold",
+      "furward",
+      "furrow",
+      "purridge",
+      "whisken",
+      "bloodwhisk-reach",
+      "whiskspire",
+      "deployment",
+      "boss-unlock",
+      "territory-rewards"
+    ],
+    "fun_facts": [
+      "With one defender and no Furries contesting, a neutral flag takes about 30 seconds to capture.",
+      "Empty neutral flags slowly lose progress instead of staying frozen forever."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "deployment",
+    "name": "Deployment",
+    "type": "mechanic",
+    "summary": "Deployment controls which territories each team can spawn from during the match.",
+    "role": "Pick owned, uncontested territory to shorten the run back into combat. Losing a flag removes that forward spawn option for defenders, while contested flags temporarily block deployment.",
+    "stats": {
+      "base_spawn_points": 7,
+      "contested_spawn_allowed": "no",
+      "furry_base_spawn_allowed": "no",
+      "forward_deploy_locations": 6
+    },
+    "related": [
+      "furron",
+      "territory-capture",
+      "whiskerhold",
+      "furrow",
+      "traditional",
+      "rush",
+      "infection"
+    ],
+    "fun_facts": [
+      "The forward deploy list uses town names instead of flag numbers, so players see Whiskerhold, Furward, Furrow, and the rest of the route."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "furry-waves",
+    "name": "Furry Waves",
+    "type": "mechanic",
+    "summary": "Furry waves control enemy population, respawns, flag guarding, and mode pressure.",
+    "role": "Expect Furry pressure to scale with lobby size and mode. Furries can guard Furry-held flags, contest captures, and in Rush concentrate around Furrow.",
+    "stats": {
+      "solo_population_range": "75-85",
+      "small_population_range": "90-130",
+      "mid_population_range": "140-160",
+      "large_population_range": "110-160",
+      "max_scaling_players": 32,
+      "flag_defender_fraction": 0.22,
+      "flag_defender_min": 3,
+      "flag_defender_max": 8
+    },
+    "related": [
+      "normal-furry",
+      "pimple-furry",
+      "watcher-furry",
+      "bloater-furry",
+      "leader-furry",
+      "robot-furry",
+      "spitter-furry",
+      "territory-capture",
+      "rush",
+      "infection",
+      "furry-invisibility-x2-pass",
+      "m134-pass"
+    ],
+    "fun_facts": [
+      "Rush directs active Furries toward Furrow instead of spreading them across the full territory route."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "boss-unlock",
+    "name": "Boss Unlock",
+    "type": "mechanic",
+    "summary": "The boss route unlocks in Traditional after all six non-base territories are captured by defenders.",
+    "role": "Capture and hold Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, and Whiskspire to open the Traditional endgame.",
+    "stats": {
+      "required_reclaimable_territories": 6,
+      "base_excluded": "yes",
+      "mode": "Traditional"
+    },
+    "related": [
+      "traditional",
+      "furward",
+      "furrow",
+      "purridge",
+      "whisken",
+      "bloodwhisk-reach",
+      "whiskspire",
+      "furry-boss",
+      "boss-core"
+    ],
+    "fun_facts": [
+      "Whiskerhold is excluded from the boss unlock count because it is the starting base, not reclaimed ground."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "boss-core",
+    "name": "Boss Core",
+    "type": "mechanic",
+    "summary": "The boss core is part of the Traditional boss fight and can affect boss sustain while active.",
+    "role": "Pressure the core when the boss is regenerating too much or the team needs to reduce sustain before committing damage to the boss.",
+    "stats": {
+      "base_core_health": 2500,
+      "core_regen_percent_per_second": 0.01,
+      "difficulty_min_scale": 0.75,
+      "difficulty_max_scale": 6,
+      "player_difficulty_step": 0.35
+    },
+    "related": [
+      "furry-boss",
+      "furry-helper",
+      "boss-unlock",
+      "boss-rewards",
+      "traditional"
+    ],
+    "fun_facts": [
+      "The core health and boss difficulty scale with active fighters, so a bigger group changes the numbers behind the fight."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "rallydrop",
+    "name": "RallyDrop Vehicle Call-In",
+    "type": "mechanic",
+    "summary": "RallyDrop lets players call in usable vehicles near their position, with access depending on free tier, RallyDrop ownership, and the WWII vehicle pass.",
+    "role": "Use RallyDrop to solve distance, move squads, bring mounted firepower, and recover tempo after losing forward ground.",
+    "stats": {
+      "spawn_cooldown_seconds": 1,
+      "spawn_radius_min_studs": 26,
+      "spawn_radius_max_studs": 90,
+      "spawn_attempts_per_radius": 10,
+      "default_active_vehicle_limit": 1,
+      "expanded_active_vehicle_limit": 2
+    },
+    "related": [
+      "rallydrop-tool",
+      "ltv-300",
+      "mbt-800",
+      "mh-60-blackhawk",
+      "pa467-centurion",
+      "panzer-iv",
+      "t-34",
+      "vehicle-resupply",
+      "rallydrop-pass",
+      "rallydrop-wwii-pass",
+      "rallydrop-double-commander-pass",
+      "rallydrop-aviation-pass"
+    ],
+    "fun_facts": [
+      "RallyDrop can driver-lock an owned vehicle and kick occupants from it.",
+      "Green is the default RallyDrop paint color."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "vehicle-resupply",
+    "name": "Vehicle Resupply",
+    "type": "mechanic",
+    "summary": "Vehicle resupply pads refill vehicle weapon ammo and restore vehicle health when a player-operated vehicle touches them.",
+    "role": "Drive damaged armed vehicles through resupply when they are still worth saving. It is especially valuable for armor and aircraft that carry limited vehicle ammo.",
+    "stats": {
+      "refuel_pads": 3,
+      "refuel_amount": 5,
+      "resupply_cooldown_seconds": 30,
+      "instant_top_off": "yes",
+      "repairs_to_max_health": "yes"
+    },
+    "related": [
+      "rallydrop",
+      "ltv-300",
+      "mbt-800",
+      "mh-60-blackhawk",
+      "pa467-centurion",
+      "panzer-iv",
+      "t-34",
+      "rallydrop-pass",
+      "ammo-cans-x2-pass"
+    ],
+    "fun_facts": [
+      "Vehicle resupply restores health as well as weapon ammunition.",
+      "Vehicles without weapons do not get a weapon-ammo refill from the resupply logic."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  }
+]

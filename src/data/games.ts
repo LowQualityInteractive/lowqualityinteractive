@@ -132,7 +132,7 @@ export function getGameHref(locale: Locale, game: Pick<Game, 'slug'>) {
 }
 
 export function getGameUpdateHref(locale: Locale, game: Pick<Game, 'updateHash'>) {
-  return `${getLocalePath(locale, 'blogs')}#${game.updateHash}`;
+  return `${getLocalePath(locale, 'updates')}#${game.updateHash}`;
 }
 
 // points back at the org node on the home graph. every other page just
@@ -144,7 +144,7 @@ const ORG_REF = { '@id': `${SITE_URL}/#organization` };
 const BREADCRUMB_LABELS = {
   home: 'Home',
   games: 'Games',
-  blogs: 'Updates',
+  updates: 'Updates',
   connect: 'Connect',
   'privacy-policy': 'Privacy Policy',
 } as const;
@@ -451,13 +451,13 @@ function getSectionJsonLd({ description, inLanguage, pageType, pageUrl, routeKey
 
 export function getBlogsJsonLd(locale: Locale) {
   const messages = getMessages(locale);
-  const pageUrl = getLocaleAbsolutePath(locale, 'blogs');
+  const pageUrl = getLocaleAbsolutePath(locale, 'updates');
   return getSectionJsonLd({
     description: messages.pages.blogs.description,
     inLanguage: locale,
     pageType: 'CollectionPage',
     pageUrl,
-    routeKey: 'blogs',
+    routeKey: 'updates',
     title: getSiteTitle(messages.pages.blogs.label),
   });
 }

@@ -1,0 +1,1762 @@
+[
+  {
+    "id": "aa-12",
+    "name": "AA-12",
+    "type": "weapon",
+    "summary": "AA-12 is a primary shotgun unlocked through cash and XP progression.",
+    "role": "Use it as a close-range primary when the fight is packed onto a flag or hallway. It is not a free starter unlock, so normal modes require the listed progression while Rush grants access for the round.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Cash and XP",
+      "cash_required": 15000,
+      "xp_required": 15000
+    },
+    "related": [
+      "rush",
+      "territory-capture",
+      "furry-waves"
+    ],
+    "fun_facts": [
+      "AA-12 is one of the cash-and-XP shotgun unlocks."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "ak-74",
+    "name": "AK-74",
+    "type": "weapon",
+    "summary": "AK-74 is a free primary weapon.",
+    "role": "Use it as a no-cost rifle option for general fighting, especially before investing cash and XP into specialist weapons.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Free",
+      "cash_required": 0,
+      "xp_required": 0
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "furry-waves"
+    ],
+    "fun_facts": [
+      "Free loadout weapons are by zero cash and zero XP requirements."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "ax-50",
+    "name": "AX-50",
+    "type": "weapon",
+    "summary": "AX-50 is a high-cost primary precision weapon unlocked through cash and XP.",
+    "role": "Use it when long-range damage matters more than volume of fire. It is a progression weapon outside Rush.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Cash and XP",
+      "cash_required": 35000,
+      "xp_required": 10000
+    },
+    "related": [
+      "rush",
+      "leader-furry",
+      "furry-boss"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "berthier-carbine",
+    "name": "Berthier Carbine",
+    "type": "weapon",
+    "summary": "Berthier Carbine is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a historical rifle option.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "set-i-france-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "chauchat",
+    "name": "Chauchat",
+    "type": "weapon",
+    "summary": "Chauchat is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a historical automatic primary once unlocked. In Rush, it is available with the rest of the weapon selection.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "furry-waves",
+      "rush",
+      "set-i-france-i-pass"
+    ],
+    "fun_facts": [
+      "Chauchat is in the same weapon pass as Berthier Carbine, Lebel M1886/93, RSC M1917, and M1892 Revolver."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "dp-27",
+    "name": "DP-27",
+    "type": "weapon",
+    "summary": "DP-27 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a sustained-fire historical primary once unlocked.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "furry-waves",
+      "rush",
+      "set-iv-russia-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "double-barrel",
+    "name": "Double-Barrel",
+    "type": "weapon",
+    "summary": "Double-Barrel is a primary shotgun unlocked through cash and XP.",
+    "role": "Use it for close-range burst damage. Its unlock requirements are higher on XP than cash, so it is a deliberate progression pickup.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Cash and XP",
+      "cash_required": 10000,
+      "xp_required": 25000
+    },
+    "related": [
+      "territory-capture",
+      "rush",
+      "furry-waves"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "fg-42",
+    "name": "FG-42",
+    "type": "weapon",
+    "summary": "FG-42 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a historical primary once unlocked.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "set-iii-germany-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "fx-05-xiuhcoatl",
+    "name": "FX-05 Xiuhcoatl",
+    "type": "weapon",
+    "summary": "FX-05 Xiuhcoatl is a free primary rifle.",
+    "role": "Use it as a free modern rifle option when you want a primary without needing an unlock.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Free",
+      "cash_required": 0,
+      "xp_required": 0
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "furry-waves"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "fedorov-avtomat",
+    "name": "Fedorov Avtomat",
+    "type": "weapon",
+    "summary": "Fedorov Avtomat is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a historical automatic primary once unlocked.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "furry-waves",
+      "rush",
+      "set-vi-russia-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "g17-w-shield",
+    "name": "G17 w/ Shield",
+    "type": "weapon",
+    "summary": "G17 w/ Shield is a free primary weapon with shield utility.",
+    "role": "Use it when you want a free primary slot option built around sidearm-style handling and shield presence.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Free",
+      "cash_required": 0,
+      "xp_required": 0
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "territory-capture"
+    ],
+    "fun_facts": [
+      "Although it uses a pistol name, G17 w/ Shield is equipped as a primary weapon."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "g36",
+    "name": "G36",
+    "type": "weapon",
+    "summary": "G36 is a free primary rifle.",
+    "role": "Use it as a free rifle option for general wave clearing and flag fights.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Free",
+      "cash_required": 0,
+      "xp_required": 0
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "furry-waves"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "gewehr-41",
+    "name": "Gewehr 41",
+    "type": "weapon",
+    "summary": "Gewehr 41 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a historical rifle option once unlocked.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "traditional",
+      "set-iii-germany-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "gewehr-43",
+    "name": "Gewehr 43",
+    "type": "weapon",
+    "summary": "Gewehr 43 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a semi-automatic rifle option for controlled shots at medium range.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "traditional",
+      "set-iii-germany-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "gewehr-98",
+    "name": "Gewehr 98",
+    "type": "weapon",
+    "summary": "Gewehr 98 is a primary rifle unlocked through a gamepass.",
+    "role": "Use it as a long-rifle option when you want deliberate shots instead of automatic fire.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "leader-furry",
+      "set-vii-germany-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "karabiner-98k",
+    "name": "Karabiner 98k",
+    "type": "weapon",
+    "summary": "Karabiner 98k is a primary rifle unlocked through a gamepass.",
+    "role": "Use it as a bolt-action style rifle option for slower, higher-commitment shots.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "leader-furry",
+      "set-iii-germany-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "krag-jorgensen",
+    "name": "Krag–Jørgensen",
+    "type": "weapon",
+    "summary": "Krag–Jørgensen is a low-cost primary rifle unlocked through cash and XP.",
+    "role": "Use it as an early progression rifle when you want a cheap step beyond the free pool.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Cash and XP",
+      "cash_required": 1250,
+      "xp_required": 1000
+    },
+    "related": [
+      "traditional",
+      "rush"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "l86a1",
+    "name": "L86A1",
+    "type": "weapon",
+    "summary": "L86A1 is a primary weapon unlocked through cash and XP.",
+    "role": "Use it as a mid-cost primary unlock for steady rifle fire in territory fights.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Cash and XP",
+      "cash_required": 5000,
+      "xp_required": 5000
+    },
+    "related": [
+      "territory-capture",
+      "rush"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "lebel-m1886-93",
+    "name": "Lebel M1886/93",
+    "type": "weapon",
+    "summary": "Lebel M1886/93 is a primary rifle unlocked through a gamepass.",
+    "role": "Use it as a historical rifle option once unlocked.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "traditional",
+      "set-i-france-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "lewis-gun",
+    "name": "Lewis Gun",
+    "type": "weapon",
+    "summary": "Lewis Gun is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a sustained-fire option when holding territory against waves.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "territory-capture",
+      "furry-waves",
+      "set-v-usa-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "m1-carbine",
+    "name": "M1 Carbine",
+    "type": "weapon",
+    "summary": "M1 Carbine is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a lightweight rifle option for general combat.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "traditional",
+      "set-viii-usa-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "m1-garand",
+    "name": "M1 Garand",
+    "type": "weapon",
+    "summary": "M1 Garand is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a rifle for controlled shots and medium-range pressure.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "traditional",
+      "set-viii-usa-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "m16a2",
+    "name": "M16A2",
+    "type": "weapon",
+    "summary": "M16A2 is a free primary rifle.",
+    "role": "Use it as a free rifle option for general-purpose fighting in normal modes.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Free",
+      "cash_required": 0,
+      "xp_required": 0
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "furry-waves"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "m1903-springfield",
+    "name": "M1903 Springfield",
+    "type": "weapon",
+    "summary": "M1903 Springfield is a primary rifle unlocked through a gamepass.",
+    "role": "Use it as a precision rifle option for deliberate long-range shots.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "leader-furry",
+      "set-v-usa-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "m2-carbine",
+    "name": "M2 Carbine",
+    "type": "weapon",
+    "summary": "M2 Carbine is an early cash-and-XP primary unlock.",
+    "role": "Use it as a low-cost progression primary when you want to move beyond free rifles without a large cash spend.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Cash and XP",
+      "cash_required": 1500,
+      "xp_required": 1500
+    },
+    "related": [
+      "traditional",
+      "rush"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "m249",
+    "name": "M249",
+    "type": "weapon",
+    "summary": "M249 is a high-cost primary weapon unlocked through cash and XP.",
+    "role": "Use it for sustained wave control once you can afford it. It is one of the most expensive cash unlocks.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Cash and XP",
+      "cash_required": 75000,
+      "xp_required": 30000
+    },
+    "related": [
+      "furry-waves",
+      "territory-capture",
+      "rush"
+    ],
+    "fun_facts": [
+      "M249 has the highest cash requirement in the standard loadout."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "m40a5",
+    "name": "M40A5",
+    "type": "weapon",
+    "summary": "M40A5 is a free primary precision weapon.",
+    "role": "Use it when you want long-range precision without needing an unlock.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Free",
+      "cash_required": 0,
+      "xp_required": 0
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "leader-furry"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "m4a1",
+    "name": "M4A1",
+    "type": "weapon",
+    "summary": "M4A1 is a free primary rifle.",
+    "role": "Use it as a no-cost general rifle for wave clearing, captures, and flexible combat.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Free",
+      "cash_required": 0,
+      "xp_required": 0
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "furry-waves"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "m60",
+    "name": "M60",
+    "type": "weapon",
+    "summary": "M60 is the LQI group reward primary weapon.",
+    "role": "Use it as the group reward sustained-fire option for players with group reward access.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Group reward"
+    },
+    "related": [
+      "group-rewards",
+      "furry-waves",
+      "territory-capture"
+    ],
+    "fun_facts": [
+      "M60 is the only weapon marked as the group reward weapon."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mg-42",
+    "name": "MG-42",
+    "type": "weapon",
+    "summary": "MG-42 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a sustained-fire weapon for holding lanes and dealing with dense waves.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "furry-waves",
+      "territory-capture",
+      "set-iii-germany-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mk1-carbine",
+    "name": "MK1 Carbine",
+    "type": "weapon",
+    "summary": "MK1 Carbine is a primary weapon unlocked through cash and XP.",
+    "role": "Use it as a modest progression rifle for everyday combat in normal modes.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Cash and XP",
+      "cash_required": 2500,
+      "xp_required": 2500
+    },
+    "related": [
+      "traditional",
+      "rush"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mp-18",
+    "name": "MP-18",
+    "type": "weapon",
+    "summary": "MP-18 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a close-to-mid-range automatic option.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "territory-capture",
+      "rush",
+      "set-vii-germany-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mp-34",
+    "name": "MP-34",
+    "type": "weapon",
+    "summary": "MP-34 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as an automatic primary for close-to-mid-range fighting.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "territory-capture",
+      "rush",
+      "set-iii-germany-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mp-40",
+    "name": "MP-40",
+    "type": "weapon",
+    "summary": "MP-40 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as an automatic weapon for close-range territory pressure.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "territory-capture",
+      "rush",
+      "set-iii-germany-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mp7a1",
+    "name": "MP7A1",
+    "type": "weapon",
+    "summary": "MP7A1 is a primary weapon unlocked through cash and XP.",
+    "role": "Use it as a fast close-range progression weapon for moving between captures and clearing nearby threats.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Cash and XP",
+      "cash_required": 7500,
+      "xp_required": 5000
+    },
+    "related": [
+      "territory-capture",
+      "rush",
+      "furry-waves"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mosin-nagant-m1891-30",
+    "name": "Mosin–Nagant M1891/30",
+    "type": "weapon",
+    "summary": "Mosin–Nagant M1891/30 is a primary rifle unlocked through a gamepass.",
+    "role": "Use it as a historical rifle for deliberate shots and longer sightlines.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "leader-furry",
+      "set-vi-russia-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mosin-nagant-m38-carbine",
+    "name": "Mosin–Nagant M38 Carbine",
+    "type": "weapon",
+    "summary": "Mosin–Nagant M38 Carbine is a primary rifle unlocked through a gamepass.",
+    "role": "Use it as a carbine option once unlocked.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "traditional",
+      "set-iv-russia-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "musket",
+    "name": "Musket",
+    "type": "weapon",
+    "summary": "Musket is a low-cost primary weapon unlocked through cash and XP.",
+    "role": "Use it as an inexpensive novelty-style progression weapon. It is not a free starter weapon.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Cash and XP",
+      "cash_required": 500,
+      "xp_required": 250
+    },
+    "related": [
+      "traditional",
+      "rush"
+    ],
+    "fun_facts": [
+      "Musket is one of the cheapest primary unlocks."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "p90",
+    "name": "P90",
+    "type": "weapon",
+    "summary": "P90 is a free primary weapon.",
+    "role": "Use it as a no-cost close-to-mid-range primary for clearing waves and moving with the team.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Free",
+      "cash_required": 0,
+      "xp_required": 0
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "furry-waves"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "ppsh-41",
+    "name": "PPSh-41",
+    "type": "weapon",
+    "summary": "PPSh-41 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as an automatic weapon for close-range wave pressure.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "ppsh-41-drum",
+      "furry-waves",
+      "set-iv-russia-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "ppsh-41-drum",
+    "name": "PPSh-41 (Drum)",
+    "type": "weapon",
+    "summary": "PPSh-41 (Drum) is the drum variant of the PPSh-41 primary.",
+    "role": "Use it as the alternate PPSh-41 variant once unlocked.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "ppsh-41",
+      "furry-waves",
+      "set-iv-russia-ii-pass"
+    ],
+    "fun_facts": [
+      "The drum version is a separate weapon, not just a skin on PPSh-41."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "ptrs-41",
+    "name": "PTRS-41",
+    "type": "weapon",
+    "summary": "PTRS-41 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a heavy rifle option for targets that reward high single-shot pressure.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "furry-boss",
+      "rallydrop",
+      "set-iv-russia-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "panzerbuchse-39",
+    "name": "Panzerbüchse 39",
+    "type": "weapon",
+    "summary": "Panzerbüchse 39 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a heavy rifle option once unlocked.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "furry-boss",
+      "rallydrop",
+      "set-iii-germany-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "rpk-74",
+    "name": "RPK-74",
+    "type": "weapon",
+    "summary": "RPK-74 is a high-cost primary weapon unlocked through cash and XP.",
+    "role": "Use it for sustained primary fire once you can meet its steep progression requirements.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Cash and XP",
+      "cash_required": 75000,
+      "xp_required": 25000
+    },
+    "related": [
+      "furry-waves",
+      "territory-capture",
+      "rush"
+    ],
+    "fun_facts": [
+      "RPK-74 shares the highest cash requirement tier with M249."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "rsc-m1917",
+    "name": "RSC M1917",
+    "type": "weapon",
+    "summary": "RSC M1917 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a historical rifle option once unlocked.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "traditional",
+      "set-i-france-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "remington-rolling-block",
+    "name": "Remington Rolling Block",
+    "type": "weapon",
+    "summary": "Remington Rolling Block is the lowest-cash primary unlock.",
+    "role": "Use it as an extremely cheap progression weapon when cash is limited but you still want a non-free primary option.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Cash and XP",
+      "cash_required": 50,
+      "xp_required": 250
+    },
+    "related": [
+      "traditional",
+      "rush"
+    ],
+    "fun_facts": [
+      "Its cash requirement is only 50."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "svt-40",
+    "name": "SVT-40",
+    "type": "weapon",
+    "summary": "SVT-40 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a rifle option once unlocked.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "traditional",
+      "set-iv-russia-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "saiga-12",
+    "name": "Saiga-12",
+    "type": "weapon",
+    "summary": "Saiga-12 is a primary shotgun unlocked through cash and XP.",
+    "role": "Use it for close-range wave clearing and contested flag fights once unlocked.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Cash and XP",
+      "cash_required": 10000,
+      "xp_required": 10000
+    },
+    "related": [
+      "territory-capture",
+      "furry-waves",
+      "rush"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "salvaged-ak",
+    "name": "Salvaged AK",
+    "type": "weapon",
+    "summary": "Salvaged AK is a primary weapon from the salvaged weapon set.",
+    "role": "Use it as a salvaged primary once the salvaged pack is available.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "salvaged-carbine",
+      "salvaged-smg"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "salvaged-carbine",
+    "name": "Salvaged Carbine",
+    "type": "weapon",
+    "summary": "Salvaged Carbine is a primary weapon from the salvaged weapon set.",
+    "role": "Use it as the carbine option in the salvaged pack.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "salvaged-ak",
+      "salvaged-pistol",
+      "set-salvaged-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "salvaged-rpg",
+    "name": "Salvaged RPG",
+    "type": "weapon",
+    "summary": "Salvaged RPG is a primary weapon from the salvaged weapon set.",
+    "role": "Use it as the salvaged pack's launcher-style option when heavy targets need more than small arms.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rpg-7",
+      "rallydrop",
+      "set-salvaged-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "salvaged-smg",
+    "name": "Salvaged SMG",
+    "type": "weapon",
+    "summary": "Salvaged SMG is a primary weapon from the salvaged weapon set.",
+    "role": "Use it as the salvaged pack's close-range automatic option.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "salvaged-ak",
+      "salvaged-pistol",
+      "set-salvaged-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "selbstlader-m1916",
+    "name": "Selbstlader M1916",
+    "type": "weapon",
+    "summary": "Selbstlader M1916 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a historical rifle option once unlocked.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "traditional",
+      "set-vii-germany-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "stg-44",
+    "name": "StG-44",
+    "type": "weapon",
+    "summary": "StG-44 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as an automatic rifle for general combat and wave clearing.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "furry-waves",
+      "rush",
+      "set-iii-germany-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "thompson-m1928",
+    "name": "Thompson M1928",
+    "type": "weapon",
+    "summary": "Thompson M1928 is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as a close-range automatic weapon for wave fights and flag pressure.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "territory-capture",
+      "rush",
+      "set-viii-usa-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "type-100-rifle-paratrooper",
+    "name": "Type 100 Rifle (Paratrooper)",
+    "type": "weapon",
+    "summary": "Type 100 Rifle (Paratrooper) is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as part of the Japanese weapon pack.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "type-100-smg-early",
+      "type-100-smg-late",
+      "set-ii-japan-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "type-100-smg-early",
+    "name": "Type 100 SMG (Early)",
+    "type": "weapon",
+    "summary": "Type 100 SMG (Early) is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as one of the Type 100 SMG variants in the Japanese pass set.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "type-100-smg-late",
+      "type-100-smg-paratrooper",
+      "set-ii-japan-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "type-100-smg-late",
+    "name": "Type 100 SMG (Late)",
+    "type": "weapon",
+    "summary": "Type 100 SMG (Late) is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as another Type 100 SMG variant in the Japanese pass set.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "type-100-smg-early",
+      "type-100-smg-paratrooper",
+      "set-ii-japan-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "type-100-smg-paratrooper",
+    "name": "Type 100 SMG (Paratrooper)",
+    "type": "weapon",
+    "summary": "Type 100 SMG (Paratrooper) is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as the paratrooper Type 100 SMG variant from the Japanese pass set.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "type-100-smg-early",
+      "type-100-smg-late",
+      "set-ii-japan-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "type-38-carbine",
+    "name": "Type 38 Carbine",
+    "type": "weapon",
+    "summary": "Type 38 Carbine is a primary rifle unlocked through a gamepass.",
+    "role": "Use it as a carbine from the Japanese weapon pack.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "type-38-rifle",
+      "type-99-rifle",
+      "set-ii-japan-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "type-38-rifle",
+    "name": "Type 38 Rifle",
+    "type": "weapon",
+    "summary": "Type 38 Rifle is a primary rifle unlocked through a gamepass.",
+    "role": "Use it as a rifle from the Japanese weapon pack.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "type-38-carbine",
+      "type-97-sniper",
+      "set-ii-japan-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "type-97-sniper",
+    "name": "Type 97 Sniper",
+    "type": "weapon",
+    "summary": "Type 97 Sniper is a primary precision weapon unlocked through a gamepass.",
+    "role": "Use it as the sniper from the Japanese weapon pack for longer sightlines.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "type-38-rifle",
+      "type-99-rifle",
+      "leader-furry",
+      "set-ii-japan-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "type-99-rifle",
+    "name": "Type 99 Rifle",
+    "type": "weapon",
+    "summary": "Type 99 Rifle is a primary rifle unlocked through a gamepass.",
+    "role": "Use it as a rifle from the Japanese weapon pack.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "type-38-rifle",
+      "type-i-rifle",
+      "set-ii-japan-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "type-be",
+    "name": "Type Be",
+    "type": "weapon",
+    "summary": "Type Be is a primary weapon unlocked through a gamepass.",
+    "role": "Use it as part of the Japanese weapon pack.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "type-i-rifle",
+      "type-100-smg-early",
+      "set-ii-japan-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "type-i-rifle",
+    "name": "Type I Rifle",
+    "type": "weapon",
+    "summary": "Type I Rifle is a primary rifle unlocked through a gamepass.",
+    "role": "Use it as a rifle from the Japanese weapon pack.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "type-99-rifle",
+      "type-be",
+      "set-ii-japan-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "vss-vintorez",
+    "name": "VSS Vintorez",
+    "type": "weapon",
+    "summary": "VSS Vintorez is a free primary weapon.",
+    "role": "Use it as a free specialty primary when you want a different feel from the standard free rifles.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Free",
+      "cash_required": 0,
+      "xp_required": 0
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "furry-waves"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "vector",
+    "name": "Vector",
+    "type": "weapon",
+    "summary": "Vector is a low-cost primary weapon unlocked through cash and XP.",
+    "role": "Use it as an early close-range progression weapon for fast fights around flags.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Cash and XP",
+      "cash_required": 1000,
+      "xp_required": 1500
+    },
+    "related": [
+      "territory-capture",
+      "rush",
+      "furry-waves"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "winchester-m1897",
+    "name": "Winchester M1897",
+    "type": "weapon",
+    "summary": "Winchester M1897 is a primary shotgun unlocked through a gamepass.",
+    "role": "Use it as a shotgun for close-range flag fights.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "winchester-m1897-trench-gun",
+      "territory-capture",
+      "rush",
+      "set-viii-usa-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "winchester-m1897-trench-gun",
+    "name": "Winchester M1897 (Trench Gun)",
+    "type": "weapon",
+    "summary": "Winchester M1897 (Trench Gun) is a primary shotgun variant unlocked through a gamepass.",
+    "role": "Use it as the trench-gun variant of the Winchester shotgun.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "winchester-m1897",
+      "territory-capture",
+      "rush",
+      "set-v-usa-i-pass"
+    ],
+    "fun_facts": [
+      "The trench gun is a separate weapon from the standard Winchester M1897."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "zastava-m92",
+    "name": "Zastava M92",
+    "type": "weapon",
+    "summary": "Zastava M92 is a free primary weapon.",
+    "role": "Use it as a free compact rifle option in standard modes.",
+    "stats": {
+      "slot": "Primary",
+      "unlock": "Free",
+      "cash_required": 0,
+      "xp_required": 0
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "territory-capture"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "c96-mauser",
+    "name": "C96 Mauser",
+    "type": "weapon",
+    "summary": "C96 Mauser is a secondary weapon unlocked through a gamepass.",
+    "role": "Use it as a sidearm once unlocked.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "traditional",
+      "set-vii-germany-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "five-seven",
+    "name": "Five-seveN",
+    "type": "weapon",
+    "summary": "Five-seveN is a secondary weapon unlocked through cash and XP.",
+    "role": "Use it as a progression sidearm when you want a paid backup weapon in normal modes.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Cash and XP",
+      "cash_required": 8000,
+      "xp_required": 3500
+    },
+    "related": [
+      "traditional",
+      "rush"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "g18",
+    "name": "G18",
+    "type": "weapon",
+    "summary": "G18 is a high-XP secondary weapon unlocked through cash and XP.",
+    "role": "Use it as a progression sidearm for players willing to invest heavily in the secondary slot.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Cash and XP",
+      "cash_required": 15000,
+      "xp_required": 20000
+    },
+    "related": [
+      "traditional",
+      "rush"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "g19",
+    "name": "G19",
+    "type": "weapon",
+    "summary": "G19 is a free secondary weapon.",
+    "role": "Use it as a no-cost backup sidearm when your primary runs dry or you need a quick swap.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Free",
+      "cash_required": 0,
+      "xp_required": 0
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "ammunition-canister-1"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "hamada-type-1",
+    "name": "Hamada Type 1",
+    "type": "weapon",
+    "summary": "Hamada Type 1 is a secondary weapon unlocked through a gamepass.",
+    "role": "Use it as a Japanese sidearm option.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "hamada-type-2",
+      "rush",
+      "set-ii-japan-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "hamada-type-2",
+    "name": "Hamada Type 2",
+    "type": "weapon",
+    "summary": "Hamada Type 2 is a secondary weapon unlocked through a gamepass.",
+    "role": "Use it as the second Hamada sidearm option in the Japanese pass set.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "hamada-type-1",
+      "rush",
+      "set-ii-japan-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "luger-p08",
+    "name": "Luger P08",
+    "type": "weapon",
+    "summary": "Luger P08 is a secondary weapon unlocked through a gamepass.",
+    "role": "Use it as a historical sidearm once unlocked.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "c96-mauser",
+      "walther-p38",
+      "set-vii-germany-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "m1892-revolver",
+    "name": "M1892 Revolver",
+    "type": "weapon",
+    "summary": "M1892 Revolver is a secondary weapon unlocked through a gamepass.",
+    "role": "Use it as a revolver sidearm once unlocked.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "nagant-m1895",
+      "rush",
+      "set-i-france-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "m1911a1",
+    "name": "M1911A1",
+    "type": "weapon",
+    "summary": "M1911A1 is a secondary weapon unlocked through a gamepass.",
+    "role": "Use it as a sidearm from the related weapon pack.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "traditional",
+      "set-v-usa-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "nagant-m1895",
+    "name": "Nagant M1895",
+    "type": "weapon",
+    "summary": "Nagant M1895 is a secondary weapon unlocked through a gamepass.",
+    "role": "Use it as a revolver option once unlocked.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "m1892-revolver",
+      "rush",
+      "set-vi-russia-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "nambu-type-14",
+    "name": "Nambu Type 14",
+    "type": "weapon",
+    "summary": "Nambu Type 14 is a secondary weapon unlocked through a gamepass.",
+    "role": "Use it as a sidearm from the Japanese weapon pack.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "nambu-type-94",
+      "rush",
+      "set-ii-japan-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "nambu-type-94",
+    "name": "Nambu Type 94",
+    "type": "weapon",
+    "summary": "Nambu Type 94 is a secondary weapon unlocked through a gamepass.",
+    "role": "Use it as the second Nambu sidearm option in the Japanese pass set.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "nambu-type-14",
+      "rush",
+      "set-ii-japan-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "p320",
+    "name": "P320",
+    "type": "weapon",
+    "summary": "P320 is a secondary weapon unlocked through cash and XP.",
+    "role": "Use it as a progression sidearm when you want a paid pistol option.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Cash and XP",
+      "cash_required": 5000,
+      "xp_required": 3500
+    },
+    "related": [
+      "traditional",
+      "rush"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "salvaged-pistol",
+    "name": "Salvaged Pistol",
+    "type": "weapon",
+    "summary": "Salvaged Pistol is a secondary weapon from the salvaged set.",
+    "role": "Use it as the salvaged pack's backup sidearm.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "salvaged-ak",
+      "salvaged-carbine",
+      "set-salvaged-i-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "schwarzlose-m1898",
+    "name": "Schwarzlose M.1898",
+    "type": "weapon",
+    "summary": "Schwarzlose M.1898 is a free secondary weapon.",
+    "role": "Use it as a free sidearm option for normal modes.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Free",
+      "cash_required": 0,
+      "xp_required": 0
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "ammunition-canister-1"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "toka",
+    "name": "Toka",
+    "type": "weapon",
+    "summary": "Toka is a secondary weapon with very low cash and XP requirements.",
+    "role": "Use it as a cheap sidearm unlock when you want something outside the free secondary pool.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Cash and XP",
+      "cash_required": 67,
+      "xp_required": 41
+    },
+    "related": [
+      "traditional",
+      "rush"
+    ],
+    "fun_facts": [
+      "Toka's unlock costs are unusually specific: 67 cash and 41 XP."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "tokarev-tt-33",
+    "name": "Tokarev TT-33",
+    "type": "weapon",
+    "summary": "Tokarev TT-33 is a secondary weapon unlocked through a gamepass.",
+    "role": "Use it as a sidearm once unlocked.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "rush",
+      "traditional",
+      "set-iv-russia-ii-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "walther-p38",
+    "name": "Walther P.38",
+    "type": "weapon",
+    "summary": "Walther P.38 is a free secondary weapon.",
+    "role": "Use it as a no-cost sidearm option in normal modes.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Free",
+      "cash_required": 0,
+      "xp_required": 0
+    },
+    "related": [
+      "luger-p08",
+      "traditional",
+      "rush",
+      "set-iii-germany-ii-pass"
+    ],
+    "fun_facts": [
+      "Walther P.38 keeps the dot in its display name."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "walther-p99-as",
+    "name": "Walther P99 AS",
+    "type": "weapon",
+    "summary": "Walther P99 AS is a secondary weapon unlocked through cash and XP.",
+    "role": "Use it as a paid sidearm option with a modest XP requirement.",
+    "stats": {
+      "slot": "Secondary",
+      "unlock": "Cash and XP",
+      "cash_required": 2500,
+      "xp_required": 1000
+    },
+    "related": [
+      "traditional",
+      "rush"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "hand-charge",
+    "name": "Hand Charge",
+    "type": "weapon",
+    "summary": "Hand Charge is a standalone gamepass weapon.",
+    "role": "Use it as a standalone gamepass weapon rather than a normal cash-and-XP progression unlock.",
+    "stats": {
+      "slot": "Shop weapon",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "traditional",
+      "rush",
+      "hand-charge-pass"
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "m134",
+    "name": "M134",
+    "type": "weapon",
+    "summary": "M134 is a standalone gamepass minigun weapon.",
+    "role": "Use it when the team needs extreme sustained fire from a gamepass weapon instead of a normal cash-and-XP unlock.",
+    "stats": {
+      "slot": "Shop weapon",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "mh-60-blackhawk-pilot-minigun",
+      "furry-waves",
+      "territory-capture",
+      "m134-pass"
+    ],
+    "fun_facts": [
+      "A separate M134 turret also appears on the pilot-minigun Blackhawk variant."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "rpg-7",
+    "name": "RPG-7",
+    "type": "weapon",
+    "summary": "RPG-7 is a standalone gamepass rocket weapon.",
+    "role": "Use it as a gamepass launcher for heavy targets and vehicle-focused pressure.",
+    "stats": {
+      "slot": "Shop weapon",
+      "unlock": "Gamepass"
+    },
+    "related": [
+      "salvaged-rpg",
+      "rallydrop",
+      "vehicle-resupply",
+      "furry-boss",
+      "rpg-7-pass"
+    ],
+    "fun_facts": [
+      "RPG-7 fires rocket projectiles."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  }
+]

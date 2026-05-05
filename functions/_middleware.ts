@@ -24,10 +24,8 @@ type PagesContext = {
 };
 
 // page url -> .md sibling url. matches what [...path].md.ts emits.
-// every page now uses the same <dir>/index.md shape; the document
-// root maps to /index.md. game pages used to live at /<slug>/about
-// with a sibling /<slug>/about.md — that's gone now, /<slug>/about
-// 301-redirects to /<slug>/.
+// every page uses the same <dir>/index.md shape; the document root
+// maps to /index.md.
 function deriveMarkdownPath(pathname: string): string {
   if (pathname === '' || pathname === '/') return '/index.md';
   const trimmed = pathname.replace(/\/$/, '');

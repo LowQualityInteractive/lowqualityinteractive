@@ -53,7 +53,7 @@
         },
         {
           "label": "Latest update notes",
-          "href": "/blogs/#eradication",
+          "href": "/updates/#eradication",
           "external": false
         }
       ]
@@ -124,7 +124,7 @@
         },
         {
           "label": "Update history",
-          "href": "/blogs/#donpollo-obby",
+          "href": "/updates/#donpollo-obby",
           "external": false
         }
       ]

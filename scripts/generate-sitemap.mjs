@@ -83,6 +83,15 @@ async function walkHtmlFiles(directory, htmlFiles = []) {
   return htmlFiles;
 }
 
+// astro emits redirect pages as a tiny html file with `Redirecting to:`
+// in the title and a meta refresh. they shouldn't show up in the sitemap
+// because they aren't canonical content, just legacy-url forwarders.
+async function isRedirectFile(absolutePath) {
+  const { readFile } = await import('node:fs/promises');
+  const head = await readFile(absolutePath, 'utf-8');
+  return head.includes('<title>Redirecting to:') || head.includes('http-equiv="refresh"');
+}
+
 const htmlFiles = await walkHtmlFiles(distDirectory);
 const groupedRoutes = new Map();
 
@@ -99,6 +108,10 @@ for (const absolutePath of htmlFiles) {
 
   const { locale, routeKey } = splitLocale(route);
   if (routeKey === '404') {
+    continue;
+  }
+
+  if (await isRedirectFile(absolutePath)) {
     continue;
   }
 

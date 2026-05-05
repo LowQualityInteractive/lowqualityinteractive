@@ -1,0 +1,396 @@
+[
+  {
+    "id": "ltv-300",
+    "name": "LTV-300",
+    "type": "vehicle",
+    "summary": "The LTV-300 is the free RallyDrop vehicle and a light transport option.",
+    "role": "Use it for early movement, quick regrouping, and basic team transport when you do not need mounted weapons.",
+    "stats": {
+      "source": "RallyDrop free tier",
+      "max_forward_speed": 96,
+      "max_backward_speed": 24,
+      "max_health": 200,
+      "driver_or_operator_seats": 1,
+      "passenger_seats": 12,
+      "weapons": 0
+    },
+    "related": [
+      "rallydrop-tool",
+      "rallydrop",
+      "vehicle-resupply",
+      "traditional",
+      "rush"
+    ],
+    "fun_facts": [
+      "The LTV-300 is the only RallyDrop vehicle exposed to free access."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mbt-800",
+    "name": "MBT-800",
+    "type": "vehicle",
+    "summary": "The MBT-800 is a heavy RallyDrop tank with high health and multiple weapons.",
+    "role": "Use the MBT-800 when the team needs armored firepower more than speed. It is slow, but it brings the heaviest RallyDrop health pool outside the other 1000-health armor.",
+    "stats": {
+      "source": "RallyDrop",
+      "max_forward_speed": 44,
+      "max_backward_speed": 12,
+      "max_health": 1000,
+      "driver_or_operator_seats": 3,
+      "weapons": 4
+    },
+    "related": [
+      "rallydrop-tool",
+      "pa467-centurion",
+      "panzer-iv",
+      "t-34",
+      "vehicle-resupply",
+      "rallydrop-pass"
+    ],
+    "fun_facts": [
+      "The MBT-800 has four vehicle weapons."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mh-60-blackhawk",
+    "name": "MH-60 Blackhawk",
+    "type": "vehicle",
+    "summary": "The MH-60 Blackhawk is a RallyDrop aircraft for moving a squad quickly across the battlefield.",
+    "role": "Use it when distance is the problem. It carries a large group but has low vehicle health, so landing zones and pilot control matter.",
+    "stats": {
+      "source": "RallyDrop",
+      "max_health": 67,
+      "driver_or_operator_seats": 2,
+      "passenger_seats": 9,
+      "weapons": 0,
+      "aircraft": "yes"
+    },
+    "related": [
+      "rallydrop-tool",
+      "mh-60-blackhawk-pilot-minigun",
+      "vehicle-resupply",
+      "traditional",
+      "rush",
+      "rallydrop-aviation-pass",
+      "rallydrop-pass"
+    ],
+    "fun_facts": [
+      "The Blackhawk carries a large squad but has a much smaller health pool than armored RallyDrop vehicles."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mh-60-blackhawk-pilot-minigun",
+    "name": "MH-60 Blackhawk (Pilot Minigun)",
+    "type": "vehicle",
+    "summary": "This MH-60 Blackhawk variant adds a pilot minigun to the transport helicopter.",
+    "role": "Use it when the pilot needs offensive pressure while transporting the team. It keeps the same low aircraft health profile as the standard Blackhawk.",
+    "stats": {
+      "source": "RallyDrop",
+      "max_health": 67,
+      "driver_or_operator_seats": 2,
+      "passenger_seats": 9,
+      "weapons": 1,
+      "aircraft": "yes"
+    },
+    "related": [
+      "mh-60-blackhawk",
+      "m134",
+      "rallydrop-tool",
+      "vehicle-resupply",
+      "rallydrop-aviation-pass",
+      "rallydrop-pass"
+    ],
+    "fun_facts": [
+      "The pilot-minigun variant gives the pilot a weapon while keeping the Blackhawk transport role."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mib831-mastiff",
+    "name": "MIB831 Mastiff",
+    "type": "vehicle",
+    "summary": "The MIB831 Mastiff is a heavily armored RallyDrop vehicle with a mounted weapon.",
+    "role": "Use the Mastiff for protected movement and sustained ground support. It has the highest RallyDrop health among the listed vehicles.",
+    "stats": {
+      "source": "RallyDrop",
+      "max_forward_speed": 74,
+      "max_backward_speed": 18,
+      "max_health": 1100,
+      "driver_or_operator_seats": 2,
+      "passenger_seats": 6,
+      "weapons": 1
+    },
+    "related": [
+      "rallydrop-tool",
+      "pa-humvee-mg",
+      "pa-jltv-mg",
+      "vehicle-resupply",
+      "rallydrop-pass"
+    ],
+    "fun_facts": [
+      "The Mastiff's health value is higher than the MBT-800's."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mtg-92",
+    "name": "MTG-92",
+    "type": "vehicle",
+    "summary": "The MTG-92 is a light armed RallyDrop vehicle.",
+    "role": "Use it as a mobile gun platform when you need speed and a weapon but cannot commit to heavier armor.",
+    "stats": {
+      "source": "RallyDrop",
+      "max_forward_speed": 66,
+      "max_backward_speed": 18,
+      "max_health": 150,
+      "driver_or_operator_seats": 2,
+      "passenger_seats": 1,
+      "weapons": 1
+    },
+    "related": [
+      "mtp-92",
+      "mtv-92",
+      "rallydrop-tool",
+      "vehicle-resupply",
+      "rallydrop-pass"
+    ],
+    "fun_facts": [
+      "The MTG-92, MTP-92, and MTV-92 all sit in the same light RallyDrop family but differ in speed, seating, and mounted weapons."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mtp-92",
+    "name": "MTP-92",
+    "type": "vehicle",
+    "summary": "The MTP-92 is a light RallyDrop vehicle with one mounted weapon.",
+    "role": "Use it for quick armed movement where a heavier vehicle would arrive too late.",
+    "stats": {
+      "source": "RallyDrop",
+      "max_forward_speed": 68,
+      "max_backward_speed": 18,
+      "max_health": 150,
+      "driver_or_operator_seats": 2,
+      "weapons": 1
+    },
+    "related": [
+      "mtg-92",
+      "mtv-92",
+      "rallydrop-tool",
+      "vehicle-resupply",
+      "rallydrop-pass"
+    ],
+    "fun_facts": [
+      "The MTP-92's forward speed is slightly higher than the MTG-92's."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "mtv-92",
+    "name": "MTV-92",
+    "type": "vehicle",
+    "summary": "The MTV-92 is the fastest member of the MT-92 RallyDrop group.",
+    "role": "Use it when speed matters more than staying power. It has a low health pool, so do not treat it as armor.",
+    "stats": {
+      "source": "RallyDrop",
+      "max_forward_speed": 90,
+      "max_backward_speed": 25,
+      "max_health": 100,
+      "driver_or_operator_seats": 1,
+      "weapons": 1
+    },
+    "related": [
+      "mtg-92",
+      "mtp-92",
+      "rallydrop-tool",
+      "vehicle-resupply",
+      "rallydrop-pass"
+    ],
+    "fun_facts": [
+      "The MTV-92 has the highest forward speed of the MT-92 trio."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "pa-humvee-mg",
+    "name": "PA Humvee (MG)",
+    "type": "vehicle",
+    "summary": "The PA Humvee (MG) is a RallyDrop armed transport with a machine gun.",
+    "role": "Use it to move a small group while keeping a gun active for street pressure.",
+    "stats": {
+      "source": "RallyDrop",
+      "max_forward_speed": 88,
+      "max_backward_speed": 22,
+      "max_health": 200,
+      "driver_or_operator_seats": 2,
+      "passenger_seats": 3,
+      "weapons": 1
+    },
+    "related": [
+      "pa-jltv-mg",
+      "pa-jltv-cannon",
+      "rallydrop-tool",
+      "vehicle-resupply",
+      "rallydrop-pass"
+    ],
+    "fun_facts": [
+      "The Humvee MG is faster than both JLTV variants in forward speed."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "pa-jltv-cannon",
+    "name": "PA JLTV (Cannon)",
+    "type": "vehicle",
+    "summary": "The PA JLTV (Cannon) is a RallyDrop JLTV variant with a cannon weapon.",
+    "role": "Use the cannon JLTV when the team needs a tougher armed vehicle and burstier vehicle fire than the machine-gun version.",
+    "stats": {
+      "source": "RallyDrop",
+      "max_forward_speed": 80,
+      "max_backward_speed": 20,
+      "max_health": 450,
+      "driver_or_operator_seats": 2,
+      "passenger_seats": 2,
+      "weapons": 1
+    },
+    "related": [
+      "pa-jltv-mg",
+      "pa-humvee-mg",
+      "rallydrop-tool",
+      "vehicle-resupply",
+      "rallydrop-pass"
+    ],
+    "fun_facts": [
+      "Both JLTV variants share the same health value."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "pa-jltv-mg",
+    "name": "PA JLTV (MG)",
+    "type": "vehicle",
+    "summary": "The PA JLTV (MG) is the machine-gun RallyDrop JLTV variant.",
+    "role": "Use it for tougher small-team transport when you still want a mounted gun covering the street.",
+    "stats": {
+      "source": "RallyDrop",
+      "max_forward_speed": 84,
+      "max_backward_speed": 22,
+      "max_health": 450,
+      "driver_or_operator_seats": 2,
+      "passenger_seats": 2,
+      "weapons": 1
+    },
+    "related": [
+      "pa-jltv-cannon",
+      "pa-humvee-mg",
+      "rallydrop-tool",
+      "vehicle-resupply",
+      "rallydrop-pass"
+    ],
+    "fun_facts": [
+      "The machine-gun JLTV is a little faster than the cannon JLTV in forward speed."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "pa467-centurion",
+    "name": "PA467 Centurion",
+    "type": "vehicle",
+    "summary": "The PA467 Centurion is a heavy RallyDrop vehicle with three weapons and a 1000-health pool.",
+    "role": "Use the Centurion when the team needs heavy support but still wants more road speed than the MBT-800.",
+    "stats": {
+      "source": "RallyDrop",
+      "max_forward_speed": 72,
+      "max_backward_speed": 18,
+      "max_health": 1000,
+      "driver_or_operator_seats": 2,
+      "passenger_seats": 4,
+      "weapons": 3
+    },
+    "related": [
+      "mbt-800",
+      "panzer-iv",
+      "t-34",
+      "rallydrop-tool",
+      "vehicle-resupply",
+      "rallydrop-pass"
+    ],
+    "fun_facts": [
+      "The Centurion has the same health value as the MBT-800 but a higher forward speed."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "panzer-iv",
+    "name": "Panzer IV",
+    "type": "vehicle",
+    "summary": "The Panzer IV is a WWII RallyDrop tank available through the WWII vehicle pass.",
+    "role": "Use it as a WWII-pass heavy armor option. It has four operator seats, four weapons, and a 500-health pool.",
+    "stats": {
+      "source": "RallyDrop WWII pass",
+      "max_forward_speed": 48,
+      "max_backward_speed": 16,
+      "max_health": 500,
+      "driver_or_operator_seats": 4,
+      "weapons": 4,
+      "fuel_infinite": "yes"
+    },
+    "related": [
+      "t-34",
+      "mbt-800",
+      "pa467-centurion",
+      "rallydrop-tool",
+      "vehicle-resupply",
+      "rallydrop-wwii-pass"
+    ],
+    "fun_facts": [
+      "The Panzer IV appears in-game as Panzer IV Ausf. G."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "t-34",
+    "name": "T-34",
+    "type": "vehicle",
+    "summary": "The T-34 is a WWII RallyDrop tank available through the WWII vehicle pass.",
+    "role": "Use it as an alternate WWII-pass tank with three weapons, four operator seats, and a similar health profile to the Panzer IV.",
+    "stats": {
+      "source": "RallyDrop WWII pass",
+      "max_forward_speed": 46,
+      "max_backward_speed": 15,
+      "max_health": 500,
+      "driver_or_operator_seats": 4,
+      "weapons": 3,
+      "fuel_infinite": "yes"
+    },
+    "related": [
+      "panzer-iv",
+      "mbt-800",
+      "pa467-centurion",
+      "rallydrop-tool",
+      "vehicle-resupply",
+      "rallydrop-wwii-pass"
+    ],
+    "fun_facts": [
+      "The T-34 appears in-game as T-34-76."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  }
+]

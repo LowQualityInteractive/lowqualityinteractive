@@ -32,7 +32,7 @@ interface Props {
   locale: Locale;
   title: string;
   description: string;
-  currentPage?: 'home' | 'games' | 'blogs' | 'connect';
+  currentPage?: 'home' | 'games' | 'updates' | 'connect';
   jsonLd?: string;
   ogImage?: string;
   // alt text for the share image. screen readers and llms both read it.
@@ -53,7 +53,7 @@ const currentYear = new Date().getFullYear();
 const messages = getMessages(locale);
 const homeHref = getLocalePath(locale);
 const gamesHref = getLocalePath(locale, 'games');
-const blogsHref = getLocalePath(locale, 'blogs');
+const updatesHref = getLocalePath(locale, 'updates');
 const connectHref = getLocalePath(locale, 'connect');
 const privacyPolicyHref = getLocalePath(locale, 'privacy-policy');
 const canonicalUrl = getLocaleAbsolutePath(locale, routePath);
@@ -222,7 +222,7 @@ const csp = [
       <nav class="nav" id="primary-navigation" aria-label={messages.chrome.nav.ariaLabel}>
         <a class="nav-link" href={homeHref} aria-current={currentPage === 'home' ? 'page' : undefined}><span>{messages.chrome.nav.home}</span></a>
         <a class="nav-link" href={gamesHref} aria-current={currentPage === 'games' ? 'page' : undefined}><span>{messages.chrome.nav.games}</span></a>
-        <a class="nav-link nav-link-updates" href={blogsHref} aria-current={currentPage === 'blogs' ? 'page' : undefined}>
+        <a class="nav-link nav-link-updates" href={updatesHref} aria-current={currentPage === 'updates' ? 'page' : undefined}>
           <span>{messages.chrome.nav.updates}</span>
           <span class="nav-update-badge" data-update-badge hidden aria-hidden="true"></span>
         </a>
@@ -314,7 +314,7 @@ const csp = [
           <h3>{messages.chrome.footer.siteHeading}</h3>
           <a href={homeHref}>{messages.chrome.nav.home}</a>
           <a href={gamesHref}>{messages.chrome.nav.games}</a>
-          <a href={blogsHref}>{messages.chrome.nav.updates}</a>
+          <a href={updatesHref}>{messages.chrome.nav.updates}</a>
           <a href={connectHref}>{messages.chrome.nav.connect}</a>
         </div>
         <div class="footer-col">

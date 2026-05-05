@@ -1,0 +1,90 @@
+[
+  {
+    "id": "traditional",
+    "name": "Traditional",
+    "type": "mode",
+    "summary": "Traditional is the full ERADICATION round: reclaim the six Furry-held territories, hold the line, then unlock the boss route.",
+    "role": "Play Traditional when you want the complete territory push. It rewards teams that rotate between captures, defend reclaimed flags, and save enough firepower for the boss once all active territories are secured.",
+    "stats": {
+      "round_duration_seconds": 2880,
+      "round_duration": "48:00",
+      "boss_enabled": "yes",
+      "rewards_enabled": "yes",
+      "wave_size_multiplier": 1,
+      "furry_respawn_interval_seconds": 90
+    },
+    "related": [
+      "furron",
+      "territory-capture",
+      "boss-unlock",
+      "furry-boss",
+      "furry-waves",
+      "deployment",
+      "kill-and-assist-rewards"
+    ],
+    "fun_facts": [
+      "Traditional is the only mode that unlocks the boss route.",
+      "A full Traditional clock is 48 minutes, which is long enough for lost flags to matter."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "rush",
+    "name": "Rush",
+    "type": "mode",
+    "summary": "Rush compresses the match into one objective: Furrow. Contractors start with it, and the Furries win if they take it.",
+    "role": "Play Rush when you want a short defensive fight with full weapon access. The objective is not to clear the whole town; it is to keep Furrow from flipping.",
+    "stats": {
+      "round_duration_seconds": 450,
+      "round_duration": "7:30",
+      "boss_enabled": "no",
+      "rewards_enabled": "yes",
+      "wave_size_multiplier": 1.5,
+      "furry_respawn_interval_seconds": 30,
+      "objective": "Furrow"
+    },
+    "related": [
+      "furrow",
+      "territory-capture",
+      "furry-waves",
+      "deployment",
+      "furron"
+    ],
+    "fun_facts": [
+      "Rush hides the other territory objectives and only keeps Flag III active.",
+      "Rush grants every weapon for the round, so unlock progression is not the limiting factor."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "infection",
+    "name": "Infection",
+    "type": "mode",
+    "summary": "Infection is a 15-minute ruleset where Furry-held flags create spawn pressure and downed contractors can return on the Furry side.",
+    "role": "Use Infection as a territory-control survival mode. The longer the Furries hold ground, the more dangerous nearby streets become, so clearing flags also controls where new threats can appear.",
+    "stats": {
+      "round_duration_seconds": 900,
+      "round_duration": "15:00",
+      "boss_enabled": "no",
+      "rewards_enabled": "yes",
+      "wave_size_multiplier": 0.7,
+      "furry_respawn_interval_seconds": 30,
+      "flag_spawn_radius_studs": 40
+    },
+    "related": [
+      "territory-capture",
+      "furry-waves",
+      "deployment",
+      "normal-furry",
+      "furron"
+    ],
+    "fun_facts": [
+      "Infection uses Furry-held flags as spawn anchors, so enemy-owned territory changes the shape of the fight.",
+      "Whiskerhold remains a defender base spawn in Infection."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  }
+]

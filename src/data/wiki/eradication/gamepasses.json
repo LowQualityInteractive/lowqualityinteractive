@@ -1,0 +1,435 @@
+[
+  {
+    "id": "furry-invisibility-x2-pass",
+    "name": "FURRY INVISIBILITY [x2]",
+    "type": "gamepass",
+    "summary": "FURRY INVISIBILITY [x2] doubles the Furry invisibility duration from 30 seconds to 60 seconds.",
+    "role": "Use it if you play Furry-side rounds and want a longer invisible window before reappearing.",
+    "stats": {
+      "price_robux": 39,
+      "store_description": "Double the Furry invisibility, from 30s -> 60s. Includes: Double Furry Invisibility (30s -> 60s)",
+      "for_sale": "yes"
+    },
+    "related": [
+      "infection",
+      "furry-waves"
+    ],
+    "fun_facts": [
+      "This is the lowest-price live pass returned by Roblox for ERADICATION."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "rallydrop-wwii-pass",
+    "name": "RALLYDROP: WWII",
+    "type": "gamepass",
+    "summary": "RALLYDROP: WWII adds the Panzer IV and T-34 to RallyDrop vehicle access.",
+    "role": "Use it when you want WWII armor instead of the base RallyDrop vehicle pool.",
+    "stats": {
+      "price_robux": 149,
+      "store_description": "RallyDrop features two of World War II's most iconic tanks: the Panzer IV and T-34. Includes: RallyDrop: WWII Pack [ADD-ON]",
+      "for_sale": "yes"
+    },
+    "related": [
+      "rallydrop",
+      "rallydrop-tool",
+      "panzer-iv",
+      "t-34",
+      "vehicle-resupply"
+    ],
+    "fun_facts": [
+      "This pass is an add-on, so it is tied to RallyDrop vehicle access rather than a normal loadout slot."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "rallydrop-double-commander-pass",
+    "name": "RALLYDROP: DOUBLE COMMANDER",
+    "type": "gamepass",
+    "summary": "RALLYDROP: DOUBLE COMMANDER raises RallyDrop access to two active vehicles.",
+    "role": "Use it when you want to keep two vehicle roles available at once, such as one transport and one armored support option.",
+    "stats": {
+      "price_robux": 149,
+      "store_description": "RallyDrop gives you access to two active vehicles. Get your friend on the wheel! Includes: RallyDrop: Double Commander [ADD-ON]",
+      "active_vehicle_limit": 2,
+      "for_sale": "yes"
+    },
+    "related": [
+      "rallydrop",
+      "rallydrop-tool",
+      "vehicle-resupply"
+    ],
+    "fun_facts": [
+      "The pass affects how many RallyDrop vehicles can stay active, not the vehicle controls themselves."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "rallydrop-aviation-pass",
+    "name": "RALLYDROP: AVIATION",
+    "type": "gamepass",
+    "summary": "RALLYDROP: AVIATION adds helicopter access to RallyDrop.",
+    "role": "Use it when air movement matters more than ground armor, especially for long rotations across Furron.",
+    "stats": {
+      "price_robux": 198,
+      "store_description": "For now, two helicopters, soon: a dozen. Why fight on wheels when you can FLY? Includes: RallyDrop: Aviation Access [ADD-ON]",
+      "for_sale": "yes"
+    },
+    "related": [
+      "rallydrop",
+      "rallydrop-tool",
+      "mh-60-blackhawk",
+      "mh-60-blackhawk-pilot-minigun",
+      "vehicle-resupply"
+    ],
+    "fun_facts": [
+      "The live store description calls this aviation access an add-on."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "set-ii-japan-i-pass",
+    "name": "SET II: JAPAN I",
+    "type": "gamepass",
+    "summary": "SET II: JAPAN I unlocks a Japanese weapon set covering Type 100 variants, Type 38 and Type 99 rifles, Nambu sidearms, Hamada sidearms, and related rifles.",
+    "role": "Use it if you want a broad historical Japanese loadout set with both primary weapons and sidearms.",
+    "stats": {
+      "price_robux": 449,
+      "store_description": "Includes: Hamada Type 1, Hamada Type 2, Nambu Type 14, Nambu Type 94, Type 100 Rifle (Paratrooper), Type 100 SMG (Early), Type 100 SMG (Late), Type 100 SMG (Paratrooper), Type 38 Carbine, Type 38 Rifle, Type 97 Sniper, Type 99 Rifle, Type Be, Type I Rifle",
+      "for_sale": "yes"
+    },
+    "related": [
+      "hamada-type-1",
+      "hamada-type-2",
+      "nambu-type-14",
+      "nambu-type-94",
+      "type-100-rifle-paratrooper",
+      "type-100-smg-early",
+      "type-100-smg-late",
+      "type-100-smg-paratrooper",
+      "type-38-carbine",
+      "type-38-rifle",
+      "type-97-sniper",
+      "type-99-rifle",
+      "type-be",
+      "type-i-rifle"
+    ],
+    "fun_facts": [
+      "This is the largest live weapon-set pass returned by Roblox for ERADICATION."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "set-iii-germany-ii-pass",
+    "name": "SET III: GERMANY II",
+    "type": "gamepass",
+    "summary": "SET III: GERMANY II unlocks later German weapons, including FG-42, Gewehr 41, Gewehr 43, Karabiner 98k, MG-42, MP-34, MP-40, Panzerbuchse 39, StG-44, and Walther P38.",
+    "role": "Use it if you want German rifles, machine guns, submachine guns, anti-armor weapons, and a sidearm in one pass.",
+    "stats": {
+      "price_robux": 499,
+      "store_description": "Includes: FG-42, Gewehr 41, Gewehr 43, Karabiner 98k, MG-42, MP-34, MP-40, Panzerbuchse 39, StG-44, Walther P38",
+      "for_sale": "yes"
+    },
+    "related": [
+      "fg-42",
+      "gewehr-41",
+      "gewehr-43",
+      "karabiner-98k",
+      "mg-42",
+      "mp-34",
+      "mp-40",
+      "panzerbuchse-39",
+      "stg-44",
+      "walther-p38"
+    ],
+    "fun_facts": [
+      "At 499 Robux, this is the highest-price live pass returned by Roblox for ERADICATION."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "set-iv-russia-ii-pass",
+    "name": "SET IV: RUSSIA II",
+    "type": "gamepass",
+    "summary": "SET IV: RUSSIA II unlocks DP-27, Mosin-Nagant M38 Carbine, PPSh-41 variants, PTRS-41, SVT-40, and Tokarev TT-33.",
+    "role": "Use it if you want Russian automatic fire, anti-armor pressure, rifle options, and a sidearm from one pass.",
+    "stats": {
+      "price_robux": 349,
+      "store_description": "Includes: DP-27, Mosin-Nagant M38 Carbine, PPSH-41, PPSH-41 (Drum), PTRS-41, SVT-40, Tokarev TT-33",
+      "for_sale": "yes"
+    },
+    "related": [
+      "dp-27",
+      "mosin-nagant-m38-carbine",
+      "ppsh-41",
+      "ppsh-41-drum",
+      "ptrs-41",
+      "svt-40",
+      "tokarev-tt-33"
+    ],
+    "fun_facts": [
+      "The store names both PPSh-41 variants separately."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "set-salvaged-i-pass",
+    "name": "SET: SALVAGED I",
+    "type": "gamepass",
+    "summary": "SET: SALVAGED I unlocks the salvaged weapon set.",
+    "role": "Use it if you want the improvised salvaged weapon family instead of a historical nation set.",
+    "stats": {
+      "price_robux": 249,
+      "store_description": "A salvaged weapons set built from scraps and survival. Includes: Salvaged Pistol, Salvaged Carbine, Salvaged SMG, Salvaged Shotgun, Salvaged RPG",
+      "for_sale": "yes"
+    },
+    "related": [
+      "salvaged-pistol",
+      "salvaged-carbine",
+      "salvaged-smg",
+      "salvaged-rpg"
+    ],
+    "fun_facts": [
+      "Made by a random dude in Siberia."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "ammo-cans-x2-pass",
+    "name": "AMMO CANS [x2]",
+    "type": "gamepass",
+    "summary": "AMMO CANS [x2] adds one extra ammunition canister.",
+    "role": "Use it if you want more ammo support during long territory holds, boss pressure, or extended pushes.",
+    "stats": {
+      "price_robux": 49,
+      "store_description": "The supply lines have been optimized. Help out yourself and your comrades! Includes: +1 Ammunition Canister",
+      "extra_ammunition_canisters": 1,
+      "for_sale": "yes"
+    },
+    "related": [
+      "ammunition-canister-1",
+      "ammunition-canister-2",
+      "territory-capture",
+      "vehicle-resupply"
+    ],
+    "fun_facts": [
+      "This pass affects a support item rather than a weapon."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "set-v-usa-i-pass",
+    "name": "Set V: USA I",
+    "type": "gamepass",
+    "summary": "Set V: USA I unlocks Lewis Gun, M1903 Springfield, Winchester M1897 (Trench Gun), and M1911A1.",
+    "role": "Use it if you want a smaller USA set with a machine gun, rifle, shotgun variant, and sidearm.",
+    "stats": {
+      "price_robux": 199,
+      "store_description": "Includes: Lewis Gun, M1903 Springfield, Winchester M1897 (Trench Gun), M1911A1",
+      "for_sale": "yes"
+    },
+    "related": [
+      "lewis-gun",
+      "m1903-springfield",
+      "winchester-m1897-trench-gun",
+      "m1911a1"
+    ],
+    "fun_facts": [
+      "This USA set includes the trench-gun variant rather than the standard Winchester M1897."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "set-i-france-i-pass",
+    "name": "Set I: FRANCE I",
+    "type": "gamepass",
+    "summary": "Set I: FRANCE I unlocks Lebel M1886/93, Berthier Carbine, Chauchat, RSC M1917, and M1892 Revolver.",
+    "role": "Use it if you want the French historical weapon set with rifles, automatic fire, and a revolver sidearm.",
+    "stats": {
+      "price_robux": 249,
+      "store_description": "Includes: Lebel M1886/93, Berthier Carbine, Chauchat, RSC M1917, M1892 Revolver",
+      "for_sale": "yes"
+    },
+    "related": [
+      "lebel-m1886-93",
+      "berthier-carbine",
+      "chauchat",
+      "rsc-m1917",
+      "m1892-revolver"
+    ],
+    "fun_facts": [
+      "This is the oldest numbered weapon-set pass still returned by Roblox for ERADICATION."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "set-vi-russia-i-pass",
+    "name": "Set VI: RUSSIA I",
+    "type": "gamepass",
+    "summary": "Set VI: RUSSIA I unlocks Fedorov Avtomat, Mosin-Nagant M1891/30, and Nagant M1895.",
+    "role": "Use it if you want the smaller Russian pass with one automatic primary, one rifle, and one revolver.",
+    "stats": {
+      "price_robux": 198,
+      "store_description": "Includes: Fedorov Avtomat, Mosin-Nagant M1891/30, Nagant M1895",
+      "for_sale": "yes"
+    },
+    "related": [
+      "fedorov-avtomat",
+      "mosin-nagant-m1891-30",
+      "nagant-m1895"
+    ],
+    "fun_facts": [
+      "This pass is one Robux cheaper than both USA weapon-set passes returned by Roblox."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "set-vii-germany-i-pass",
+    "name": "Set VII: GERMANY I",
+    "type": "gamepass",
+    "summary": "Set VII: GERMANY I unlocks C96 Mauser, Gewehr 98, Luger P08, MP-18, and Selbstlader M1916.",
+    "role": "Use it if you want the earlier German set with rifle, sidearm, submachine gun, and self-loading options.",
+    "stats": {
+      "price_robux": 249,
+      "store_description": "Includes: C96 Mauser, Gewehr 98, Luger P08, MP-18, Selbstlader M1916",
+      "for_sale": "yes"
+    },
+    "related": [
+      "c96-mauser",
+      "gewehr-98",
+      "luger-p08",
+      "mp-18",
+      "selbstlader-m1916"
+    ],
+    "fun_facts": [
+      "Germany has two separate live weapon-set passes."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "hand-charge-pass",
+    "name": "HAND CHARGE",
+    "type": "gamepass",
+    "summary": "HAND CHARGE unlocks the Hand Charge weapon.",
+    "role": "Use it if you want the standalone cannon-pistol style weapon without tying the unlock to a larger set.",
+    "stats": {
+      "price_robux": 249,
+      "store_description": "Remember, switching to your cannon pistol is always faster than reloading. Includes: Hand Charge",
+      "for_sale": "yes"
+    },
+    "related": [
+      "hand-charge"
+    ],
+    "fun_facts": [
+      "This standalone pass was created on the same day as RPG-7 according to Roblox."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "rpg-7-pass",
+    "name": "RPG-7",
+    "type": "gamepass",
+    "summary": "RPG-7 unlocks the RPG-7 launcher.",
+    "role": "Use it if you want a standalone launcher pass for heavy-target and vehicle-focused pressure.",
+    "stats": {
+      "price_robux": 349,
+      "store_description": "A rocket launcher packing a considerable punch. Includes: RPG-7",
+      "for_sale": "yes"
+    },
+    "related": [
+      "rpg-7",
+      "salvaged-rpg",
+      "rallydrop",
+      "vehicle-resupply"
+    ],
+    "fun_facts": [
+      "RPG-7 is both the pass name and the weapon name, so the wiki uses a separate pass page to keep links unambiguous."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "set-viii-usa-i-pass",
+    "name": "SET VIII: USA I",
+    "type": "gamepass",
+    "summary": "SET VIII: USA I unlocks M1 Carbine, M1 Garand, Thompson M1928, and Winchester M1897.",
+    "role": "Use it if you want the USA set built around classic rifle, shotgun, and submachine-gun options.",
+    "stats": {
+      "price_robux": 199,
+      "store_description": "Includes: M1 Carbine, M1 Garand, Thompson M1928, Winchester M1897",
+      "for_sale": "yes"
+    },
+    "related": [
+      "m1-carbine",
+      "m1-garand",
+      "thompson-m1928",
+      "winchester-m1897"
+    ],
+    "fun_facts": [
+      "There are two separate live USA weapon-set passes."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "rallydrop-pass",
+    "name": "RALLYDROP",
+    "type": "gamepass",
+    "summary": "RALLYDROP unlocks base RallyDrop vehicle access beyond the free LTV-300 tier.",
+    "role": "Use it if you want the main vehicle call-in experience with armored, unarmored, and support vehicle options.",
+    "stats": {
+      "price_robux": 398,
+      "store_description": "RallyDrop gives you access to a surplus of vehicles, armored, not armored, and alike. Includes: RallyDrop Access [BASE]",
+      "for_sale": "yes"
+    },
+    "related": [
+      "rallydrop",
+      "rallydrop-tool",
+      "ltv-300",
+      "mbt-800",
+      "mib831-mastiff",
+      "vehicle-resupply"
+    ],
+    "fun_facts": [
+      "The free RallyDrop tier still exposes the LTV-300; this pass is the base upgrade for broader vehicle access."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "m134-pass",
+    "name": "M134",
+    "type": "gamepass",
+    "summary": "M134 unlocks the standalone M134 minigun weapon.",
+    "role": "Use it if you want a dedicated high-volume fire weapon outside the normal cash-and-XP unlock path.",
+    "stats": {
+      "price_robux": 449,
+      "store_description": "Includes: M134",
+      "for_sale": "yes"
+    },
+    "related": [
+      "m134",
+      "mh-60-blackhawk-pilot-minigun",
+      "furry-waves"
+    ],
+    "fun_facts": [
+      "M134 is the most expensive standalone weapon pass returned by Roblox for ERADICATION."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  }
+]

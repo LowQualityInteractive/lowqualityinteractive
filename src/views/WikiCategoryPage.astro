@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getGameBySlug } from '../data/games';
+import { getSiteTitle } from '../data/site';
+import {
+  getCategoryLabel,
+  getEntityHref,
+  getWikiCategory,
+  getWikiHubHref,
+  isUnpublished,
+} from '../data/wiki';
+import { getLocalePath, type Locale } from '../i18n/messages';
+
+interface Props {
+  locale: Locale;
+  gameSlug: string;
+  categorySlug: string;
+}
+
+const { locale, gameSlug, categorySlug } = Astro.props;
+const game = getGameBySlug(locale, gameSlug);
+if (!game) throw new Error(`Unknown game slug: ${gameSlug}`);
+
+const category = getWikiCategory(gameSlug, categorySlug);
+if (!category) throw new Error(`Unknown wiki category: ${gameSlug}/${categorySlug}`);
+
+const label = getCategoryLabel(category.category);
+const title = getSiteTitle(`${game.name} ${label.plural}`);
+const description = `Every ${label.singular.toLowerCase()} in ${game.name}: ${category.entities.map((e) => e.name).join(', ')}.`;
+---
+
+<BaseLayout
+  locale={locale}
+  title={title}
+  description={description}
+  currentPage="games"
+  routePath={`${gameSlug}/wiki/${category.filename}`}
+  ogImage={game.artwork.src}
+  ogImageAlt={game.artwork.alt}
+>
+  <section class="hero">
+    <span class="kicker hero-enter" style="--enter-delay: 40ms">{game.name} · {label.plural}</span>
+    <h1 class="hero-enter" style="--enter-delay: 120ms">{label.plural}</h1>
+    <p class="lead hero-enter" style="--enter-delay: 220ms">
+      {category.entities.length} {label.singular.toLowerCase()}{category.entities.length === 1 ? '' : 's'} catalogued.
+    </p>
+    <div class="cta-row hero-enter" style="--enter-delay: 300ms">
+      <a class="button ghost" href={getWikiHubHref(locale, gameSlug)}>
+        <span>Back to wiki</span>
+      </a>
+      <a class="button ghost" href={getLocalePath(locale, gameSlug)}>
+        <span>{game.name}</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="wiki-list" aria-label={`${label.plural} list`}>
+    {category.entities.map((entity, i) => (
+      <a
+        class="wiki-row"
+        href={getEntityHref(locale, gameSlug, category.filename, entity.id)}
+        data-reveal
+        data-reveal-i={String(Math.min(i + 1, 6))}
+      >
+        <div class="wiki-row-main">
+          <h2 class="wiki-row-title">
+            <span>{entity.name}</span>
+            {isUnpublished(entity) && <span class="wiki-pill wiki-pill-unpub">Unpublished</span>}
+            {entity.status === 'sunset' && <span class="wiki-pill">Sunset</span>}
+            {entity.status === 'preview' && <span class="wiki-pill wiki-pill-preview">Preview</span>}
+          </h2>
+          {entity.role && <p class="wiki-row-role">{entity.role}</p>}
+          <p class="wiki-row-summary">{entity.summary}</p>
+        </div>
+        <span class="wiki-row-arrow" aria-hidden="true">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    ))}
+  </div>
+
+  <p class="wiki-doc-footer" data-reveal>
+    Official documentation for {game.name}.
+  </p>
+</BaseLayout>

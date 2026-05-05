@@ -1,0 +1,186 @@
+[
+  {
+    "id": "whiskerhold",
+    "name": "Whiskerhold",
+    "type": "territory",
+    "summary": "Whiskerhold is the contractor base territory and the starting foothold for the round.",
+    "role": "Use Whiskerhold as the fallback spawn and regroup point. It is spawn-only, so it anchors the team but does not count as a reclaimed objective.",
+    "stats": {
+      "flag": "Flag I",
+      "spawn_points": 7,
+      "starts_as": "Defenders",
+      "spawn_only": "yes"
+    },
+    "related": [
+      "furron",
+      "deployment",
+      "territory-capture",
+      "traditional",
+      "infection",
+      "furward"
+    ],
+    "fun_facts": [
+      "Whiskerhold is the only territory flagged as spawn-only.",
+      "Furry players cannot deploy from Whiskerhold."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "furward",
+    "name": "Furward",
+    "type": "territory",
+    "summary": "Furward is the first reclaimable Furry-held territory after Whiskerhold.",
+    "role": "Taking Furward opens an early forward deployment option and gives the team a shorter route back into the street fight.",
+    "stats": {
+      "flag": "Flag II",
+      "spawn_points": 8,
+      "starts_as": "Furries",
+      "spawn_only": "no"
+    },
+    "related": [
+      "whiskerhold",
+      "furrow",
+      "territory-capture",
+      "deployment",
+      "traditional",
+      "boss-unlock"
+    ],
+    "fun_facts": [
+      "Furward is active in the full territory route but not the single-objective Rush version."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "furrow",
+    "name": "Furrow",
+    "type": "territory",
+    "summary": "Furrow is the third flag territory and the single active objective in Rush.",
+    "role": "In Traditional, Furrow is one step in the territory chain. In Rush, it is the entire match: defenders hold it, Furries try to flip it once.",
+    "stats": {
+      "flag": "Flag III",
+      "spawn_points": 9,
+      "starts_as": "Furries",
+      "spawn_only": "no",
+      "rush_objective": "yes"
+    },
+    "related": [
+      "furward",
+      "purridge",
+      "rush",
+      "territory-capture",
+      "deployment",
+      "furry-waves"
+    ],
+    "fun_facts": [
+      "Rush starts Furrow in defender hands and ends badly if the Furries take it."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "purridge",
+    "name": "Purridge",
+    "type": "territory",
+    "summary": "Purridge is a mid-route territory in the full Traditional push.",
+    "role": "Hold Purridge to keep the team from respawning too far behind the front. Losing it can stretch rotations between Furrow and Whisken.",
+    "stats": {
+      "flag": "Flag IV",
+      "spawn_points": 12,
+      "starts_as": "Furries",
+      "spawn_only": "no"
+    },
+    "related": [
+      "furrow",
+      "whisken",
+      "territory-capture",
+      "deployment",
+      "traditional",
+      "boss-unlock"
+    ],
+    "fun_facts": [
+      "Purridge has more deploy spawn points than the first three flags."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "whisken",
+    "name": "Whisken",
+    "type": "territory",
+    "summary": "Whisken is the fifth flag territory and a late-midpoint forward spawn.",
+    "role": "Use Whisken as a staging point before the final two territories. It helps shorten the run back after deaths if the team can keep it uncontested.",
+    "stats": {
+      "flag": "Flag V",
+      "spawn_points": 11,
+      "starts_as": "Furries",
+      "spawn_only": "no"
+    },
+    "related": [
+      "purridge",
+      "bloodwhisk-reach",
+      "territory-capture",
+      "deployment",
+      "traditional",
+      "boss-unlock"
+    ],
+    "fun_facts": [
+      "A contested Whisken blocks forward deployment there until the fight resolves."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "bloodwhisk-reach",
+    "name": "Bloodwhisk Reach",
+    "type": "territory",
+    "summary": "Bloodwhisk Reach is the sixth flag territory and one of the last objectives before the final push.",
+    "role": "Capture Bloodwhisk Reach to keep pressure near the end of the route. It is a valuable spawn because Whiskspire is the only reclaimable territory beyond it.",
+    "stats": {
+      "flag": "Flag VI",
+      "spawn_points": 13,
+      "starts_as": "Furries",
+      "spawn_only": "no"
+    },
+    "related": [
+      "whisken",
+      "whiskspire",
+      "territory-capture",
+      "deployment",
+      "traditional",
+      "boss-unlock"
+    ],
+    "fun_facts": [
+      "Bloodwhisk Reach has thirteen deploy spawn points, second only to Whiskspire."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "whiskspire",
+    "name": "Whiskspire",
+    "type": "territory",
+    "summary": "Whiskspire is the seventh flag territory and the last reclaimable point in the route.",
+    "role": "Take and hold Whiskspire as part of the final checklist for unlocking the boss route in Traditional.",
+    "stats": {
+      "flag": "Flag VII",
+      "spawn_points": 14,
+      "starts_as": "Furries",
+      "spawn_only": "no"
+    },
+    "related": [
+      "bloodwhisk-reach",
+      "territory-capture",
+      "deployment",
+      "traditional",
+      "boss-unlock",
+      "furry-boss"
+    ],
+    "fun_facts": [
+      "Whiskspire gives the largest forward deployment spread, with fourteen spawn points."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  }
+]

@@ -1,0 +1,81 @@
+[
+  {
+    "id": "ammunition-canister-1",
+    "name": "Ammunition Canister [1]",
+    "type": "item",
+    "summary": "Ammunition Canister [1] is a deployable ammo box tool available from the starter loadout.",
+    "role": "Use it when a hold is going to last longer than your carried ammo. Activating the canister places a universal ammo box and consumes the tool.",
+    "stats": {
+      "source": "Starter loadout",
+      "consumed_on_use": "yes"
+    },
+    "related": [
+      "ammunition-canister-2",
+      "territory-capture",
+      "traditional",
+      "rush",
+      "furry-waves"
+    ],
+    "fun_facts": [
+      "Both ammunition canister variants deploy the same universal ammo box."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "ammunition-canister-2",
+    "name": "Ammunition Canister [2]",
+    "type": "item",
+    "summary": "Ammunition Canister [2] is the shop-side ammo canister variant that deploys a universal ammo box.",
+    "role": "Bring it for long capture holds, boss preparation, or any defense where the team is likely to run dry before the wave pressure stops.",
+    "stats": {
+      "source": "Shop",
+      "consumed_on_use": "yes"
+    },
+    "related": [
+      "ammunition-canister-1",
+      "territory-capture",
+      "furry-boss",
+      "ammo-cans-x2-pass"
+    ],
+    "fun_facts": [
+      "The canister drops ammo exactly where you deploy it, so placement matters during a hold."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "rallydrop-tool",
+    "name": "RallyDrop",
+    "type": "item",
+    "summary": "RallyDrop is the vehicle call-in tool used to spawn player-owned transports, armor, and aircraft near the player.",
+    "role": "Use RallyDrop to move squads, bring vehicle weapons to a fight, or recover distance after a lost spawn. Free access covers the LTV-300; broader vehicle access comes from RallyDrop ownership and the WWII vehicle pass.",
+    "stats": {
+      "free_vehicle": "LTV-300",
+      "spawn_cooldown_seconds": 1,
+      "spawn_radius_min_studs": 26,
+      "spawn_radius_max_studs": 90,
+      "default_active_limit": 1,
+      "expanded_active_limit": 2
+    },
+    "related": [
+      "rallydrop",
+      "ltv-300",
+      "mbt-800",
+      "mh-60-blackhawk",
+      "vehicle-resupply",
+      "traditional",
+      "rush",
+      "rallydrop-pass",
+      "rallydrop-wwii-pass",
+      "rallydrop-double-commander-pass",
+      "rallydrop-aviation-pass"
+    ],
+    "fun_facts": [
+      "RallyDrop checks multiple spawn rings around the player, from 26 to 90 studs.",
+      "Available paint colors are Coyote, Green, Tan, and Grey."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  }
+]

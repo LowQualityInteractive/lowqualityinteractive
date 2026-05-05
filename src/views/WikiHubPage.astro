@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getGameBySlug } from '../data/games';
+import { getSiteTitle } from '../data/site';
+import {
+  getCategoryHref,
+  getCategoryLabel,
+  getWikiCategories,
+} from '../data/wiki';
+import { getLocalePath, type Locale } from '../i18n/messages';
+
+interface Props {
+  locale: Locale;
+  gameSlug: string;
+}
+
+const { locale, gameSlug } = Astro.props;
+const game = getGameBySlug(locale, gameSlug);
+if (!game) throw new Error(`Unknown game slug: ${gameSlug}`);
+
+const categories = getWikiCategories(gameSlug);
+const totalEntities = categories.reduce((sum, c) => sum + c.entities.length, 0);
+
+const title = getSiteTitle(`${game.name} Wiki`);
+const description = `Reference wiki for ${game.name}: weapons, enemies, maps, modes, items. Authoritative entries with stats and cross-links.`;
+---
+
+<BaseLayout
+  locale={locale}
+  title={title}
+  description={description}
+  currentPage="games"
+  routePath={`${gameSlug}/wiki`}
+  ogImage={game.artwork.src}
+  ogImageAlt={game.artwork.alt}
+>
+  <section class="hero">
+    <span class="kicker hero-enter" style="--enter-delay: 40ms">{game.name} wiki</span>
+    <h1 class="hero-enter" style="--enter-delay: 120ms">{game.name} Wiki</h1>
+    <p class="lead hero-enter" style="--enter-delay: 220ms">
+      {totalEntities} {totalEntities === 1 ? 'entry' : 'entries'} across {categories.length} {categories.length === 1 ? 'category' : 'categories'}. 
+    </p>
+    <div class="cta-row hero-enter" style="--enter-delay: 300ms">
+      <a class="button ghost" href={getLocalePath(locale, gameSlug)}>
+        <span>Back to {game.name}</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="wiki-grid" aria-label="Wiki categories">
+    {categories.map((category, i) => {
+      const label = getCategoryLabel(category.category);
+      return (
+        <a
+          class="wiki-card"
+          href={getCategoryHref(locale, gameSlug, category.filename)}
+          data-reveal
+          data-reveal-i={String(Math.min(i + 1, 6))}
+        >
+          <div class="wiki-card-head">
+            <span class="wiki-card-kicker">{category.entities.length} {category.entities.length === 1 ? 'entry' : 'entries'}</span>
+            <h2 class="wiki-card-title">{label.plural}</h2>
+          </div>
+          <ul class="wiki-card-preview" aria-hidden="true">
+            {category.entities.slice(0, 3).map((entity) => (
+              <li>{entity.name}</li>
+            ))}
+            {category.entities.length > 3 && <li class="wiki-card-preview-more">+{category.entities.length - 3} more</li>}
+          </ul>
+          <span class="wiki-card-arrow" aria-hidden="true">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+      );
+    })}
+  </div>
+
+  <p class="wiki-doc-footer" data-reveal>
+    Official documentation for {game.name}.
+  </p>
+</BaseLayout>

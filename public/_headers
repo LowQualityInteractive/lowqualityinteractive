@@ -30,10 +30,10 @@
   Link: </games/index.md>; rel="alternate"; type="text/markdown"
 /games/
   Link: </games/index.md>; rel="alternate"; type="text/markdown"
-/blogs
-  Link: </blogs/index.md>; rel="alternate"; type="text/markdown"
-/blogs/
-  Link: </blogs/index.md>; rel="alternate"; type="text/markdown"
+/updates
+  Link: </updates/index.md>; rel="alternate"; type="text/markdown"
+/updates/
+  Link: </updates/index.md>; rel="alternate"; type="text/markdown"
 /connect
   Link: </connect/index.md>; rel="alternate"; type="text/markdown"
 /connect/
@@ -69,10 +69,10 @@
   Link: </pt-BR/games/index.md>; rel="alternate"; type="text/markdown"
 /pt-BR/games/
   Link: </pt-BR/games/index.md>; rel="alternate"; type="text/markdown"
-/pt-BR/blogs
-  Link: </pt-BR/blogs/index.md>; rel="alternate"; type="text/markdown"
-/pt-BR/blogs/
-  Link: </pt-BR/blogs/index.md>; rel="alternate"; type="text/markdown"
+/pt-BR/updates
+  Link: </pt-BR/updates/index.md>; rel="alternate"; type="text/markdown"
+/pt-BR/updates/
+  Link: </pt-BR/updates/index.md>; rel="alternate"; type="text/markdown"
 /pt-BR/connect
   Link: </pt-BR/connect/index.md>; rel="alternate"; type="text/markdown"
 /pt-BR/connect/
@@ -103,10 +103,10 @@
   Link: </es-MX/games/index.md>; rel="alternate"; type="text/markdown"
 /es-MX/games/
   Link: </es-MX/games/index.md>; rel="alternate"; type="text/markdown"
-/es-MX/blogs
-  Link: </es-MX/blogs/index.md>; rel="alternate"; type="text/markdown"
-/es-MX/blogs/
-  Link: </es-MX/blogs/index.md>; rel="alternate"; type="text/markdown"
+/es-MX/updates
+  Link: </es-MX/updates/index.md>; rel="alternate"; type="text/markdown"
+/es-MX/updates/
+  Link: </es-MX/updates/index.md>; rel="alternate"; type="text/markdown"
 /es-MX/connect
   Link: </es-MX/connect/index.md>; rel="alternate"; type="text/markdown"
 /es-MX/connect/
@@ -137,10 +137,10 @@
   Link: </es-ES/games/index.md>; rel="alternate"; type="text/markdown"
 /es-ES/games/
   Link: </es-ES/games/index.md>; rel="alternate"; type="text/markdown"
-/es-ES/blogs
-  Link: </es-ES/blogs/index.md>; rel="alternate"; type="text/markdown"
-/es-ES/blogs/
-  Link: </es-ES/blogs/index.md>; rel="alternate"; type="text/markdown"
+/es-ES/updates
+  Link: </es-ES/updates/index.md>; rel="alternate"; type="text/markdown"
+/es-ES/updates/
+  Link: </es-ES/updates/index.md>; rel="alternate"; type="text/markdown"
 /es-ES/connect
   Link: </es-ES/connect/index.md>; rel="alternate"; type="text/markdown"
 /es-ES/connect/
@@ -171,10 +171,10 @@
   Link: </ru/games/index.md>; rel="alternate"; type="text/markdown"
 /ru/games/
   Link: </ru/games/index.md>; rel="alternate"; type="text/markdown"
-/ru/blogs
-  Link: </ru/blogs/index.md>; rel="alternate"; type="text/markdown"
-/ru/blogs/
-  Link: </ru/blogs/index.md>; rel="alternate"; type="text/markdown"
+/ru/updates
+  Link: </ru/updates/index.md>; rel="alternate"; type="text/markdown"
+/ru/updates/
+  Link: </ru/updates/index.md>; rel="alternate"; type="text/markdown"
 /ru/connect
   Link: </ru/connect/index.md>; rel="alternate"; type="text/markdown"
 /ru/connect/
@@ -205,10 +205,10 @@
   Link: </de/games/index.md>; rel="alternate"; type="text/markdown"
 /de/games/
   Link: </de/games/index.md>; rel="alternate"; type="text/markdown"
-/de/blogs
-  Link: </de/blogs/index.md>; rel="alternate"; type="text/markdown"
-/de/blogs/
-  Link: </de/blogs/index.md>; rel="alternate"; type="text/markdown"
+/de/updates
+  Link: </de/updates/index.md>; rel="alternate"; type="text/markdown"
+/de/updates/
+  Link: </de/updates/index.md>; rel="alternate"; type="text/markdown"
 /de/connect
   Link: </de/connect/index.md>; rel="alternate"; type="text/markdown"
 /de/connect/
@@ -239,10 +239,10 @@
   Link: </it/games/index.md>; rel="alternate"; type="text/markdown"
 /it/games/
   Link: </it/games/index.md>; rel="alternate"; type="text/markdown"
-/it/blogs
-  Link: </it/blogs/index.md>; rel="alternate"; type="text/markdown"
-/it/blogs/
-  Link: </it/blogs/index.md>; rel="alternate"; type="text/markdown"
+/it/updates
+  Link: </it/updates/index.md>; rel="alternate"; type="text/markdown"
+/it/updates/
+  Link: </it/updates/index.md>; rel="alternate"; type="text/markdown"
 /it/connect
   Link: </it/connect/index.md>; rel="alternate"; type="text/markdown"
 /it/connect/
@@ -273,10 +273,10 @@
   Link: </fr/games/index.md>; rel="alternate"; type="text/markdown"
 /fr/games/
   Link: </fr/games/index.md>; rel="alternate"; type="text/markdown"
-/fr/blogs
-  Link: </fr/blogs/index.md>; rel="alternate"; type="text/markdown"
-/fr/blogs/
-  Link: </fr/blogs/index.md>; rel="alternate"; type="text/markdown"
+/fr/updates
+  Link: </fr/updates/index.md>; rel="alternate"; type="text/markdown"
+/fr/updates/
+  Link: </fr/updates/index.md>; rel="alternate"; type="text/markdown"
 /fr/connect
   Link: </fr/connect/index.md>; rel="alternate"; type="text/markdown"
 /fr/connect/
@@ -307,10 +307,10 @@
   Link: </ro/games/index.md>; rel="alternate"; type="text/markdown"
 /ro/games/
   Link: </ro/games/index.md>; rel="alternate"; type="text/markdown"
-/ro/blogs
-  Link: </ro/blogs/index.md>; rel="alternate"; type="text/markdown"
-/ro/blogs/
-  Link: </ro/blogs/index.md>; rel="alternate"; type="text/markdown"
+/ro/updates
+  Link: </ro/updates/index.md>; rel="alternate"; type="text/markdown"
+/ro/updates/
+  Link: </ro/updates/index.md>; rel="alternate"; type="text/markdown"
 /ro/connect
   Link: </ro/connect/index.md>; rel="alternate"; type="text/markdown"
 /ro/connect/
@@ -341,10 +341,10 @@
   Link: </el/games/index.md>; rel="alternate"; type="text/markdown"
 /el/games/
   Link: </el/games/index.md>; rel="alternate"; type="text/markdown"
-/el/blogs
-  Link: </el/blogs/index.md>; rel="alternate"; type="text/markdown"
-/el/blogs/
-  Link: </el/blogs/index.md>; rel="alternate"; type="text/markdown"
+/el/updates
+  Link: </el/updates/index.md>; rel="alternate"; type="text/markdown"
+/el/updates/
+  Link: </el/updates/index.md>; rel="alternate"; type="text/markdown"
 /el/connect
   Link: </el/connect/index.md>; rel="alternate"; type="text/markdown"
 /el/connect/

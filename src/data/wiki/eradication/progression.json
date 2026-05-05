@@ -1,0 +1,172 @@
+[
+  {
+    "id": "territory-rewards",
+    "name": "Territory Rewards",
+    "type": "progression",
+    "summary": "Territory rewards pay players for capturing and defending flags.",
+    "role": "Stay inside objectives when it matters. The game pays capture credit to defenders present for the claim and gives periodic defense rewards while holding ground.",
+    "stats": {
+      "capture_cash": 250,
+      "capture_xp": 750,
+      "defense_cash": 35,
+      "defense_xp": 125,
+      "defense_interval_seconds": 45
+    },
+    "related": [
+      "territory-capture",
+      "traditional",
+      "rush",
+      "furrow"
+    ],
+    "fun_facts": [
+      "Defense rewards are timer-based, so holding a flag can matter even after the initial capture payout."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "kill-and-assist-rewards",
+    "name": "Kill and Assist Rewards",
+    "type": "progression",
+    "summary": "Kill and assist rewards pay cash and XP for damaging and eliminating Furries.",
+    "role": "Contribute damage even if you cannot secure every kill. Assists pay a smaller share and help support steady progression during wave pressure.",
+    "stats": {
+      "common_kill_cash_range": "8-15",
+      "common_kill_xp_range": "3-7",
+      "rare_kill_cash_range": "25-40",
+      "rare_kill_xp_range": "12-18",
+      "rare_roll_chance_percent": 10,
+      "assist_cash_share": "35%",
+      "assist_xp_share": "50%"
+    },
+    "related": [
+      "normal-furry",
+      "furry-waves",
+      "traditional",
+      "rush",
+      "infection"
+    ],
+    "fun_facts": [
+      "The rare kill reward roll is at ten percent."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "boss-rewards",
+    "name": "Boss Rewards",
+    "type": "progression",
+    "summary": "Boss rewards pay large cash and XP payouts for defeating the Traditional boss, with contribution-based sharing.",
+    "role": "Damage the boss if you want reward credit. The top contributor receives the main payout roll, and other contributors receive a scaled share.",
+    "stats": {
+      "base_cash": 50000,
+      "base_xp": 25000,
+      "base_multiplier_chance_percent": 70,
+      "one_point_five_multiplier_chance_percent": 20,
+      "triple_multiplier_chance_percent": 10,
+      "contributor_share_scale": "40%",
+      "defeated_badge": "Awarded to all players on boss defeat"
+    },
+    "related": [
+      "furry-boss",
+      "boss-core",
+      "boss-unlock",
+      "traditional"
+    ],
+    "fun_facts": [
+      "The boss defeat badge is awarded to all players when the boss dies."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "daily-rewards",
+    "name": "Daily Rewards",
+    "type": "progression",
+    "summary": "Daily rewards grant cash with streak scaling, with a larger Plus reward track available separately.",
+    "role": "Claim daily rewards consistently to build cash outside direct combat payouts.",
+    "stats": {
+      "daily_cash_base": 2500,
+      "daily_max_multiplier": 10,
+      "daily_streak_bonus_per_day": 0.1,
+      "plus_daily_cash_base": 10000,
+      "plus_max_multiplier": 2,
+      "plus_streak_bonus_per_day": 0.25
+    },
+    "related": [
+      "activity-rewards",
+      "group-rewards",
+      "referral-rewards"
+    ],
+    "fun_facts": [
+      "Daily reward streak math uses a multiplier, not a flat repeated bonus."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "activity-rewards",
+    "name": "Activity Rewards",
+    "type": "progression",
+    "summary": "Activity rewards grant XP for staying active long enough during the day.",
+    "role": "Stay active for the full activity window to claim a once-per-day XP payout.",
+    "stats": {
+      "activity_seconds": 600,
+      "activity_minutes": 10,
+      "xp_reward": 5000,
+      "claim_limit": "once per UTC day"
+    },
+    "related": [
+      "daily-rewards",
+      "group-rewards"
+    ],
+    "fun_facts": [
+      "The activity reward timer is ten minutes, matching 600 seconds."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "group-rewards",
+    "name": "Group Rewards",
+    "type": "progression",
+    "summary": "Group rewards grant bonus XP and the M60 reward weapon for members of the LQI Roblox group.",
+    "role": "Join the group if you want the group reward track, including the M60 weapon reward.",
+    "stats": {
+      "daily_group_xp": 7500,
+      "reward_weapon": "M60"
+    },
+    "related": [
+      "m60",
+      "daily-rewards",
+      "activity-rewards"
+    ],
+    "fun_facts": [
+      "M60 is the group reward weapon."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "referral-rewards",
+    "name": "Referral Rewards",
+    "type": "progression",
+    "summary": "Referral rewards pay both the inviting player and the invitee after the invite qualifies.",
+    "role": "Use referrals as a progression boost when bringing a new player into the game.",
+    "stats": {
+      "invitee_cash": 2500,
+      "invitee_xp": 7500,
+      "referrer_cash": 5000,
+      "referrer_xp": 10000,
+      "qualification_delay_seconds": 10
+    },
+    "related": [
+      "daily-rewards"
+    ],
+    "fun_facts": [
+      "The referral qualification delay is only ten seconds."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  }
+]

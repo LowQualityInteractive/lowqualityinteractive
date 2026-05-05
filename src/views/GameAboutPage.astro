@@ -8,6 +8,7 @@ import {
 import { getGameAbout } from '../data/gameAbout';
 import { getSiteTitle, SITE_NAME } from '../data/site';
 import { getLocalePath, getMessages, interpolate, type Locale } from '../i18n/messages';
+import { getWikiHubHref, hasWiki } from '../data/wiki';
 
 interface Props {
   locale: Locale;
@@ -80,6 +81,14 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
           <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
+      {hasWiki(slug) && (
+        <a class="button ghost" href={getWikiHubHref(locale, slug)}>
+          <span>Wiki</span>
+          <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      )}
       <a class="button ghost" href={getLocalePath(locale, 'games')}>
         <span>{page.backToGames}</span>
       </a>

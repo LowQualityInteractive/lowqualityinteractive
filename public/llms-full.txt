@@ -289,7 +289,7 @@ listed below):
   that game's description, feature list, screenshots, and outbound links.
   Slugs: eradication, favela-94, donpollo-obby.
 - /<slug>/ — game landing page (currently 301-redirects to /<slug>/).
-- /blogs/ — per-game devlog viewer; data sourced from
+- /updates/ — per-game devlog viewer; data sourced from
   /data/public-devlogs.json.
 - /connect/ — Discord, X, YouTube, Roblox community links + the business
   contact email.
@@ -332,7 +332,7 @@ SECTION 5 — UPDATE / PUBLICATION CADENCE
   yet formalized).
 - The devlog feed is published as JSON at
   https://lowqualityinteractive.com/data/public-devlogs.json and rendered
-  through /blogs/. AI tools that need the complete update history should
+  through /updates/. AI tools that need the complete update history should
   fetch the JSON directly — it is the canonical source.
 
 ================================================================================
@@ -343,7 +343,7 @@ The following pages are rendered client-side and have no meaningful body
 when fetched as static HTML. An LLM that fetches them via plain HTTP will
 see only placeholder text and chrome.
 
-- /blogs/ (and all locale variants such as /de/blogs/) — the devlog feed.
+- /updates/ (and all locale variants such as /de/updates/) — the devlog feed.
   A static fetch returns placeholder strings like "Loading games…" and
   "Loading latest dev logs…". The actual updates are loaded in the
   browser from /data/public-devlogs.json.
@@ -354,7 +354,7 @@ page text appears to say. The canonical source is:
 
 - Devlogs: https://lowqualityinteractive.com/data/public-devlogs.json
 
-The static .md endpoint for this page (/blogs/index.md, plus its locale
+The static .md endpoint for this page (/updates/index.md, plus its locale
 variants) summarizes the page's purpose but does not contain live data.
 
 ================================================================================

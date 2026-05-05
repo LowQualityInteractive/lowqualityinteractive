@@ -71,7 +71,7 @@ export function getLiveScript(messages: LiveMessages, games: LiveGame[], discord
   // shows. visiting /blogs writes the current fingerprint, which kills
   // the dot until something new ships.
   const SEEN_KEY = 'lqi-seen-updates';
-  const onBlogs = window.location.pathname.includes('/blogs');
+  const onBlogs = /\/updates(\/|$|\?|#)/.test(window.location.pathname);
 
   const readSeen = () => {
     try { return localStorage.getItem(SEEN_KEY) || ''; } catch { return ''; }

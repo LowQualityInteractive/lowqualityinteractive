@@ -27,9 +27,9 @@ import {
 
 // route keys the renderer recognises. empty string = home,
 // the rest match the page dir names exactly.
-type SectionKey = '' | 'games' | 'blogs' | 'connect' | 'privacy-policy';
+type SectionKey = '' | 'games' | 'updates' | 'connect' | 'privacy-policy';
 
-const SECTION_KEYS: readonly SectionKey[] = ['', 'games', 'blogs', 'connect', 'privacy-policy'];
+const SECTION_KEYS: readonly SectionKey[] = ['', 'games', 'updates', 'connect', 'privacy-policy'];
 
 // canonical url for a (locale, route) pair. keeps the locale prefix.
 function pageUrl(locale: Locale, route: string) {
@@ -284,7 +284,7 @@ function loadDevlogs(): DevlogGame[] {
 
 function renderBlogsMarkdown(locale: Locale) {
   const messages = getMessages(locale);
-  const url = pageUrl(locale, 'blogs');
+  const url = pageUrl(locale, 'updates');
   const devlogs = loadDevlogs();
 
   const summary = devlogs
@@ -388,14 +388,9 @@ function renderPrivacyMarkdown(locale: Locale) {
 export function getMarkdownForRoute(locale: Locale, route: string): string {
   if (route === '') return renderHomeMarkdown(locale);
   if (route === 'games') return renderGamesMarkdown(locale);
-  if (route === 'blogs') return renderBlogsMarkdown(locale);
+  if (route === 'updates') return renderBlogsMarkdown(locale);
   if (route === 'connect') return renderConnectMarkdown(locale);
   if (route === 'privacy-policy') return renderPrivacyMarkdown(locale);
-  // game pages used to live at <slug>/about; now they're at just
-  // <slug>. accept either form so old .md links don't 404.
-  if (route.endsWith('/about')) {
-    return getGameAboutMarkdown(locale, route.replace(/\/about$/, ''));
-  }
   if ((publishedGameSlugs as readonly string[]).includes(route)) {
     return getGameAboutMarkdown(locale, route);
   }

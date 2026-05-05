@@ -1,0 +1,225 @@
+[
+  {
+    "id": "normal-furry",
+    "name": "Normal Furry",
+    "type": "enemy",
+    "summary": "The Normal Furry is the baseline melee threat that fills waves, pushes flags, and punishes isolated players.",
+    "role": "Clear Normal Furries before they stack on a capture point. Individually they are manageable, but groups can contest territory and stall capture progress.",
+    "stats": {
+      "health": 100,
+      "walk_speed": 16,
+      "attack_cooldown_seconds": 0.5,
+      "base_melee_damage": 12.5
+    },
+    "related": [
+      "furry-waves",
+      "territory-capture",
+      "traditional",
+      "infection",
+      "kill-and-assist-rewards"
+    ],
+    "fun_facts": [
+      "Normal Furries are the reference point for the larger variants: faster, tankier, ranged, or explosive enemies are built around this baseline pressure."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "pimple-furry",
+    "name": "Pimple Furry",
+    "type": "enemy",
+    "summary": "The Pimple Furry is a slower, tougher explosive variant that detonates after death.",
+    "role": "Drop Pimple Furries away from teammates and capture clusters. The body is still dangerous after the health bar is gone.",
+    "stats": {
+      "health": 300,
+      "walk_speed": 12,
+      "attack_cooldown_seconds": 1.5,
+      "death_explosion_radius_studs": 10
+    },
+    "related": [
+      "bloater-furry",
+      "furry-waves",
+      "territory-capture",
+      "kill-and-assist-rewards"
+    ],
+    "fun_facts": [
+      "Pimple Furries use the shorter explosive respawn delay shared by the other detonation-style enemies."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "watcher-furry",
+    "name": "Watcher Furry",
+    "type": "enemy",
+    "summary": "The Watcher Furry is a faster melee variant with more health than the baseline Furry.",
+    "role": "Prioritize Watchers when they break through the front line. Their speed makes them better at reaching players who are reloading or holding a narrow angle.",
+    "stats": {
+      "health": 200,
+      "walk_speed": 19,
+      "attack_cooldown_seconds": 1
+    },
+    "related": [
+      "normal-furry",
+      "furry-waves",
+      "territory-capture",
+      "kill-and-assist-rewards"
+    ],
+    "fun_facts": [
+      "Watcher Furries are faster than the baseline Normal Furry while carrying twice the health."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "bloater-furry",
+    "name": "Bloater Furry",
+    "type": "enemy",
+    "summary": "The Bloater Furry is a heavy explosive enemy with high health and slow movement.",
+    "role": "Kill Bloaters at range. Letting one die inside the team or on a capture point can turn a clean hold into a wipe.",
+    "stats": {
+      "health": 350,
+      "walk_speed": 9,
+      "attack_cooldown_seconds": 2,
+      "death_explosion_radius_studs": 10
+    },
+    "related": [
+      "pimple-furry",
+      "furry-waves",
+      "territory-capture",
+      "kill-and-assist-rewards"
+    ],
+    "fun_facts": [
+      "Bloaters are the slowest regular Furry variant."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "leader-furry",
+    "name": "Leader Furry",
+    "type": "enemy",
+    "summary": "The Leader Furry is a high-health heavy variant that soaks far more damage than normal wave enemies.",
+    "role": "Focus Leaders with sustained fire. They are not the fastest enemy, but their health lets them hold attention while other Furries close distance.",
+    "stats": {
+      "health": 3500,
+      "walk_speed": 14,
+      "attack_cooldown_seconds": 1.5
+    },
+    "related": [
+      "furry-waves",
+      "territory-capture",
+      "furry-boss",
+      "kill-and-assist-rewards"
+    ],
+    "fun_facts": [
+      "A Leader has thirty-five times the health of a Normal Furry."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "robot-furry",
+    "name": "Robot Furry",
+    "type": "enemy",
+    "summary": "The Robot Furry is a durable melee variant with a very short attack cooldown.",
+    "role": "Do not let Robot Furries sit on top of you. Their attack cadence is faster than the standard melee variants, so spacing matters.",
+    "stats": {
+      "health": 200,
+      "walk_speed": 16,
+      "attack_cooldown_seconds": 0.3
+    },
+    "related": [
+      "normal-furry",
+      "furry-waves",
+      "territory-capture",
+      "kill-and-assist-rewards"
+    ],
+    "fun_facts": [
+      "Robot Furries have the fastest melee attack cooldown among the regular variants."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "spitter-furry",
+    "name": "Spitter Furry",
+    "type": "enemy",
+    "summary": "The Spitter Furry is a ranged variant that attacks from distance instead of only relying on melee pressure.",
+    "role": "Break line of sight or kill Spitters early. They punish players who only watch the immediate melee swarm.",
+    "stats": {
+      "health": 150,
+      "walk_speed": 14,
+      "attack_cooldown_seconds": 1.5,
+      "ranged_damage": 25,
+      "ranged_attack_range_studs": 100,
+      "ranged_attack_cooldown_seconds": 3
+    },
+    "related": [
+      "normal-furry",
+      "furry-waves",
+      "territory-capture",
+      "kill-and-assist-rewards"
+    ],
+    "fun_facts": [
+      "Spitters prefer keeping distance instead of always trying to stand on top of the target."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "furry-helper",
+    "name": "Furry Helper",
+    "type": "enemy",
+    "summary": "Furry Helpers are small boss-area enemies that pressure the arena and explode when killed.",
+    "role": "Clear Helpers before they crowd the boss space or punish players dealing with the core. Their damage is lower than regular melee pressure, but they complicate the fight.",
+    "stats": {
+      "health": 150,
+      "walk_speed": 7,
+      "attack_cooldown_seconds": 0.5,
+      "helper_damage": 3.5,
+      "death_explosion_radius_studs": 5
+    },
+    "related": [
+      "furry-boss",
+      "boss-core",
+      "boss-unlock",
+      "traditional"
+    ],
+    "fun_facts": [
+      "Helpers can approach the boss arena from several routes, so the fight rarely stays quiet for long."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  },
+  {
+    "id": "furry-boss",
+    "name": "Furry Boss",
+    "type": "enemy",
+    "summary": "The Furry Boss is the Traditional endgame enemy unlocked after every reclaimable territory is held by defenders.",
+    "role": "Treat the boss as the final team objective. Damage contribution matters, the core can affect sustain, and the fight scales with the number of active fighters.",
+    "stats": {
+      "base_health": 100000,
+      "base_attack_damage": 15,
+      "attack_range_studs": 3,
+      "attack_cooldown_seconds": 1.5,
+      "base_cash_reward": 50000,
+      "base_xp_reward": 25000,
+      "defeated_badge": "Awarded to all players on boss defeat"
+    },
+    "related": [
+      "traditional",
+      "boss-unlock",
+      "boss-core",
+      "furry-helper",
+      "boss-rewards",
+      "whiskspire"
+    ],
+    "fun_facts": [
+      "The boss reward can roll higher multipliers for the top contributor.",
+      "Boss health and difficulty are recalculated during the fight based on active fighters."
+    ],
+    "status": "live",
+    "last_verified": "2026-05-05"
+  }
+]
