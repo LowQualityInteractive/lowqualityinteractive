@@ -186,10 +186,18 @@ body.is-leaving { opacity: 0; }
   align-items: center;
   gap: var(--space-3);
 }
-.page-loader-logo {
-  width: 64px;
-  height: 64px;
-  display: block;
+/* css-drawn brand mark. no network request, no lcp candidate, but
+   visually anchors the overlay so it doesn't look broken. a soft
+   radial fill on the brand color reads as "logo placeholder" without
+   actually being one. */
+.page-loader-mark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.18), transparent 55%),
+    var(--brand);
+  box-shadow: var(--shadow-md);
   animation: lqi-loader-pulse 1.6s var(--ease) infinite;
 }
 .page-loader-spinner {
@@ -208,7 +216,7 @@ body.is-leaving { opacity: 0; }
   50%      { transform: scale(0.94); opacity: 0.78; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .page-loader-logo,
+  .page-loader-mark,
   .page-loader-spinner {
     animation: none;
   }
@@ -2254,7 +2262,7 @@ footer {
   line-height: 1.6;
 }
 
-.footer-col h3 {
+.footer-col h2 {
   font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 0.14em;

@@ -17,6 +17,22 @@ export function getLoaderBootstrap() {
     root.classList.add(READY_CLASS);
   };
 
+  // promote the deferred web-font stylesheet to media="all" once the
+  // browser has had a chance to fetch it without blocking initial paint.
+  // can't use inline onload= on the <link> (csp would forbid it), so
+  // we do the flip from this hashed inline boot script instead.
+  const promoteFontLink = () => {
+    const link = document.getElementById('google-fonts-link');
+    if (link && link.getAttribute('media') !== 'all') {
+      link.setAttribute('media', 'all');
+    }
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', promoteFontLink, { once: true });
+  } else {
+    promoteFontLink();
+  }
+
   // already loaded by the time we ran (cached navigation, fast network).
   if (document.readyState === 'complete') {
     // one frame so the overlay actually paints before we fade it,

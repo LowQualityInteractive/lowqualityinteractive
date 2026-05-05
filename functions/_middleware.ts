@@ -32,6 +32,32 @@ function deriveMarkdownPath(pathname: string): string {
   return `${trimmed}/index.md`;
 }
 
+// baseline security headers applied to every page response. mirrors what
+// public/_headers sets; we set them here too so the function-served paths
+// (the markdown content-negotiation branch and the html branch with the
+// Link/Vary mutation) stay consistent. setIfMissing avoids stomping on
+// any cdn-injected variant.
+function applySecurityHeaders(headers: Headers): void {
+  const setIfMissing = (name: string, value: string) => {
+    if (!headers.has(name)) headers.set(name, value);
+  };
+  setIfMissing('Strict-Transport-Security', 'max-age=15552000; includeSubDomains');
+  setIfMissing('X-Frame-Options', 'DENY');
+  setIfMissing('Cross-Origin-Opener-Policy', 'same-origin');
+  setIfMissing('X-Content-Type-Options', 'nosniff');
+  setIfMissing('Referrer-Policy', 'strict-origin-when-cross-origin');
+  setIfMissing(
+    'Permissions-Policy',
+    'camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()',
+  );
+  // CSP frame-ancestors only takes effect as a real header (the meta tag
+  // version is ignored by browsers per spec). leave the meta CSP alone so
+  // the static github pages build keeps the rest of its policy.
+  if (!headers.has('Content-Security-Policy')) {
+    headers.set('Content-Security-Policy', "frame-ancestors 'none'");
+  }
+}
+
 // true if this is a page (not a css/js/img/etc asset)
 // last segment with a dot = asset, skip it
 function isPagePath(pathname: string): boolean {
@@ -77,6 +103,7 @@ export const onRequest = async (context: PagesContext): Promise<Response> => {
       headers.set('Vary', 'Accept');
       // self-link so a downstream proxy can still find the canonical .md
       headers.append('Link', `<${markdownPath}>; rel="canonical"; type="text/markdown"`);
+      applySecurityHeaders(headers);
       return new Response(mdResponse.body, {
         status: 200,
         statusText: 'OK',
@@ -106,6 +133,7 @@ export const onRequest = async (context: PagesContext): Promise<Response> => {
   if (!existingVary || !existingVary.split(',').map((v) => v.trim().toLowerCase()).includes('accept')) {
     newHeaders.set('Vary', existingVary ? `${existingVary}, Accept` : 'Accept');
   }
+  applySecurityHeaders(newHeaders);
 
   return new Response(response.body, {
     status: response.status,

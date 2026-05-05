@@ -204,7 +204,23 @@ const csp = [
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  {/* deferred font load: media="print" lets the browser fetch it
+      without blocking render; the loader bootstrap flips it back to
+      "all" once it loads. system-ui takes over until the swap, then
+      Plus Jakarta Sans takes over (display=swap means no FOIT). */}
+  <link
+    id="google-fonts-link"
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+    media="print"
+    data-font-deferred
+  />
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </noscript>
   <link rel="icon" type="image/png" href="/assets/logo.png" />
   <link rel="alternate" type="text/plain" title={messages.meta.llmContextTitle} href="/llms.txt">
   {/* points llm crawlers at the .md sibling. claude code and cursor
@@ -220,10 +236,14 @@ const csp = [
   {/* full-viewport loading overlay. visible until <html> gets the
       .lqi-ready class on window 'load' (or after the failsafe timeout
       in scripts/loader.ts). also re-shown on outbound navigation by the
-      site script. aria-hidden so screen readers don't dwell on it. */}
+      site script. aria-hidden so screen readers don't dwell on it.
+      no <img> here on purpose: a paintable image inside this overlay
+      becomes the page's lcp candidate, which blows up the lcp metric
+      because the overlay is by definition early-painted. css-only mark
+      keeps it weightless and lets the real hero earn the lcp. */}
   <div class="page-loader" id="page-loader" aria-hidden="true">
     <div class="page-loader-card">
-      <img class="page-loader-logo" src="/assets/logo.png" alt="" width="64" height="64" />
+      <div class="page-loader-mark" aria-hidden="true"></div>
       <div class="page-loader-spinner" aria-hidden="true"></div>
     </div>
   </div>
@@ -231,7 +251,7 @@ const csp = [
   <header class="site-header">
     <div class="container header-row">
       <a class="brand brand-mark-only" href={homeHref} aria-label={messages.chrome.brandHomeAriaLabel}>
-        <img class="site-logo" src="/assets/logo.png" alt={messages.chrome.brandLogoAlt} width="48" height="48" />
+        <img class="site-logo" src="/assets/logo.png" alt={messages.chrome.brandLogoAlt} width="48" height="48" fetchpriority="high" decoding="async" />
       </a>
       <nav class="nav" id="primary-navigation" aria-label={messages.chrome.nav.ariaLabel}>
         <a class="nav-link" href={homeHref} aria-current={currentPage === 'home' ? 'page' : undefined}><span>{messages.chrome.nav.home}</span></a>
@@ -325,14 +345,16 @@ const csp = [
           <p>{messages.chrome.footer.tagline}</p>
         </div>
         <div class="footer-col">
-          <h3>{messages.chrome.footer.siteHeading}</h3>
+          {/* h2, not h3 — the footer is a top-level page region, and an
+              h3 with no preceding h2 trips lighthouse heading-order. */}
+          <h2>{messages.chrome.footer.siteHeading}</h2>
           <a href={homeHref}>{messages.chrome.nav.home}</a>
           <a href={gamesHref}>{messages.chrome.nav.games}</a>
           <a href={updatesHref}>{messages.chrome.nav.updates}</a>
           <a href={connectHref}>{messages.chrome.nav.connect}</a>
         </div>
         <div class="footer-col">
-          <h3>{messages.chrome.footer.connectHeading}</h3>
+          <h2>{messages.chrome.footer.connectHeading}</h2>
           <a href={SOCIAL_LINKS.x} target="_blank" rel="noopener noreferrer">{messages.chrome.platforms.x}</a>
           <a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">{messages.chrome.platforms.discord}</a>
           <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">{messages.chrome.platforms.youtube}</a>

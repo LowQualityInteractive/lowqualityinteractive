@@ -15,9 +15,21 @@
 # .md endpoints are emitted by src/pages/[...path].md.ts
 
 # default on every url, points at the studio-wide llms.txt + llms-full.txt
+# also carries the baseline security headers. github pages ignores _headers,
+# so these activate the moment we move to cloudflare pages / netlify (which
+# the rest of this file is already shaped for). HSTS is intentionally a
+# conservative 6 months without preload until we've verified https only on
+# every subdomain — once verified, bump max-age to 31536000 and add preload.
 /*
   Link: </llms.txt>; rel="alternate"; type="text/plain"; title="LLM context", </llms-full.txt>; rel="alternate"; type="text/markdown"; title="Full LLM context"
   Vary: Accept
+  Strict-Transport-Security: max-age=15552000; includeSubDomains
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
+  Cross-Origin-Opener-Policy: same-origin
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
 
 # per-route Link header pointing at the matching .md
 # matching rules combine, so the default above and the per-route rule below
