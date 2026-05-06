@@ -235,6 +235,14 @@ const csp = [
 
   <meta name="theme-color" content="#b54343" />
 
+  {/* opt into the largest snippet/preview surfaces for ai overviews and
+      traditional rich results. max-snippet:-1 = no character cap on text
+      previews; max-image-preview:large = full-size hero in serps and ai
+      answers; max-video-preview:-1 = full video preview duration. these
+      are *opt-ins*; without them google caps previews conservatively,
+      which limits what AI overviews can quote. */}
+  <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
   <meta http-equiv="Content-Security-Policy" content={csp} />

@@ -1,5 +1,6 @@
 import { getMessages, getLocaleAbsolutePath, getLocalePath, type Locale } from '../i18n/messages';
 import {
+  SITE_LAST_MODIFIED,
   SITE_NAME,
   SITE_URL,
   SOCIAL_URLS,
@@ -7,6 +8,7 @@ import {
   toAbsoluteSiteUrl,
 } from './site';
 import { getGameAbout, type GameAboutEntry } from './gameAbout';
+import { getWikiCategory, hasWiki } from './wiki';
 
 export type GameStatus = 'live' | 'preview' | 'in-development' | 'sunset';
 
@@ -270,6 +272,40 @@ const GAME_DISAMBIGUATION: Record<string, { alternateName: string[]; disambiguat
   },
 };
 
+// caps per category so the json-ld stays under a reasonable size. the
+// long tail still lives in the wiki, which has its own pages and json-ld
+// graph. picked to cover the "what weapons / items does <game> have"
+// question fully for any game we'd realistically ship - higher caps
+// would just inflate the bundle without changing what extractors quote.
+const GAME_ITEM_CAPS: Record<string, number> = {
+  weapons: 24,
+  items: 16,
+  vehicles: 12,
+  enemies: 12,
+};
+
+// build VideoGame.gameItem from wiki entities. real content from
+// src/data/wiki/<slug>/*.json - never invented. summary is plain text
+// so AI extractors can quote it verbatim. unpublished entities are
+// skipped (they're placeholder rows in the wiki that shouldn't be
+// promoted to schema).
+function buildGameItems(gameSlug: string) {
+  const out: { '@type': 'Thing'; name: string; description: string }[] = [];
+  for (const [category, cap] of Object.entries(GAME_ITEM_CAPS)) {
+    const cat = getWikiCategory(gameSlug, category);
+    if (!cat) continue;
+    const live = cat.entities.filter((e) => e.status !== 'unpublished');
+    for (const entity of live.slice(0, cap)) {
+      out.push({
+        '@type': 'Thing',
+        name: entity.name,
+        description: entity.summary,
+      });
+    }
+  }
+  return out;
+}
+
 function getGameSchema(game: Game) {
   const disambig = GAME_DISAMBIGUATION[game.id];
   return {
@@ -284,6 +320,7 @@ function getGameSchema(game: Game) {
     gamePlatform: 'Roblox',
     genre: game.genre,
     creator: ORG_REF,
+    dateModified: SITE_LAST_MODIFIED,
   };
 }
 
@@ -359,6 +396,7 @@ export function getGamesJsonLd(locale: Locale) {
         url: pageUrl,
         inLanguage: locale,
         isPartOf: { '@id': `${getLocaleAbsolutePath(locale)}#website` },
+        dateModified: SITE_LAST_MODIFIED,
       },
       {
         '@type': 'ItemList',
@@ -395,6 +433,7 @@ export function getGameJsonLd(locale: Locale, game: Game) {
         url: localizedGameUrl,
         description: game.pageDescription,
         inLanguage: locale,
+        dateModified: SITE_LAST_MODIFIED,
       },
       {
         ...getGameSchema(game),
@@ -537,6 +576,14 @@ export function getGameAboutJsonLd(
     ? imageUrls
     : [toAbsoluteSiteUrl(game.artwork.src)];
 
+  // pull weapons + items from the wiki into VideoGame.gameItem when the
+  // game has a wiki. real content (no fabrication), gives AI extractors
+  // a structured handle on "what weapons does <game> have" without them
+  // having to guess from prose. capped per category so the json-ld
+  // doesn't balloon - the wiki is still the source of truth for the
+  // long tail.
+  const gameItems = hasWiki(game.slug) ? buildGameItems(game.slug) : [];
+
   const videoGame = {
     ...getGameSchema(game),
     publisher: { '@type': 'Organization', name: SITE_NAME },
@@ -564,6 +611,10 @@ export function getGameAboutJsonLd(
     description: bodyText || game.pageLead,
     // bullet points llms lift verbatim for "what features does x have".
     ...(featuresText ? { featureList: featuresText } : {}),
+    // wiki entities promoted into schema. AI extractors get a structured
+    // list of weapons/items/vehicles/enemies they can quote directly
+    // instead of guessing from prose.
+    ...(gameItems.length ? { gameItem: gameItems } : {}),
     // release year as iso string.
     ...(about.releaseYear ? { datePublished: about.releaseYear } : {}),
     // min-max string. easier for llms to read than the QuantitativeValue
@@ -623,6 +674,7 @@ export function getGameAboutJsonLd(
         description: game.pageDescription,
         inLanguage: locale,
         about: { '@id': `${SITE_URL}/#${game.id}` },
+        dateModified: SITE_LAST_MODIFIED,
       },
       videoGame,
       faqPage,
@@ -663,6 +715,7 @@ function getSectionJsonLd({ description, inLanguage, pageType, pageUrl, routeKey
         inLanguage,
         isPartOf: { '@id': `${homeUrl}#website` },
         publisher: ORG_REF,
+        dateModified: SITE_LAST_MODIFIED,
       },
       getBreadcrumbList(pageUrl, [
         { name: BREADCRUMB_LABELS.home, url: homeUrl },

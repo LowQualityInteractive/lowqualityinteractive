@@ -384,3 +384,18 @@
 /*.md
   Content-Type: text/markdown; charset=utf-8
   Vary: Accept
+
+# cache-control. astro emits hashed filenames under /_astro/ so those are
+# safe to mark immutable for a year - they're content-addressed, the url
+# changes on every content change. html and other top-level files use a
+# short fresh window with a long stale-while-revalidate so users get
+# instant page loads from the cdn while we update the origin within
+# minutes of a deploy.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+/*.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400

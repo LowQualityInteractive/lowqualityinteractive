@@ -1,0 +1,36 @@
+{
+  "_comment": "Per-game promo code list. Mirrors the source-of-truth Luau RedeemCodeConfig table on each game's server. Edit this file when codes are added, expired, or rewards change. Codes with `enabled: false` move to the expired list on the page; expired codes stay in the file as historical record. The page section + FAQ + JSON-LD all read from here so a single edit propagates everywhere.",
+  "lastVerified": "2026-05-06",
+  "games": {
+    "eradication": {
+      "active": [
+        {
+          "code": "100K",
+          "rewards": "1,000 cash + 500 XP",
+          "displayName": "100K"
+        },
+        {
+          "code": "'94",
+          "rewards": "1,994 cash + 1,994 XP",
+          "displayName": "'94"
+        },
+        {
+          "code": "2026",
+          "rewards": "2,026 cash + 2,026 XP",
+          "displayName": "2026"
+        },
+        {
+          "code": "ERADICATION",
+          "rewards": "2,000 cash + 1,000 XP",
+          "displayName": "ERADICATION"
+        },
+        {
+          "code": "LOWQUALITY",
+          "rewards": "1 cash + 1 XP",
+          "displayName": "LOWQUALITY"
+        }
+      ],
+      "expired": []
+    }
+  }
+}

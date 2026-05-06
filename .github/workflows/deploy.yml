@@ -44,6 +44,7 @@ jobs:
         env:
           NODE_OPTIONS: --max-old-space-size=4096
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          INDEXNOW_API_KEY: ${{ secrets.INDEXNOW_API_KEY }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -61,3 +62,48 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  indexnow:
+    # Ping IndexNow (Bing/Yandex/Seznam/Naver) with the URLs whose
+    # <lastmod> advanced this deploy. content flows from indexnow
+    # consumers into Copilot and ChatGPT Search faster than from
+    # crawl-driven indexing.
+    #
+    # runs only on push (not the 6h cron) since the scheduled rebuild
+    # has nothing to ping when no commit landed - the sitemap lastmod
+    # is keyed off git commit time now, not build time.
+    name: IndexNow ping
+    needs: deploy
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Restore previous sitemap cache
+        id: prev-sitemap-cache
+        uses: actions/cache@v4
+        with:
+          path: .indexnow-cache
+          key: indexnow-prev-sitemap-${{ github.run_id }}
+          restore-keys: |
+            indexnow-prev-sitemap-
+
+      - name: Wait for CDN propagation
+        run: sleep 60
+
+      - name: Ping IndexNow
+        env:
+          INDEXNOW_API_KEY: ${{ secrets.INDEXNOW_API_KEY }}
+          INDEXNOW_PREV_SITEMAP: .indexnow-cache/sitemap.xml
+          INDEXNOW_OUT_SITEMAP: .indexnow-cache/sitemap.xml
+        run: |
+          mkdir -p .indexnow-cache
+          node scripts/indexnow-ping.mjs

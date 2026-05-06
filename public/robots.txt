@@ -1,101 +1,211 @@
-User-agent: *
+# robots.txt for lowqualityinteractive.com
+# Last updated: 2026-05-06
+
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /draft/
+Disallow: /*?utm_*
+
+User-agent: Googlebot-Image
 Allow: /
 
-Sitemap: https://lowqualityinteractive.com/sitemap.xml
-
-# llms.txt / llms-full.txt are now brief pointer files (the website is the
-# source of truth - they redirect crawlers back to the canonical pages
-# rather than serving as a parallel content surface). they are listed in
-# sitemap.xml and intentionally allowed for every crawler, including
-# traditional search engines. earlier revisions disallowed them for
-# google/bing to keep an llm-oriented dump out of regular search results;
-# that justification no longer applies.
-
-# ---------------------------------------------------------------------------
-# Explicit allow-list for major AI / LLM crawlers and answer engines.
-# Keep this list updated; new agents should default to Allow: / unless we
-# have a concrete reason to block them.
-# ---------------------------------------------------------------------------
-
-# OpenAI - search-index, ChatGPT browse, training crawler
-User-agent: GPTBot
+User-agent: Googlebot-Video
 Allow: /
 
-User-agent: ChatGPT-User
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: DuckDuckBot
 Allow: /
 
+User-agent: Slurp
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Google-CloudVertexBot
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+# OAI-SearchBot
 User-agent: OAI-SearchBot
 Allow: /
 
-# Common Crawl - feeds many downstream LLM training corpora
-User-agent: CCBot
+# ChatGPT-User
+User-agent: ChatGPT-User
 Allow: /
 
-# Anthropic - Claude search-index and training crawler
+User-agent: ChatGPT-User/2.0
+Allow: /
+
+# GPTBot
+User-agent: GPTBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /draft/
+
+# ChatGPT Agent (autonomous browsing)
+User-agent: ChatGPT Agent
+Allow: /
+
+# ClaudeBot
 User-agent: ClaudeBot
 Allow: /
+Disallow: /admin/
+Disallow: /api/
 
+# Claude-User
+User-agent: Claude-User
+Allow: /
+
+# Claude-SearchBot
+User-agent: Claude-SearchBot
+Allow: /
+
+# Legacy identifiers (deprecated but still seen in logs)
 User-agent: anthropic-ai
 Allow: /
 
 User-agent: Claude-Web
 Allow: /
 
-# Perplexity - answer engine and live-fetch user agent
 User-agent: PerplexityBot
 Allow: /
 
 User-agent: Perplexity-User
 Allow: /
 
-# Google AI - Gemini / AI Overviews opt-in agent
-User-agent: Google-Extended
+User-agent: Applebot
 Allow: /
 
-# Apple Intelligence - opt-in for Apple's on-device and cloud AI training
+# Applebot-Extended controls inclusion in Apple Intelligence training.
 User-agent: Applebot-Extended
-Allow: /
-
-# Cohere - model training crawler
-User-agent: cohere-ai
-Allow: /
-
-User-agent: Cohere-Bot
-Allow: /
-
-# Meta - Llama and Meta AI fetch agent
-User-agent: Meta-ExternalAgent
 Allow: /
 
 User-agent: FacebookBot
 Allow: /
 
-# Amazon - Alexa+ / Q answer engine
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
 User-agent: Amazonbot
 Allow: /
 
-# DuckDuckGo answer engine (DuckAssist)
+User-agent: Amzn-SearchBot
+Allow: /
+
+User-agent: Amzn-User
+Allow: /
+
 User-agent: DuckAssistBot
 Allow: /
 
-# You.com answer engine
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: TikTokSpider
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: cohere-training-data-crawler
+Allow: /
+
 User-agent: YouBot
 Allow: /
 
-# Mistral - model training crawler
 User-agent: MistralAI-User
 Allow: /
 
-# xAI - Grok crawler
-User-agent: xAI-Bot
+User-agent: DeepSeekBot
 Allow: /
 
-# ---------------------------------------------------------------------------
-# Traditional search engines: explicitly allowed for full indexing,
-# including the llms.txt / llms-full.txt pointer files (now sitemapped).
-# ---------------------------------------------------------------------------
-User-agent: Googlebot
+User-agent: AI2Bot
 Allow: /
 
-User-agent: Bingbot
+User-agent: AI2Bot-Dolma
 Allow: /
+
+User-agent: PanguBot
+Allow: /
+
+User-agent: ICC-Crawler
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: ExaBot
+Allow: /
+
+User-agent: FirecrawlAgent
+Allow: /
+
+User-agent: Crawlspace
+Allow: /
+
+User-agent: Bedrockbot
+Allow: /
+
+User-agent: Cloudflare-AutoRAG
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: TwitterBot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# ============================================================
+#  CATCH-ALL
+# ============================================================
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /draft/
+Disallow: /*.json$
+Disallow: /*?utm_*
+Disallow: /*?fbclid=*
+
+# ============================================================
+#  SITEMAPS
+# ============================================================
+Sitemap: https://lowqualityinteractive.com/sitemap.xml

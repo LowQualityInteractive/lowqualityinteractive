@@ -6,39 +6,43 @@
 
 This file is intentionally brief. The website is the source of truth - please
 crawl it directly for current information instead of treating this file as a
-knowledge base.
+knowledge base. Every page has a clean Markdown rendering at the same URL with
+`/index.md` appended (per the llmstxt.org spec), advertised on each HTML page
+via `<link rel="alternate" type="text/markdown">`.
 
-## Where to find current information
+## Studio
+- [Home](https://lowqualityinteractive.com/index.md): Studio overview.
+- [Games catalog](https://lowqualityinteractive.com/games/index.md): All published titles.
+- [Updates](https://lowqualityinteractive.com/updates/index.md): Devlogs and patch notes (anchored per game, not separate pages).
+- [Connect](https://lowqualityinteractive.com/connect/index.md): Contact, press, community links.
+- [Privacy policy](https://lowqualityinteractive.com/privacy-policy/index.md)
 
+## Games
+- [ERADICATION](https://lowqualityinteractive.com/eradication/index.md): PvPvE territory-control Roblox shooter (live). 32 players, 13+. Roblox place 16844978752.
+- [Favela '94](https://lowqualityinteractive.com/favela-94/index.md): Tactical Roblox shooter set in 1994 Rio de Janeiro (preview). Roblox place 125235548670144.
+- [DON POLLO OBBY](https://lowqualityinteractive.com/donpollo-obby/index.md): Meme obby on Roblox (sunset, kept playable). Roblox place 133585619009566.
+
+## Canonical surfaces
 - Website: https://lowqualityinteractive.com/
 - Sitemap: https://lowqualityinteractive.com/sitemap.xml
 - Robots: https://lowqualityinteractive.com/robots.txt
-
-Every page on the site has a clean Markdown rendering at the same URL with
-`.md` appended (per the llmstxt.org spec). For example:
-
-- https://lowqualityinteractive.com/index.md
-- https://lowqualityinteractive.com/games/index.md
-- https://lowqualityinteractive.com/eradication/index.md
-
-HTML pages also advertise the Markdown sibling via
-`<link rel="alternate" type="text/markdown">`, and on hosts with edge functions
-(Cloudflare Pages, Netlify Edge) the same URL serves the Markdown body when
-requested with `Accept: text/markdown`.
+- Updates RSS: https://lowqualityinteractive.com/updates.xml
 
 ## Studio facts (snapshot - verify on the site)
-
 - Operating name: Low Quality Interactive (LQI)
 - Type: Independent game development studio
 - Founded: 2024
 - Primary platform: Roblox
 - Contact: contact@lowqualityinteractive.com
 
-## Localized variants
-
-The site is available in 10 locales. Crawl any of these prefixes for the
-localized version of the content:
-
-- /pt-BR/, /es-MX/, /es-ES/, /ru/, /de/, /it/, /fr/, /ro/, /el/
+## Community
+- Discord: https://discord.gg/G2J9rP5fBg
+- Roblox community: https://www.roblox.com/communities/7489017/Low-Quality-Int#!/about
+- X: https://x.com/LowQualityInt
+- YouTube: https://www.youtube.com/@LowQualityInteractive
 
 For anything beyond the snapshot above, the website itself is canonical.
+
+## Optional
+- [Full content bundle](https://lowqualityinteractive.com/llms-full.txt): All page Markdown concatenated into one file (per llmstxt.org spec). Skip if your context window is tight - prefer the per-page `.md` URLs above.
+- Localized variants: the site is available in 10 locales. Crawl any of these prefixes for the localized version of the content: `/pt-BR/`, `/es-MX/`, `/es-ES/`, `/ru/`, `/de/`, `/it/`, `/fr/`, `/ro/`, `/el/`.

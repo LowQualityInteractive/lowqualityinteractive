@@ -9,7 +9,8 @@ import {
   getWebpSrc,
 } from '../data/games';
 import { getGameAbout } from '../data/gameAbout';
-import { getSiteTitle, SITE_NAME } from '../data/site';
+import { getGameCodes, getCodesLastVerified } from '../data/gameCodes';
+import { getSiteTitle, SITE_NAME, SOCIAL_LINKS } from '../data/site';
 import { getLocalePath, getMessages, interpolate, type Locale } from '../i18n/messages';
 import { getWikiHubHref, hasWiki } from '../data/wiki';
 
@@ -44,6 +45,8 @@ const aboutLabels = page.about ?? {
 const aboutData = getGameAbout(game.id);
 const gameFaqs = getGameFaqs(locale, game, aboutData);
 const heroWebpSrc = getWebpSrc(game.artwork.src);
+const gameCodes = getGameCodes(game.id);
+const codesLastVerified = getCodesLastVerified();
 
 // per-game markdown file at src/data/about/<id>.md (english source).
 // per-locale translations live alongside as <id>.<locale>.md, generated
@@ -147,6 +150,29 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
           <dt>{aboutLabels.developer}</dt>
           <dd>{SITE_NAME}</dd>
         </div>
+        {/* extra spec cells, only rendered when the data exists. answers
+            "people also ask" and AI-extractor questions about player
+            count, age suitability, release year, language without
+            needing the FAQ block. each cell is a single short string -
+            no localization needed for the values, only the dt labels. */}
+        {aboutData.numberOfPlayers && (
+          <div>
+            <dt>Players</dt>
+            <dd>Up to {aboutData.numberOfPlayers}</dd>
+          </div>
+        )}
+        {aboutData.audience && (
+          <div>
+            <dt>Age</dt>
+            <dd>{aboutData.audience}</dd>
+          </div>
+        )}
+        {aboutData.releaseYear && (
+          <div>
+            <dt>Released</dt>
+            <dd>{aboutData.releaseYear}</dd>
+          </div>
+        )}
       </dl>
       {game.universeId && (
         <div class="game-presence-live">
@@ -232,6 +258,85 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
             </li>
           ))}
         </ul>
+      </div>
+    )}
+
+    {/* codes section. high-traffic AI-citation surface in the roblox
+        vertical (pro game guides, try hard guides, beebom etc all win
+        "<game> codes" queries). data lives in public/data/game-codes.json
+        and mirrors the server-side RedeemCodeConfig table. when a game
+        has no codes we just skip the whole section. */}
+    {gameCodes && (
+      <div class="about-codes" data-reveal data-reveal-i="3" id="codes">
+        <h2>{game.name} codes</h2>
+        <p class="codes-lead">
+          Active promotional codes for {game.name} on Roblox. Codes are case-sensitive and redeemed in-game.
+          {codesLastVerified && (
+            <> Last verified <time datetime={codesLastVerified}>{codesLastVerified}</time>.</>
+          )}
+        </p>
+        {gameCodes.active.length > 0 && (
+          <div class="codes-block">
+            <h3>Active codes</h3>
+            <table class="codes-table">
+              <thead>
+                <tr>
+                  <th scope="col">Code</th>
+                  <th scope="col">Reward</th>
+                </tr>
+              </thead>
+              <tbody>
+                {gameCodes.active.map((entry) => (
+                  <tr>
+                    <td><code>{entry.code}</code></td>
+                    <td>{entry.rewards}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        {gameCodes.expired.length > 0 && (
+          <div class="codes-block">
+            <h3>Expired codes</h3>
+            <table class="codes-table codes-table-expired">
+              <thead>
+                <tr>
+                  <th scope="col">Code</th>
+                  <th scope="col">Reward</th>
+                </tr>
+              </thead>
+              <tbody>
+                {gameCodes.expired.map((entry) => (
+                  <tr>
+                    <td><code>{entry.code}</code></td>
+                    <td>{entry.rewards}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        <div class="codes-howto">
+          <h3>How to redeem codes in {game.name}</h3>
+          <ol>
+            <li>Open {game.name} on Roblox.</li>
+            <li>Open the in-game menu.</li>
+            <li>Find the codes input field.</li>
+            <li>Type the code exactly as shown above. Codes are case-sensitive.</li>
+            <li>Submit. Cash and XP are added to your account immediately.</li>
+          </ol>
+        </div>
+        <div class="codes-howto">
+          <h3>Where to find new {game.name} codes</h3>
+          <p>
+            New codes are announced on the studio's official channels:
+            {' '}<a href={SOCIAL_LINKS.x} target="_blank" rel="noopener noreferrer">X</a>,
+            {' '}<a href={SOCIAL_LINKS.discord} target="_blank" rel="noopener noreferrer">Discord</a>,
+            {' '}and <a href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">YouTube</a>.
+            This list is updated within hours of a new code drop.
+          </p>
+        </div>
       </div>
     )}
 

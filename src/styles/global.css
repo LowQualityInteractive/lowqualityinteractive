@@ -2181,12 +2181,60 @@ main { padding-block: 3.5rem 5rem; }
 
 .about-features h2,
 .about-links h2,
-.about-faq h2 {
+.about-faq h2,
+.about-codes h2 {
   font-size: var(--fs-xl);
   font-weight: 800;
   margin-bottom: 0.85rem;
   letter-spacing: -0.02em;
 }
+
+/* codes section. promo code list lives in public/data/game-codes.json
+   and is rendered as a real <table> for crawler extractability. styles
+   share the same surface/border tokens as the faq + features blocks
+   so the section doesn't look bolted-on. */
+.about-codes { margin-top: var(--space-5); }
+.about-codes .codes-lead {
+  margin: 0 0 1rem;
+  color: var(--text-muted, inherit);
+}
+.about-codes h3 {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  margin: 1.25rem 0 0.6rem;
+  letter-spacing: -0.015em;
+}
+.codes-block { margin-bottom: 1rem; }
+.codes-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface);
+}
+.codes-table th,
+.codes-table td {
+  padding: 0.6rem 0.85rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.codes-table tr:last-child td { border-bottom: 0; }
+.codes-table th {
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.codes-table code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-weight: 600;
+}
+.codes-table-expired { opacity: 0.65; }
+.codes-howto ol,
+.codes-howto p { margin: 0.4rem 0 0; }
+.codes-howto ol { padding-left: 1.4rem; }
+.codes-howto li { margin: 0.25rem 0; }
 
 /* visible faq block paired with FAQPage json-ld. uses native
    <details> so it works without js, with a brand-tinted disclosure
