@@ -6,7 +6,31 @@
     <atom:link href="https://lowqualityinteractive.com/updates.xml" rel="self" type="application/rss+xml" />
     <description>Devlogs and patch notes for Low Quality Interactive's Roblox games (ERADICATION, Favela '94, DON POLLO OBBY).</description>
     <language>en</language>
-    <lastBuildDate>Mon, 04 May 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 05 May 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>ERADICATION v5.0m</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v50m</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50m</guid>
+      <pubDate>Tue, 05 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added visual feedback when the Core is struck.</li><li>Added descriptions to all game modes for clarity.</li></ul><h3>Changes</h3><ul><li>Round end no longer forces player deaths or respawns.</li><li>Players already deployed in-game can now properly participate in game mode voting.</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v5.0l</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v50l</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50l</guid>
+      <pubDate>Tue, 05 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added audio culling to Whiskorians, preventing an overwhelming overlap of bark sounds.</li></ul><h3>Changes</h3><ul><li>Lowered helper resistance to explosion damage.</li><li>Improved client and server runtime performance.</li><li>Disabled developer debugging parts for the current revamp phase.</li></ul><h3>Bug fixes</h3><ul><li>Fixed the Core not registering incoming bullets.</li><li>Fixed the Core failing to play its animation.</li><li>Fixed the level UI briefly appearing for 1-2 seconds on join.</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v5.0k</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v50k</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50k</guid>
+      <pubDate>Tue, 05 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>Changes</h3><ul><li>Standardized reserve ammunition capacity across all weapons.</li></ul><h3>Bug fixes</h3><ul><li>Fixed an anti-cheat false positive triggered by players standing on moving vehicles.</li></ul>]]></description>
+    </item>
     <item>
       <title>ERADICATION v5.0j</title>
       <link>https://lowqualityinteractive.com/updates/#eradication-v50j</link>
