@@ -12,7 +12,7 @@ const { locale } = Astro.props;
 const messages = getMessages(locale);
 const page = messages.pages.privacyPolicy;
 
-const lastUpdated = 'April 23, 2026';
+const lastUpdated = 'May 6, 2026';
 ---
 
 <BaseLayout
@@ -30,7 +30,7 @@ const lastUpdated = 'April 23, 2026';
     </p>
     <p class="legal-meta hero-enter" style="--enter-delay: 300ms">
       <span data-translatable>Last updated</span>
-      <time datetime="2026-04-23">{lastUpdated}</time>
+      <time datetime="2026-05-06">{lastUpdated}</time>
     </p>
   </section>
 
@@ -100,8 +100,8 @@ const lastUpdated = 'April 23, 2026';
         <li data-translatable>Storing your language/locale preference</li>
       </ul>
       <p data-translatable>
-        For non-English locales, the site also uses session-based browser storage to cache machine-translated text and
-        lightweight UI state so the experience is faster and less repetitive during your visit.
+        The site may also use session-based browser storage for lightweight UI state so the experience is faster and
+        less repetitive during your visit.
       </p>
       <p data-translatable>
         We do not use cookies for advertising or cross-site tracking. You can clear or block cookies at any time
@@ -149,7 +149,6 @@ const lastUpdated = 'April 23, 2026';
         <li data-translatable>Roblox: the platform our games run on; handles core analytics and account data</li>
         <li data-translatable>Discord: used for community management and internal tooling</li>
         <li data-translatable>Cloudflare: used for infrastructure, performance, and security</li>
-        <li data-translatable>MyMemory: used for on-page auto-translation outside English</li>
       </ul>
       <p data-translatable>
         When you interact with features powered by these services or follow outbound links, those third parties may

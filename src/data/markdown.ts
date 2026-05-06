@@ -355,7 +355,7 @@ function renderPrivacyMarkdown(locale: Locale) {
     '- Roblox games: join/leave events, in-game chat, gameplay/anti-cheat telemetry, voluntary feedback, and Roblox usernames/IDs associated with the above.',
     '',
     '### Cookies and storage',
-    'Cookies and browser storage are used only for the cookie acknowledgment, theme preference, locale preference, and short-lived translation/UI state caches. No advertising or cross-site tracking.',
+    'Cookies and browser storage are used only for the cookie acknowledgment, theme preference, locale preference, and short-lived UI state caches. No advertising or cross-site tracking.',
     '',
     '### Retention',
     '- General logs (joins, leaves, chat, feedback): up to 3 months.',
@@ -363,13 +363,13 @@ function renderPrivacyMarkdown(locale: Locale) {
     '- Website contact data: kept only as long as reasonably necessary.',
     '',
     '### Third-party services',
-    'Roblox, Discord, Cloudflare, and MyMemory (translation). Each operates under its own privacy policy.',
+    'Roblox, Discord, and Cloudflare. Each operates under its own privacy policy.',
     '',
     '### Rights and contact',
     'EU/UK/equivalent data subjects retain access and erasure rights under applicable law. Roblox account data must be requested through Roblox directly. Other questions: ' + CONTACT_EMAIL + '.',
     '',
     '### Last updated',
-    'April 23, 2026.',
+    'May 6, 2026.',
   ].join('\n');
 
   return compose([
