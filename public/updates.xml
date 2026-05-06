@@ -21,7 +21,7 @@
       <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50l</guid>
       <pubDate>Tue, 05 May 2026 00:00:00 GMT</pubDate>
       <category>ERADICATION update</category>
-      <description><![CDATA[<h3>New</h3><ul><li>Added audio culling to Whiskorians, preventing an overwhelming overlap of bark sounds.</li></ul><h3>Changes</h3><ul><li>Lowered helper resistance to explosion damage.</li><li>Improved client and server runtime performance.</li><li>Disabled developer debugging parts for the current revamp phase.</li></ul><h3>Bug fixes</h3><ul><li>Fixed the Core not registering incoming bullets.</li><li>Fixed the Core failing to play its animation.</li><li>Fixed the level UI briefly appearing for 1-2 seconds on join.</li></ul>]]></description>
+      <description><![CDATA[<h3>New</h3><ul><li>Added audio culling to Furries, preventing an overwhelming overlap of bark sounds.</li></ul><h3>Changes</h3><ul><li>Lowered helper resistance to explosion damage.</li><li>Improved client and server runtime performance.</li><li>Disabled developer debugging parts for the current revamp phase.</li></ul><h3>Bug fixes</h3><ul><li>Fixed the Core not registering incoming bullets.</li><li>Fixed the Core failing to play its animation.</li><li>Fixed the level UI briefly appearing for 1-2 seconds on join.</li></ul>]]></description>
     </item>
     <item>
       <title>ERADICATION v5.0k</title>
