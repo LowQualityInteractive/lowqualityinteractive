@@ -6,6 +6,25 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v50k",
+          "version": "v5.0k",
+          "date": "5/5/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [],
+            "changes": [
+              "Standardized reserve ammunition capacity across all weapons."
+            ],
+            "bugs": [
+              "Fixed an anti-cheat false positive triggered by players standing on moving vehicles."
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
           "id": "eradication-v50j",
           "version": "v5.0j",
           "date": "5/4/26",
