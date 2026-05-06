@@ -26,6 +26,7 @@ if (!game) {
 }
 
 const statusLabel = statusLabels[game.status as keyof typeof statusLabels] ?? game.status;
+const heroWebpSrc = getWebpSrc(game.artwork.src);
 const aboutLabels = page.about ?? {
   developer: 'Developer',
   platform: 'Platform',
@@ -79,8 +80,8 @@ const aboutLabels = page.about ?? {
         </span>
       )}
       <picture>
-        {getWebpSrc(game.artwork.src) && (
-          <source type="image/webp" srcset={getWebpSrc(game.artwork.src)} />
+        {heroWebpSrc && (
+          <source type="image/webp" srcset={heroWebpSrc} />
         )}
         <img
           src={game.artwork.src}

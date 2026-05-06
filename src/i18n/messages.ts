@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import en from './locales/en.json';
 import ptBR from './locales/pt-BR.json';
 import esMX from './locales/es-MX.json';
@@ -104,7 +105,18 @@ export function getMessages(locale: Locale): Messages {
   return mergedMessages.get(locale)!;
 }
 
+// path lookups run thousands of times during a build (every layout
+// computes header, footer, breadcrumb, and json-ld urls). cache the
+// per-(locale, path) string so we're not re-parsing the same path
+// regex over and over.
+const localePathCache = new Map<string, string>();
+const localeAbsolutePathCache = new Map<string, string>();
+
 export function getLocalePath(locale: Locale, path = '') {
+  const cacheKey = `${locale} ${path}`;
+  const hit = localePathCache.get(cacheKey);
+  if (hit !== undefined) return hit;
+
   const normalizedPath = path.replace(/^\/+|\/+$/g, '');
   const segments =
     locale === DEFAULT_LOCALE
@@ -112,18 +124,31 @@ export function getLocalePath(locale: Locale, path = '') {
       : [locale, normalizedPath];
 
   const joined = segments.filter(Boolean).join('/');
-  return joined ? `/${joined}/` : '/';
+  const out = joined ? `/${joined}/` : '/';
+  localePathCache.set(cacheKey, out);
+  return out;
 }
 
 export function getLocaleAbsolutePath(locale: Locale, path = '') {
-  return toAbsoluteSiteUrl(getLocalePath(locale, path));
+  const cacheKey = `${locale} ${path}`;
+  const hit = localeAbsolutePathCache.get(cacheKey);
+  if (hit !== undefined) return hit;
+  const out = toAbsoluteSiteUrl(getLocalePath(locale, path));
+  localeAbsolutePathCache.set(cacheKey, out);
+  return out;
 }
 
+const alternateLinksCache = new Map<string, ReadonlyArray<{ locale: Locale; href: string }>>();
+
 export function getAlternateLinks(path = '') {
-  return LOCALES.map((locale) => ({
+  const hit = alternateLinksCache.get(path);
+  if (hit !== undefined) return hit;
+  const out = LOCALES.map((locale) => ({
     locale,
     href: getLocaleAbsolutePath(locale, path),
   }));
+  alternateLinksCache.set(path, out);
+  return out;
 }
 
 export function getLocaleOptionLabel(locale: Locale) {
@@ -141,14 +166,42 @@ export function interpolate(
   });
 }
 
+// neutralise sequences that would let a string literal break out of an
+// inline <script> or json-ld block. covers:
+//   </script ...>      - the obvious script-end tag
+//   <!--               - html comment open. inside <script> this opens
+//                        a comment that ends only at -->, letting an
+//                        attacker hide subsequent code from the parser.
+//   <script            - nested script-start tags (relevant inside
+//                        json-ld <script type="application/ld+json">).
+//   --> / ]]>          - tokens that close cdata-style sections used by
+//                        some downstream renderers.
+// the replacements all preserve string semantics in javascript (the
+// extra backslash is a no-op inside a string literal) and in json
+// (the values become harmless visually-identical text).
 export function sanitizeInlineScript(script: string) {
-  return script.replace(/<\/script/gi, '<\\/script');
+  return script
+    .replace(/<\/script/gi, '<\\/script')
+    .replace(/<script/gi, '<\\script')
+    .replace(/<!--/g, '<\\!--')
+    .replace(/-->/g, '--\\>')
+    .replace(/\]\]>/g, ']]\\>');
 }
 
 // sha256 hash for the inline-script csp. has to match the exact body
 // between <script>...</script>, character for character - no trimming,
 // no creative reformatting, the browser is paying attention.
-export async function cspScriptHash(scriptBody: string) {
-  const { createHash } = await import('node:crypto');
-  return `'sha256-${createHash('sha256').update(scriptBody).digest('base64')}'`;
+//
+// many of the inline scripts we emit are the same bytes on every page
+// (theme/cookies/loader bootstraps, motion bootstrap, the locale-aware
+// site script for a given locale, etc). across 1801 build pages that's
+// 1800x of duplicate hashing work. memoise by body.
+const cspHashCache = new Map<string, string>();
+
+export function cspScriptHash(scriptBody: string): string {
+  const hit = cspHashCache.get(scriptBody);
+  if (hit !== undefined) return hit;
+  const out = `'sha256-${createHash('sha256').update(scriptBody).digest('base64')}'`;
+  cspHashCache.set(scriptBody, out);
+  return out;
 }

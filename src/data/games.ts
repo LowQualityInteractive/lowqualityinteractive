@@ -102,19 +102,41 @@ const GAME_CATALOG = [
   },
 ] as const satisfies readonly GameBase[];
 
-export const publishedGameCount = GAME_CATALOG.filter(
+// derive the published catalog once. publishedGameCount and slugs share
+// the same filter so we don't walk the catalog twice at module init.
+const PUBLISHED_GAMES = GAME_CATALOG.filter(
   (game) => (game.status as GameStatus) !== 'in-development',
-).length;
-export const publishedGameSlugs = GAME_CATALOG.filter((game) => (game.status as GameStatus) !== 'in-development').map(
-  (game) => game.slug,
 );
+export const publishedGameCount = PUBLISHED_GAMES.length;
+export const publishedGameSlugs = PUBLISHED_GAMES.map((game) => game.slug);
+
+// shared static-paths shape for game-about pages. each locale wrapper
+// uses this so we don't rebuild the same array of {slug, slug} pairs
+// in every wrapper file. astro associates a getStaticPaths() result
+// with the file that owns it and gets confused if multiple files share
+// the same array reference, so we cache the entries and return a fresh
+// outer array on each call.
+const GAME_ABOUT_PATH_ENTRIES = publishedGameSlugs.map((slug) => ({
+  params: { slug },
+  props: { slug },
+}));
+export function getGameAboutStaticPaths() {
+  return GAME_ABOUT_PATH_ENTRIES.slice();
+}
+
+// getGames runs O(pages) times across a build. each call merges the
+// translated catalog into the static GAME_CATALOG and allocates fresh
+// Game objects. cache by locale: the merged messages are already cached
+// upstream, so the same Game[] is the right answer for the same locale.
+const gamesCache = new Map<Locale, Game[]>();
 
 export function getGames(locale: Locale): Game[] {
+  const hit = gamesCache.get(locale);
+  if (hit !== undefined) return hit;
+
   const translatedGames = getMessages(locale).catalog.games;
-
-  return GAME_CATALOG.map((game) => {
+  const out = GAME_CATALOG.map((game) => {
     const translation = translatedGames[game.id as keyof typeof translatedGames];
-
     return {
       ...game,
       ...translation,
@@ -124,14 +146,29 @@ export function getGames(locale: Locale): Game[] {
       },
     };
   });
+  gamesCache.set(locale, out);
+  return out;
 }
 
-export function getLiveGames(locale: Locale) {
-  return getGames(locale).filter((game) => game.status === 'live' || game.status === 'preview');
+// these filters were producing fresh arrays every call. since getGames
+// is now stable per-locale, cache the filtered slices too.
+const liveGamesCache = new Map<Locale, Game[]>();
+const publishedGamesCache = new Map<Locale, Game[]>();
+
+export function getLiveGames(locale: Locale): Game[] {
+  const hit = liveGamesCache.get(locale);
+  if (hit !== undefined) return hit;
+  const out = getGames(locale).filter((game) => game.status === 'live' || game.status === 'preview');
+  liveGamesCache.set(locale, out);
+  return out;
 }
 
-export function getPublishedGames(locale: Locale) {
-  return getGames(locale).filter((game) => game.status !== 'in-development');
+export function getPublishedGames(locale: Locale): Game[] {
+  const hit = publishedGamesCache.get(locale);
+  if (hit !== undefined) return hit;
+  const out = getGames(locale).filter((game) => game.status !== 'in-development');
+  publishedGamesCache.set(locale, out);
+  return out;
 }
 
 export function getGameBySlug(locale: Locale, slug: string) {
@@ -462,7 +499,15 @@ export function getGameFaqs(
   return faqs;
 }
 
-export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutEntry = getGameAbout(game.id)) {
+export function getGameAboutJsonLd(
+  locale: Locale,
+  game: Game,
+  about: GameAboutEntry = getGameAbout(game.id),
+  // optional faqs override - the page view also renders these so we let
+  // it pass the array in to avoid recomputing the same template fills
+  // and message lookups twice per render.
+  faqs?: GameFaq[],
+) {
   // /<slug> is now the only page for the game (no separate /about), so
   // the "about" url and the "game" url are the same - but the function
   // still exposes both names so the schema graph below stays readable.
@@ -556,11 +601,11 @@ export function getGameAboutJsonLd(locale: Locale, game: Game, about: GameAboutE
   // surfaces grab most readily for a roblox title. shared with the
   // visible faq block on the page so the schema answers always match
   // what the user can see (google demotes the rich result otherwise).
-  const faqs = getGameFaqs(locale, game, about);
+  const resolvedFaqs = faqs ?? getGameFaqs(locale, game, about);
   const faqPage = {
     '@type': 'FAQPage',
     '@id': `${localizedAboutUrl}#faq`,
-    mainEntity: faqs.map((f) => ({
+    mainEntity: resolvedFaqs.map((f) => ({
       '@type': 'Question',
       name: f.q,
       acceptedAnswer: { '@type': 'Answer', text: f.a },

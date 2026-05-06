@@ -1,13 +1,9 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import WikiHubPage from '../../../../views/WikiHubPage.astro';
-import { WIKI_GAME_SLUGS } from '../../../../data/wiki';
+import { getWikiHubStaticPaths } from '../../../../data/wiki';
 
-export const getStaticPaths: GetStaticPaths = () =>
-  WIKI_GAME_SLUGS.map((slug) => ({
-    params: { slug },
-    props: { slug },
-  }));
+export const getStaticPaths: GetStaticPaths = () => getWikiHubStaticPaths();
 
 interface Props {
   slug: string;

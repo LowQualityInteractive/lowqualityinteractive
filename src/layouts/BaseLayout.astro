@@ -147,9 +147,7 @@ const allInlineScripts = [
   motionScript,
   ...safeExtraScripts,
 ];
-const scriptHashes = (
-  await Promise.all(allInlineScripts.map((s) => cspScriptHash(s)))
-).join(' ');
+const scriptHashes = allInlineScripts.map(cspScriptHash).join(' ');
 // connect-src: only origins the BROWSER hits at runtime. roblox APIs
 // (games.roblox.com, groups.roblox.com) are called server-side from
 // astro frontmatter at build time, so they don't belong here. live.ts
@@ -167,7 +165,13 @@ const csp = [
   `script-src 'self' ${scriptHashes}`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
-  "img-src 'self' data: https:",
+  // img-src: every image is local under /assets/ today. data: covers
+  // tiny inline pixels (1x1 spacer placeholders, transparent webp).
+  // we deliberately do NOT allow `https:` wildcard - that would let any
+  // https origin be loaded as an image, which is a tracking-pixel and
+  // referrer-leak surface for no benefit on a site whose imagery is
+  // entirely first-party.
+  "img-src 'self' data:",
   `connect-src ${[...new Set(connectSources)].join(' ')}`,
   "base-uri 'self'",
   "form-action 'self'",

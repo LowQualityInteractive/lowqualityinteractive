@@ -266,6 +266,25 @@ async function translateLingva(text, locale) {
   return out;
 }
 
+// strip control chars and reject obvious script-escape attempts in
+// translated output. this is the trust boundary between an external
+// translation api and the static site bundle: the translated string
+// gets written into json that later flows into inline <script> bodies
+// (via getMessages -> getXxxScript -> sanitizeInlineScript). belt and
+// braces here means a hostile or compromised upstream can never plant
+// an html/script payload that survives to the browser.
+function looksHostile(text) {
+  // c0 controls (other than common whitespace) shouldn't appear in
+  // human-language strings. their presence suggests upstream tampering.
+  // eslint-disable-next-line no-control-regex
+  if (/[\x00-\x08\x0b\x0c\x0e-\x1f]/.test(text)) return true;
+  // any tag-like sequence that could break out of an inline script
+  // context. real translations won't contain raw < or </ tokens.
+  if (/<\s*\/?\s*(script|style|iframe|object|embed)\b/i.test(text)) return true;
+  if (/<!--|-->|\]\]>/.test(text)) return true;
+  return false;
+}
+
 async function translateOne(text, locale) {
   const { shielded, restore } = shieldTerms(text);
   let raw;
@@ -301,6 +320,9 @@ async function translateOne(text, locale) {
   // broken token. google generally preserves these but lingva sometimes
   // splits them across word boundaries.
   if (/X[Xx]?KEEP\d+X/.test(out)) return null;
+  // refuse anything that smells like an html/script-escape attempt -
+  // unless the english source itself contained the same kind of token.
+  if (looksHostile(out) && !looksHostile(text)) return null;
   return out.trim();
 }
 

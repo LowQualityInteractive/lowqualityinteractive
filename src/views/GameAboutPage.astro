@@ -43,6 +43,7 @@ const aboutLabels = page.about ?? {
 
 const aboutData = getGameAbout(game.id);
 const gameFaqs = getGameFaqs(locale, game, aboutData);
+const heroWebpSrc = getWebpSrc(game.artwork.src);
 
 // per-game markdown file at src/data/about/<id>.md (english source).
 // per-locale translations live alongside as <id>.<locale>.md, generated
@@ -73,7 +74,7 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
   description={game.pageDescription}
   currentPage="games"
   routePath={aboutRoutePath}
-  jsonLd={getGameAboutJsonLd(locale, game, aboutData)/* pass aboutData explicitly so we only read the json file once. the json-ld generator reuses it for description, featureList, and identifiers. */}
+  jsonLd={getGameAboutJsonLd(locale, game, aboutData, gameFaqs)/* pass aboutData + gameFaqs explicitly so the json-ld generator reuses both rather than recomputing. faqs in particular are nontrivial - 7 template fills per game per render. */}
   ogImage={game.artwork.src}
   ogImageAlt={game.artwork.alt}
 >
@@ -113,8 +114,8 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
   <section class="game-presence" data-reveal data-game-id={game.id} aria-label={`${game.name} at a glance`}>
     <div class="game-presence-art">
       <picture>
-        {getWebpSrc(game.artwork.src) && (
-          <source type="image/webp" srcset={getWebpSrc(game.artwork.src)} />
+        {heroWebpSrc && (
+          <source type="image/webp" srcset={heroWebpSrc} />
         )}
         <img
           src={game.artwork.src}

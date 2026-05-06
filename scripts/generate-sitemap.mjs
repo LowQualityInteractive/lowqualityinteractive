@@ -109,8 +109,9 @@ async function walkLlmsTxtFiles(directory, txtFiles = []) {
 // astro emits redirect pages as a tiny html file with `Redirecting to:`
 // in the title and a meta refresh. they shouldn't show up in the sitemap
 // because they aren't canonical content, just legacy-url forwarders.
+// (readFile is already imported at the top of this module - no need to
+// dynamic-import it on every call.)
 async function isRedirectFile(absolutePath) {
-  const { readFile } = await import('node:fs/promises');
   const head = await readFile(absolutePath, 'utf-8');
   return head.includes('<title>Redirecting to:') || head.includes('http-equiv="refresh"');
 }

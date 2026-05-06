@@ -1,20 +1,9 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import WikiCategoryPage from '../../../../views/WikiCategoryPage.astro';
-import { WIKI_GAME_SLUGS, getWikiCategories } from '../../../../data/wiki';
+import { getWikiCategoryStaticPaths } from '../../../../data/wiki';
 
-export const getStaticPaths: GetStaticPaths = () => {
-  const paths: Array<{ params: { slug: string; category: string }; props: { slug: string; category: string } }> = [];
-  for (const slug of WIKI_GAME_SLUGS) {
-    for (const cat of getWikiCategories(slug)) {
-      paths.push({
-        params: { slug, category: cat.filename },
-        props: { slug, category: cat.filename },
-      });
-    }
-  }
-  return paths;
-};
+export const getStaticPaths: GetStaticPaths = () => getWikiCategoryStaticPaths();
 
 interface Props {
   slug: string;

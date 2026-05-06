@@ -51,7 +51,7 @@ const motionBootstrap = sanitizeInlineScript(getMotionBootstrap());
 const motionScript = sanitizeInlineScript(getMotionScript());
 
 const scripts404 = [cookiesBootstrap, themeScript, motionBootstrap, siteScript, notFoundScript, motionScript];
-const scriptHashes = (await Promise.all(scripts404.map((s) => cspScriptHash(s)))).join(' ');
+const scriptHashes = scripts404.map(cspScriptHash).join(' ');
 const csp404 = [
   "default-src 'self'",
   `script-src 'self' ${scriptHashes}`,

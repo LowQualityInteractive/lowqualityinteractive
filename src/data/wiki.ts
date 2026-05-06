@@ -276,3 +276,77 @@ export function getEntityPageTitle(gameName: string, entity: WikiEntity): string
   const label = getCategoryLabel(entity.type ?? 'entity').singular;
   return `${gameName} ${label}: ${entity.name}`;
 }
+
+// shared static-paths builders. each locale's wiki page wrapper used
+// to inline its own three-deep loop; centralise the shape here so
+// adding a locale or changing the path schema only edits one place.
+// outputs are computed once and frozen so all 10 page wrappers share
+// the same array - astro happily re-uses it.
+
+interface WikiCategoryParams {
+  params: { slug: string; category: string };
+  props: { slug: string; category: string };
+}
+interface WikiEntityParams {
+  params: { slug: string; category: string; entity: string };
+  props: { slug: string; category: string; entity: string };
+}
+interface WikiHubParams {
+  params: { slug: string };
+  props: { slug: string };
+}
+
+// Astro tracks getStaticPaths() output per route file and gets unhappy
+// if multiple files return the *same* array reference - it associates
+// the array with the first file it sees and the others end up missing
+// paths. so we cache the underlying entries (which is the expensive
+// part - walking the wiki registry) and return a fresh array wrapper
+// per call. the per-entry objects are reused; only the outer array
+// is allocated fresh.
+let wikiHubEntries: WikiHubParams[] | null = null;
+let wikiCategoryEntries: WikiCategoryParams[] | null = null;
+let wikiEntityEntries: WikiEntityParams[] | null = null;
+
+export function getWikiHubStaticPaths(): WikiHubParams[] {
+  if (!wikiHubEntries) {
+    wikiHubEntries = WIKI_GAME_SLUGS.map((slug) => ({
+      params: { slug },
+      props: { slug },
+    }));
+  }
+  return wikiHubEntries.slice();
+}
+
+export function getWikiCategoryStaticPaths(): WikiCategoryParams[] {
+  if (!wikiCategoryEntries) {
+    const out: WikiCategoryParams[] = [];
+    for (const slug of WIKI_GAME_SLUGS) {
+      for (const cat of getWikiCategories(slug)) {
+        out.push({
+          params: { slug, category: cat.filename },
+          props: { slug, category: cat.filename },
+        });
+      }
+    }
+    wikiCategoryEntries = out;
+  }
+  return wikiCategoryEntries.slice();
+}
+
+export function getWikiEntityStaticPaths(): WikiEntityParams[] {
+  if (!wikiEntityEntries) {
+    const out: WikiEntityParams[] = [];
+    for (const slug of WIKI_GAME_SLUGS) {
+      for (const cat of getWikiCategories(slug)) {
+        for (const entity of cat.entities) {
+          out.push({
+            params: { slug, category: cat.filename, entity: entity.id },
+            props: { slug, category: cat.filename, entity: entity.id },
+          });
+        }
+      }
+    }
+    wikiEntityEntries = out;
+  }
+  return wikiEntityEntries.slice();
+}

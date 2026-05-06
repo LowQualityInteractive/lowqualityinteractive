@@ -82,7 +82,46 @@ function logAiCrawlerHit(_request: Request, _surface: 'html' | 'markdown') {
 // by cors, so we relay it here from a same-origin path. live.ts hits
 // /api/roblox-presence?ids=<csv-of-universe-ids> when PUBLIC_ROBLOX_PROXY=1
 // is set at build time. response shape is the upstream payload as-is.
+//
+// security:
+// - GET only. anything else gets 405.
+// - Origin/Referer must be the same origin (or absent for non-browser
+//   clients) - prevents the endpoint being used as an open relay /
+//   anonymiser for arbitrary roblox api calls from third-party sites.
+// - strict ids validation. attacker-controlled query strings never get
+//   proxied through.
+// - response body capped to 64kb so a hostile upstream can't pin worker
+//   memory.
+// - upstream non-2xx is collapsed to 502 with no caching, so a transient
+//   roblox 5xx isn't cached for 30s and a 3xx redirect target isn't
+//   reflected to clients.
+const PROXY_BODY_CAP = 64 * 1024;
 async function handleRobloxPresence(request: Request, url: URL): Promise<Response> {
+  if (request.method !== 'GET' && request.method !== 'HEAD') {
+    return new Response(JSON.stringify({ error: 'method' }), {
+      status: 405,
+      headers: { 'Content-Type': 'application/json', Allow: 'GET, HEAD' },
+    });
+  }
+  const expectedOrigin = new URL(request.url).origin;
+  const originHeader = request.headers.get('Origin');
+  const refererHeader = request.headers.get('Referer');
+  // browsers always send Origin on cross-origin requests. if either
+  // header is present, it must match our origin. absence of both
+  // (curl, server-to-server) is allowed - those clients can't be
+  // hijacked by a malicious page anyway.
+  if (originHeader && originHeader !== expectedOrigin) {
+    return new Response(JSON.stringify({ error: 'origin' }), { status: 403, headers: { 'Content-Type': 'application/json' } });
+  }
+  if (!originHeader && refererHeader) {
+    try {
+      if (new URL(refererHeader).origin !== expectedOrigin) {
+        return new Response(JSON.stringify({ error: 'referer' }), { status: 403, headers: { 'Content-Type': 'application/json' } });
+      }
+    } catch {
+      return new Response(JSON.stringify({ error: 'referer' }), { status: 403, headers: { 'Content-Type': 'application/json' } });
+    }
+  }
   const ids = url.searchParams.get('ids') ?? '';
   // strict input validation: digits and commas only, max 10 ids,
   // each up to 20 digits. anything else gets a 400 - never proxy
@@ -98,22 +137,38 @@ async function handleRobloxPresence(request: Request, url: URL): Promise<Respons
     const res = await fetch(upstream, {
       headers: { Accept: 'application/json' },
       signal: AbortSignal.timeout(5000),
+      redirect: 'error',
     });
+    const upstreamCt = (res.headers.get('Content-Type') ?? '').toLowerCase();
+    if (!res.ok || !upstreamCt.includes('application/json')) {
+      return new Response(JSON.stringify({ error: 'upstream' }), {
+        status: 502,
+        headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
+      });
+    }
     const body = await res.text();
+    if (body.length > PROXY_BODY_CAP) {
+      return new Response(JSON.stringify({ error: 'too large' }), {
+        status: 502,
+        headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
+      });
+    }
     return new Response(body, {
-      status: res.status,
+      status: 200,
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         // short cache. presence is volatile but we still want repeat
         // visitors within a tab session to skip the upstream hop.
         'Cache-Control': 'public, max-age=30',
-        'Access-Control-Allow-Origin': new URL(request.url).origin,
+        'Access-Control-Allow-Origin': expectedOrigin,
+        'Vary': 'Origin',
+        'X-Content-Type-Options': 'nosniff',
       },
     });
   } catch {
     return new Response(JSON.stringify({ error: 'upstream' }), {
       status: 502,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
     });
   }
 }
@@ -142,7 +197,11 @@ export const onRequest = async (context: PagesContext): Promise<Response> => {
   if (accept.toLowerCase().includes('text/markdown')) {
     const mdRequest = new Request(new URL(markdownPath, url), request);
     const mdResponse = await next(mdRequest);
-    if (mdResponse.ok) {
+    // only relabel as markdown if the resolved body actually IS markdown.
+    // otherwise an upstream html fallback (spa shell, custom 200 error
+    // page) would get mis-served as text/markdown to the agent.
+    const mdContentType = (mdResponse.headers.get('Content-Type') ?? '').toLowerCase();
+    if (mdResponse.ok && (mdContentType.includes('text/markdown') || mdContentType.includes('text/plain') || mdContentType === '')) {
       logAiCrawlerHit(request, 'markdown');
       const headers = new Headers(mdResponse.headers);
       headers.set('Content-Type', 'text/markdown; charset=utf-8');

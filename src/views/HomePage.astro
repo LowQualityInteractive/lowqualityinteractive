@@ -16,14 +16,25 @@ const messages = getMessages(locale);
 const page = messages.pages.home;
 
 // build-time fetch - happens on the server, so cors gets to sit this one out.
+// timeout caps the build wait if roblox stalls; non-2xx and non-json responses
+// are ignored so a hostile or broken upstream just shows '-' instead of a
+// silent regression.
 const UNIVERSE_IDS = '5788461409,7915083902';
 let totalVisits = 0;
 try {
-  const res = await fetch(`https://games.roblox.com/v1/games?universeIds=${UNIVERSE_IDS}`);
-  if (res.ok) {
+  const res = await fetch(`https://games.roblox.com/v1/games?universeIds=${UNIVERSE_IDS}`, {
+    headers: { Accept: 'application/json' },
+    signal: AbortSignal.timeout(8000),
+  });
+  const ct = (res.headers.get('Content-Type') ?? '').toLowerCase();
+  if (res.ok && ct.includes('application/json')) {
     const data = await res.json();
-    if (Array.isArray(data.data)) {
-      totalVisits = data.data.reduce((sum: number, g: { visits?: number }) => sum + (g.visits ?? 0), 0);
+    if (Array.isArray(data?.data)) {
+      totalVisits = data.data.reduce(
+        (sum: number, g: { visits?: number }) =>
+          sum + (typeof g?.visits === 'number' && Number.isFinite(g.visits) && g.visits >= 0 ? g.visits : 0),
+        0,
+      );
     }
   }
 } catch {}

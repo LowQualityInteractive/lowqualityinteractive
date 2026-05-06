@@ -23,12 +23,19 @@ const formatCount = (n: number) => {
   return String(n);
 };
 
+// build-time fetches with timeouts and content-type sanity checks. a
+// malicious / broken upstream just yields an empty string here, which
+// the template renders as nothing instead of stalling the build.
 let robloxGroupMembers = '';
 try {
-  const res = await fetch('https://groups.roblox.com/v1/groups/7489017');
-  if (res.ok) {
+  const res = await fetch('https://groups.roblox.com/v1/groups/7489017', {
+    headers: { Accept: 'application/json' },
+    signal: AbortSignal.timeout(8000),
+  });
+  const ct = (res.headers.get('Content-Type') ?? '').toLowerCase();
+  if (res.ok && ct.includes('application/json')) {
     const data = await res.json();
-    if (typeof data.memberCount === 'number') {
+    if (typeof data?.memberCount === 'number' && Number.isFinite(data.memberCount) && data.memberCount >= 0) {
       robloxGroupMembers = formatCount(data.memberCount) + ' members';
     }
   }
@@ -38,14 +45,23 @@ let youtubeSubscribers = '';
 const youtubeApiKey = import.meta.env.YOUTUBE_API_KEY;
 if (youtubeApiKey) {
   try {
+    // youtube channel id is a fixed constant, not user input. api key is
+    // a build-time secret read via import.meta.env, never exposed to the
+    // client. response is treated as untrusted: type-check before use.
     const res = await fetch(
-      `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCQgaYkXMTs8BcUKute8Nolw&key=${youtubeApiKey}`
+      `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=UCQgaYkXMTs8BcUKute8Nolw&key=${encodeURIComponent(youtubeApiKey)}`,
+      {
+        headers: { Accept: 'application/json' },
+        signal: AbortSignal.timeout(8000),
+      },
     );
-    if (res.ok) {
+    const ct = (res.headers.get('Content-Type') ?? '').toLowerCase();
+    if (res.ok && ct.includes('application/json')) {
       const data = await res.json();
-      const count = data?.items?.[0]?.statistics?.subscriberCount;
-      if (count !== undefined) {
-        youtubeSubscribers = formatCount(Number(count)) + ' subscribers';
+      const rawCount = data?.items?.[0]?.statistics?.subscriberCount;
+      const numeric = typeof rawCount === 'string' || typeof rawCount === 'number' ? Number(rawCount) : NaN;
+      if (Number.isFinite(numeric) && numeric >= 0) {
+        youtubeSubscribers = formatCount(numeric) + ' subscribers';
       }
     }
   } catch {}
