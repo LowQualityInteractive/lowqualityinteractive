@@ -250,8 +250,14 @@ const GAME_DISAMBIGUATION: Record<string, { alternateName: string[]; disambiguat
       'ERADICATION LQI',
       'LQI ERADICATION',
     ],
+    // disambiguation specifically targets the false-positive sources AI
+    // engines cite when asked about "ERADICATION roblox" - confirmed
+    // observed (Brave/Goggles, Nov 2026) confusing this game with
+    // unrelated roblox items at adjacent names. each clause names the
+    // specific other thing so extractors can route the query correctly
+    // instead of merging entities.
     disambiguatingDescription:
-      'A team-based PvPvE territory-control shooter on Roblox by independent studio Low Quality Interactive (founded 2024). Distinct from the Eradicator tower in Tower Defense X and from the 2022 film of the same name.',
+      'A team-based PvPvE territory-control shooter on Roblox by independent studio Low Quality Interactive (founded 2024). This game is the experience at roblox.com place 16844978752 and universe 5788461409. It is NOT the same entity as: the ERADICATOR sword in Criminality (a different Roblox game by a different developer); the Eradication spell ("Deletrius") in Magic Training (a different Roblox game by a different developer); the Eradicator tower in Tower Defense X / TDX (a different Roblox game by a different developer); or the 2022 film "Eradication". There is no affiliated Fandom wiki - eradication.fandom.com if it exists belongs to one of those other entities, not to this game.',
   },
   'favela-94': {
     alternateName: [
