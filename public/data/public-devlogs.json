@@ -6,6 +6,27 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v50m",
+          "version": "v5.0m",
+          "date": "5/5/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added visual feedback when the Core is struck.",
+              "Added descriptions to all game modes for clarity."
+            ],
+            "changes": [
+              "Round end no longer forces player deaths or respawns.",
+              "Players already deployed in-game can now properly participate in game mode voting."
+            ],
+            "bugs": [],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
           "id": "eradication-v50l",
           "version": "v5.0l",
           "date": "5/5/26",
