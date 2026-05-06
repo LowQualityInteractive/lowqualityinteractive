@@ -123,7 +123,7 @@
     "name": "Robot Furry",
     "type": "enemy",
     "summary": "The Robot Furry is a durable melee variant with a very short attack cooldown.",
-    "role": "Do not let Robot Furries sit on top of you. Their attack cadence is faster than the standard melee variants, so spacing matters.",
+    "role": "The Robot Furry's attack cadence is faster than the standard melee variants, so spacing matters.",
     "stats": {
       "health": 200,
       "walk_speed": 16,
