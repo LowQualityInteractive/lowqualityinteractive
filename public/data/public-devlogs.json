@@ -6,6 +6,31 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v50l",
+          "version": "v5.0l",
+          "date": "5/5/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added audio culling to Whiskorians, preventing an overwhelming overlap of bark sounds."
+            ],
+            "changes": [
+              "Lowered helper resistance to explosion damage.",
+              "Improved client and server runtime performance.",
+              "Disabled developer debugging parts for the current revamp phase."
+            ],
+            "bugs": [
+              "Fixed the Core not registering incoming bullets.",
+              "Fixed the Core failing to play its animation.",
+              "Fixed the level UI briefly appearing for 1-2 seconds on join."
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
           "id": "eradication-v50k",
           "version": "v5.0k",
           "date": "5/5/26",
