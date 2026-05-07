@@ -6,6 +6,30 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v5.0o",
+          "version": "v5.0o",
+          "date": "5/6/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added claw control support for mobile players."
+            ],
+            "changes": [
+              "Overhauled the mobile and console UX for a significantly improved experience.",
+              "General UI/UX improvements for mobile and console."
+            ],
+            "bugs": [
+              "Fixed a critical issue where mobile was inherently broken."
+            ],
+            "removals": [
+              "Removed leaning."
+            ],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
           "id": "eradication-v50n",
           "version": "v5.0n",
           "date": "5/6/26",
