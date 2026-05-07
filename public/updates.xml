@@ -6,7 +6,15 @@
     <atom:link href="https://lowqualityinteractive.com/updates.xml" rel="self" type="application/rss+xml" />
     <description>Devlogs and patch notes for Low Quality Interactive's Roblox games (ERADICATION, Favela '94, DON POLLO OBBY).</description>
     <language>en</language>
-    <lastBuildDate>Tue, 05 May 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 06 May 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>ERADICATION v5.0n</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v50n</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v50n</guid>
+      <pubDate>Wed, 06 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added a death animation to the Core object.</li><li>The Core object now scales in size relative to its remaining health.</li><li>Added rewards for destroying the Core, distributed to the player who dealt the final blow and all contributors.</li></ul><h3>Changes</h3><ul><li>Updated death feedback for improved clarity.</li></ul><h3>Bug fixes</h3><ul><li>Fixed helpers failing to navigate to and attack players.</li><li>Fixed the cutscene GUI not appearing when expected.</li><li>Fixed Furries incorrectly tracking players through the basement.</li></ul>]]></description>
+    </item>
     <item>
       <title>ERADICATION v5.0m</title>
       <link>https://lowqualityinteractive.com/updates/#eradication-v50m</link>

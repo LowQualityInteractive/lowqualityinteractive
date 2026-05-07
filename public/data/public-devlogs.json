@@ -6,6 +6,31 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v50n",
+          "version": "v5.0n",
+          "date": "5/6/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added a death animation to the Core object.",
+              "The Core object now scales in size relative to its remaining health.",
+              "Added rewards for destroying the Core, distributed to the player who dealt the final blow and all contributors."
+            ],
+            "changes": [
+              "Updated death feedback for improved clarity."
+            ],
+            "bugs": [
+              "Fixed helpers failing to navigate to and attack players.",
+              "Fixed the cutscene GUI not appearing when expected.",
+              "Fixed Furries incorrectly tracking players through the basement."
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
           "id": "eradication-v50m",
           "version": "v5.0m",
           "date": "5/5/26",
