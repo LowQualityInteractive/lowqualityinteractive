@@ -6,6 +6,32 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v5.1",
+          "version": "v5.1",
+          "date": "5/7/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Readded manual console cursor support."
+            ],
+            "changes": [
+              "Improved player clarity regarding boss location.",
+              "General 3D space optimizations across the experience."
+            ],
+            "bugs": [
+              "Resolved numerous production runtime errors.",
+              "Resolved inaccurate and delayed map data.",
+              "Resolved inoperable vehicles preventing players from entering or driving.",
+              "Fixed inaccurate seating prompts on WWII tanks.",
+              "Fixed vehicle replication and ownership inconsistencies."
+            ],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
           "id": "eradication-v5.0o",
           "version": "v5.0o",
           "date": "5/6/26",

@@ -6,7 +6,23 @@
     <atom:link href="https://lowqualityinteractive.com/updates.xml" rel="self" type="application/rss+xml" />
     <description>Devlogs and patch notes for Low Quality Interactive's Roblox games (ERADICATION, Favela '94, DON POLLO OBBY).</description>
     <language>en</language>
-    <lastBuildDate>Wed, 06 May 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 07 May 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>ERADICATION v5.1</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v5.1</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v5.1</guid>
+      <pubDate>Thu, 07 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Readded manual console cursor support.</li></ul><h3>Changes</h3><ul><li>Improved player clarity regarding boss location.</li><li>General 3D space optimizations across the experience.</li></ul><h3>Bug fixes</h3><ul><li>Resolved numerous production runtime errors.</li><li>Resolved inaccurate and delayed map data.</li><li>Resolved inoperable vehicles preventing players from entering or driving.</li><li>Fixed inaccurate seating prompts on WWII tanks.</li><li>Fixed vehicle replication and ownership inconsistencies.</li></ul>]]></description>
+    </item>
+    <item>
+      <title>ERADICATION v5.0o</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v5.0o</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v5.0o</guid>
+      <pubDate>Wed, 06 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added claw control support for mobile players.</li></ul><h3>Changes</h3><ul><li>Overhauled the mobile and console UX for a significantly improved experience.</li><li>General UI/UX improvements for mobile and console.</li></ul><h3>Bug fixes</h3><ul><li>Fixed a critical issue where mobile was inherently broken.</li></ul><h3>Removals</h3><ul><li>Removed leaning.</li></ul>]]></description>
+    </item>
     <item>
       <title>ERADICATION v5.0n</title>
       <link>https://lowqualityinteractive.com/updates/#eradication-v50n</link>
