@@ -5,6 +5,16 @@
     "eradication": {
       "active": [
         {
+          "code": "6KFAV",
+          "rewards": "6,000 cash + 600 XP",
+          "displayName": "100K"
+        },
+        {
+          "code": "100KLIKES",
+          "rewards": "1,000 cash + 1,000 XP",
+          "displayName": "100KLIKES"
+        },
+        {
           "code": "100K",
           "rewards": "1,000 cash + 500 XP",
           "displayName": "100K"
