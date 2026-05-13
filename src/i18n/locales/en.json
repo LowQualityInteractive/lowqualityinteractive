@@ -46,7 +46,8 @@
       "siteHeading": "Site",
       "connectHeading": "Connect",
       "businessInquiries": "Business inquiries",
-      "allRightsReserved": "All rights reserved."
+      "allRightsReserved": "All rights reserved.",
+      "sitemap": "Sitemap"
     },
     "cookie": {
       "ariaLabel": "Preference notice",
@@ -167,7 +168,7 @@
       }
     },
     "privacyPolicy": {
-      "label": "Privacy policy",
+      "label": "Privacy Policy",
       "description": "Privacy policy for the Low Quality Interactive site."
     },
     "notFound": {

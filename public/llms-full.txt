@@ -229,7 +229,7 @@ that is the job. slime him, get paid.
 - **Genres:** Shooter, Multiplayer, PvPvE, Strategy
 - **Status:** Live (in active development)
 - **Play mode:** MultiPlayer
-- **Number of players:** 32
+- **Number of players:** 18
 - **Release year:** 2025
 - **Audience:** 13+
 - **Roblox listing:** https://www.roblox.com/games/16844978752/ERADICATION
@@ -387,7 +387,7 @@ Canonical URL: https://lowqualityinteractive.com/connect/
 
 <!-- source: https://lowqualityinteractive.com/privacy-policy/index.md -->
 
-# Privacy policy
+# Privacy Policy
 
 > Privacy policy for the Low Quality Interactive site.
 
