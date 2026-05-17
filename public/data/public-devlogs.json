@@ -6,6 +6,24 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v5.2",
+          "version": "v5.2",
+          "date": "5/17/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added the MH-60HE Blackhawk.",
+              "Added cursor aiming."
+            ],
+            "changes": [],
+            "bugs": [],
+            "removals": [],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
           "id": "eradication-v5.1",
           "version": "v5.1",
           "date": "5/7/26",

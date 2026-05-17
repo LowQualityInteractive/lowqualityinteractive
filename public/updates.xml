@@ -6,7 +6,15 @@
     <atom:link href="https://lowqualityinteractive.com/updates.xml" rel="self" type="application/rss+xml" />
     <description>Devlogs and patch notes for Low Quality Interactive's Roblox games (ERADICATION, Favela '94, DON POLLO OBBY).</description>
     <language>en</language>
-    <lastBuildDate>Thu, 07 May 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 17 May 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>ERADICATION v5.2</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v5.2</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v5.2</guid>
+      <pubDate>Sun, 17 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added the MH-60HE Blackhawk.</li><li>Added cursor aiming.</li></ul>]]></description>
+    </item>
     <item>
       <title>ERADICATION v5.1</title>
       <link>https://lowqualityinteractive.com/updates/#eradication-v5.1</link>
