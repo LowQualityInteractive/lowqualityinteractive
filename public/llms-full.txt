@@ -345,8 +345,8 @@ The full devlog feed is published as JSON at https://lowqualityinteractive.com/d
 ## Per-game devlog summary
 
 ### ERADICATION
-- **Updates on record:** 39
-- **Latest:** v5.2 (5/17/26)
+- **Updates on record:** 40
+- **Latest:** v5.3 (5/21/26)
 
 ### DON POLLO OBBY
 - **Updates on record:** 2

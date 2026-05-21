@@ -6,7 +6,15 @@
     <atom:link href="https://lowqualityinteractive.com/updates.xml" rel="self" type="application/rss+xml" />
     <description>Devlogs and patch notes for Low Quality Interactive's Roblox games (ERADICATION, Favela '94, DON POLLO OBBY).</description>
     <language>en</language>
-    <lastBuildDate>Sun, 17 May 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 21 May 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>ERADICATION v5.3</title>
+      <link>https://lowqualityinteractive.com/updates/#eradication-v5.3</link>
+      <guid isPermaLink="true">https://lowqualityinteractive.com/updates/#eradication-v5.3</guid>
+      <pubDate>Thu, 21 May 2026 00:00:00 GMT</pubDate>
+      <category>ERADICATION update</category>
+      <description><![CDATA[<h3>New</h3><ul><li>Added free Night Vision Goggles (NVG), toggled via Y / Left D-Pad / Bottom Right.</li></ul><h3>Bug fixes</h3><ul><li>Fixed a stuck bottom-of-page state in RallyDrop.</li><li>Fixed accessories incorrectly remaining visible in true first person.</li><li>Fixed inventory access across all platforms.</li><li>Fixed anti-cheat false positives triggered by Whiskorian physics.</li><li>Resolved collision group conflicts (under observation).</li></ul>]]></description>
+    </item>
     <item>
       <title>ERADICATION v5.2</title>
       <link>https://lowqualityinteractive.com/updates/#eradication-v5.2</link>
