@@ -163,8 +163,8 @@ const connectSources = [
 const csp = [
   "default-src 'self'",
   `script-src 'self' ${scriptHashes}`,
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self'",
   // img-src: every image is local under /assets/ today. data: covers
   // tiny inline pixels (1x1 spacer placeholders, transparent webp).
   // we deliberately do NOT allow `https:` wildcard - that would let any
@@ -249,25 +249,14 @@ const csp = [
 
   {safeJsonLd && <script is:inline type="application/ld+json" set:html={safeJsonLd} />}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  {/* deferred font load: media="print" lets the browser fetch it
-      without blocking render; the loader bootstrap flips it back to
-      "all" once it loads. system-ui takes over until the swap, then
-      Plus Jakarta Sans takes over (display=swap means no FOIT). */}
-  <link
-    id="google-fonts-link"
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-    media="print"
-    data-font-deferred
-  />
-  <noscript>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-  </noscript>
+  {/* fonts are self-hosted now (@font-face in global.css, files under
+      /fonts/) - no google fonts request, no preconnect, no third party.
+      preload only the two latin weights used above the fold (400 body,
+      800 headings); latin-ext and the mid weights load on demand via
+      their unicode-range. crossorigin is required even same-origin since
+      font fetches are always made in cors mode. */}
+  <link rel="preload" href="/fonts/plus-jakarta-sans-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/png" href="/assets/logo.png" />
   <link rel="alternate" type="text/plain" title={messages.meta.llmContextTitle} href="/llms.txt">
   {/* points llm crawlers at the .md sibling. claude code and cursor

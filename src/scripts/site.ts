@@ -353,71 +353,12 @@ export function getSiteScript(
     syncNavForViewport();
   }
 
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-  const getTransitionDestination = (link, event) => {
-    const href = link.getAttribute('href') || '';
-    if (
-      event.defaultPrevented ||
-      event.button !== 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.shiftKey ||
-      event.altKey ||
-      href.startsWith('#') ||
-      href.startsWith('mailto:') ||
-      href.startsWith('tel:') ||
-      href.startsWith('javascript:') ||
-      link.target === '_blank' ||
-      link.hasAttribute('download')
-    ) {
-      return null;
-    }
-
-    const destination = new URL(link.href, window.location.href);
-    if (destination.origin !== window.location.origin) {
-      return null;
-    }
-
-    const isSamePageHashNavigation =
-      destination.pathname === window.location.pathname &&
-      destination.search === window.location.search &&
-      destination.hash;
-    if (isSamePageHashNavigation) {
-      return null;
-    }
-
-    return destination;
-  };
-
-  document.addEventListener('click', (event) => {
-    const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
-    if (!(link instanceof HTMLAnchorElement)) {
-      return;
-    }
-
-    const destination = getTransitionDestination(link, event);
-    if (!destination) {
-      return;
-    }
-
-    event.preventDefault();
-    body.classList.add('is-leaving');
-    // bring the loading overlay back so the fade-out hands off cleanly
-    // to the next page (which boots with the overlay already visible).
-    if (window.__lqiLoader && typeof window.__lqiLoader.show === 'function') {
-      window.__lqiLoader.show();
-    }
-    window.setTimeout(() => {
-      window.location.href = destination.href;
-    }, prefersReducedMotion.matches ? 0 : 800);
-  });
-
-  // strip the fade-out class on pageshow. bfcache restore would
-  // otherwise leave the body invisible, which is a fun way to make
-  // people think the site is broken.
-  window.addEventListener('pageshow', () => {
-    body.classList.remove('is-leaving');
-  });
+  // page-to-page transitions are handled natively now: the css
+  // @view-transition opt-in animates the cross-document hand-off, and
+  // astro's link prefetch means the next page is usually already cached.
+  // we deliberately do NOT intercept clicks with a manual fade + delay
+  // anymore - that added a fixed ~800ms tax to every navigation and
+  // fought the native transition. letting the browser drive it is both
+  // faster and smoother.
 })();`;
 }

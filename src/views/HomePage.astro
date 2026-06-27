@@ -2,10 +2,9 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getHomeJsonLd, getPublishedGames, publishedGameCount } from '../data/games';
+import { getHomeJsonLd, getPublishedGames, getWebpSrc, publishedGameCount } from '../data/games';
 import { SITE_NAME } from '../data/site';
 import { getLocalePath, getMessages, type Locale } from '../i18n/messages';
-import { getWikiHubHref, hasWiki } from '../data/wiki';
 
 interface Props {
   locale: Locale;
@@ -52,19 +51,11 @@ try {
   }
 } catch {}
 
-// game names for the hero marquee. we duplicate them inline so the css
-// translateX(-50%) loop reads as continuous instead of a panicked snap.
+// live-games roster for the hero. replaces the old name-only marquee with
+// a real, clickable deployment list - each published game links to its
+// page and carries its status indicator, so the right rail does work
+// instead of just scrolling decorative text.
 const publishedGames = getPublishedGames(locale);
-const marqueeGames = publishedGames.map((g) => g.name);
-const marqueeLoop = marqueeGames.length > 0 ? [...marqueeGames, ...marqueeGames, ...marqueeGames, ...marqueeGames] : [];
-
-// wiki hubs surfaced directly from the homepage hero. crawler-discovery
-// of /eradication/wiki/ benefits from a link on a high-pagerank surface;
-// google's seo guide explicitly says new pages need to be discoverable
-// through links from already-important pages.
-const wikiCtas = publishedGames
-  .filter((g) => hasWiki(g.slug))
-  .map((g) => ({ name: g.name, href: getWikiHubHref(locale, g.slug) }));
 
 // counter text rendered server-side. js resets it to 0 and animates up
 // when the element scrolls into view. no-js users see the real number
@@ -108,89 +99,108 @@ const headingTail = splitMatch ? splitMatch[2] : '';
   jsonLd={getHomeJsonLd(locale)}
 >
   <section class="hero" aria-labelledby="hero-heading">
-    <span class="hero-eyebrow hero-enter" style="--enter-delay: 40ms">
-      <span class="live-dot" aria-hidden="true"></span>
-      <span>{publishedGameCount} {publishedGameCount === 1 ? 'game live' : 'games live'}</span>
-    </span>
-    <h1 id="hero-heading" class="hero-enter" style="--enter-delay: 120ms">
-      {headingTail ? (
-        <>
-          {headingLead}{' '}
-          <span class="accent">{headingTail}</span>
-        </>
-      ) : heading}
-    </h1>
-    <p class="lead hero-enter" style="--enter-delay: 220ms">{page.lead}</p>
-    <div class="cta-row hero-enter" style="--enter-delay: 300ms">
-      <a class="button primary" data-magnetic href={getLocalePath(locale, 'games')}>
-        <span>{page.exploreGames}</span>
-        <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-      <a class="button ghost" href={getLocalePath(locale, 'updates')}>
-        <span>{page.readUpdates}</span>
-        <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-      {/* descriptive anchor text on purpose - "wiki" alone would be
-          generic. each cta names the game it belongs to so the link
-          context is obvious to humans, screen readers, and crawlers. */}
-      {wikiCtas.map((cta) => (
-        <a class="button ghost" href={cta.href}>
-          <span>{cta.name} wiki</span>
-          <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      ))}
-    </div>
-    {marqueeLoop.length > 0 && (
-      <div class="hero-marquee hero-enter" style="--enter-delay: 380ms" aria-hidden="true">
-        <div class="hero-marquee-track">
-          {marqueeLoop.map((name) => (
-            <span class="hero-marquee-item">{name}</span>
-          ))}
+    <div class="hero-deck">
+      <div class="hero-copy">
+        <h1 id="hero-heading" class="hero-enter" style="--enter-delay: 40ms">
+          {headingTail ? (
+            <>
+              {headingLead}{' '}
+              <span class="accent">{headingTail}</span>
+            </>
+          ) : heading}
+        </h1>
+        <p class="lead hero-enter" style="--enter-delay: 140ms">{page.lead}</p>
+        <div class="cta-row hero-enter" style="--enter-delay: 240ms">
+          <a class="button primary" data-magnetic href={getLocalePath(locale, 'games')}>
+            <span>{page.exploreGames}</span>
+            <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a class="button ghost" href={getLocalePath(locale, 'updates')}>
+            <span>{page.readUpdates}</span>
+            <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
       </div>
-    )}
+
+      {/* deployment roster - the live catalogue rendered as a clickable
+          list in the hero rail. replaces the old decorative name marquee
+          with real internal links (good for humans and crawlers alike). */}
+      {publishedGames.length > 0 && (
+        <aside class="hero-roster hero-enter" style="--enter-delay: 320ms" aria-label={messages.chrome.nav.games}>
+          <span class="hero-roster-label">{messages.chrome.nav.games}</span>
+          <ul class="roster-list">
+            {publishedGames.map((game) => {
+              const webpSrc = getWebpSrc(game.artwork.src);
+              return (
+                <li>
+                  <a
+                    class="roster-item"
+                    href={getLocalePath(locale, game.slug)}
+                    style={`--cover: url('${game.artwork.src}')`}
+                  >
+                    <span class="roster-cover">
+                      <picture>
+                        {webpSrc && <source type="image/webp" srcset={webpSrc} />}
+                        <img
+                          src={game.artwork.src}
+                          alt=""
+                          width={game.artwork.width}
+                          height={game.artwork.height}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </picture>
+                    </span>
+                    <span class="roster-text">
+                      <span class="roster-name">{game.name}</span>
+                      <span class="roster-genre">{game.genreLabel}</span>
+                    </span>
+                    <svg class="roster-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="13" height="13">
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </aside>
+      )}
+    </div>
   </section>
 
-  <div class="stat-bento" aria-label={page.statsAriaLabel}>
-    <div class="stat-feature" data-reveal>
-      <div class="stat-feature-inner">
-        <span class="stat-feature-label">{page.stats.cumulativeVisits.label}</span>
-        <span
-          class="stat-feature-value"
-          data-counter={totalVisits}
-          data-counter-format="auto"
-          data-counter-fallback="-"
-        >{visitsText}</span>
-        <p class="stat-feature-copy">{page.stats.cumulativeVisits.copy}</p>
-      </div>
+  {/* stats as a single slim band instead of three competing boxes. one
+      row, divider-separated, counters roll up on scroll. */}
+  <div class="stat-strip" aria-label={page.statsAriaLabel}>
+    <div class="stat-cell" data-reveal data-reveal-i="1">
+      <span
+        class="stat-cell-value"
+        data-counter={totalVisits}
+        data-counter-format="auto"
+        data-counter-fallback="-"
+      >{visitsText}</span>
+      <span class="stat-cell-label">{page.stats.cumulativeVisits.label}</span>
     </div>
-    <div class="stat-supporting">
-      <div class="stat-tile" data-reveal data-reveal-i="1">
-        <span class="stat-tile-label">{page.stats.liveGames.label}</span>
-        <span
-          class="stat-tile-value"
-          data-counter={publishedGameCount}
-          data-counter-format="none"
-          data-counter-fallback="-"
-        >{publishedGameCount > 0 ? String(publishedGameCount) : '-'}</span>
-        <p class="stat-tile-copy">{page.stats.liveGames.copy}</p>
-      </div>
-      <div class="stat-tile" data-reveal data-reveal-i="2">
-        <span class="stat-tile-label">{page.stats.updatesShipped.label}</span>
-        <span
-          class="stat-tile-value"
-          data-counter={totalUpdates}
-          data-counter-format="plus"
-          data-counter-fallback="-"
-        >{updatesText}</span>
-        <p class="stat-tile-copy">{page.stats.updatesShipped.copy}</p>
-      </div>
+    <div class="stat-cell" data-reveal data-reveal-i="2">
+      <span
+        class="stat-cell-value"
+        data-counter={publishedGameCount}
+        data-counter-format="none"
+        data-counter-fallback="-"
+      >{publishedGameCount > 0 ? String(publishedGameCount) : '-'}</span>
+      <span class="stat-cell-label">{page.stats.liveGames.label}</span>
+    </div>
+    <div class="stat-cell" data-reveal data-reveal-i="3">
+      <span
+        class="stat-cell-value"
+        data-counter={totalUpdates}
+        data-counter-format="plus"
+        data-counter-fallback="-"
+      >{updatesText}</span>
+      <span class="stat-cell-label">{page.stats.updatesShipped.label}</span>
     </div>
   </div>
 </BaseLayout>

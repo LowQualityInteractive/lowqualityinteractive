@@ -55,8 +55,8 @@ const scriptHashes = scripts404.map(cspScriptHash).join(' ');
 const csp404 = [
   "default-src 'self'",
   `script-src 'self' ${scriptHashes}`,
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com",
+  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self'",
   "img-src 'self' data: https:",
   "connect-src 'self'",
   "base-uri 'self'",
@@ -76,9 +76,10 @@ const csp404 = [
   <meta http-equiv="Content-Security-Policy" content={csp404} />
   <title>{getSiteTitle(page.label)}</title>
   <meta name="description" content={page.description} />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  {/* self-hosted fonts (see global.css @font-face). preload the two
+      above-the-fold latin weights; no third-party font request. */}
+  <link rel="preload" href="/fonts/plus-jakarta-sans-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/png" href="/assets/logo.png" />
   <link rel="alternate" type="text/plain" title={english.meta.llmContextTitle} href="/llms.txt">
   <script is:inline set:html={cookiesBootstrap}></script>

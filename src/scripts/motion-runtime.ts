@@ -25,7 +25,6 @@ const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const hoverable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const easeEnter = [0.16, 1, 0.3, 1] as const;
 const easeReveal = [0.22, 1, 0.36, 1] as const;
-const easePop = [0.34, 1.45, 0.5, 1] as const;
 
 // motion one commits the final keyframe values to inline styles when an
 // animation ends (transform, opacity). inline beats class selectors, so
@@ -51,7 +50,7 @@ const tweenContentSwap = (root: HTMLElement, mutate: () => void) => {
       transform: ['translate3d(0, 0, 0) scale(1)', 'translate3d(0, -8px, 0) scale(0.985)'],
       filter: ['blur(0px)', 'blur(2px)'],
     },
-    { duration: 0.45, ease: [0.4, 0, 1, 1] },
+    { duration: 0.22, ease: [0.4, 0, 1, 1] },
   ).finished.then(() => {
     mutate();
     root.style.opacity = '0';
@@ -64,7 +63,7 @@ const tweenContentSwap = (root: HTMLElement, mutate: () => void) => {
         transform: ['translate3d(0, 12px, 0) scale(0.985)', 'translate3d(0, 0, 0) scale(1)'],
         filter: ['blur(2px)', 'blur(0px)'],
       },
-      { duration: 0.9, ease: easeEnter },
+      { duration: 0.44, ease: easeEnter },
     ).finished.then(() => {
       root.style.opacity = '';
       root.style.transform = '';
@@ -84,16 +83,16 @@ window.__lqiMotion = {
     if (children.length === 0) return;
     children.forEach((child) => {
       child.style.opacity = '0';
-      child.style.transform = 'translate3d(0, 16px, 0) scale(0.98)';
+      child.style.transform = 'translate3d(0, 14px, 0) scale(0.985)';
       child.style.willChange = 'opacity, transform';
     });
     animate(
       children,
       {
         opacity: [0, 1],
-        transform: ['translate3d(0, 16px, 0) scale(0.98)', 'translate3d(0, 0, 0) scale(1)'],
+        transform: ['translate3d(0, 14px, 0) scale(0.985)', 'translate3d(0, 0, 0) scale(1)'],
       },
-      { duration: 0.95, delay: stagger(0.11), ease: easeEnter },
+      { duration: 0.5, delay: stagger(0.05), ease: easeEnter },
     ).finished.then(() => {
       children.forEach(releaseToCSS);
     });
@@ -115,21 +114,22 @@ if (heroChildren.length > 0) {
     heroChildren.forEach(releaseToCSS);
   } else {
     // pin start transform so the spring has somewhere to come from.
-    // opacity stays at 1 throughout. 60px is movement you can see.
+    // opacity stays at 1 throughout. 24px is enough movement to read
+    // without dragging the entrance out.
     heroChildren.forEach((el) => {
-      el.style.transform = 'translate3d(0, 60px, 0) scale(0.92)';
+      el.style.transform = 'translate3d(0, 24px, 0) scale(0.97)';
     });
     animate(
       heroChildren,
       {
         transform: [
-          'translate3d(0, 60px, 0) scale(0.92)',
+          'translate3d(0, 24px, 0) scale(0.97)',
           'translate3d(0, 0, 0) scale(1)',
         ],
       },
       {
-        duration: 2.2,
-        delay: stagger(0.22, { startDelay: 0.1 }),
+        duration: 0.78,
+        delay: stagger(0.08, { startDelay: 0.04 }),
         ease: easeEnter,
       },
     ).finished.then(() => {
@@ -177,7 +177,7 @@ if (reveals.length > 0) {
     // inline styles are the only thing shaping the start state.
     reveals.forEach((el) => {
       el.style.opacity = '0';
-      el.style.transform = 'translate3d(0, 70px, 0) scale(0.94)';
+      el.style.transform = 'translate3d(0, 26px, 0) scale(0.97)';
       el.style.willChange = 'opacity, transform';
     });
     reveals.forEach((el) => {
@@ -190,12 +190,12 @@ if (reveals.length > 0) {
             {
               opacity: [0, 1],
               transform: [
-                'translate3d(0, 70px, 0) scale(0.94)',
+                'translate3d(0, 26px, 0) scale(0.97)',
                 'translate3d(0, 0, 0) scale(1)',
               ],
             },
             {
-              duration: 1.9,
+              duration: 0.62,
               ease: easeReveal,
             },
           ).finished.then(() => {
@@ -256,7 +256,7 @@ counters.forEach((el) => {
         obj,
         { v: target },
         {
-          duration: Math.min(3.8, 1.8 + Math.log10(target + 1) * 0.36),
+          duration: Math.min(1.8, 0.9 + Math.log10(target + 1) * 0.22),
           ease: easeReveal,
           onUpdate: (latest) => {
             el.textContent = formatCounter(latest as number, mode);
@@ -264,15 +264,20 @@ counters.forEach((el) => {
         },
       ).finished.then(() => {
         el.textContent = formatCounter(target, mode);
-        // pop the final value so it lands with weight, then hand the
-        // committed inline transform back to css so an inner-element
-        // hover (.stat-tile:hover .stat-tile-value etc) can still apply.
+        // landing flourish: a brief brand-tinted flash that fades in to
+        // the resting colour, instead of a scale bump. no transform, so
+        // nothing reflows and inner-element hovers keep working. we read
+        // the live brand + resting colour so it tracks the active theme.
+        const brand =
+          getComputedStyle(document.documentElement).getPropertyValue('--brand').trim() || '#b54343';
+        const rest = getComputedStyle(el).color;
         animate(
           el,
-          { transform: ['scale(1)', 'scale(1.08)', 'scale(1)'] },
-          { duration: 0.9, ease: easePop },
+          { color: [brand, rest], opacity: [0.5, 1] },
+          { duration: 0.5, ease: easeReveal },
         ).finished.then(() => {
-          el.style.transform = '';
+          el.style.color = '';
+          el.style.opacity = '1';
         });
       });
       return undefined;
@@ -326,7 +331,7 @@ if (hoverable && !reduce) {
       animate(
         el,
         { '--mx': [fromX, '0px'], '--my': [fromY, '0px'] },
-        { duration: 0.55, ease: easeEnter },
+        { duration: 0.34, ease: easeEnter },
       );
     });
   });

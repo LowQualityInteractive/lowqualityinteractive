@@ -71,14 +71,12 @@ const projects = getInWorkProjects(locale);
               />
             </picture>
           </a>
+          {/* status as a colour-coded corner tab clipped to the cover -
+              the colour is the signal, no frosted box or diamond. */}
+          <span class={'game-status-tag game-status-tag--' + game.status}>{statusLabel}</span>
         </div>
         <div class="game-card-body">
-          <div class="game-card-meta">
-            <span class="pill">{game.genreLabel}</span>
-            <span class={'game-status-dot game-status-dot--' + game.status} title={statusLabel}>
-              <span class="game-status-label">{statusLabel}</span>
-            </span>
-          </div>
+          <span class="pill">{game.genreLabel}</span>
           <h2>
             <a class="game-card-title-link" href={getGameHref(locale, game)}>{game.name}</a>
           </h2>
@@ -86,18 +84,22 @@ const projects = getInWorkProjects(locale);
           <span class="game-player-count" hidden></span>
         </div>
         <div class="game-card-footer">
-          {/* three "play" buttons all share the same visible label.
-              the aria-label tells screen readers which game each one
-              actually launches, otherwise it's just three doors. */}
-          <a class="button primary button-play" target="_blank" rel="noopener noreferrer" href={game.robloxUrl} aria-label={interpolate(page.playGameOn, { game: game.name })}>{page.playGame}</a>
-          <a class="button ghost" href={getGameUpdateHref(locale, game)}>{page.updates}</a>
-          <a class="button ghost" href={getGameAboutPath(locale, game)}>{page.about}</a>
-          {/* surface the wiki entry-point from the catalog page so the
-              wiki hub gets an internal link from one extra surface,
-              improving crawler discovery beyond the per-game about page. */}
-          {hasWiki(game.slug) && (
-            <a class="button ghost" href={getWikiHubHref(locale, game.slug)}>Wiki</a>
-          )}
+          <a class="button primary button-play" target="_blank" rel="noopener noreferrer" href={game.robloxUrl} aria-label={interpolate(page.playGameOn, { game: game.name })}>
+            <span>{page.playGame}</span>
+            <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          {/* secondary actions as compact text links - keeps the internal
+              updates/about/wiki links (crawler discovery) without three
+              extra buttons crowding the card under the play CTA. */}
+          <div class="game-card-links">
+            <a href={getGameUpdateHref(locale, game)}>{page.updates}</a>
+            <a href={getGameAboutPath(locale, game)}>{page.about}</a>
+            {hasWiki(game.slug) && (
+              <a href={getWikiHubHref(locale, game.slug)}>Wiki</a>
+            )}
+          </div>
         </div>
       </article>
       );

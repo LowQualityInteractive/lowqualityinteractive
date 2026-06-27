@@ -48,7 +48,7 @@ function applySecurityHeaders(headers: Headers): void {
   setIfMissing('Referrer-Policy', 'strict-origin-when-cross-origin');
   setIfMissing(
     'Permissions-Policy',
-    'camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()',
+    'camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=(), browsing-topics=()',
   );
   // CSP frame-ancestors only takes effect as a real header (the meta tag
   // version is ignored by browsers per spec). leave the meta CSP alone so

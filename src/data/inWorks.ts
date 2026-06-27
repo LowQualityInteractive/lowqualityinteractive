@@ -9,6 +9,7 @@ export interface InWorkProject {
 
 const REDACTION_LENGTHS = {
   'crowns-of-steel': 131,
+  'operation-five-siege': 118,
 } as const;
 
 export function getInWorkProjects(locale: Locale): InWorkProject[] {

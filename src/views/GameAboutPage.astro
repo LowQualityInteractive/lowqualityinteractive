@@ -114,8 +114,12 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
     </div>
   </section>
 
-  <section class="game-presence" data-reveal data-game-id={game.id} aria-label={`${game.name} at a glance`}>
-    <div class="game-presence-art">
+  <section class="game-detail" data-reveal data-game-id={game.id} aria-label={`${game.name} at a glance`}>
+    {/* cinematic cover banner. the glass status tag is the same component
+        the game cards use, so the catalogue and the detail page speak the
+        same visual language. */}
+    <div class="game-cover">
+      <span class={'game-status-tag game-status-tag--' + game.status}>{statusLabel}</span>
       <picture>
         {heroWebpSrc && (
           <source type="image/webp" srcset={heroWebpSrc} />
@@ -131,69 +135,92 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
           data-fade
         />
       </picture>
-    </div>
-    <aside class="game-presence-meta">
-      <dl class="game-presence-meta-grid">
-        <div>
-          <dt>{aboutLabels.platform}</dt>
-          <dd>Roblox</dd>
-        </div>
-        <div>
-          <dt>{aboutLabels.status}</dt>
-          <dd><span class={game.status === 'live' ? 'accent' : ''}>{statusLabel}</span></dd>
-        </div>
-        <div>
-          <dt>{aboutLabels.genre}</dt>
-          <dd>{game.genreLabel}</dd>
-        </div>
-        <div>
-          <dt>{aboutLabels.developer}</dt>
-          <dd>{SITE_NAME}</dd>
-        </div>
-        {/* extra spec cells, only rendered when the data exists. answers
-            "people also ask" and AI-extractor questions about player
-            count, age suitability, release year, language without
-            needing the FAQ block. each cell is a single short string -
-            no localization needed for the values, only the dt labels. */}
-        {aboutData.numberOfPlayers && (
-          <div>
-            <dt>Players</dt>
-            <dd>Up to {aboutData.numberOfPlayers}</dd>
-          </div>
-        )}
-        {aboutData.audience && (
-          <div>
-            <dt>Age</dt>
-            <dd>{aboutData.audience}</dd>
-          </div>
-        )}
-        {aboutData.releaseYear && (
-          <div>
-            <dt>Released</dt>
-            <dd>{aboutData.releaseYear}</dd>
-          </div>
-        )}
-      </dl>
-      {game.universeId && (
-        <div class="game-presence-live">
-          <span class="game-presence-live-label">Now playing</span>
-          {/* live.ts targets [data-game-id] > .game-player-count and
-              writes the localized "{n} playing" text into it. we render
-              "-" up front to reserve the row so the layout doesn't jump
-              when the data finally lands. */}
-          <span class="game-presence-live-value game-player-count" data-translatable>-</span>
+      {/* official links live on the cover as glass quick-link chips -
+          poster style - instead of a separate headed section in the body.
+          external links get a diagonal arrow, internal ones a forward one. */}
+      {aboutData.links.length > 0 && (
+        <div class="game-cover-links">
+          {aboutData.links.map((link) => (
+            <a
+              class="game-cover-link"
+              href={link.href}
+              target={link.external ? '_blank' : undefined}
+              rel={link.external ? 'noopener noreferrer' : undefined}
+            >
+              <span data-translatable>{link.label}</span>
+              {link.external ? (
+                <svg class="game-cover-link-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="12" height="12">
+                  <path d="M6 3h7v7M13 3 4.5 11.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              ) : (
+                <svg class="game-cover-link-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="12" height="12">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              )}
+            </a>
+          ))}
         </div>
       )}
-    </aside>
+    </div>
+    {/* spec strip: frameless label/value cells beneath the banner instead
+        of a bordered side card. each optional cell answers a "people also
+        ask"/AI-extractor question (players, age, release year) without the
+        FAQ. only the first four dt labels are localized; the rest are
+        short english values. */}
+    <dl class="game-specs">
+      <div class="game-spec">
+        <dt>{aboutLabels.platform}</dt>
+        <dd>Roblox</dd>
+      </div>
+      <div class="game-spec">
+        <dt>{aboutLabels.status}</dt>
+        <dd>{statusLabel}</dd>
+      </div>
+      <div class="game-spec">
+        <dt>{aboutLabels.genre}</dt>
+        <dd>{game.genreLabel}</dd>
+      </div>
+      <div class="game-spec">
+        <dt>{aboutLabels.developer}</dt>
+        <dd>{SITE_NAME}</dd>
+      </div>
+      {aboutData.numberOfPlayers && (
+        <div class="game-spec">
+          <dt>Players</dt>
+          <dd>Up to {aboutData.numberOfPlayers}</dd>
+        </div>
+      )}
+      {aboutData.audience && (
+        <div class="game-spec">
+          <dt>Age</dt>
+          <dd>{aboutData.audience}</dd>
+        </div>
+      )}
+      {aboutData.releaseYear && (
+        <div class="game-spec">
+          <dt>Released</dt>
+          <dd>{aboutData.releaseYear}</dd>
+        </div>
+      )}
+      {game.universeId && (
+        <div class="game-spec game-spec--live">
+          <dt>Now playing</dt>
+          {/* live.ts targets [data-game-id] .game-player-count and writes
+              the localized "{n} playing" text in. "-" reserves the row so
+              nothing jumps when the live number lands. */}
+          <dd class="game-player-count" data-translatable>-</dd>
+        </div>
+      )}
+    </dl>
   </section>
 
   <section class="about-details">
 
     {(() => {
       // skip any media entry whose src matches the hero artwork. the
-      // .game-presence section above already shows that image, and
-      // rendering it twice gave us a satisfying-but-bad stack of
-      // identical thumbnails.
+      // .game-cover banner above already shows that image, and rendering
+      // it twice gave us a satisfying-but-bad stack of identical
+      // thumbnails.
       const dedupedMedia = aboutData.media.filter((item) => item.src !== game.artwork.src);
       return dedupedMedia.length > 0 && (
         <div class="about-media">
@@ -241,24 +268,6 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
           </div>
         )}
       </>
-    )}
-
-    {aboutData.links.length > 0 && (
-      <div class="about-links" data-reveal data-reveal-i="2">
-        <h2>{aboutLabels.linksHeading}</h2>
-        <ul>
-          {aboutData.links.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                target={link.external ? '_blank' : undefined}
-                rel={link.external ? 'noopener noreferrer' : undefined}
-                data-translatable
-              >{link.label}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
     )}
 
     {/* codes section. high-traffic AI-citation surface in the roblox

@@ -260,6 +260,10 @@
       "crowns-of-steel": {
         "name": "Crowns of Steel",
         "genre": "Strategy"
+      },
+      "operation-five-siege": {
+        "name": "qwerty's Operation Five: Siege",
+        "genre": "Tactical Shooter"
       }
     }
   }
