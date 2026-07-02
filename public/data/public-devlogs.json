@@ -6,6 +6,25 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v5.3.1",
+          "version": "v5.3.1",
+          "date": "5/21/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [],
+            "changes": [
+              "Refined the M60."
+            ],
+            "bugs": [],
+            "removals": [
+              "Removed Callouts in favor of the new Quick Chat system."
+            ],
+            "misc": [],
+            "footnotes": []
+          }
+        },
+        {
           "id": "eradication-v5.3",
           "version": "v5.3",
           "date": "5/21/26",
