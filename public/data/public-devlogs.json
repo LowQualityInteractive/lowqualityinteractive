@@ -6,6 +6,30 @@
       "tag": "ERADICATION update",
       "updates": [
         {
+          "id": "eradication-v6",
+          "version": "v6",
+          "date": "7/21/26",
+          "image": "assets/null",
+          "imageAlt": "ERADICATION update screenshot",
+          "contents": {
+            "new": [
+              "Added RGB color support to vehicle deployment settings.",
+              "Expanded the vehicle color pool with additional color options."
+            ],
+            "changes": [
+              "Revamped the M1911.",
+              "Completely overhauled the UI system, both mechanically and visually, establishing a new UI identity for ERADICATION.",
+              "General bug fixes and improvements."
+            ],
+            "bugs": [],
+            "removals": [],
+            "misc": [],
+            "footnotes": [
+              "Mobile and console may not be fully supported yet, but will be in the next update."
+            ]
+          }
+        },
+        {
           "id": "eradication-v5.3.1",
           "version": "v5.3.1",
           "date": "5/21/26",
