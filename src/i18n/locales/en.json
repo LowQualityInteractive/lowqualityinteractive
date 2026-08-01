@@ -16,8 +16,16 @@
       "connect": "Connect"
     },
     "theme": {
-      "toDark": "Switch to dark mode",
-      "toLight": "Switch to light mode"
+      "label": "Theme",
+      "day": "Day",
+      "system": "System",
+      "night": "Night"
+    },
+    "motion": {
+      "label": "Motion",
+      "motion": "Full motion",
+      "reduced": "Reduced motion",
+      "none": "No motion"
     },
     "mobileNav": {
       "open": "Open menu",
@@ -35,14 +43,13 @@
     },
     "live": {
       "players": "{n} playing",
-      "online": "{n} online",
       "updateBadgeLabel": "New update"
     },
     "translateToast": {
       "label": "Loading language"
     },
     "footer": {
-      "tagline": "Shipping since 2024. Finishing never.",
+      "tagline": "we just making stuff and somehow it works",
       "siteHeading": "Site",
       "connectHeading": "Connect",
       "businessInquiries": "Business inquiries",
@@ -65,10 +72,10 @@
   "pages": {
     "home": {
       "label": "Home",
-      "description": "Low Quality Interactive, maker of ERADICATION and Favela '94.",
-      "kicker": "tuffest games oat",
-      "heading": "We've been underdelivering since forever.",
-      "lead": "we genuinely genuinely make extremely niche roblox games.",
+      "description": "Low Quality Interactive, we make random games",
+      "kicker": "Low Quality Interactive",
+      "heading": "we make extremely niche roblox games",
+      "lead": "we make extremely niche roblox games",
       "exploreGames": "See games",
       "readUpdates": "Read updates",
       "statsAriaLabel": "Studio stats",
@@ -89,10 +96,10 @@
     },
     "games": {
       "label": "Games",
-      "description": "The full LQI Roblox catalog: ERADICATION (live), Favela '94 (preview), DON POLLO OBBY (sunset), and things we haven't announced including Crowns of Steel.",
-      "kicker": "technically playable",
-      "heading": "Dead games and trash projects",
-      "lead": "tap a live game to open its page. tap update for the latest patch note.",
+      "description": "This catalog contains all LQI Roblox games: ERADICATION, Favela '94, and DON POLLO OBBY. It also lists unannounced projects such as Crowns of Steel.",
+      "kicker": "Game catalog",
+      "heading": "Games",
+      "lead": "Open a game page for details. Open its update history for release notes.",
       "liveGamesHeading": "Live games",
       "viewAllUpdates": "All updates ->",
       "gameListAriaLabel": "Game list",
@@ -105,15 +112,15 @@
       "classified": "Classified",
       "projectsAriaLabel": "In development",
       "unannounced": "Unannounced",
-      "descriptionRedacted": "we are working on this. probably.",
+      "descriptionRedacted": "This project is in development.",
       "classifiedStamp": "CLASSIFIED"
     },
     "blogs": {
       "label": "Updates",
       "description": "Devlogs and patch notes for our Roblox games. Pick a game to read its full update history.",
-      "kicker": "dead updates",
-      "heading": "Update logs",
-      "lead": "pick a game.",
+      "kicker": "Release history",
+      "heading": "Updates",
+      "lead": "Select a game to read its updates.",
       "chooseDevlogAriaLabel": "Choose a devlog",
       "gameDevlogsHeading": "Updates",
       "loadingGames": "Loading games…",
@@ -123,12 +130,12 @@
     "connect": {
       "label": "Connect",
       "description": "Where to find us: Discord, X, YouTube, the Roblox community group, and contact@lowqualityinteractive.com for business.",
-      "kicker": "please dont connect with us",
-      "heading": "Connect with us",
-      "lead": "we read everything. we reply to some of it.",
+      "kicker": "Official channels",
+      "heading": "Connect",
+      "lead": "Use these official channels to follow or contact Low Quality Interactive.",
       "platformsAriaLabel": "Platforms",
       "businessHeading": "Business inquiries",
-      "businessLead": "for partnerships, business stuff, or content concerns, including copyright.",
+      "businessLead": "Use this email for partnerships, business requests, copyright, or content concerns.",
       "copyEmailAriaLabel": "Copy email address",
       "copy": "Copy",
       "copied": "Copied"
@@ -156,13 +163,13 @@
         "qHowToPlay": "How does {game} play?",
         "qWhoMade": "Who made {game}?",
         "qPlayers": "How many players can play {game} at once?",
-        "qUpdates": "Is {game} still being updated?",
+        "qUpdates": "Does Low Quality Interactive still update {game}?",
         "aFree": "Yes. {game} is free to play on Roblox. Optional gamepasses may be available in-game.",
         "aPlatforms": "{game} runs on every Roblox-supported platform: PC (Windows, macOS), mobile (iOS, Android), and Xbox.",
-        "aWhoMade": "{game} is developed and published by Low Quality Interactive.",
+        "aWhoMade": "Low Quality Interactive develops and publishes {game}.",
         "aPlayersGeneric": "{game} is a multiplayer experience on Roblox.",
         "aPlayersCount": "{game} supports {n} players per session.",
-        "aStatusLive": "{game} is live on Roblox and in active development. Patch notes and devlogs are posted on the Updates page.",
+        "aStatusLive": "{game} is live on Roblox and in active development. Low Quality Interactive publishes patch notes and devlogs on the Updates page.",
         "aStatusPreview": "{game} is currently in preview. The game is playable on Roblox while we iterate on it.",
         "aStatusSunset": "{game} is sunset. playable, but no longer in active development."
       }
@@ -215,14 +222,14 @@
           "PvPvE",
           "Strategy"
         ],
-        "description": "team-based territory shooter. take the town back from furries.",
-        "pageDescription": "ERADICATION is a team shooter on Roblox by Low Quality Interactive. take the town back from the Furries. free to play.",
-        "pageLead": "fight through the furries. survive as long as you can.",
+        "description": "ERADICATION is a team shooter in which contractors recover territory from the Furries.",
+        "pageDescription": "ERADICATION is a free team shooter on Roblox by Low Quality Interactive. Contractors recover a town from the Furries.",
+        "pageLead": "Contractors fight the Furries and recover six territories.",
         "artworkAlt": "ERADICATION battlefield artwork",
         "updateTag": "ERADICATION update",
         "updateImageAlt": "ERADICATION update image",
-        "faqWhatIs": "ERADICATION is a team shooter on Roblox. you play a contractor. the town's overrun by Furries. you take it back.",
-        "faqHowToPlay": "two teams. seven flags. take six of them off the Furries and a tunnel opens up under the town. don't stand on a Pimple when it dies."
+        "faqWhatIs": "ERADICATION is a team shooter on Roblox. The player is a contractor who must recover a town from the Furries.",
+        "faqHowToPlay": "The map has seven flags. Recover the six Furry flags to open the tunnel. Keep away from a dead Pimple Furry."
       },
       "donpollo-obby": {
         "genreLabel": "Obby",
@@ -230,13 +237,13 @@
           "Platformer",
           "Obby"
         ],
-        "description": "another low quality classic.",
-        "pageDescription": "DON POLLO OBBY is a Roblox obby by Low Quality Interactive. sunset. another low quality classic.",
-        "pageLead": "obstacle chaos. fast restarts. speedrun routes if you want them.",
+        "description": "DON POLLO OBBY is a short obstacle course with low-difficulty stages.",
+        "pageDescription": "DON POLLO OBBY is a Roblox obstacle course by Low Quality Interactive. The game is in sunset status but remains available.",
+        "pageLead": "The game has short stages, fast restarts, and speedrun routes.",
         "artworkAlt": "Don Pollo Obby floating course artwork",
         "updateTag": "DON POLLO OBBY update",
         "updateImageAlt": "DON POLLO OBBY update image",
-        "faqWhatIs": "DON POLLO OBBY is a Roblox obby. sunset. still playable. another low quality classic."
+        "faqWhatIs": "DON POLLO OBBY is a short obstacle course on Roblox. The game is in sunset status, but players can still use it."
       },
       "favela-94": {
         "genreLabel": "Tactical Shooter",
@@ -246,14 +253,14 @@
           "Tactical",
           "PvP"
         ],
-        "description": "close-quarters tactical shooter set in the favelas of 1994.",
-        "pageDescription": "Favela '94 is a tactical Roblox shooter set in 1994 Rio. by Low Quality Interactive. preview.",
-        "pageLead": "alleys, rooftops, close range fights.",
+        "description": "Favela '94 is a tactical shooter that takes place in a Brazilian favela in 1994.",
+        "pageDescription": "Favela '94 is a tactical Roblox shooter by Low Quality Interactive. The game takes place in Rio de Janeiro in 1994.",
+        "pageLead": "The map has narrow alleys, accessible rooftops, and short-range combat.",
         "artworkAlt": "Favela '94 cover art - armed operators in a 1994 Rio favela alley",
         "updateTag": "Favela '94 update",
         "updateImageAlt": "Favela '94 update image",
-        "faqWhatIs": "Favela '94 is a Roblox tactical shooter set in 1994 Rio. close-quarters, short rounds. preview.",
-        "faqHowToPlay": "alleys, rooftops, short fights. pick a loadout. don't peek the same angle twice."
+        "faqWhatIs": "Favela '94 is a tactical shooter on Roblox. The game has short rounds and takes place in Rio de Janeiro in 1994.",
+        "faqHowToPlay": "Select a loadout. Use the alleys and rooftops to move through the map. Change position after an enemy sees you."
       }
     },
     "inWorks": {

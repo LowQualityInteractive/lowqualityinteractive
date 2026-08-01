@@ -4,14 +4,12 @@ import {
   getGameBySlug,
   getGameAboutJsonLd,
   getGameFaqs,
-  getGameTitleDescriptor,
-  getGameUpdateHref,
   getWebpSrc,
 } from '../data/games';
 import { getGameAbout } from '../data/gameAbout';
 import { getGameCodes, getCodesLastVerified } from '../data/gameCodes';
 import { getSiteTitle, SITE_NAME, SOCIAL_LINKS } from '../data/site';
-import { getLocalePath, getMessages, interpolate, type Locale } from '../i18n/messages';
+import { getLocalePath, getMessages, type Locale } from '../i18n/messages';
 import { getWikiHubHref, hasWiki } from '../data/wiki';
 
 interface Props {
@@ -22,7 +20,6 @@ interface Props {
 const { locale, slug } = Astro.props;
 const messages = getMessages(locale);
 const page = messages.pages.game;
-const statusLabels = messages.chrome.status;
 const game = getGameBySlug(locale, slug);
 
 if (!game) {
@@ -31,9 +28,7 @@ if (!game) {
 
 // route is just /<slug> now - there's no separate /about subpath.
 const aboutRoutePath = game.slug;
-const statusLabel = statusLabels[game.status as keyof typeof statusLabels] ?? game.status;
 const aboutLabels = page.about ?? {
-  kicker: 'About this game',
   developer: 'Developer',
   platform: 'Platform',
   genre: 'Genre',
@@ -68,12 +63,12 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
 {/* canonical title: "<NAME> - <Roblox-qualified genre> by <Studio>".
     leads with the game name (highest serp weight), names roblox in
     the descriptor (helps win "<game> roblox" queries), and tails with
-    the studio so brand-qualified searches resolve here too. the "by
-    <studio>" clause comes from getSiteTitle adding " - <studio>", so
-    the visible separator stays consistent with the rest of the site. */}
+    the studio so brand-qualified searches resolve here too. the compact
+    title token comes from getSiteTitle, while the full studio name remains
+    in the metadata and visible page content. */}
 <BaseLayout
   locale={locale}
-  title={getSiteTitle(`${game.name} - ${getGameTitleDescriptor(game)}`)}
+  title={getSiteTitle(game.name)}
   description={game.pageDescription}
   currentPage="games"
   routePath={aboutRoutePath}
@@ -81,45 +76,19 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
   ogImage={game.artwork.src}
   ogImageAlt={game.artwork.alt}
 >
-  <section class="hero">
-    <span class="kicker hero-enter" style="--enter-delay: 40ms">{aboutLabels.kicker}</span>
+  <section class="hero game-about-hero">
+    <a class="game-back-link hero-enter" style="--enter-delay: 40ms" href={getLocalePath(locale, 'games')} aria-label={page.backToGames}>
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" width="16" height="16">
+        <path d="M13 8H3m4-4-4 4 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
     <h1 class="hero-enter" style="--enter-delay: 120ms">{game.name}</h1>
     <p class="lead hero-enter" style="--enter-delay: 220ms">{game.pageLead}</p>
-    <div class="cta-row hero-enter" style="--enter-delay: 300ms">
-      {/* the visible label is just "play". the aria-label spells out
-          the game + platform so screen readers know which "play" this is. */}
-      <a class="button primary button-play" data-magnetic target="_blank" rel="noopener noreferrer" href={game.robloxUrl} aria-label={interpolate(page.openGameOn, { game: game.name })}>
-        <span>{page.openGame}</span>
-        <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-      <a class="button ghost" href={getGameUpdateHref(locale, game)}>
-        <span>{page.latestUpdate}</span>
-        <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-      {hasWiki(slug) && (
-        <a class="button ghost" href={getWikiHubHref(locale, slug)}>
-          <span>Wiki</span>
-          <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      )}
-      <a class="button ghost" href={getLocalePath(locale, 'games')}>
-        <span>{page.backToGames}</span>
-      </a>
-    </div>
   </section>
 
   <section class="game-detail" data-reveal data-game-id={game.id} aria-label={`${game.name} at a glance`}>
-    {/* cinematic cover banner. the glass status tag is the same component
-        the game cards use, so the catalogue and the detail page speak the
-        same visual language. */}
-    <div class="game-cover">
-      <span class={'game-status-tag game-status-tag--' + game.status}>{statusLabel}</span>
+    {/* cinematic cover banner. */}
+    <div class="game-cover game-about-cover">
       <picture>
         {heroWebpSrc && (
           <source type="image/webp" srcset={heroWebpSrc} />
@@ -138,7 +107,7 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
       {/* official links live on the cover as glass quick-link chips -
           poster style - instead of a separate headed section in the body.
           external links get a diagonal arrow, internal ones a forward one. */}
-      {aboutData.links.length > 0 && (
+      {(aboutData.links.length > 0 || hasWiki(slug)) && (
         <div class="game-cover-links">
           {aboutData.links.map((link) => (
             <a
@@ -159,6 +128,14 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
               )}
             </a>
           ))}
+          {hasWiki(slug) && (
+            <a class="game-cover-link" href={getWikiHubHref(locale, slug)}>
+              <span>Wiki</span>
+              <svg class="game-cover-link-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="12" height="12">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          )}
         </div>
       )}
     </div>
@@ -170,11 +147,7 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
     <dl class="game-specs">
       <div class="game-spec">
         <dt>{aboutLabels.platform}</dt>
-        <dd>Roblox</dd>
-      </div>
-      <div class="game-spec">
-        <dt>{aboutLabels.status}</dt>
-        <dd>{statusLabel}</dd>
+        <dd>ROBLOX</dd>
       </div>
       <div class="game-spec">
         <dt>{aboutLabels.genre}</dt>
@@ -206,9 +179,9 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
         <div class="game-spec game-spec--live">
           <dt>Now playing</dt>
           {/* live.ts targets [data-game-id] .game-player-count and writes
-              the localized "{n} playing" text in. "-" reserves the row so
-              nothing jumps when the live number lands. */}
-          <dd class="game-player-count" data-translatable>-</dd>
+              the localized "{n} playing" text in. "0" keeps the row stable
+              when live presence is unavailable. */}
+          <dd class="game-player-count" data-translatable>0</dd>
         </div>
       )}
     </dl>
@@ -276,8 +249,10 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
         and mirrors the server-side RedeemCodeConfig table. when a game
         has no codes we just skip the whole section. */}
     {gameCodes && (
-      <div class="about-codes" data-reveal data-reveal-i="3" id="codes">
-        <h2>{game.name} codes</h2>
+      <details class="about-codes about-disclosure" data-reveal data-reveal-i="3" id="codes">
+        <summary class="about-disclosure-summary">
+          <span class="about-disclosure-title" role="heading" aria-level="2">{game.name} codes</span>
+        </summary>
         <p class="codes-lead">
           Active promotional codes for {game.name} on Roblox. Codes are case-sensitive and redeemed in-game.
           {codesLastVerified && (
@@ -346,7 +321,7 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
             This list is updated within hours of a new code drop.
           </p>
         </div>
-      </div>
+      </details>
     )}
 
     {/* visible faq block. the same Q/A pairs are emitted as FAQPage
@@ -359,8 +334,10 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
         answers are already in-language by the time they hit the dom.
         no runtime translator hooks needed here. */}
     {gameFaqs.length > 0 && (
-      <div class="about-faq" data-reveal data-reveal-i="3" id="faq">
-        <h2>{messages.pages.game.faq?.heading ?? 'Frequently asked'}</h2>
+      <details class="about-faq about-disclosure" data-reveal data-reveal-i="3" id="faq">
+        <summary class="about-disclosure-summary">
+          <span class="about-disclosure-title" role="heading" aria-level="2">{messages.pages.game.faq?.heading ?? 'Frequently asked'}</span>
+        </summary>
         <dl class="faq-list">
           {gameFaqs.map((faq) => (
             <details class="faq-item">
@@ -371,7 +348,7 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
             </details>
           ))}
         </dl>
-      </div>
+      </details>
     )}
 
     {/* per-game disambiguation hint targeted at AI extractors. only

@@ -11,7 +11,7 @@ import { getMotionBootstrap, getMotionScript } from '../scripts/motion';
 const english = getMessages('en');
 const page = english.pages.notFound;
 const cookiesBootstrap = sanitizeInlineScript(getCookiesBootstrap());
-const themeScript = sanitizeInlineScript(getThemeScript(english.chrome.theme));
+const themeScript = sanitizeInlineScript(getThemeScript());
 const siteScript = sanitizeInlineScript(
   getSiteScript(
     {
@@ -80,7 +80,9 @@ const csp404 = [
       above-the-fold latin weights; no third-party font request. */}
   <link rel="preload" href="/fonts/plus-jakarta-sans-latin-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/plus-jakarta-sans-latin-800.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/logo-96.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/logo.png" />
+  <link rel="apple-touch-icon" href="/assets/logo.png" />
   <link rel="alternate" type="text/plain" title={english.meta.llmContextTitle} href="/llms.txt">
   <script is:inline set:html={cookiesBootstrap}></script>
   <script is:inline set:html={themeScript}></script>

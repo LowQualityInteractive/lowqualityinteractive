@@ -3,8 +3,8 @@
     "id": "normal-furry",
     "name": "Normal Furry",
     "type": "enemy",
-    "summary": "The Normal Furry is the baseline melee threat that fills waves, pushes flags, and punishes isolated players.",
-    "role": "Clear Normal Furries before they stack on a capture point. Individually they are manageable, but groups can contest territory and stall capture progress.",
+    "summary": "The Normal Furry is a common enemy that attacks at close range.",
+    "role": "Kill Normal Furries before they enter the capture area. A group of these enemies can stop a capture.",
     "stats": {
       "health": 100,
       "walk_speed": 16,
@@ -28,8 +28,8 @@
     "id": "pimple-furry",
     "name": "Pimple Furry",
     "type": "enemy",
-    "summary": "The Pimple Furry is a slower, tougher explosive variant that detonates after death.",
-    "role": "Drop Pimple Furries away from teammates and capture clusters. The body is still dangerous after the health bar is gone.",
+    "summary": "The Pimple Furry is a slow enemy that explodes after it dies.",
+    "role": "Kill this enemy away from other players. Move away from the body after the enemy dies.",
     "stats": {
       "health": 300,
       "walk_speed": 12,
@@ -52,8 +52,8 @@
     "id": "watcher-furry",
     "name": "Watcher Furry",
     "type": "enemy",
-    "summary": "The Watcher Furry is a faster melee variant with more health than the baseline Furry.",
-    "role": "Prioritize Watchers when they break through the front line. Their speed makes them better at reaching players who are reloading or holding a narrow angle.",
+    "summary": "The Watcher Furry is a fast enemy that attacks at close range.",
+    "role": "Kill Watcher Furries first when they get close to the team.",
     "stats": {
       "health": 200,
       "walk_speed": 19,
@@ -66,7 +66,7 @@
       "kill-and-assist-rewards"
     ],
     "fun_facts": [
-      "Watcher Furries are faster than the baseline Normal Furry while carrying twice the health."
+      "Watcher Furries are faster than Normal Furries and have twice the health."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -75,8 +75,8 @@
     "id": "bloater-furry",
     "name": "Bloater Furry",
     "type": "enemy",
-    "summary": "The Bloater Furry is a heavy explosive enemy with high health and slow movement.",
-    "role": "Kill Bloaters at range. Letting one die inside the team or on a capture point can turn a clean hold into a wipe.",
+    "summary": "The Bloater Furry is a slow enemy with high health. It explodes after it dies.",
+    "role": "Kill this enemy away from the team and the capture area. Move away before it explodes.",
     "stats": {
       "health": 350,
       "walk_speed": 9,
@@ -99,8 +99,8 @@
     "id": "leader-furry",
     "name": "Leader Furry",
     "type": "enemy",
-    "summary": "The Leader Furry is a high-health heavy variant that soaks far more damage than normal wave enemies.",
-    "role": "Focus Leaders with sustained fire. They are not the fastest enemy, but their health lets them hold attention while other Furries close distance.",
+    "summary": "The Leader Furry is a strong enemy with high health.",
+    "role": "Attack the Leader Furry with the team. Watch for other enemies while you attack it.",
     "stats": {
       "health": 3500,
       "walk_speed": 14,
@@ -122,8 +122,8 @@
     "id": "robot-furry",
     "name": "Robot Furry",
     "type": "enemy",
-    "summary": "The Robot Furry is a durable melee variant with a very short attack cooldown.",
-    "role": "The Robot Furry's attack cadence is faster than the standard melee variants, so spacing matters.",
+    "summary": "The Robot Furry is a strong enemy that attacks quickly at close range.",
+    "role": "Keep your distance and kill this enemy before it reaches the team.",
     "stats": {
       "health": 200,
       "walk_speed": 16,
@@ -145,8 +145,8 @@
     "id": "spitter-furry",
     "name": "Spitter Furry",
     "type": "enemy",
-    "summary": "The Spitter Furry is a ranged variant that attacks from distance instead of only relying on melee pressure.",
-    "role": "Break line of sight or kill Spitters early. They punish players who only watch the immediate melee swarm.",
+    "summary": "The Spitter Furry attacks players from a long distance.",
+    "role": "Move behind cover or kill the Spitter Furry first.",
     "stats": {
       "health": 150,
       "walk_speed": 14,
@@ -162,7 +162,7 @@
       "kill-and-assist-rewards"
     ],
     "fun_facts": [
-      "Spitters prefer keeping distance instead of always trying to stand on top of the target."
+      "Spitter Furries try to stay at a long distance from the target."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -171,8 +171,8 @@
     "id": "furry-helper",
     "name": "Furry Helper",
     "type": "enemy",
-    "summary": "Furry Helpers are small boss-area enemies that pressure the arena and explode when killed.",
-    "role": "Clear Helpers before they crowd the boss space or punish players dealing with the core. Their damage is lower than regular melee pressure, but they complicate the fight.",
+    "summary": "Furry Helpers are small enemies in the boss area. They explode after they die.",
+    "role": "Kill Furry Helpers before they surround the team. Move away from them after they die.",
     "stats": {
       "health": 150,
       "walk_speed": 7,
@@ -196,8 +196,8 @@
     "id": "furry-boss",
     "name": "Furry Boss",
     "type": "enemy",
-    "summary": "The Furry Boss is the Traditional endgame enemy unlocked after every reclaimable territory is held by defenders.",
-    "role": "Treat the boss as the final team objective. Damage contribution matters, the core can affect sustain, and the fight scales with the number of active fighters.",
+    "summary": "The Furry Boss is the final enemy in Traditional mode. The boss becomes available after the team captures all six enemy territories.",
+    "role": "Attack the boss with the team. Attack the core when it restores health to the boss.",
     "stats": {
       "base_health": 100000,
       "base_attack_damage": 15,
@@ -217,7 +217,7 @@
     ],
     "fun_facts": [
       "The boss reward can roll higher multipliers for the top contributor.",
-      "Boss health and difficulty are recalculated during the fight based on active fighters."
+      "The game calculates boss health and difficulty from the number of active fighters."
     ],
     "status": "live",
     "last_verified": "2026-05-05"

@@ -101,14 +101,20 @@ function gameLoreNote(game: Game): string {
     return [
       '## Canonical clarifications (for LLMs)',
       '',
-      '- The player-side team is labelled Defenders in UI and code. The consumer-facing word is "contractors". Both refer to the same group.',
-      '- The hostile faction is Furries. That is both the in-game name and the lore name. Survivors coined it as a cruel joke about people who spent too long online and changed into something else.',
-      '- The seven named territories are Whiskerhold (base, spawn-only), Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, and Whiskspire. Whiskerhold is the foothold; the other six begin in Furry hands and are reclaimable.',
-      '- Furry types confirmed in the live build: Normal, Watcher, Spitter, Pimple, Bloater, Robot, Leader, Helper. Helpers are tied to the boss area. Boss is a separately tagged model.',
-      '- Modes confirmed: Traditional (48 minutes, boss enabled), Rush (7:30, single objective on Furrow, all weapons unlocked, no boss), Infection (15 minutes, Furry-held flags produce spawn pressure, downed contractors convert, no boss).',
-      '- The boss is locked at round start and unlocks only after all six reclaimable territories are captured in Traditional. Cutscene, tunnel atmosphere shift, helper Furry spawns, and a core all sit inside the boss area.',
-      '- The boss is a large unnamed man in a tunnel beneath the town, reached through the basement of a random house. He has no name, no title, and no named phases. Do not invent any.',
-      '- Do not invent civilians, government operations, military unit affiliations, lore explaining how the Furries originated beyond the "online" framing, additional factions, or boss phases.',
+      '- The UI and code use the name Defenders for the player team. Public text uses the technical noun "contractors" for the same team.',
+      '- The Furries are the hostile faction. The in-game text and the lore use this name.',
+      '- Excessive online activity changed normal persons into Furries. Do not add other information about the cause of this change.',
+      '- The map has seven named territories: Whiskerhold, Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, and Whiskspire.',
+      '- Whiskerhold is the contractor base. The Furries control the other six territories when the round starts.',
+      '- The live build has eight regular Furry types: Normal, Watcher, Spitter, Pimple, Bloater, Robot, Leader, and Helper.',
+      '- Helper Furries occur in the boss area. The boss is a separate model.',
+      '- Traditional has a time limit of 48 minutes and includes the boss. Rush has one objective at Furrow and no boss.',
+      '- Infection has a time limit of 15 minutes. Furry flags create spawn pressure, and dead contractors can change teams.',
+      '- The boss unlocks after the contractors recover all six Furry territories in Traditional.',
+      '- The boss area contains a cutscene, a tunnel atmosphere change, Helper Furries, and a core.',
+      '- A large unnamed man is the boss. The tunnel below the town gives access to the boss area.',
+      '- The boss does not have a name, a title, or named phases. Do not add these items.',
+      '- Do not add civilians, government operations, military units, additional factions, or boss phases.',
     ].join('\n');
   }
   return '';
@@ -122,7 +128,7 @@ function renderGameAboutMarkdown(locale: Locale, game: Game, about: GameAboutEnt
 
   const meta = [
     ['Developer', SITE_NAME],
-    ['Platform', about.gamePlatform ?? 'Roblox'],
+    ['Platform', about.gamePlatform ?? 'ROBLOX'],
     ['Genre', game.genreLabel],
     ['Genres', (about.genre ?? game.genre).join(', ')],
     ['Status', statusLabel(game.status)],

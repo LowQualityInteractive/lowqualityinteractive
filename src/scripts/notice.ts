@@ -11,7 +11,8 @@ export function getNoticeScript(messages: CookieNoticeMessages) {
 
   const TEXT = ${JSON.stringify(messages)};
 
-  // build the cookie banner. yes, the boring kind. that's literally the joke.
+  // Keep the notice quiet and compact. It only appears until the user chooses
+  // an option, then leaves without blocking the page.
   const banner = document.createElement('div');
   banner.className = 'cookie-banner';
   banner.setAttribute('role', 'region');
@@ -19,11 +20,6 @@ export function getNoticeScript(messages: CookieNoticeMessages) {
 
   const inner = document.createElement('div');
   inner.className = 'cookie-banner-inner';
-
-  const icon = document.createElement('div');
-  icon.className = 'cookie-banner-icon';
-  icon.setAttribute('aria-hidden', 'true');
-  icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>';
 
   const textWrap = document.createElement('div');
   textWrap.className = 'cookie-banner-text';
@@ -48,7 +44,7 @@ export function getNoticeScript(messages: CookieNoticeMessages) {
   dismissButton.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
 
   actions.append(acceptButton, dismissButton);
-  inner.append(icon, textWrap, actions);
+  inner.append(textWrap, actions);
   banner.appendChild(inner);
   document.body.appendChild(banner);
 
@@ -61,15 +57,13 @@ export function getNoticeScript(messages: CookieNoticeMessages) {
       }
     }
     banner.classList.add('is-hidden');
-    window.setTimeout(() => banner.remove(), 1000);
+    window.setTimeout(() => banner.remove(), 220);
   }
 
-  // wait a frame so the slide-in animates instead of snapping into place
-  // like a banner that has somewhere to be.
+  // One frame is enough to let the compact fade settle in without a large
+  // slide or a delayed entrance sequence.
   window.requestAnimationFrame(() => {
-    window.requestAnimationFrame(() => {
-      banner.classList.add('is-visible');
-    });
+    banner.classList.add('is-visible');
   });
 
   acceptButton.addEventListener('click', () => dismiss(true), { once: true });

@@ -16,8 +16,10 @@
       "connect": "Contacto"
     },
     "theme": {
-      "toDark": "Cambiar a modo oscuro",
-      "toLight": "Cambiar a modo claro"
+      "label": "Tema",
+      "day": "Día",
+      "system": "Sistema",
+      "night": "Noche"
     },
     "mobileNav": {
       "open": "Abrir menú de navegación",

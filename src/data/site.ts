@@ -3,7 +3,6 @@ import { execSync } from 'node:child_process';
 export const SITE_URL = 'https://lowqualityinteractive.com';
 export const SITE_NAME = 'Low Quality Interactive';
 export const CONTACT_EMAIL = 'contact@lowqualityinteractive.com';
-export const DISCORD_GUILD_ID = '1291532573960441907';
 
 export const SOCIAL_LINKS = {
   discord: 'https://discord.gg/G2J9rP5fBg',
@@ -44,11 +43,9 @@ export function toAbsoluteSiteUrl(path: string) {
   return new URL(path, SITE_URL).toString();
 }
 
-// page-first title convention: "<page> - <brand>". SEO best practice
-// puts the page-specific keyword at the front so it isn't truncated in
-// SERPs and so each page's title is distinctively unique on first read.
-// the em dash separator is friendlier than a pipe and reads naturally
-// when shown in browser tabs and share previews.
+// Keep browser titles compact while preserving a stable brand token. The
+// full studio name remains in descriptions, Open Graph metadata, and the
+// visible footer; short titles are easier to scan in tabs and SERPs.
 export function getSiteTitle(pageTitle: string) {
-  return `${pageTitle} - ${SITE_NAME}`;
+  return `${pageTitle} | LQI`;
 }

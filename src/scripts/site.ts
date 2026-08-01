@@ -293,9 +293,21 @@ export function getSiteScript(
 
   const themeToggle = document.getElementById('theme-toggle');
   if (themeToggle instanceof HTMLButtonElement && window.__lqiTheme) {
-    window.__lqiTheme.syncToggleButton();
+    const themeModes = ['light', 'system', 'dark'];
+    window.__lqiTheme.syncThemeControl();
     themeToggle.addEventListener('click', () => {
-      window.__lqiTheme?.toggle();
+      const currentIndex = themeModes.indexOf(window.__lqiTheme?.get() || 'system');
+      window.__lqiTheme?.set(themeModes[(currentIndex + 1) % themeModes.length]);
+    });
+  }
+
+  const motionToggle = document.getElementById('motion-toggle');
+  if (motionToggle instanceof HTMLButtonElement && window.__lqiMotionPreference) {
+    const motionModes = ['motion', 'reduced', 'none'];
+    window.__lqiMotionPreference.syncMotionControl();
+    motionToggle.addEventListener('click', () => {
+      const currentIndex = motionModes.indexOf(window.__lqiMotionPreference?.get() || 'motion');
+      window.__lqiMotionPreference?.set(motionModes[(currentIndex + 1) % motionModes.length]);
     });
   }
 

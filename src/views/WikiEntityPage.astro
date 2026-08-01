@@ -5,14 +5,12 @@ import { getSiteTitle } from '../data/site';
 import {
   getCategoryHref,
   getCategoryLabel,
-  getEntityPageTitle,
   getWikiCategory,
   getWikiEntity,
-  getWikiHubHref,
   isUnpublished,
   resolveRelated,
 } from '../data/wiki';
-import { getLocalePath, type Locale } from '../i18n/messages';
+import { type Locale } from '../i18n/messages';
 
 interface Props {
   locale: Locale;
@@ -32,12 +30,108 @@ const entity = getWikiEntity(gameSlug, categorySlug, entityId);
 if (!entity) throw new Error(`Unknown wiki entity: ${gameSlug}/${categorySlug}/${entityId}`);
 
 const label = getCategoryLabel(entity.type ?? category.category);
-const title = getSiteTitle(getEntityPageTitle(game.name, entity));
+const title = getSiteTitle(entity.name);
 const description = entity.summary;
 const related = resolveRelated(locale, gameSlug, entity);
 const statsEntries = entity.stats ? Object.entries(entity.stats) : [];
 const funFacts = entity.fun_facts ?? [];
 const unpublished = isUnpublished(entity);
+
+const STAT_LABELS: Record<string, string> = {
+  slot: 'Slot',
+  unlock: 'Access',
+  cash_required: 'Cash required',
+  xp_required: 'XP required',
+  health: 'Health',
+  walk_speed: 'Walk speed',
+  base_melee_damage: 'Melee damage',
+  ranged_damage: 'Ranged damage',
+  ranged_attack_range_studs: 'Ranged distance in studs',
+  helper_damage: 'Attack damage',
+  price_robux: 'Price in Robux',
+  active_vehicle_limit: 'Active vehicle limit',
+  extra_ammunition_canisters: 'Extra ammunition canisters',
+  source: 'Access',
+  consumed_on_use: 'Removed after use',
+  free_vehicle: 'Free vehicle',
+  default_active_limit: 'Standard vehicle limit',
+  expanded_active_limit: 'Expanded vehicle limit',
+  territories: 'Territories',
+  reclaimable_territories: 'Enemy territories',
+  base_territory: 'Contractor base',
+  rush_objective: 'Rush objective',
+  round_duration: 'Round time',
+  boss_enabled: 'Boss available',
+  rewards_enabled: 'Rewards available',
+  objective: 'Objective',
+  flag: 'Flag',
+  max_forward_speed: 'Forward speed',
+  max_backward_speed: 'Reverse speed',
+  max_health: 'Health',
+  driver_or_operator_seats: 'Driver and operator seats',
+  passenger_seats: 'Passenger seats',
+  weapons: 'Weapons',
+  aircraft: 'Aircraft',
+  one_defender_capture_time_seconds: 'Capture time with one contractor',
+  capture_cash_reward: 'Capture cash',
+  capture_xp_reward: 'Capture XP',
+  defense_interval_seconds: 'Defense reward interval',
+  defense_cash_reward: 'Defense cash',
+  defense_xp_reward: 'Defense XP',
+  contested_spawn_allowed: 'Spawn at a contested territory',
+  required_reclaimable_territories: 'Required territories',
+  mode: 'Mode',
+  base_core_health: 'Core health',
+  default_active_vehicle_limit: 'Standard vehicle limit',
+  expanded_active_vehicle_limit: 'Expanded vehicle limit',
+  resupply_cooldown_seconds: 'Resupply time',
+  instant_top_off: 'Fills ammunition',
+  repairs_to_max_health: 'Repairs to full health',
+  capture_cash: 'Capture cash',
+  capture_xp: 'Capture XP',
+  defense_cash: 'Defense cash',
+  defense_xp: 'Defense XP',
+  common_kill_cash_range: 'Common kill cash',
+  common_kill_xp_range: 'Common kill XP',
+  rare_kill_cash_range: 'Rare kill cash',
+  rare_kill_xp_range: 'Rare kill XP',
+  assist_cash_share: 'Assist cash share',
+  assist_xp_share: 'Assist XP share',
+  base_cash: 'Base cash',
+  base_xp: 'Base XP',
+  defeated_badge: 'Defeat badge',
+  daily_cash_base: 'Base daily cash',
+  daily_max_multiplier: 'Maximum daily multiplier',
+  plus_daily_cash_base: 'Base Plus cash',
+  plus_max_multiplier: 'Maximum Plus multiplier',
+  activity_minutes: 'Required play time',
+  xp_reward: 'XP reward',
+  claim_limit: 'Claim limit',
+  daily_group_xp: 'Daily group XP',
+  reward_weapon: 'Reward weapon',
+  invitee_cash: 'New player cash',
+  invitee_xp: 'New player XP',
+  referrer_cash: 'Inviter cash',
+  referrer_xp: 'Inviter XP',
+};
+
+const getStatLabel = (key: string) => STAT_LABELS[key] ?? key.replace(/_/g, ' ');
+const getStatValue = (value: string | number) => {
+  if (value === 'yes') return 'Yes';
+  if (value === 'no') return 'No';
+  return String(value);
+};
+
+const getVerifiedDate = (value: string) => {
+  const [year, month, day] = value.split('-').map(Number);
+  if (!year || !month || !day) return value;
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(Date.UTC(year, month - 1, day)));
+};
 ---
 
 <BaseLayout
@@ -49,31 +143,27 @@ const unpublished = isUnpublished(entity);
   ogImage={game.artwork.src}
   ogImageAlt={game.artwork.alt}
 >
-  <section class="hero">
+  <section class="hero wiki-template-hero wiki-entity-hero">
     {/* data-translatable hooks the mymemory runtime translator. proper
         names (game name, entity name) stay in their own untagged spans
         so the original brand text survives the translation pass. */}
-    <span class="kicker hero-enter" style="--enter-delay: 40ms" data-translatable>
-      {game.name} · {label.singular}
-    </span>
-    <h1 class="hero-enter" style="--enter-delay: 120ms">
+    <a
+      class="wiki-template-back-link hero-enter"
+      style="--enter-delay: 40ms"
+      href={getCategoryHref(locale, gameSlug, category.filename)}
+      aria-label={`Back to ${label.plural}`}
+    >
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" width="16" height="16">
+        <path d="M13 8H3m4-4-4 4 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <h1 class="hero-enter wiki-template-title" style="--enter-delay: 100ms">
       <span>{entity.name}</span>
       {unpublished && <span class="wiki-pill wiki-pill-unpub" data-translatable>Unpublished</span>}
       {entity.status === 'sunset' && <span class="wiki-pill" data-translatable>Sunset</span>}
       {entity.status === 'preview' && <span class="wiki-pill wiki-pill-preview" data-translatable>Preview</span>}
     </h1>
-    <p class="lead hero-enter" style="--enter-delay: 220ms" data-translatable>{entity.summary}</p>
-    <div class="cta-row hero-enter" style="--enter-delay: 300ms">
-      <a class="button ghost" href={getCategoryHref(locale, gameSlug, category.filename)}>
-        <span data-translatable>All {label.plural.toLowerCase()}</span>
-      </a>
-      <a class="button ghost" href={getWikiHubHref(locale, gameSlug)}>
-        <span data-translatable>Wiki home</span>
-      </a>
-      <a class="button ghost" href={getLocalePath(locale, gameSlug)}>
-        <span>{game.name}</span>
-      </a>
-    </div>
+    <p class="lead hero-enter" style="--enter-delay: 180ms" data-translatable>{entity.summary}</p>
   </section>
 
   {entity.role && (
@@ -85,7 +175,7 @@ const unpublished = isUnpublished(entity);
 
   {statsEntries.length > 0 && (
     <section class="wiki-section" data-reveal>
-      <h2 class="wiki-section-heading" data-translatable>Stats</h2>
+      <h2 class="wiki-section-heading" data-translatable>Info</h2>
       <dl class="wiki-stats">
         {statsEntries.map(([key, value]) => (
           <div class="wiki-stat">
@@ -93,8 +183,8 @@ const unpublished = isUnpublished(entity);
                 fire") that benefit from translation; values are
                 usually numbers/units, leave those as-is to avoid
                 mymemory turning "12" into something silly. */}
-            <dt data-translatable>{key.replace(/_/g, ' ')}</dt>
-            <dd>{String(value)}</dd>
+            <dt data-translatable>{getStatLabel(key)}</dt>
+            <dd>{getStatValue(value)}</dd>
           </div>
         ))}
       </dl>
@@ -144,7 +234,7 @@ const unpublished = isUnpublished(entity);
   <footer class="wiki-doc-footer" data-reveal>
     <p>
       <span data-translatable>Official documentation for {game.name}.</span>
-      {entity.last_verified && <span class="wiki-doc-verified"> · <span data-translatable>Last verified</span> <time datetime={entity.last_verified}>{entity.last_verified}</time></span>}
+      {entity.last_verified && <span class="wiki-doc-verified"> · <span data-translatable>Last verified</span> <time datetime={entity.last_verified}>{getVerifiedDate(entity.last_verified)}</time></span>}
     </p>
   </footer>
 </BaseLayout>

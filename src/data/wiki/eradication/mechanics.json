@@ -3,8 +3,8 @@
     "id": "territory-capture",
     "name": "Territory Capture",
     "type": "mechanic",
-    "summary": "Territory capture is the core objective system for flags, ownership, contesting, and territory rewards.",
-    "role": "Stand in a non-spawn-only flag area to build defender capture progress. Furries in the zone contest the flag, pause defender progress, and can drain captured progress when defenders are gone.",
+    "summary": "Territory capture is the main objective. A captured territory gives the team a new spawn location.",
+    "role": "Stand in the flag area to capture the territory. A Furry in the area stops your capture progress. The capture progress decreases when no contractor is in the area.",
     "stats": {
       "one_defender_capture_time_seconds": 30,
       "base_capture_increment_per_second": 0.03,
@@ -29,8 +29,8 @@
       "territory-rewards"
     ],
     "fun_facts": [
-      "With one defender and no Furries contesting, a neutral flag takes about 30 seconds to capture.",
-      "Empty neutral flags slowly lose progress instead of staying frozen forever."
+      "A neutral flag requires approximately 30 seconds when one contractor is present and no Furries contest it.",
+      "An empty neutral flag slowly loses capture progress."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -39,8 +39,8 @@
     "id": "deployment",
     "name": "Deployment",
     "type": "mechanic",
-    "summary": "Deployment controls which territories each team can spawn from during the match.",
-    "role": "Pick owned, uncontested territory to shorten the run back into combat. Losing a flag removes that forward spawn option for defenders, while contested flags temporarily block deployment.",
+    "summary": "Deployment lets you spawn at a territory that your team controls.",
+    "role": "Select a territory that your team controls. You cannot select a territory while enemies contest its flag.",
     "stats": {
       "base_spawn_points": 7,
       "contested_spawn_allowed": "no",
@@ -66,8 +66,8 @@
     "id": "furry-waves",
     "name": "Furry Waves",
     "type": "mechanic",
-    "summary": "Furry waves control enemy population, respawns, flag guarding, and mode pressure.",
-    "role": "Expect Furry pressure to scale with lobby size and mode. Furries can guard Furry-held flags, contest captures, and in Rush concentrate around Furrow.",
+    "summary": "Furry waves send groups of enemies against the team.",
+    "role": "The number of enemies changes with the mode and the number of players. In Rush, the enemies attack Furrow.",
     "stats": {
       "solo_population_range": "75-85",
       "small_population_range": "90-130",
@@ -93,7 +93,7 @@
       "m134-pass"
     ],
     "fun_facts": [
-      "Rush directs active Furries toward Furrow instead of spreading them across the full territory route."
+      "Rush sends active Furries to Furrow. It does not distribute them across the full territory route."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -102,8 +102,8 @@
     "id": "boss-unlock",
     "name": "Boss Unlock",
     "type": "mechanic",
-    "summary": "The boss route unlocks in Traditional after all six non-base territories are captured by defenders.",
-    "role": "Capture and hold Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, and Whiskspire to open the Traditional endgame.",
+    "summary": "The boss becomes available in Traditional mode after the team captures all six enemy territories.",
+    "role": "Capture Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, and Whiskspire. Hold these territories to start the boss fight.",
     "stats": {
       "required_reclaimable_territories": 6,
       "base_excluded": "yes",
@@ -121,7 +121,7 @@
       "boss-core"
     ],
     "fun_facts": [
-      "Whiskerhold is excluded from the boss unlock count because it is the starting base, not reclaimed ground."
+      "The boss unlock count does not include Whiskerhold because Whiskerhold is the initial base."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -130,8 +130,8 @@
     "id": "boss-core",
     "name": "Boss Core",
     "type": "mechanic",
-    "summary": "The boss core is part of the Traditional boss fight and can affect boss sustain while active.",
-    "role": "Pressure the core when the boss is regenerating too much or the team needs to reduce sustain before committing damage to the boss.",
+    "summary": "The boss core can restore health to the boss during the final fight.",
+    "role": "Attack the core to reduce the health that it gives to the boss.",
     "stats": {
       "base_core_health": 2500,
       "core_regen_percent_per_second": 0.01,
@@ -156,8 +156,8 @@
     "id": "rallydrop",
     "name": "RallyDrop Vehicle Call-In",
     "type": "mechanic",
-    "summary": "RallyDrop lets players call in usable vehicles near their position, with access depending on free tier, RallyDrop ownership, and the WWII vehicle pass.",
-    "role": "Use RallyDrop to solve distance, move squads, bring mounted firepower, and recover tempo after losing forward ground.",
+    "summary": "RallyDrop lets you call a vehicle to a nearby location. Your gamepasses control which vehicles you can call.",
+    "role": "Use RallyDrop to move the team or to use a vehicle weapon. You can have one active vehicle, or two with the Double Commander gamepass.",
     "stats": {
       "spawn_cooldown_seconds": 1,
       "spawn_radius_min_studs": 26,
@@ -191,8 +191,8 @@
     "id": "vehicle-resupply",
     "name": "Vehicle Resupply",
     "type": "mechanic",
-    "summary": "Vehicle resupply pads refill vehicle weapon ammo and restore vehicle health when a player-operated vehicle touches them.",
-    "role": "Drive damaged armed vehicles through resupply when they are still worth saving. It is especially valuable for armor and aircraft that carry limited vehicle ammo.",
+    "summary": "A vehicle resupply pad repairs a vehicle and fills its weapon ammunition.",
+    "role": "Drive a damaged vehicle onto a resupply pad. Wait for the pad to repair and resupply the vehicle.",
     "stats": {
       "refuel_pads": 3,
       "refuel_amount": 5,

@@ -1,3 +1,5 @@
-Favela '94 is a close-quarters tactical PvP shooter set in the alleys and rooftops of a 1994 Brazilian favela. fights are short and personal. map knowledge wins rounds.
+Favela '94 is a tactical player-versus-player shooter on Roblox. The game takes place in a Brazilian favela in 1994.
 
-public preview. it's rough. updates come often.
+The map has narrow alleys and accessible rooftops. Rounds are short, and knowledge of the map gives an advantage.
+
+The game is in public preview. The developer publishes frequent updates.

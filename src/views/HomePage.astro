@@ -2,8 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getHomeJsonLd, getPublishedGames, getWebpSrc, publishedGameCount } from '../data/games';
-import { SITE_NAME } from '../data/site';
+import { getGameBySlug, getHomeJsonLd } from '../data/games';
 import { getLocalePath, getMessages, type Locale } from '../i18n/messages';
 
 interface Props {
@@ -18,189 +17,122 @@ const page = messages.pages.home;
 // timeout caps the build wait if roblox stalls; non-2xx and non-json responses
 // are ignored so a hostile or broken upstream just shows '-' instead of a
 // silent regression.
-const UNIVERSE_IDS = '5788461409,7915083902';
-let totalVisits = 0;
-try {
-  const res = await fetch(`https://games.roblox.com/v1/games?universeIds=${UNIVERSE_IDS}`, {
-    headers: { Accept: 'application/json' },
-    signal: AbortSignal.timeout(8000),
-  });
-  const ct = (res.headers.get('Content-Type') ?? '').toLowerCase();
-  if (res.ok && ct.includes('application/json')) {
-    const data = await res.json();
-    if (Array.isArray(data?.data)) {
-      totalVisits = data.data.reduce(
-        (sum: number, g: { visits?: number }) =>
-          sum + (typeof g?.visits === 'number' && Number.isFinite(g.visits) && g.visits >= 0 ? g.visits : 0),
-        0,
-      );
-    }
-  }
-} catch {}
-
-// total update count from devlogs. higher than you'd expect.
-let totalUpdates = 0;
+let latestUpdate: {
+  game: string;
+  id: string;
+  version: string;
+  date: string;
+  summary: string;
+  cover: string;
+} | null = null;
 try {
   const devlogsPath = resolve('public/data/public-devlogs.json');
   const devlogs = JSON.parse(readFileSync(devlogsPath, 'utf-8'));
   if (Array.isArray(devlogs.games)) {
-    totalUpdates = devlogs.games.reduce(
-      (sum: number, g: { updates?: unknown[] }) => sum + (Array.isArray(g.updates) ? g.updates.length : 0),
-      0,
+    const latestGame = devlogs.games.find(
+      (game: { id?: unknown; name?: unknown; updates?: unknown[] }) => typeof game.id === 'string' && typeof game.name === 'string' && Array.isArray(game.updates) && game.updates.length > 0,
     );
+    const update = latestGame?.updates?.[0];
+    if (
+      update &&
+      typeof update.id === 'string' &&
+      typeof update.version === 'string' &&
+      typeof update.date === 'string'
+    ) {
+      latestUpdate = {
+        game: latestGame.name,
+        id: update.id,
+        version: update.version,
+        date: update.date,
+        cover: typeof latestGame.id === 'string'
+          ? getGameBySlug(locale, latestGame.id)?.artwork.src ?? ''
+          : '',
+        summary: locale === 'en'
+          ? 'This update adds RGB support and more vehicle colors. It also changes the user interface.'
+          : page.description,
+      };
+    }
   }
 } catch {}
 
-// live-games roster for the hero. replaces the old name-only marquee with
-// a real, clickable deployment list - each published game links to its
-// page and carries its status indicator, so the right rail does work
-// instead of just scrolling decorative text.
-const publishedGames = getPublishedGames(locale);
+const homeHeading = locale === 'en' ? 'we just making stuff' : page.lead;
+const homeLead = locale === 'en' ? "and somehow it works" : page.description;
+const eradicationRobloxUrl = getGameBySlug(locale, 'eradication')?.robloxUrl ?? 'https://www.roblox.com/games/16844978752/ERADICATION';
 
-// counter text rendered server-side. js resets it to 0 and animates up
-// when the element scrolls into view. no-js users see the real number
-// straight away - never an awkward idle zero pretending to be data.
-const formatAuto = (n: number) => {
-  if (n >= 1_000_000) {
-    const v = n / 1_000_000;
-    return (v >= 10 ? v.toFixed(0) : v.toFixed(1).replace(/\.0$/, '')) + 'M';
-  }
-  if (n >= 1_000) {
-    const v = n / 1_000;
-    return (v >= 10 ? v.toFixed(0) : v.toFixed(1).replace(/\.0$/, '')) + 'k';
-  }
-  return String(n);
-};
-const visitsText = totalVisits > 0 ? formatAuto(totalVisits) : '-';
-const updatesText = totalUpdates > 0 ? `${totalUpdates}+` : '-';
-
-// the headline usually ends with a punchy clause. we split off the
-// tail (last word and its punctuation) and render it in brand color
-// for emphasis. if the regex finds no split, we render the whole
-// thing untouched and move on with our lives.
-const heading: string = page.heading;
-const splitMatch = heading.match(/^(.+?)\s+([^\s.,!?]+[.!?]?)$/);
-const headingLead = splitMatch ? splitMatch[1] : heading;
-const headingTail = splitMatch ? splitMatch[2] : '';
 ---
 
-{/* homepage title is the studio's brand statement, not "Home - <brand>".
-    on the homepage the page-specific keyword IS the brand, and leading
-    with "Home" wastes the highest-weight serp position on a generic
-    word. format follows the canonical naming convention: studio first,
-    one descriptor after. all other pages still use "<page> - <studio>"
-    via getSiteTitle. */}
+{/* homepage title stays on the short brand token; the full studio name is
+    still present in the page description and Open Graph metadata. */}
 <BaseLayout
   locale={locale}
-  title={`${SITE_NAME} | Overview`}
+  title="LQI"
   description={page.description}
   currentPage="home"
   routePath=""
   jsonLd={getHomeJsonLd(locale)}
 >
-  <section class="hero" aria-labelledby="hero-heading">
-    <div class="hero-deck">
-      <div class="hero-copy">
-        <h1 id="hero-heading" class="hero-enter" style="--enter-delay: 40ms">
-          {headingTail ? (
+  <div class="core-page core-page--home">
+    <section class="home-ledger" aria-labelledby="hero-heading">
+      <div class="home-statement">
+        <h1 id="hero-heading" class="hero-enter" style="--enter-delay: 100ms">
+          {locale === 'en' ? (
             <>
-              {headingLead}{' '}
-              <span class="accent">{headingTail}</span>
+              <a href={getLocalePath(locale, '')}>we</a>{' '}
+              <a href={getLocalePath(locale, 'connect')}>just</a>{' '}
+              <a href={getLocalePath(locale, 'updates')}>making</a>{' '}
+              <a href={getLocalePath(locale, 'games')}>stuff</a>
             </>
-          ) : heading}
+          ) : homeHeading}
         </h1>
-        <p class="lead hero-enter" style="--enter-delay: 140ms">{page.lead}</p>
-        <div class="cta-row hero-enter" style="--enter-delay: 240ms">
-          <a class="button primary" data-magnetic href={getLocalePath(locale, 'games')}>
-            <span>{page.exploreGames}</span>
-            <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-          <a class="button ghost" href={getLocalePath(locale, 'updates')}>
-            <span>{page.readUpdates}</span>
-            <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </div>
+        <p class="lead hero-enter" style="--enter-delay: 160ms">
+          <a class="home-lead-link" href={eradicationRobloxUrl} target="_blank" rel="noopener noreferrer">{homeLead}</a>
+        </p>
       </div>
+    </section>
 
-      {/* deployment roster - the live catalogue rendered as a clickable
-          list in the hero rail. replaces the old decorative name marquee
-          with real internal links (good for humans and crawlers alike). */}
-      {publishedGames.length > 0 && (
-        <aside class="hero-roster hero-enter" style="--enter-delay: 320ms" aria-label={messages.chrome.nav.games}>
-          <span class="hero-roster-label">{messages.chrome.nav.games}</span>
-          <ul class="roster-list">
-            {publishedGames.map((game) => {
-              const webpSrc = getWebpSrc(game.artwork.src);
-              return (
-                <li>
-                  <a
-                    class="roster-item"
-                    href={getLocalePath(locale, game.slug)}
-                    style={`--cover: url('${game.artwork.src}')`}
-                  >
-                    <span class="roster-cover">
-                      <picture>
-                        {webpSrc && <source type="image/webp" srcset={webpSrc} />}
-                        <img
-                          src={game.artwork.src}
-                          alt=""
-                          width={game.artwork.width}
-                          height={game.artwork.height}
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </picture>
-                    </span>
-                    <span class="roster-text">
-                      <span class="roster-name">{game.name}</span>
-                      <span class="roster-genre">{game.genreLabel}</span>
-                    </span>
-                    <svg class="roster-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="13" height="13">
-                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </aside>
-      )}
-    </div>
-  </section>
-
-  {/* stats as a single slim band instead of three competing boxes. one
-      row, divider-separated, counters roll up on scroll. */}
-  <div class="stat-strip" aria-label={page.statsAriaLabel}>
-    <div class="stat-cell" data-reveal data-reveal-i="1">
-      <span
-        class="stat-cell-value"
-        data-counter={totalVisits}
-        data-counter-format="auto"
-        data-counter-fallback="-"
-      >{visitsText}</span>
-      <span class="stat-cell-label">{page.stats.cumulativeVisits.label}</span>
-    </div>
-    <div class="stat-cell" data-reveal data-reveal-i="2">
-      <span
-        class="stat-cell-value"
-        data-counter={publishedGameCount}
-        data-counter-format="none"
-        data-counter-fallback="-"
-      >{publishedGameCount > 0 ? String(publishedGameCount) : '-'}</span>
-      <span class="stat-cell-label">{page.stats.liveGames.label}</span>
-    </div>
-    <div class="stat-cell" data-reveal data-reveal-i="3">
-      <span
-        class="stat-cell-value"
-        data-counter={totalUpdates}
-        data-counter-format="plus"
-        data-counter-fallback="-"
-      >{updatesText}</span>
-      <span class="stat-cell-label">{page.stats.updatesShipped.label}</span>
-    </div>
+    <section class="home-lower" aria-label={messages.pages.game.latestUpdate} data-latest-cover={latestUpdate?.cover || undefined}>
+      <div class="home-latest">
+        <div class="ledger-heading">
+          <h2>{messages.pages.game.latestUpdate}</h2>
+        </div>
+        {latestUpdate && (
+          <article class="latest-entry">
+            <div class="latest-meta">
+              <time datetime="2026-07-21">{latestUpdate.date}</time>
+              <span>{latestUpdate.game}</span>
+            </div>
+            <h3>{latestUpdate.version} for {latestUpdate.game}</h3>
+            <p>{latestUpdate.summary}</p>
+            <a class="ledger-link" href={`${getLocalePath(locale, 'updates')}#${latestUpdate.id}`}>{page.readUpdates}</a>
+          </article>
+        )}
+      </div>
+    </section>
   </div>
 </BaseLayout>
+
+<script>
+  // Temporary visual flag; re-enable when the cover treatment is ready.
+  const enableCoverScroll = false;
+
+  if (enableCoverScroll) {
+    const latestSection = document.querySelector<HTMLElement>('[data-latest-cover]');
+    const latestCover = latestSection?.dataset.latestCover;
+
+    if (latestSection && latestCover) {
+      document.documentElement.style.setProperty('--latest-cover', `url("${latestCover}")`);
+
+      const setCoverState = (active: boolean) => {
+        document.documentElement.classList.toggle('home-cover-active', active);
+      };
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(
+          ([entry]) => setCoverState(entry.isIntersecting),
+          { threshold: 0, rootMargin: '0px 0px -45% 0px' },
+        );
+        observer.observe(latestSection);
+      }
+    }
+  }
+</script>

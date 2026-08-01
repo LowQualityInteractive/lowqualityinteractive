@@ -3,8 +3,8 @@
     "id": "furron",
     "name": "Furron",
     "type": "map",
-    "summary": "ERADICATION's live battlefield is organized around seven named territories, starting at Whiskerhold and pushing through six Furry-held flags toward Whiskspire.",
-    "role": "Use the map as a deployment and route-planning tool. Forward spawns only matter when your side owns the territory, so the safest route is usually the one that preserves nearby flags instead of overextending past them.",
+    "summary": "Furron has seven territories. The route starts at Whiskerhold and ends at Whiskspire.",
+    "role": "Select a territory that the contractors control as your spawn location. Defend captured territories to keep the forward spawn locations.",
     "stats": {
       "territories": 7,
       "reclaimable_territories": 6,
@@ -24,7 +24,7 @@
     ],
     "fun_facts": [
       "Whiskerhold is part of the map but does not count toward the reclaimed-territory objective.",
-      "Rush strips the battlefield down to Furrow instead of using the full seven-flag route."
+      "Rush uses only Furrow. It does not use the full route."
     ],
     "status": "live",
     "last_verified": "2026-05-05"

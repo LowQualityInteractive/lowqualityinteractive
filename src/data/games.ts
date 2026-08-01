@@ -142,6 +142,7 @@ export function getGames(locale: Locale): Game[] {
     return {
       ...game,
       ...translation,
+      genreLabel: game.id === 'favela-94' ? 'FPS' : translation.genreLabel,
       artwork: {
         ...game.artwork,
         alt: translation.artworkAlt,
@@ -257,7 +258,7 @@ const GAME_DISAMBIGUATION: Record<string, { alternateName: string[]; disambiguat
     // specific other thing so extractors can route the query correctly
     // instead of merging entities.
     disambiguatingDescription:
-      'A team-based PvPvE territory-control shooter on Roblox by independent studio Low Quality Interactive (founded 2024). This game is the experience at roblox.com place 16844978752 and universe 5788461409. It is NOT the same entity as: the ERADICATOR sword in Criminality (a different Roblox game by a different developer); the Eradication spell ("Deletrius") in Magic Training (a different Roblox game by a different developer); the Eradicator tower in Tower Defense X / TDX (a different Roblox game by a different developer); or the 2022 film "Eradication". There is no affiliated Fandom wiki - eradication.fandom.com if it exists belongs to one of those other entities, not to this game.',
+      'ERADICATION is a team PvPvE territory shooter on Roblox. Low Quality Interactive developed the game. Its Roblox place ID is 16844978752, and its universe ID is 5788461409. ERADICATION is not the ERADICATOR sword in Criminality. It is not the Deletrius spell in Magic Training. It is not the Eradicator tower in Tower Defense X. It is also not the 2022 film named Eradication. These products have different developers. ERADICATION does not have an affiliated Fandom wiki. The site eradication.fandom.com, if it exists, is not about this game.',
   },
   'favela-94': {
     alternateName: [
@@ -266,7 +267,7 @@ const GAME_DISAMBIGUATION: Record<string, { alternateName: string[]; disambiguat
       "Favela '94 by Low Quality Interactive",
     ],
     disambiguatingDescription:
-      "Close-quarters tactical Roblox shooter by Low Quality Interactive set in the favelas of 1994 Rio de Janeiro. Currently in preview.",
+      "Favela '94 is a short-range tactical shooter on Roblox. Low Quality Interactive developed the game. The game takes place in Rio de Janeiro in 1994. It is in preview.",
   },
   'donpollo-obby': {
     alternateName: [
@@ -274,7 +275,7 @@ const GAME_DISAMBIGUATION: Record<string, { alternateName: string[]; disambiguat
       'DON POLLO OBBY Roblox',
     ],
     disambiguatingDescription:
-      'Roblox obby by independent studio Low Quality Interactive. Sunset status, kept playable as a low quality classic.',
+      'DON POLLO OBBY is an obstacle course on Roblox. Low Quality Interactive developed the game. The game is in sunset status but remains available.',
   },
 };
 
@@ -323,7 +324,7 @@ function getGameSchema(game: Game) {
     url: game.robloxUrl,
     image: toAbsoluteSiteUrl(game.artwork.src),
     description: game.description,
-    gamePlatform: 'Roblox',
+    gamePlatform: 'ROBLOX',
     genre: game.genre,
     creator: ORG_REF,
     dateModified: SITE_LAST_MODIFIED,
@@ -603,7 +604,7 @@ export function getGameAboutJsonLd(
     // bing/chatgpt search use this to classify beyond just videogame.
     applicationCategory: about.applicationCategory ?? 'Game',
     // restated in case a crawler ignores the inherited value.
-    gamePlatform: about.gamePlatform ?? 'Roblox',
+    gamePlatform: about.gamePlatform ?? 'ROBLOX',
     // ties the game to the studio so crawlers can group lqi titles
     // together when someone asks "what else have they made".
     author: {

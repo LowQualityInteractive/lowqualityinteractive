@@ -10,7 +10,7 @@ import {
   getWikiHubHref,
   isUnpublished,
 } from '../data/wiki';
-import { getLocalePath, type Locale } from '../i18n/messages';
+import { type Locale } from '../i18n/messages';
 
 interface Props {
   locale: Locale;
@@ -26,7 +26,7 @@ const category = getWikiCategory(gameSlug, categorySlug);
 if (!category) throw new Error(`Unknown wiki category: ${gameSlug}/${categorySlug}`);
 
 const label = getCategoryLabel(category.category);
-const title = getSiteTitle(`${game.name} ${label.plural}`);
+const title = getSiteTitle(label.plural);
 const intro = getCategoryIntro(category.category, game.name);
 // prefer the prose intro for the meta description when one exists -
 // it reads as a real summary instead of a comma-separated entity dump.
@@ -44,26 +44,27 @@ const description = intro
   ogImage={game.artwork.src}
   ogImageAlt={game.artwork.alt}
 >
-  <section class="hero">
+  <section class="hero wiki-template-hero wiki-category-hero">
     {/* data-translatable lets the runtime mymemory translator replace
         wiki copy on non-en pages. proper names (game/entity) stay in
         their own non-translatable spans so they aren't transformed. */}
-    <span class="kicker hero-enter" style="--enter-delay: 40ms" data-translatable>{game.name} · {label.plural}</span>
-    <h1 class="hero-enter" style="--enter-delay: 120ms" data-translatable>{label.plural}</h1>
+    <a
+      class="wiki-template-back-link hero-enter"
+      style="--enter-delay: 40ms"
+      href={getWikiHubHref(locale, gameSlug)}
+      aria-label="Back to wiki"
+    >
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" width="16" height="16">
+        <path d="M13 8H3m4-4-4 4 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <h1 class="hero-enter wiki-template-title" style="--enter-delay: 100ms" data-translatable>{label.plural}</h1>
     {intro && (
-      <p class="lead hero-enter" style="--enter-delay: 200ms" data-translatable>{intro}</p>
+      <p class="lead hero-enter" style="--enter-delay: 180ms" data-translatable>{intro}</p>
     )}
-    <p class="hero-enter wiki-category-count" style="--enter-delay: 280ms" data-translatable>
-      {category.entities.length} {label.singular.toLowerCase()}{category.entities.length === 1 ? '' : 's'} catalogued.
+    <p class="hero-enter wiki-category-count" style="--enter-delay: 240ms" data-translatable>
+      {category.entities.length} {category.entities.length === 1 ? 'page' : 'pages'}
     </p>
-    <div class="cta-row hero-enter" style="--enter-delay: 300ms">
-      <a class="button ghost" href={getWikiHubHref(locale, gameSlug)}>
-        <span data-translatable>Back to wiki</span>
-      </a>
-      <a class="button ghost" href={getLocalePath(locale, gameSlug)}>
-        <span>{game.name}</span>
-      </a>
-    </div>
   </section>
 
   <div class="wiki-list" aria-label={`${label.plural} list`}>

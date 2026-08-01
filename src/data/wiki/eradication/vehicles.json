@@ -3,8 +3,8 @@
     "id": "ltv-300",
     "name": "LTV-300",
     "type": "vehicle",
-    "summary": "The LTV-300 is the free RallyDrop vehicle and a light transport option.",
-    "role": "Use it for early movement, quick regrouping, and basic team transport when you do not need mounted weapons.",
+    "summary": "The LTV-300 is a free light transport vehicle in RallyDrop.",
+    "role": "Use the LTV-300 to move the team. This vehicle has no weapon.",
     "stats": {
       "source": "RallyDrop free tier",
       "max_forward_speed": 96,
@@ -31,8 +31,8 @@
     "id": "mbt-800",
     "name": "MBT-800",
     "type": "vehicle",
-    "summary": "The MBT-800 is a heavy RallyDrop tank with high health and multiple weapons.",
-    "role": "Use the MBT-800 when the team needs armored firepower more than speed. It is slow, but it brings the heaviest RallyDrop health pool outside the other 1000-health armor.",
+    "summary": "The MBT-800 is a heavy tank with high health and four weapons.",
+    "role": "Use the MBT-800 when the team needs armor and heavy weapons. This tank is slow.",
     "stats": {
       "source": "RallyDrop",
       "max_forward_speed": 44,
@@ -59,8 +59,8 @@
     "id": "mh-60-blackhawk",
     "name": "MH-60 Blackhawk",
     "type": "vehicle",
-    "summary": "The MH-60 Blackhawk is a RallyDrop aircraft for moving a squad quickly across the battlefield.",
-    "role": "Use it when distance is the problem. It carries a large group but has low vehicle health, so landing zones and pilot control matter.",
+    "summary": "The MH-60 Blackhawk is an aircraft that can carry a large team.",
+    "role": "Use it for long-distance transport. Select a safe landing area because the aircraft has low health.",
     "stats": {
       "source": "RallyDrop",
       "max_health": 67,
@@ -88,8 +88,8 @@
     "id": "mh-60-blackhawk-pilot-minigun",
     "name": "MH-60 Blackhawk (Pilot Minigun)",
     "type": "vehicle",
-    "summary": "This MH-60 Blackhawk variant adds a pilot minigun to the transport helicopter.",
-    "role": "Use it when the pilot needs offensive pressure while transporting the team. It keeps the same low aircraft health profile as the standard Blackhawk.",
+    "summary": "This MH-60 Blackhawk has a minigun for the pilot.",
+    "role": "Use it to transport the team and attack from the air. The aircraft has low health.",
     "stats": {
       "source": "RallyDrop",
       "max_health": 67,
@@ -107,7 +107,7 @@
       "rallydrop-pass"
     ],
     "fun_facts": [
-      "The pilot-minigun variant gives the pilot a weapon while keeping the Blackhawk transport role."
+      "The pilot-minigun variant gives the pilot a weapon and keeps the Blackhawk transport function."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -116,8 +116,8 @@
     "id": "mib831-mastiff",
     "name": "MIB831 Mastiff",
     "type": "vehicle",
-    "summary": "The MIB831 Mastiff is a heavily armored RallyDrop vehicle with a mounted weapon.",
-    "role": "Use the Mastiff for protected movement and sustained ground support. It has the highest RallyDrop health among the listed vehicles.",
+    "summary": "The MIB831 Mastiff is an armored vehicle with one weapon.",
+    "role": "Use the Mastiff to move the team and attack enemies from the ground.",
     "stats": {
       "source": "RallyDrop",
       "max_forward_speed": 74,
@@ -144,8 +144,8 @@
     "id": "mtg-92",
     "name": "MTG-92",
     "type": "vehicle",
-    "summary": "The MTG-92 is a light armed RallyDrop vehicle.",
-    "role": "Use it as a mobile gun platform when you need speed and a weapon but cannot commit to heavier armor.",
+    "summary": "The MTG-92 is a light vehicle with one weapon.",
+    "role": "Use the MTG-92 when you need speed and a mounted weapon.",
     "stats": {
       "source": "RallyDrop",
       "max_forward_speed": 66,
@@ -163,7 +163,7 @@
       "rallydrop-pass"
     ],
     "fun_facts": [
-      "The MTG-92, MTP-92, and MTV-92 all sit in the same light RallyDrop family but differ in speed, seating, and mounted weapons."
+      "The MTG-92, MTP-92, and MTV-92 are in the same light RallyDrop family. They have different speeds, seat quantities, and mounted weapons."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -172,8 +172,8 @@
     "id": "mtp-92",
     "name": "MTP-92",
     "type": "vehicle",
-    "summary": "The MTP-92 is a light RallyDrop vehicle with one mounted weapon.",
-    "role": "Use it for quick armed movement where a heavier vehicle would arrive too late.",
+    "summary": "The MTP-92 is a light vehicle with one weapon.",
+    "role": "Use the MTP-92 for fast movement and mounted weapon fire.",
     "stats": {
       "source": "RallyDrop",
       "max_forward_speed": 68,
@@ -199,8 +199,8 @@
     "id": "mtv-92",
     "name": "MTV-92",
     "type": "vehicle",
-    "summary": "The MTV-92 is the fastest member of the MT-92 RallyDrop group.",
-    "role": "Use it when speed matters more than staying power. It has a low health pool, so do not treat it as armor.",
+    "summary": "The MTV-92 is a fast light vehicle with one weapon.",
+    "role": "Use the MTV-92 when you need speed. Do not use it as an armored vehicle because it has low health.",
     "stats": {
       "source": "RallyDrop",
       "max_forward_speed": 90,
@@ -226,8 +226,8 @@
     "id": "pa-humvee-mg",
     "name": "PA Humvee (MG)",
     "type": "vehicle",
-    "summary": "The PA Humvee (MG) is a RallyDrop armed transport with a machine gun.",
-    "role": "Use it to move a small group while keeping a gun active for street pressure.",
+    "summary": "The PA Humvee (MG) is a transport vehicle with a machine gun.",
+    "role": "Use it to move a small team and attack enemies with the machine gun.",
     "stats": {
       "source": "RallyDrop",
       "max_forward_speed": 88,
@@ -254,8 +254,8 @@
     "id": "pa-jltv-cannon",
     "name": "PA JLTV (Cannon)",
     "type": "vehicle",
-    "summary": "The PA JLTV (Cannon) is a RallyDrop JLTV variant with a cannon weapon.",
-    "role": "Use the cannon JLTV when the team needs a tougher armed vehicle and burstier vehicle fire than the machine-gun version.",
+    "summary": "The PA JLTV (Cannon) is an armored vehicle with a cannon.",
+    "role": "Use this vehicle when the team needs armor and a cannon.",
     "stats": {
       "source": "RallyDrop",
       "max_forward_speed": 80,
@@ -282,8 +282,8 @@
     "id": "pa-jltv-mg",
     "name": "PA JLTV (MG)",
     "type": "vehicle",
-    "summary": "The PA JLTV (MG) is the machine-gun RallyDrop JLTV variant.",
-    "role": "Use it for tougher small-team transport when you still want a mounted gun covering the street.",
+    "summary": "The PA JLTV (MG) is an armored vehicle with a machine gun.",
+    "role": "Use this vehicle to move a small team and attack enemies with the machine gun.",
     "stats": {
       "source": "RallyDrop",
       "max_forward_speed": 84,
@@ -310,8 +310,8 @@
     "id": "pa467-centurion",
     "name": "PA467 Centurion",
     "type": "vehicle",
-    "summary": "The PA467 Centurion is a heavy RallyDrop vehicle with three weapons and a 1000-health pool.",
-    "role": "Use the Centurion when the team needs heavy support but still wants more road speed than the MBT-800.",
+    "summary": "The PA467 Centurion is a heavy vehicle with high health and three weapons.",
+    "role": "Use the Centurion when the team needs armor, weapons, and more speed than the MBT-800.",
     "stats": {
       "source": "RallyDrop",
       "max_forward_speed": 72,
@@ -339,8 +339,8 @@
     "id": "panzer-iv",
     "name": "Panzer IV",
     "type": "vehicle",
-    "summary": "The Panzer IV is a WWII RallyDrop tank available through the WWII vehicle pass.",
-    "role": "Use it as a WWII-pass heavy armor option. It has four operator seats, four weapons, and a 500-health pool.",
+    "summary": "The Panzer IV is a tank from the RALLYDROP: WWII gamepass.",
+    "role": "Use the Panzer IV when the team needs a tank with four weapons.",
     "stats": {
       "source": "RallyDrop WWII pass",
       "max_forward_speed": 48,
@@ -368,8 +368,8 @@
     "id": "t-34",
     "name": "T-34",
     "type": "vehicle",
-    "summary": "The T-34 is a WWII RallyDrop tank available through the WWII vehicle pass.",
-    "role": "Use it as an alternate WWII-pass tank with three weapons, four operator seats, and a similar health profile to the Panzer IV.",
+    "summary": "The T-34 is a tank from the RALLYDROP: WWII gamepass.",
+    "role": "Use the T-34 when the team needs a tank with three weapons.",
     "stats": {
       "source": "RallyDrop WWII pass",
       "max_forward_speed": 46,

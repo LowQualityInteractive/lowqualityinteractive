@@ -4,7 +4,7 @@
     "name": "AA-12",
     "type": "weapon",
     "summary": "AA-12 is a primary shotgun unlocked through cash and XP progression.",
-    "role": "Use it as a close-range primary when the fight is packed onto a flag or hallway. It is not a free starter unlock, so normal modes require the listed progression while Rush grants access for the round.",
+    "role": "Use it as a short-distance primary weapon at a flag or in a hallway. Normal modes require the listed unlock progress. Rush gives access to the AA-12 for the round.",
     "stats": {
       "slot": "Primary",
       "unlock": "Cash and XP",
@@ -27,7 +27,7 @@
     "name": "AK-74",
     "type": "weapon",
     "summary": "AK-74 is a free primary weapon.",
-    "role": "Use it as a no-cost rifle option for general fighting, especially before investing cash and XP into specialist weapons.",
+    "role": "Use it as a no-cost rifle for general combat before you spend cash and XP on specialist weapons.",
     "stats": {
       "slot": "Primary",
       "unlock": "Free",
@@ -165,7 +165,7 @@
     "name": "FX-05 Xiuhcoatl",
     "type": "weapon",
     "summary": "FX-05 Xiuhcoatl is a free primary rifle.",
-    "role": "Use it as a free modern rifle option when you want a primary without needing an unlock.",
+    "role": "Use it as a free modern rifle. This primary weapon does not require an unlock.",
     "stats": {
       "slot": "Primary",
       "unlock": "Free",
@@ -203,7 +203,7 @@
     "name": "G17 w/ Shield",
     "type": "weapon",
     "summary": "G17 w/ Shield is a free primary weapon with shield utility.",
-    "role": "Use it when you want a free primary slot option built around sidearm-style handling and shield presence.",
+    "role": "Use it as a free primary weapon with sidearm controls and a shield.",
     "stats": {
       "slot": "Primary",
       "unlock": "Free",
@@ -216,7 +216,7 @@
       "territory-capture"
     ],
     "fun_facts": [
-      "Although it uses a pistol name, G17 w/ Shield is equipped as a primary weapon."
+      "The player equips G17 w/ Shield as a primary weapon, although its name identifies a pistol."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -226,7 +226,7 @@
     "name": "G36",
     "type": "weapon",
     "summary": "G36 is a free primary rifle.",
-    "role": "Use it as a free rifle option for general wave clearing and flag fights.",
+    "role": "Use it as a free rifle against Furry waves and at flags.",
     "stats": {
       "slot": "Primary",
       "unlock": "Free",
@@ -374,7 +374,7 @@
     "name": "Lewis Gun",
     "type": "weapon",
     "summary": "Lewis Gun is a primary weapon unlocked through a gamepass.",
-    "role": "Use it as a sustained-fire option when holding territory against waves.",
+    "role": "Use it to supply continuous fire during territory defense against Furry waves.",
     "stats": {
       "slot": "Primary",
       "unlock": "Gamepass"
@@ -428,7 +428,7 @@
     "name": "M16A2",
     "type": "weapon",
     "summary": "M16A2 is a free primary rifle.",
-    "role": "Use it as a free rifle option for general-purpose fighting in normal modes.",
+    "role": "Use it as a free general-purpose rifle in normal modes.",
     "stats": {
       "slot": "Primary",
       "unlock": "Free",
@@ -508,7 +508,7 @@
     "name": "M40A5",
     "type": "weapon",
     "summary": "M40A5 is a free primary precision weapon.",
-    "role": "Use it when you want long-range precision without needing an unlock.",
+    "role": "Use it for long-distance precision. It does not require an unlock.",
     "stats": {
       "slot": "Primary",
       "unlock": "Free",
@@ -528,7 +528,7 @@
     "name": "M4A1",
     "type": "weapon",
     "summary": "M4A1 is a free primary rifle.",
-    "role": "Use it as a no-cost general rifle for wave clearing, captures, and flexible combat.",
+    "role": "Use it as a no-cost rifle for Furry waves, territory capture, and general combat.",
     "stats": {
       "slot": "Primary",
       "unlock": "Free",
@@ -569,7 +569,7 @@
     "name": "MG-42",
     "type": "weapon",
     "summary": "MG-42 is a primary weapon unlocked through a gamepass.",
-    "role": "Use it as a sustained-fire weapon for holding lanes and dealing with dense waves.",
+    "role": "Use it to supply continuous fire in lanes and against dense Furry waves.",
     "stats": {
       "slot": "Primary",
       "unlock": "Gamepass"
@@ -624,7 +624,7 @@
     "name": "MP-34",
     "type": "weapon",
     "summary": "MP-34 is a primary weapon unlocked through a gamepass.",
-    "role": "Use it as an automatic primary for close-to-mid-range fighting.",
+    "role": "Use it as an automatic primary weapon for short- and medium-distance combat.",
     "stats": {
       "slot": "Primary",
       "unlock": "Gamepass"
@@ -660,7 +660,7 @@
     "name": "MP7A1",
     "type": "weapon",
     "summary": "MP7A1 is a primary weapon unlocked through cash and XP.",
-    "role": "Use it as a fast close-range progression weapon for moving between captures and clearing nearby threats.",
+    "role": "Use it as a fast short-distance weapon between captures and against nearby threats.",
     "stats": {
       "slot": "Primary",
       "unlock": "Cash and XP",
@@ -738,7 +738,7 @@
     "name": "P90",
     "type": "weapon",
     "summary": "P90 is a free primary weapon.",
-    "role": "Use it as a no-cost close-to-mid-range primary for clearing waves and moving with the team.",
+    "role": "Use it as a no-cost primary weapon against Furry waves at a short or medium distance.",
     "stats": {
       "slot": "Primary",
       "unlock": "Free",
@@ -873,8 +873,8 @@
     "id": "remington-rolling-block",
     "name": "Remington Rolling Block",
     "type": "weapon",
-    "summary": "Remington Rolling Block is the lowest-cash primary unlock.",
-    "role": "Use it as an extremely cheap progression weapon when cash is limited but you still want a non-free primary option.",
+    "summary": "The Remington Rolling Block requires less cash than any other primary unlock.",
+    "role": "Use it as a low-cost primary weapon when the free weapons are not sufficient.",
     "stats": {
       "slot": "Primary",
       "unlock": "Cash and XP",
@@ -914,7 +914,7 @@
     "name": "Saiga-12",
     "type": "weapon",
     "summary": "Saiga-12 is a primary shotgun unlocked through cash and XP.",
-    "role": "Use it for close-range wave clearing and contested flag fights once unlocked.",
+    "role": "Use it against Furry waves and at contested flags after you unlock it.",
     "stats": {
       "slot": "Primary",
       "unlock": "Cash and XP",
@@ -1023,7 +1023,7 @@
     "name": "StG-44",
     "type": "weapon",
     "summary": "StG-44 is a primary weapon unlocked through a gamepass.",
-    "role": "Use it as an automatic rifle for general combat and wave clearing.",
+    "role": "Use it as an automatic rifle for general combat and Furry waves.",
     "stats": {
       "slot": "Primary",
       "unlock": "Gamepass"
@@ -1378,7 +1378,7 @@
     "name": "G18",
     "type": "weapon",
     "summary": "G18 is a high-XP secondary weapon unlocked through cash and XP.",
-    "role": "Use it as a progression sidearm for players willing to invest heavily in the secondary slot.",
+    "role": "Use it as a progress sidearm if you can spend much cash and XP on a secondary weapon.",
     "stats": {
       "slot": "Secondary",
       "unlock": "Cash and XP",
@@ -1618,7 +1618,7 @@
     "name": "Toka",
     "type": "weapon",
     "summary": "Toka is a secondary weapon with very low cash and XP requirements.",
-    "role": "Use it as a cheap sidearm unlock when you want something outside the free secondary pool.",
+    "role": "Use it as a low-cost sidearm when the free secondary weapons are not sufficient.",
     "stats": {
       "slot": "Secondary",
       "unlock": "Cash and XP",

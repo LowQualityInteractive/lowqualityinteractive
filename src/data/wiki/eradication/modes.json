@@ -3,8 +3,8 @@
     "id": "traditional",
     "name": "Traditional",
     "type": "mode",
-    "summary": "Traditional is the full ERADICATION round: reclaim the six Furry-held territories, hold the line, then unlock the boss route.",
-    "role": "Play Traditional when you want the complete territory push. It rewards teams that rotate between captures, defend reclaimed flags, and save enough firepower for the boss once all active territories are secured.",
+    "summary": "Traditional is the full ERADICATION mode. The team must capture six enemy territories and defeat the boss.",
+    "role": "Capture each territory and defend it. Keep enough weapons and ammunition for the boss fight.",
     "stats": {
       "round_duration_seconds": 2880,
       "round_duration": "48:00",
@@ -33,8 +33,8 @@
     "id": "rush",
     "name": "Rush",
     "type": "mode",
-    "summary": "Rush compresses the match into one objective: Furrow. Contractors start with it, and the Furries win if they take it.",
-    "role": "Play Rush when you want a short defensive fight with full weapon access. The objective is not to clear the whole town; it is to keep Furrow from flipping.",
+    "summary": "Rush is a short defense mode at Furrow. The contractors control Furrow at the start. The Furries win if they capture it.",
+    "role": "Defend Furrow until the round ends. All weapons are available during this mode.",
     "stats": {
       "round_duration_seconds": 450,
       "round_duration": "7:30",
@@ -53,7 +53,7 @@
     ],
     "fun_facts": [
       "Rush hides the other territory objectives and only keeps Flag III active.",
-      "Rush grants every weapon for the round, so unlock progression is not the limiting factor."
+      "Rush gives all weapons to each player for the round. Weapon unlocks do not limit the player."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -62,8 +62,8 @@
     "id": "infection",
     "name": "Infection",
     "type": "mode",
-    "summary": "Infection is a 15-minute ruleset where Furry-held flags create spawn pressure and downed contractors can return on the Furry side.",
-    "role": "Use Infection as a territory-control survival mode. The longer the Furries hold ground, the more dangerous nearby streets become, so clearing flags also controls where new threats can appear.",
+    "summary": "Infection is a 15-minute survival mode. A dead contractor can return as a Furry.",
+    "role": "Capture territories to reduce the number of enemy spawn locations. Survive until the round ends.",
     "stats": {
       "round_duration_seconds": 900,
       "round_duration": "15:00",

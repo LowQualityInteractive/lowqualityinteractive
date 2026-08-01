@@ -3,8 +3,8 @@
     "id": "ammunition-canister-1",
     "name": "Ammunition Canister [1]",
     "type": "item",
-    "summary": "Ammunition Canister [1] is a deployable ammo box tool available from the starter loadout.",
-    "role": "Use it when a hold is going to last longer than your carried ammo. Activating the canister places a universal ammo box and consumes the tool.",
+    "summary": "Ammunition Canister [1] is an ammunition box in the starter loadout.",
+    "role": "Use the canister to place an ammunition box. The canister is removed from your inventory after you use it.",
     "stats": {
       "source": "Starter loadout",
       "consumed_on_use": "yes"
@@ -26,8 +26,8 @@
     "id": "ammunition-canister-2",
     "name": "Ammunition Canister [2]",
     "type": "item",
-    "summary": "Ammunition Canister [2] is the shop-side ammo canister variant that deploys a universal ammo box.",
-    "role": "Bring it for long capture holds, boss preparation, or any defense where the team is likely to run dry before the wave pressure stops.",
+    "summary": "Ammunition Canister [2] is an ammunition box from the shop.",
+    "role": "Use the canister to place an ammunition box for the team.",
     "stats": {
       "source": "Shop",
       "consumed_on_use": "yes"
@@ -39,7 +39,7 @@
       "ammo-cans-x2-pass"
     ],
     "fun_facts": [
-      "The canister drops ammo exactly where you deploy it, so placement matters during a hold."
+      "The canister puts ammunition at its deployment location. Select this location carefully."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -48,8 +48,8 @@
     "id": "rallydrop-tool",
     "name": "RallyDrop",
     "type": "item",
-    "summary": "RallyDrop is the vehicle call-in tool used to spawn player-owned transports, armor, and aircraft near the player.",
-    "role": "Use RallyDrop to move squads, bring vehicle weapons to a fight, or recover distance after a lost spawn. Free access covers the LTV-300; broader vehicle access comes from RallyDrop ownership and the WWII vehicle pass.",
+    "summary": "RallyDrop is a tool that calls a vehicle to a nearby location.",
+    "role": "Use RallyDrop to call the LTV-300. The RallyDrop gamepasses give access to more vehicles.",
     "stats": {
       "free_vehicle": "LTV-300",
       "spawn_cooldown_seconds": 1,

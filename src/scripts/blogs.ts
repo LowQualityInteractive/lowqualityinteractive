@@ -1,9 +1,7 @@
 interface BlogsViewerMessages {
   couldNotLoadGames: string;
-  defaultTag: string;
   feedUnavailable: string;
   imageAlt: string;
-  newBadge: string;
   newerUpdate: string;
   noDetails: string;
   noUpdatesYet: string;
@@ -19,7 +17,6 @@ interface BlogsViewerMessages {
 interface LocalizedBlogGame {
   name: string;
   updateImageAlt: string;
-  updateTag: string;
 }
 
 export function getBlogsScript(
@@ -34,8 +31,16 @@ export function getBlogsScript(
   const LOCALE = CONFIG.locale;
   const DATE_FORMATTER = new Intl.DateTimeFormat(LOCALE, {
     year: 'numeric',
-    month: 'short',
+    month: 'long',
     day: 'numeric',
+    timeZone: 'UTC',
+  });
+  const ENGLISH_MONTH_FORMATTER = new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    timeZone: 'UTC',
+  });
+  const ENGLISH_SHORT_MONTH_FORMATTER = new Intl.DateTimeFormat('en-US', {
+    month: 'short',
     timeZone: 'UTC',
   });
 
@@ -112,7 +117,39 @@ export function getBlogsScript(
     const year = match[3].length === 2 ? 2000 + rawYear : rawYear;
     const date = new Date(Date.UTC(year, month - 1, day));
     if (Number.isNaN(date.getTime())) return value;
+    if (/^en(?:-|$)/i.test(LOCALE)) {
+      const suffix = day % 100 >= 11 && day % 100 <= 13
+        ? 'th'
+        : ({ 1: 'st', 2: 'nd', 3: 'rd' }[day % 10] || 'th');
+      return ENGLISH_MONTH_FORMATTER.format(date) + ' ' + String(day) + suffix + ', ' + String(year);
+    }
     return DATE_FORMATTER.format(date);
+  };
+
+  const formatCompactDate = (value) => {
+    if (typeof value !== 'string' || !value.trim()) return '';
+    const match = value.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/);
+    if (!match) return formatDate(value);
+
+    const month = Number(match[1]);
+    const day = Number(match[2]);
+    const rawYear = Number(match[3]);
+    const year = match[3].length === 2 ? 2000 + rawYear : rawYear;
+    const date = new Date(Date.UTC(year, month - 1, day));
+    if (Number.isNaN(date.getTime())) return formatDate(value);
+
+    if (/^en(?:-|$)/i.test(LOCALE)) {
+      const suffix = day % 100 >= 11 && day % 100 <= 13
+        ? 'th'
+        : ({ 1: 'st', 2: 'nd', 3: 'rd' }[day % 10] || 'th');
+      return ENGLISH_SHORT_MONTH_FORMATTER.format(date) + ' ' + String(day) + suffix + ", '" + String(year).slice(-2);
+    }
+    return new Intl.DateTimeFormat(LOCALE, {
+      year: '2-digit',
+      month: 'short',
+      day: 'numeric',
+      timeZone: 'UTC',
+    }).format(date);
   };
 
   const normalizeAssetPath = (assetPath) => {
@@ -124,7 +161,7 @@ export function getBlogsScript(
     return '/' + normalizedPath.replace(/^\/+/, '');
   };
 
-  const normalizeUpdateContents = (update, isLatest) => {
+  const normalizeUpdateContents = (update) => {
     const raw = typeof update.contents === 'object' && update.contents ? update.contents : {};
     const contents = {};
     CHANGELOG_SECTIONS.forEach((section) => {
@@ -140,7 +177,6 @@ export function getBlogsScript(
       contents,
       footnotes: splitContent(raw.footnotes || update.footnotes),
       image: normalizeAssetPath(update.image),
-      isNew: typeof update.isNew === 'boolean' ? update.isNew : isLatest,
     };
   };
 
@@ -151,9 +187,8 @@ export function getBlogsScript(
         return {
           ...game,
           name: localized.name || game.name,
-          tag: localized.updateTag || game.tag || TEXT.defaultTag,
           updates: Array.isArray(game.updates)
-            ? game.updates.map((update, index) => normalizeUpdateContents(update, index === 0))
+            ? game.updates.map((update) => normalizeUpdateContents(update))
             : [],
         };
       });
@@ -163,7 +198,6 @@ export function getBlogsScript(
     return payload.posts.map((post) => ({
       id: post.id,
       name: post.tag || post.title || TEXT.untitled,
-      tag: TEXT.defaultTag,
       updates: [
         normalizeUpdateContents(
           {
@@ -172,7 +206,6 @@ export function getBlogsScript(
             date: '',
             contents: { changes: post.summary || '' },
           },
-          true,
         ),
       ],
     }));
@@ -326,41 +359,28 @@ export function getBlogsScript(
 
     const main = createElement('div', { className: 'update-main' });
     const header = createElement('div', { className: 'update-header' });
-    const tagRow = createElement('div', { className: 'update-tag-row' });
     const title = createElement('div', { className: 'update-title' });
     const titleGame = createElement('span', { className: 'update-title-game' });
-    const titleSeparator = createElement('span', { className: 'update-title-sep', text: '/' });
+    const titleSeparator = createElement('span', { className: 'update-title-sep' });
+    titleSeparator.setAttribute('aria-hidden', 'true');
     const titleVersion = createElement('span', { className: 'update-title-version' });
     title.append(titleGame, titleSeparator, titleVersion);
 
     const metaRow = createElement('div', { className: 'update-meta-row' });
     const dateLabel = createElement('span', { className: 'update-date' });
-    const nav = createElement('div', { className: 'update-arrow-nav' });
-    const previousButton = createElement('button', {
-      className: 'update-arrow',
-      type: 'button',
-      text: '←',
-    });
-    previousButton.setAttribute('aria-label', TEXT.olderUpdate);
-    previousButton.title = TEXT.olderUpdate;
-    const positionLabel = createElement('span', { className: 'update-pos' });
-    const nextButton = createElement('button', {
-      className: 'update-arrow',
-      type: 'button',
-      text: '→',
-    });
-    nextButton.setAttribute('aria-label', TEXT.newerUpdate);
-    nextButton.title = TEXT.newerUpdate;
-    nav.append(previousButton, positionLabel, nextButton);
-    metaRow.append(dateLabel, nav);
+    metaRow.append(dateLabel);
 
-    header.append(tagRow, title, metaRow);
+    header.append(title, metaRow);
 
     const divider = createElement('hr', { className: 'update-divider' });
     const body = createElement('div', { className: 'update-body' });
     main.append(header, divider, body);
     layout.append(sidebar, main);
     viewer.replaceChildren(layout);
+    if (window.__lqiMotion) {
+      divider.dataset.reveal = '';
+      window.__lqiMotion.reveal(divider);
+    }
 
     const renderGameTabs = () => {
       gameButtons.forEach((button, index) => {
@@ -386,13 +406,9 @@ export function getBlogsScript(
         });
         const versionDate = createElement('span', {
           className: 'update-version-date',
-          text: formatDate(update.date || ''),
+          text: formatCompactDate(update.date || ''),
         });
         item.append(versionName, versionDate);
-
-        if (update.isNew) {
-          item.appendChild(createElement('span', { className: 'update-new-badge', text: TEXT.newBadge }));
-        }
 
         return item;
       });
@@ -422,22 +438,10 @@ export function getBlogsScript(
       renderGameTabs();
       syncVersionButtons();
 
-      const tagChildren = [createElement('span', { className: 'pill', text: game.tag || TEXT.defaultTag })];
-      if (update.isNew) {
-        tagChildren.push(createElement('span', { className: 'pill pill-new', text: TEXT.newBadge }));
-      }
-      tagRow.replaceChildren(...tagChildren);
-
       titleGame.textContent = game.name;
       titleVersion.textContent = update.version || TEXT.update;
       dateLabel.textContent = formatDate(update.date || '');
       dateLabel.hidden = !update.date;
-
-      previousButton.disabled = state.currentUpdateIndex >= game.updates.length - 1;
-      previousButton.classList.toggle('is-disabled', previousButton.disabled);
-      nextButton.disabled = state.currentUpdateIndex <= 0;
-      nextButton.classList.toggle('is-disabled', nextButton.disabled);
-      positionLabel.textContent = String(state.currentUpdateIndex + 1) + ' / ' + String(game.updates.length);
 
       const bodyChildren = [];
       if (update.image) {
@@ -486,23 +490,6 @@ export function getBlogsScript(
 
       state.currentUpdateIndex = nextUpdateIndex;
       updateHash(games[state.currentGameIndex].updates[nextUpdateIndex].id);
-      render();
-    });
-
-    previousButton.addEventListener('click', () => {
-      const game = games[state.currentGameIndex];
-      if (state.currentUpdateIndex >= game.updates.length - 1) return;
-
-      state.currentUpdateIndex += 1;
-      updateHash(game.updates[state.currentUpdateIndex].id);
-      render();
-    });
-
-    nextButton.addEventListener('click', () => {
-      if (state.currentUpdateIndex <= 0) return;
-
-      state.currentUpdateIndex -= 1;
-      updateHash(games[state.currentGameIndex].updates[state.currentUpdateIndex].id);
       render();
     });
 

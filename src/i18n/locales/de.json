@@ -16,8 +16,10 @@
       "connect": "Kontakt"
     },
     "theme": {
-      "toDark": "Zum Dunkelmodus wechseln",
-      "toLight": "Zum Hellmodus wechseln"
+      "label": "Darstellung",
+      "day": "Tag",
+      "system": "System",
+      "night": "Nacht"
     },
     "mobileNav": {
       "open": "Navigationsmenü öffnen",

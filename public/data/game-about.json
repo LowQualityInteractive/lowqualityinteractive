@@ -10,16 +10,16 @@
         "Strategy"
       ],
       "genreLabel": "PvPvE Shooter",
-      "gamePlatform": "Roblox",
+      "gamePlatform": "ROBLOX",
       "applicationCategory": "Game",
       "robloxGameId": "16844978752",
       "robloxUniverseId": "5788461409",
-      "releaseYear": "2025",
+      "releaseYear": "2024",
       "status": "live",
       "playMode": "MultiPlayer",
       "numberOfPlayers": "18",
       "inLanguage": "en",
-      "audience": "13+",
+      "audience": "9+",
       "media": [
         {
           "src": "/assets/eradication.png",
@@ -28,28 +28,28 @@
         }
       ],
       "body": [
-        "the town is overrun. the Furries took it. the contractors are us, the people the town hired because nobody who actually lives there can do the job anymore.",
-        "you start at Whiskerhold. that's the only ground that's still yours. Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, and Whiskspire start in Furry hands. a flag isn't yours because you walked up to it. it's yours when you've held it long enough for the town to accept the change.",
-        "Furries aren't one creature with different health bars. some chase. some hold flags. some shoot from range. some are still a problem after they die. the pressure scales with the lobby, so cleared streets don't stay clear.",
-        "three modes. Traditional is the full job, 48 minutes, take the six and then go open the door under the town. Rush is 7:30 on a single flag at Furrow. Infection is 15 minutes and downed contractors come back on the wrong side.",
-        "guns, vehicles, helicopters. enough to make a mess. none of it makes the landing zone safe.",
-        "take the six in Traditional and the route opens under the town. through the basement of a random house, down a tunnel, there's a large unnamed man and a lot of small Furries."
+        "The Furries control the town. The town pays contractors to recover it.",
+        "The contractors start at Whiskerhold. The Furries control the other six territories at the start of the round.",
+        "Each Furry type has a different function. Some Furries use melee attacks, and other Furries use ranged or explosive attacks.",
+        "Traditional has a time limit of 48 minutes. Rush has a time limit of 7 minutes and 30 seconds. Infection has a time limit of 15 minutes.",
+        "The game has weapons, ground vehicles, and helicopters. These items do not make a combat area safe.",
+        "The tunnel route opens after the contractors recover all six Furry territories in Traditional. A large unnamed man is in the boss area."
       ],
       "features": [
-        "seven territories. one of them is yours when the round starts. the other six aren't.",
-        "eight kinds of Furry. some chase, some explode, some sit at range, one's just a Watcher with pink spheres on his head.",
-        "three modes. Traditional is 48 minutes and ends at the boss. Rush is 7:30 on one flag. Infection ruins your day for 15.",
-        "guns, vehicles, helicopters. ATVs, Humvees, JLTVs, a Blackhawk, the occasional T-34. some of them work.",
-        "take the six in Traditional and a tunnel opens up. there's a large unnamed man at the end of it."
+        "The map has seven territories. The contractors control one territory when the round starts.",
+        "The game has eight regular Furry types. These types use melee, ranged, explosive, and support functions.",
+        "The game has three modes: Traditional, Rush, and Infection.",
+        "The game has weapons, ground vehicles, and helicopters.",
+        "The boss route opens after the contractors recover all six Furry territories in Traditional."
       ],
       "links": [
         {
-          "label": "Play on Roblox",
+          "label": "Play on ROBLOX",
           "href": "https://www.roblox.com/games/16844978752/ERADICATION",
           "external": true
         },
         {
-          "label": "Latest update notes",
+          "label": "Latest Patch Notes",
           "href": "/updates/#eradication",
           "external": false
         }
@@ -64,7 +64,7 @@
         "PvP"
       ],
       "genreLabel": "Tactical Shooter",
-      "gamePlatform": "Roblox",
+      "gamePlatform": "ROBLOX",
       "applicationCategory": "Game",
       "robloxGameId": "125235548670144",
       "robloxUniverseId": "",
@@ -73,7 +73,7 @@
       "playMode": "MultiPlayer",
       "numberOfPlayers": "32",
       "inLanguage": "en",
-      "audience": "13+",
+      "audience": "16+",
       "media": [
         {
           "src": "/assets/favela-94.png",
@@ -83,7 +83,7 @@
       ],
       "links": [
         {
-          "label": "Play on Roblox",
+          "label": "Play on ROBLOX",
           "href": "https://www.roblox.com/games/125235548670144/Favela-94",
           "external": true
         }
@@ -96,7 +96,7 @@
         "Obby"
       ],
       "genreLabel": "Obby",
-      "gamePlatform": "Roblox",
+      "gamePlatform": "ROBLOX",
       "applicationCategory": "Game",
       "robloxGameId": "133585619009566",
       "robloxUniverseId": "7915083902",
@@ -105,7 +105,7 @@
       "playMode": "MultiPlayer",
       "numberOfPlayers": "32",
       "inLanguage": "en",
-      "audience": "All ages",
+      "audience": "16+",
       "media": [
         {
           "src": "/assets/donpollo.png",
@@ -115,7 +115,7 @@
       ],
       "links": [
         {
-          "label": "Play on Roblox",
+          "label": "Play on ROBLOX",
           "href": "https://www.roblox.com/games/133585619009566/DON-POLLO-OBBY",
           "external": true
         },

@@ -3,8 +3,8 @@
     "id": "territory-rewards",
     "name": "Territory Rewards",
     "type": "progression",
-    "summary": "Territory rewards pay players for capturing and defending flags.",
-    "role": "Stay inside objectives when it matters. The game pays capture credit to defenders present for the claim and gives periodic defense rewards while holding ground.",
+    "summary": "Territory rewards give cash and XP when you capture or defend a flag.",
+    "role": "Stay in the flag area until the capture is complete. Continue to defend the flag to get more rewards.",
     "stats": {
       "capture_cash": 250,
       "capture_xp": 750,
@@ -19,7 +19,7 @@
       "furrow"
     ],
     "fun_facts": [
-      "Defense rewards are timer-based, so holding a flag can matter even after the initial capture payout."
+      "A defense reward timer continues after the initial capture. A long defense can give multiple rewards."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -28,8 +28,8 @@
     "id": "kill-and-assist-rewards",
     "name": "Kill and Assist Rewards",
     "type": "progression",
-    "summary": "Kill and assist rewards pay cash and XP for damaging and eliminating Furries.",
-    "role": "Contribute damage even if you cannot secure every kill. Assists pay a smaller share and help support steady progression during wave pressure.",
+    "summary": "Kill and assist rewards give cash and XP when you damage or kill a Furry.",
+    "role": "Damage an enemy to get an assist reward. Kill the enemy to get the full reward.",
     "stats": {
       "common_kill_cash_range": "8-15",
       "common_kill_xp_range": "3-7",
@@ -56,8 +56,8 @@
     "id": "boss-rewards",
     "name": "Boss Rewards",
     "type": "progression",
-    "summary": "Boss rewards pay large cash and XP payouts for defeating the Traditional boss, with contribution-based sharing.",
-    "role": "Damage the boss if you want reward credit. The top contributor receives the main payout roll, and other contributors receive a scaled share.",
+    "summary": "Boss rewards give cash and XP after the team defeats the boss. The reward amount depends on the damage that each player does.",
+    "role": "Damage the boss to get a reward. A player who does more damage gets a larger reward.",
     "stats": {
       "base_cash": 50000,
       "base_xp": 25000,
@@ -74,7 +74,7 @@
       "traditional"
     ],
     "fun_facts": [
-      "The boss defeat badge is awarded to all players when the boss dies."
+      "The game gives the boss defeat badge to all players when the boss dies."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -83,8 +83,8 @@
     "id": "daily-rewards",
     "name": "Daily Rewards",
     "type": "progression",
-    "summary": "Daily rewards grant cash with streak scaling, with a larger Plus reward track available separately.",
-    "role": "Claim daily rewards consistently to build cash outside direct combat payouts.",
+    "summary": "Daily rewards give cash. A daily claim streak increases the reward. The Plus reward gives more cash.",
+    "role": "Claim the reward each day to keep the streak.",
     "stats": {
       "daily_cash_base": 2500,
       "daily_max_multiplier": 10,
@@ -108,8 +108,8 @@
     "id": "activity-rewards",
     "name": "Activity Rewards",
     "type": "progression",
-    "summary": "Activity rewards grant XP for staying active long enough during the day.",
-    "role": "Stay active for the full activity window to claim a once-per-day XP payout.",
+    "summary": "The activity reward gives XP after you play for 10 minutes.",
+    "role": "Stay active for 10 minutes. You can get this reward one time each UTC day.",
     "stats": {
       "activity_seconds": 600,
       "activity_minutes": 10,
@@ -121,7 +121,7 @@
       "group-rewards"
     ],
     "fun_facts": [
-      "The activity reward timer is ten minutes, matching 600 seconds."
+      "The activity reward timer is ten minutes or 600 seconds."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -130,8 +130,8 @@
     "id": "group-rewards",
     "name": "Group Rewards",
     "type": "progression",
-    "summary": "Group rewards grant bonus XP and the M60 reward weapon for members of the LQI Roblox group.",
-    "role": "Join the group if you want the group reward track, including the M60 weapon reward.",
+    "summary": "Group rewards give bonus XP and the M60 to members of the LQI ROBLOX group.",
+    "role": "Join the LQI ROBLOX group to get these rewards.",
     "stats": {
       "daily_group_xp": 7500,
       "reward_weapon": "M60"
@@ -151,8 +151,8 @@
     "id": "referral-rewards",
     "name": "Referral Rewards",
     "type": "progression",
-    "summary": "Referral rewards pay both the inviting player and the invitee after the invite qualifies.",
-    "role": "Use referrals as a progression boost when bringing a new player into the game.",
+    "summary": "Referral rewards give cash and XP to the player who sends an invite and the player who accepts it.",
+    "role": "Send an invite to a new player. Both players get a reward after the new player joins.",
     "stats": {
       "invitee_cash": 2500,
       "invitee_xp": 7500,

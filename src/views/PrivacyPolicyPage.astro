@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getPrivacyPolicyJsonLd } from '../data/games';
-import { CONTACT_EMAIL, SITE_NAME, getSiteTitle } from '../data/site';
+import { CONTACT_EMAIL, getSiteTitle } from '../data/site';
 import { getMessages, type Locale } from '../i18n/messages';
 
 interface Props {
@@ -17,13 +17,12 @@ const lastUpdated = 'May 6, 2026';
 
 <BaseLayout
   locale={locale}
-  title={getSiteTitle(page.label)}
+  title={getSiteTitle('Privacy')}
   description={page.description}
   routePath="privacy-policy"
   jsonLd={getPrivacyPolicyJsonLd(locale)}
 >
   <section class="hero legal-shell">
-    <span class="kicker hero-enter" style="--enter-delay: 40ms" data-translatable>{SITE_NAME}</span>
     <h1 class="hero-enter" style="--enter-delay: 120ms" data-translatable>Privacy Policy</h1>
     <p class="lead hero-enter" style="--enter-delay: 220ms" data-translatable>
       This policy covers information collected through our website and through our Roblox games and experiences.

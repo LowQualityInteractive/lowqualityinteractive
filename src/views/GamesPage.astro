@@ -10,7 +10,7 @@ import {
 } from '../data/games';
 import { getSiteTitle } from '../data/site';
 import { getInWorkProjects } from '../data/inWorks';
-import { getLocalePath, getMessages, interpolate, type Locale } from '../i18n/messages';
+import { getMessages, interpolate, type Locale } from '../i18n/messages';
 import { getWikiHubHref, hasWiki } from '../data/wiki';
 
 interface Props {
@@ -20,37 +20,41 @@ interface Props {
 const { locale } = Astro.props;
 const messages = getMessages(locale);
 const page = messages.pages.games;
-const statusLabels = messages.chrome.status;
 const liveGames = getPublishedGames(locale);
-const projects = getInWorkProjects(locale);
+// Keep these pipeline projects in the data, but hide them from the Games page
+// until they are ready to return. Remove an id to restore it.
+const HIDDEN_PIPELINE_PROJECT_IDS = new Set(['operation-five-siege', 'crowns-of-steel']);
+const projects = getInWorkProjects(locale).filter((project) => !HIDDEN_PIPELINE_PROJECT_IDS.has(project.id));
+const GAME_DISPLAY_ORDER: Record<string, number> = {
+  eradication: 1,
+  agmina: 2,
+  'favela-94': 3,
+  'donpollo-obby': 4,
+};
 ---
 
 <BaseLayout
   locale={locale}
-  title={getSiteTitle(page.label)}
+  title={getSiteTitle('Games')}
   description={page.description}
   currentPage="games"
   routePath="games"
   jsonLd={getGamesJsonLd(locale)}
 >
-  <section class="hero">
-    <span class="kicker hero-enter" style="--enter-delay: 40ms">{page.kicker}</span>
-    <h1 class="hero-enter" style="--enter-delay: 120ms">{page.heading}</h1>
-    <p class="lead hero-enter" style="--enter-delay: 220ms">{page.lead}</p>
+  <div class="core-page core-page--games">
+  <section class="core-intro">
+    <div>
+      <h1 class="hero-enter" style="--enter-delay: 100ms">{page.heading}</h1>
+    </div>
   </section>
 
-  <div class="section-header" data-reveal>
-    <h2>{page.liveGamesHeading}</h2>
-    <a href={getLocalePath(locale, 'updates')}>{page.viewAllUpdates}</a>
-  </div>
-
-  <div class="games-grid" aria-label={page.gameListAriaLabel}>
+  <section class="core-section" aria-label={page.liveGamesHeading}>
+    <div class="game-ledger" aria-label={page.gameListAriaLabel}>
     {liveGames.map((game, i) => {
       const webpSrc = getWebpSrc(game.artwork.src);
-      const statusLabel = statusLabels[game.status as keyof typeof statusLabels] ?? game.status;
       return (
-      <article class="game-card" data-game-id={game.id} data-game-status={game.status} data-reveal data-reveal-i={String(Math.min(i + 1, 6))}>
-        <div class="game-card-image">
+      <article class="game-entry" data-game-id={game.id} data-reveal data-reveal-i={String(Math.min(i + 1, 6))} style={`order: ${GAME_DISPLAY_ORDER[game.id] ?? 99}`}>
+        <div class="game-entry-image">
           <a href={getGameHref(locale, game)} aria-label={interpolate(page.viewGameDetails, { game: game.name })}>
             {/* webp sibling is generated at build time for every card
                 artwork. browsers that don't support webp (~3% globally)
@@ -71,28 +75,19 @@ const projects = getInWorkProjects(locale);
               />
             </picture>
           </a>
-          {/* status as a colour-coded corner tab clipped to the cover -
-              the colour is the signal, no frosted box or diamond. */}
-          <span class={'game-status-tag game-status-tag--' + game.status}>{statusLabel}</span>
         </div>
-        <div class="game-card-body">
-          <span class="pill">{game.genreLabel}</span>
+        <div class="game-entry-body">
+          <span class="game-entry-genre">{game.genreLabel}</span>
           <h2>
             <a class="game-card-title-link" href={getGameHref(locale, game)}>{game.name}</a>
           </h2>
           <p>{game.description}</p>
           <span class="game-player-count" hidden></span>
         </div>
-        <div class="game-card-footer">
-          <a class="button primary button-play" target="_blank" rel="noopener noreferrer" href={game.robloxUrl} aria-label={interpolate(page.playGameOn, { game: game.name })}>
+        <div class="game-entry-actions">
+          <a class="game-entry-play" target="_blank" rel="noopener noreferrer" href={game.robloxUrl} aria-label={interpolate(page.playGameOn, { game: game.name })}>
             <span>{page.playGame}</span>
-            <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true" width="14" height="14">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
           </a>
-          {/* secondary actions as compact text links - keeps the internal
-              updates/about/wiki links (crawler discovery) without three
-              extra buttons crowding the card under the play CTA. */}
           <div class="game-card-links">
             <a href={getGameUpdateHref(locale, game)}>{page.updates}</a>
             <a href={getGameAboutPath(locale, game)}>{page.about}</a>
@@ -104,28 +99,25 @@ const projects = getInWorkProjects(locale);
       </article>
       );
     })}
-  </div>
-
-  <div class="section-header section-header-spaced" data-reveal>
-    <h2>{page.inWorksHeading}</h2>
-    <span class="section-header-note">{page.classified}</span>
-  </div>
-
-  <div class="inworks-grid" aria-label={page.projectsAriaLabel}>
     {projects.map((project, i) => (
-      <article class="inworks-card" data-reveal data-reveal-i={String(Math.min(i + 1, 6))}>
-        <div class="inworks-card-inner">
-          <div class="inworks-header">
-            <span class="pill pill-classified">{page.unannounced}</span>
-            <span class="inworks-genre">{project.genre}</span>
-          </div>
-          <h2 class="inworks-title">{project.name}</h2>
-          <p class="inworks-desc" aria-label={page.descriptionRedacted}>
-            <span class="redacted" aria-hidden="true">{project.redactedDescription}</span>
-          </p>
+      <article class="game-entry game-entry--pipeline" data-game-id={project.id} data-reveal data-reveal-i={String(Math.min(liveGames.length + i + 1, 6))} style={`order: ${GAME_DISPLAY_ORDER[project.id] ?? 99}`}>
+        <div class="game-entry-image game-entry-image--pipeline">
+          <span>{project.stageLabel}</span>
         </div>
-        <div class="inworks-stamp" aria-hidden="true">{page.classifiedStamp}</div>
+        <div class="game-entry-body">
+          <span class="game-entry-genre">{project.genre}</span>
+          <h2>{project.name}</h2>
+        </div>
+        {project.robloxUrl && (
+          <div class="game-entry-actions">
+            <a class="game-entry-play" target="_blank" rel="noopener noreferrer" href={project.robloxUrl}>
+              <span>{page.playGame}</span>
+            </a>
+          </div>
+        )}
       </article>
     ))}
+    </div>
+  </section>
   </div>
 </BaseLayout>

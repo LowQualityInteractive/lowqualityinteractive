@@ -1,104 +1,112 @@
-ERADICATION is a team shooter on Roblox. you play a contractor, the town hires your kind because nobody who actually lives there can do the job anymore. the streets belong to Furries. your job is to push them off, hold what you take, and eventually go deal with the thing waiting underneath all of it.
+ERADICATION is a team shooter on Roblox. The player is a contractor who must recover a town from the Furries.
 
-you start at Whiskerhold. that's the only ground that's still yours. everything past it is enemy territory. a flag doesn't become yours because you walked up and touched it. it becomes yours when the Furries are off it long enough for the town to actually accept the change.
+The contractor starts at Whiskerhold. This location is the only contractor territory at the start of a round.
 
-## The setup
+## The conflict
 
-a town got overrun by Furries. they used to be normal people. they spent too long online and changed into something else. i know your boiling mad right now, but chill.
+The Furries control the town. They were normal persons before excessive online activity changed them.
 
-you are not a soldier. you are a contractor. the town pays you to clear the streets, hold the ground after, and keep the line moving forward.
+The contractor does not serve in a military unit. The town pays the contractor to clear streets and hold each recovered territory.
 
 ## The town
 
-the map is split into seven named territories. one of them is yours when the round starts. the other six are not.
+The map has seven named territories. The contractors control one territory when the round starts. The Furries control the other six territories.
 
-- **Whiskerhold**. base territory. spawn-only foothold. the only ground you start on.
-- **Furward**. Furry ground at round start. reclaimable.
-- **Furrow**. Furry ground at round start. reclaimable. the single objective in Rush mode.
-- **Purridge**. Furry ground at round start. reclaimable.
-- **Whisken**. Furry ground at round start. reclaimable.
-- **Bloodwhisk Reach**. Furry ground at round start. reclaimable.
-- **Whiskspire**. Furry ground at round start. reclaimable.
+- **Whiskerhold** is the contractor base and the initial spawn territory.
+- **Furward** is a recoverable Furry territory.
+- **Furrow** is a recoverable Furry territory and the Rush objective.
+- **Purridge** is a recoverable Furry territory.
+- **Whisken** is a recoverable Furry territory.
+- **Bloodwhisk Reach** is a recoverable Furry territory.
+- **Whiskspire** is a recoverable Furry territory.
 
-each territory has a flag. a flag belongs to the contractors, the Furries, or nobody, and either side can contest it. the minimap shows a running count: TERRITORIES RECLAIMED: X / Y. Whiskerhold doesn't count toward that number. it's where you come from, not what you take back.
+Each territory has one flag. The contractors or the Furries can control or contest this flag.
 
-reclaimed ground is not safe ground. the Furries push back. they post bodies around the flags they hold, contest the ones you take, and come back in numbers tuned to the player count and the mode you picked.
+The minimap shows the number of recovered territories. Whiskerhold is not part of this number because it is the initial base.
+
+The Furries can attack recovered territories. The number of Furries changes with the game mode and the number of players.
 
 ## The Furries
 
-the Furries are not one creature with different health bars. they are an opposing side and the game treats them like one. some chase you. some guard flags. some sit back and shoot. some are still dangerous after they die.
+The Furries are the hostile faction. Each Furry type has a different function.
 
-| Type | Read |
+| Type | Function |
 |---|---|
-| Normal | baseline Furry. closes in, attacks, dies. absolute cinema. |
-| Watcher | he's watching you... nah, we genuinely just put some pink spheres on his head and called it a day. |
-| Spitter | stays at range. hits from a distance. punishes anyone who treats every Furry as a close-range problem. |
-| Pimple | explodes on death. standing on the body when it drops is a mistake. |
-| Bloater | larger explosion on death. dropping it close to the team kills the team. |
-| Robot | fast attack cooldown. shreds anyone caught alone. just pour some water on him and he'll die instantly. |
-| Leader | heavy. takes genuine fire to sleep. |
-| Helper | small Furry tied to the boss area. damn minions. |
+| Normal | The Normal Furry is the standard melee enemy. |
+| Watcher | The Watcher Furry is a fast melee enemy with more health. |
+| Spitter | The Spitter Furry attacks from a long distance. |
+| Pimple | The Pimple Furry explodes after death. |
+| Bloater | The Bloater Furry has much health and causes a large explosion after death. |
+| Robot | The Robot Furry has a short attack interval. |
+| Leader | The Leader Furry has very high health. |
+| Helper | The Helper Furry is a small enemy in the boss area. |
 
-Furry pressure scales with the server. a solo run is still crowded. a full lobby is not the same town with more witnesses. it's a denser problem with more bodies in it.
+The Furry population changes with the number of players. A full server has more Furries than a server with one player.
 
-## Modes
+## Game modes
 
-three modes are live. they give the same town different rules.
+The game has three active modes. Each mode uses different rules.
 
 ### Traditional
 
-the full job. 48 minutes. start at Whiskerhold, push through the six Furry-held territories, hold them long enough for the count to climb. when all six are reclaimed, the boss route opens.
+Traditional has a time limit of 48 minutes. The contractors must recover the six Furry territories.
+
+The boss route opens after the contractors recover all six territories.
 
 ### Rush
 
-the compressed version. 7 minutes 30. one objective: Furrow. the contractors begin with it already captured. the Furries only need to take it once. there is no boss.
+Rush has a time limit of 7 minutes and 30 seconds. Furrow is the only objective.
+
+The contractors control Furrow when the round starts. The Furries win when they capture Furrow one time. Rush does not have a boss.
 
 ### Infection
 
-15 minutes. the map gets worse the longer the Furries hold ground. Furry-held flags produce spawn pressure in a radius around themselves, so cleared streets next to enemy ground stay loud. downed contractors can come back on the wrong side. there is no boss in this mode. the mode is its own problem.
+Infection has a time limit of 15 minutes. Furry territories make new Furries in the adjacent area.
+
+A contractor can change to the Furry team after death. Infection does not have a boss.
 
 ## Deployment
 
-you don't spawn anywhere you feel like. where you can deploy is gated by who owns the ground. Whiskerhold is always available. forward deploys depend on what your side has reclaimed. lose a flag and your respawn options shrink.
+Territory control determines the available spawn locations. Whiskerhold is always available to the contractors.
 
-## The arsenal
+A recovered territory can give the contractors a forward spawn location. The contractors lose this spawn location when the Furries recover the territory.
 
-weapons decide the kind of mistake a contractor can survive. pistols cover the moment your primary fails on you. shotguns answer bad distances. rifles carry long distance fights. machine guns, uhh, just go Rambo with it. anti-materiel rifles, rockets, and vehicle weapons are there for the targets that should not be solved with small arms.
+## Weapons
 
-loadouts are saved between rounds. most weapons unlock through cash and XP. some are tied to the LQI Roblox community and gamepasses.
+The game has pistols, shotguns, rifles, machine guns, anti-materiel rifles, rockets, and vehicle weapons.
 
-[read more on the weapons wiki](/eradication/wiki/weapons/)
+The game saves player loadouts between rounds. Players can unlock most weapons with cash and XP.
+
+Some weapons require membership in the LQI Roblox community or a gamepass.
+
+[Read the weapons wiki.](/eradication/wiki/weapons/)
 
 ## Vehicles and aircraft
 
-vehicles get contractors across ground that is no longer worth walking. they have hit points. they can be disabled. they can explode. they are tools, not safety.
+Vehicles move contractors across the map. Each vehicle has a health value and can become disabled or explode.
 
-[read more on the vehicles wiki](/eradication/wiki/vehicles/)
+[Read the vehicles wiki.](/eradication/wiki/vehicles/)
 
 ## The boss
 
-the boss is locked at the start of every Traditional round. he is not part of the street population. he only becomes available after the six reclaimable territories are in contractor hands.
+The game locks the boss at the start of a Traditional round. The contractors must recover all six Furry territories to unlock the boss.
 
-when that happens, the route opens. there is a cutscene. there is an atmosphere change (quite literally). there is a tunnel, reached through the basement of a random house somewhere on the map. there is a core to deal with. there are small Furries, Helpers, moving through the tunnel system like its Vietnam.
+A cutscene starts when the boss route opens. The route starts in the basement of a house and continues through a tunnel below the town.
 
-at the end of it, a large unnamed man guarded by small Furries.
+The boss area contains a core and Helper Furries. A large unnamed man is the boss.
 
-who is this large unnamed man? well, we know that he's missing, unemployed, and a dangerous man, therefore we need to slime him, completely original outcome. there's just posters yearning for his presence to grace the town again, and also a massive bounty on his head.
+The boss does not have a title or named phases. The boss difficulty changes with the number of active contractors.
 
-he has no title. there are no phases to memorize. the fight scales with how many contractors are in the den. more fighters means more Furries, more health, more damage. the job ends here or it does not end this round.
+Rush and Infection do not have a boss. The boss is available only near the end of a Traditional round.
 
-Rush has no boss. Infection has no boss. the boss is the Traditional ending, and only after the town is taken.
+## Field messages
 
-## Field voice
+The game uses short field messages. These messages identify enemies, heavy attacks, the boss, requests for help, and changes of position.
 
-why callouts? blame your government. anyway, callouts in-game are short and dry: contact. multiple hostiles. heavy incoming. boss spotted. need backup. hold position. fall back. help me. i'm down. nobody has time for speeches. do not expect any.
+## Round sequence
 
-## The short version
+The contractors start at Whiskerhold. They recover Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, and Whiskspire.
 
-start at Whiskerhold. take Furward, Furrow, Purridge, Whisken, Bloodwhisk Reach, and Whiskspire away from the Furries. hold what you take. use vehicles when walking is a bad idea. use Blackhawks when distance is the problem.
+The contractors hold each territory and use vehicles to move between distant locations.
 
-when the six are reclaimed, the route goes below the town. under a random house, in a tunnel, there is a large unemployed dude with imaginary small Furries around him.
-
-you are quite literally fighting his imagination.
-
-that is the job. slime him, get paid.
+The tunnel route opens after the contractors recover the six Furry territories. The contractors then enter the tunnel and fight the boss.

@@ -51,34 +51,124 @@ const CATEGORY_LABELS: Record<string, { singular: string; plural: string }> = {
   vehicle: { singular: 'Vehicle', plural: 'Vehicles' },
 };
 
-// short prose intro for each category, rendered above the entity list
-// on category pages. without this, category pages were just card grids
-// over a one-line "N items catalogued" lead - google flags those as
-// thin template pages, which hurts indexing of the entities they
-// surface. {game} is interpolated by the caller. voice tracks the rest
-// of the site: lowercase, fragmented, no marketing nouns.
+// Short consumer intro for each category. Keep this copy direct because
+// it is also used in metadata. {game} is interpolated by the caller.
 const CATEGORY_INTROS: Record<string, string> = {
   weapon:
-    "every gun, melee, and piece of kit in {game}. what it is, what it does, when not to bring it.",
+    "Weapons in {game}. Each page shows the weapon slot and how to get the weapon.",
   enemy:
-    "every Furry that shows up in {game}. some chase, some shoot, some explode when they die. read before you walk into one.",
+    "Enemies in {game}. Each page shows the threat and how to fight it.",
   map:
-    "every map in {game}. the layout, the modes that run on it, the corners that get people killed.",
+    "Maps in {game}. Each page shows the objectives and the main route.",
   mode:
-    "every mode in {game}. how long it runs, what you're trying to do, and what happens when you fail.",
+    "Game modes in {game}. Each page shows the objective and the round time.",
   item:
-    "pickups and inventory items in {game}. what they do, where they drop, whether they're worth picking up.",
+    "Items in {game}. Each page shows what the item does and how to use it.",
   mechanic:
-    "the systems that decide what happens in {game}. movement, fights, money, unlocks. read these before you wonder why you keep dying.",
+    "Game mechanics in {game}. Each page explains one rule or action.",
   gamepass:
-    "the gamepasses for {game}. what each one unlocks. some of them help. some of them are vibes.",
+    "Gamepasses for {game}. Each page shows what the gamepass unlocks.",
   progression:
-    "how you earn things in {game}. cash, XP, unlocks, the stuff that comes back round to round.",
+    "Progression in {game}. These pages explain how to get cash, XP, and rewards.",
   territory:
-    "the seven flags in {game}. one is yours at the start. the other six aren't. these are them.",
+    "Territories in {game}. The team starts at one territory and can capture six more territories.",
   vehicle:
-    "everything in {game} you can drive, fly, or get run over by. some of them work.",
+    "Vehicles in {game}. Each page shows how to get the vehicle, its seats, and its weapons.",
 };
+
+const STAT_ALLOWLISTS: Record<string, ReadonlySet<string>> = {
+  weapon: new Set(['slot', 'unlock', 'cash_required', 'xp_required']),
+  enemy: new Set([
+    'health',
+    'walk_speed',
+    'base_melee_damage',
+    'ranged_damage',
+    'ranged_attack_range_studs',
+    'helper_damage',
+  ]),
+  gamepass: new Set(['price_robux', 'active_vehicle_limit', 'extra_ammunition_canisters']),
+  item: new Set([
+    'source',
+    'consumed_on_use',
+    'free_vehicle',
+    'default_active_limit',
+    'expanded_active_limit',
+  ]),
+  map: new Set(['territories', 'reclaimable_territories', 'base_territory', 'rush_objective']),
+  mode: new Set(['round_duration', 'boss_enabled', 'rewards_enabled', 'objective']),
+  territory: new Set(['flag', 'rush_objective']),
+  vehicle: new Set([
+    'source',
+    'max_forward_speed',
+    'max_backward_speed',
+    'max_health',
+    'driver_or_operator_seats',
+    'passenger_seats',
+    'weapons',
+    'aircraft',
+  ]),
+};
+
+const MECHANIC_STAT_ALLOWLISTS: Record<string, ReadonlySet<string>> = {
+  'territory-capture': new Set([
+    'one_defender_capture_time_seconds',
+    'capture_cash_reward',
+    'capture_xp_reward',
+    'defense_interval_seconds',
+    'defense_cash_reward',
+    'defense_xp_reward',
+  ]),
+  deployment: new Set(['contested_spawn_allowed']),
+  'boss-unlock': new Set(['required_reclaimable_territories', 'mode']),
+  'boss-core': new Set(['base_core_health']),
+  rallydrop: new Set(['default_active_vehicle_limit', 'expanded_active_vehicle_limit']),
+  'vehicle-resupply': new Set([
+    'resupply_cooldown_seconds',
+    'instant_top_off',
+    'repairs_to_max_health',
+  ]),
+};
+
+const PROGRESSION_STATS_TO_HIDE = new Set([
+  'rare_kill_cash_range',
+  'rare_kill_xp_range',
+  'rare_roll_chance_percent',
+  'base_multiplier_chance_percent',
+  'one_point_five_multiplier_chance_percent',
+  'triple_multiplier_chance_percent',
+  'contributor_share_scale',
+  'daily_streak_bonus_per_day',
+  'daily_max_multiplier',
+  'plus_streak_bonus_per_day',
+  'plus_max_multiplier',
+  'activity_seconds',
+  'qualification_delay_seconds',
+]);
+
+function getConsumerStats(item: WikiEntity, type: string): Record<string, string | number> | undefined {
+  if (!item.stats) return undefined;
+
+  const allowlist = type === 'mechanic' ? MECHANIC_STAT_ALLOWLISTS[slugify(item.id)] : STAT_ALLOWLISTS[type];
+  const entries = Object.entries(item.stats).filter(([key]) => {
+    if (type === 'progression') return !PROGRESSION_STATS_TO_HIDE.has(key);
+    return allowlist?.has(key) ?? false;
+  });
+
+  return entries.length > 0 ? Object.fromEntries(entries) : undefined;
+}
+
+function getConsumerSummary(item: WikiEntity, type: string): string {
+  if (type !== 'weapon') return item.summary;
+
+  const slot = String(item.stats?.slot ?? 'Weapon').toLowerCase();
+  const weaponType = slot.endsWith('weapon') ? slot : `${slot} weapon`;
+  const unlock = String(item.stats?.unlock ?? 'Unknown');
+  if (unlock === 'Free') return `${item.name} is a free ${weaponType}.`;
+  if (unlock === 'Cash and XP') return `${item.name} is a ${weaponType}. You can unlock it with cash and XP.`;
+  if (unlock === 'Group reward') return `${item.name} is a ${weaponType} from the LQI group reward.`;
+  if (unlock === 'Gamepass') return `${item.name} is a ${weaponType} from a gamepass.`;
+  return `${item.name} is a ${weaponType}.`;
+}
 
 export function getCategoryIntro(category: string, gameName: string): string {
   const template = CATEGORY_INTROS[category];
@@ -126,14 +216,27 @@ for (const [path, raw] of Object.entries(wikiFiles)) {
 
   const entities: WikiEntity[] = items
     .filter((item) => item && typeof item.id === 'string' && typeof item.name === 'string')
-    .map((item) => ({
-      ...item,
-      id: slugify(item.id),
-      type: item.type ?? fallbackType,
-      // unlisted ids can't be linked, so dedupe early.
-      related: Array.isArray(item.related) ? Array.from(new Set(item.related.map(slugify))) : [],
-      fun_facts: Array.isArray(item.fun_facts) ? item.fun_facts.filter((fact) => typeof fact === 'string') : [],
-    }));
+    .map((item) => {
+      const type = item.type ?? fallbackType;
+      const useConsumerCopy = game === 'eradication';
+      return {
+        ...item,
+        id: slugify(item.id),
+        type,
+        summary: useConsumerCopy ? getConsumerSummary(item, type) : item.summary,
+        role: useConsumerCopy && (type === 'weapon' || type === 'gamepass') ? undefined : item.role,
+        stats: useConsumerCopy ? getConsumerStats(item, type) : item.stats,
+        // The generated ERADICATION notes contained source-analysis and
+        // implementation details. Do not publish them as player documentation.
+        fun_facts: useConsumerCopy
+          ? []
+          : Array.isArray(item.fun_facts)
+            ? item.fun_facts.filter((fact) => typeof fact === 'string')
+            : [],
+        // unlisted ids can't be linked, so dedupe early.
+        related: Array.isArray(item.related) ? Array.from(new Set(item.related.map(slugify))) : [],
+      };
+    });
 
   // empty categories are still registered - the wiki button on the
   // game page should stay visible while data is being populated, and

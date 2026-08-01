@@ -21,7 +21,11 @@ import { animate, inView, stagger } from 'motion';
 // the same properties, and that fight is ugly.
 document.documentElement.classList.add('motion-active');
 
-const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const root = document.documentElement;
+const systemReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const getMotionMode = () => root.getAttribute('data-motion-mode') || (systemReducedMotion.matches ? 'reduced' : 'motion');
+const shouldReduceMotion = () => getMotionMode() !== 'motion';
+const isNoMotion = () => getMotionMode() === 'none';
 const hoverable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const easeEnter = [0.16, 1, 0.3, 1] as const;
 const easeReveal = [0.22, 1, 0.36, 1] as const;
@@ -36,8 +40,36 @@ const releaseToCSS = (el: HTMLElement) => {
   el.style.willChange = '';
 };
 
+const revealElement = (el: HTMLElement) => {
+  if (!el.isConnected) {
+    requestAnimationFrame(() => revealElement(el));
+    return;
+  }
+
+  el.classList.add('is-revealed');
+  if (shouldReduceMotion()) {
+    releaseToCSS(el);
+    return;
+  }
+
+  el.style.opacity = '0';
+  el.style.transform = 'translate3d(0, 22px, 0) scale(0.97)';
+  el.style.willChange = 'opacity, transform';
+  animate(
+    el,
+    {
+      opacity: [0, 1],
+      transform: [
+        'translate3d(0, 22px, 0) scale(0.97)',
+        'translate3d(0, 0, 0) scale(1)',
+      ],
+    },
+    { duration: 0.62, ease: easeReveal },
+  ).finished.then(() => releaseToCSS(el)).catch(() => releaseToCSS(el));
+};
+
 const tweenContentSwap = (root: HTMLElement, mutate: () => void) => {
-  if (reduce) {
+  if (shouldReduceMotion()) {
     mutate();
     return;
   }
@@ -78,9 +110,13 @@ window.__lqiMotion = {
     tweenContentSwap(root, () => root.replaceChildren(...children));
   },
   enter(root) {
-    if (reduce) return;
     const children = Array.from(root.children).filter((child): child is HTMLElement => child instanceof HTMLElement);
     if (children.length === 0) return;
+    if (isNoMotion()) {
+      children.forEach(releaseToCSS);
+      return;
+    }
+    if (shouldReduceMotion()) return;
     children.forEach((child) => {
       child.style.opacity = '0';
       child.style.transform = 'translate3d(0, 14px, 0) scale(0.985)';
@@ -97,7 +133,24 @@ window.__lqiMotion = {
       children.forEach(releaseToCSS);
     });
   },
+  reveal(element) {
+    revealElement(element);
+  },
 };
+
+const settleForMotionMode = () => {
+  const mode = getMotionMode();
+  if (mode === 'motion') return;
+  document.getAnimations().forEach((animation) => animation.cancel());
+  const selector = mode === 'none' ? '[data-reveal], .hero-enter' : '[data-reveal].is-revealed, .hero-enter';
+  document.querySelectorAll<HTMLElement>(selector).forEach((el) => {
+    if (mode === 'none') el.classList.add('is-revealed');
+    releaseToCSS(el);
+  });
+};
+
+window.addEventListener('lqi-motion-mode-change', settleForMotionMode);
+settleForMotionMode();
 
 // hero entrance.
 // the lcp candidate is usually a hero-enter <p>. we deliberately do
@@ -108,7 +161,7 @@ window.__lqiMotion = {
 // place of) the css keyframe.
 const heroChildren = Array.from(document.querySelectorAll<HTMLElement>('.hero-enter'));
 if (heroChildren.length > 0) {
-  if (reduce) {
+  if (shouldReduceMotion()) {
     // reduce-motion: no translate, no fade. the css path already shows
     // the element. nothing to do here.
     heroChildren.forEach(releaseToCSS);
@@ -150,7 +203,12 @@ if (heroChildren.length > 0) {
 // at any given time. (one cook in the kitchen, please.)
 const reveals = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
 if (reveals.length > 0) {
-  if (reduce) {
+  if (isNoMotion()) {
+    reveals.forEach((el) => {
+      el.classList.add('is-revealed');
+      releaseToCSS(el);
+    });
+  } else if (shouldReduceMotion()) {
     // reduce-motion path: opacity-only fade-in on enter, no translate.
     // we still gate on inView so off-screen content doesn't flash all at
     // once when the page first loads.
@@ -244,7 +302,7 @@ counters.forEach((el) => {
     el.textContent = el.getAttribute('data-counter-fallback') || '-';
     return;
   }
-  if (reduce) {
+  if (shouldReduceMotion()) {
     el.textContent = formatCounter(target, mode);
     return;
   }
@@ -287,7 +345,7 @@ counters.forEach((el) => {
 });
 
 // magnetic buttons (cursor pull).
-if (hoverable && !reduce) {
+if (hoverable && !shouldReduceMotion()) {
   const magnets = Array.from(document.querySelectorAll<HTMLElement>('[data-magnetic]'));
   const STRENGTH = 0.28;
   const MAX = 12;

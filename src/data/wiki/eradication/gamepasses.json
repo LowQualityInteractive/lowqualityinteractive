@@ -4,7 +4,7 @@
     "name": "FURRY INVISIBILITY [x2]",
     "type": "gamepass",
     "summary": "FURRY INVISIBILITY [x2] doubles the Furry invisibility duration from 30 seconds to 60 seconds.",
-    "role": "Use it if you play Furry-side rounds and want a longer invisible window before reappearing.",
+    "role": "Use this pass in a Furry-side round to increase the invisible time.",
     "stats": {
       "price_robux": 39,
       "store_description": "Double the Furry invisibility, from 30s -> 60s. Includes: Double Furry Invisibility (30s -> 60s)",
@@ -39,7 +39,7 @@
       "vehicle-resupply"
     ],
     "fun_facts": [
-      "This pass is an add-on, so it is tied to RallyDrop vehicle access rather than a normal loadout slot."
+      "This add-on pass changes RallyDrop vehicle access and does not use a normal loadout slot."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -49,7 +49,7 @@
     "name": "RALLYDROP: DOUBLE COMMANDER",
     "type": "gamepass",
     "summary": "RALLYDROP: DOUBLE COMMANDER raises RallyDrop access to two active vehicles.",
-    "role": "Use it when you want to keep two vehicle roles available at once, such as one transport and one armored support option.",
+    "role": "Use this pass to keep two vehicle roles available. For example, keep one transport and one armored support vehicle.",
     "stats": {
       "price_robux": 149,
       "store_description": "RallyDrop gives you access to two active vehicles. Get your friend on the wheel! Includes: RallyDrop: Double Commander [ADD-ON]",
@@ -95,7 +95,7 @@
     "id": "set-ii-japan-i-pass",
     "name": "SET II: JAPAN I",
     "type": "gamepass",
-    "summary": "SET II: JAPAN I unlocks a Japanese weapon set covering Type 100 variants, Type 38 and Type 99 rifles, Nambu sidearms, Hamada sidearms, and related rifles.",
+    "summary": "SET II: JAPAN I unlocks a set of Japanese weapons.",
     "role": "Use it if you want a broad historical Japanese loadout set with both primary weapons and sidearms.",
     "stats": {
       "price_robux": 449,
@@ -128,7 +128,7 @@
     "id": "set-iii-germany-ii-pass",
     "name": "SET III: GERMANY II",
     "type": "gamepass",
-    "summary": "SET III: GERMANY II unlocks later German weapons, including FG-42, Gewehr 41, Gewehr 43, Karabiner 98k, MG-42, MP-34, MP-40, Panzerbuchse 39, StG-44, and Walther P38.",
+    "summary": "SET III: GERMANY II unlocks a set of German weapons.",
     "role": "Use it if you want German rifles, machine guns, submachine guns, anti-armor weapons, and a sidearm in one pass.",
     "stats": {
       "price_robux": 499,
@@ -157,7 +157,7 @@
     "id": "set-iv-russia-ii-pass",
     "name": "SET IV: RUSSIA II",
     "type": "gamepass",
-    "summary": "SET IV: RUSSIA II unlocks DP-27, Mosin-Nagant M38 Carbine, PPSh-41 variants, PTRS-41, SVT-40, and Tokarev TT-33.",
+    "summary": "SET IV: RUSSIA II unlocks a set of Russian weapons.",
     "role": "Use it if you want Russian automatic fire, anti-armor pressure, rifle options, and a sidearm from one pass.",
     "stats": {
       "price_robux": 349,
@@ -207,7 +207,7 @@
     "name": "AMMO CANS [x2]",
     "type": "gamepass",
     "summary": "AMMO CANS [x2] adds one extra ammunition canister.",
-    "role": "Use it if you want more ammo support during long territory holds, boss pressure, or extended pushes.",
+    "role": "Use this pass to get more ammunition during a long territory defense, boss combat, or an extended attack.",
     "stats": {
       "price_robux": 49,
       "store_description": "The supply lines have been optimized. Help out yourself and your comrades! Includes: +1 Ammunition Canister",
@@ -230,7 +230,7 @@
     "id": "set-v-usa-i-pass",
     "name": "Set V: USA I",
     "type": "gamepass",
-    "summary": "Set V: USA I unlocks Lewis Gun, M1903 Springfield, Winchester M1897 (Trench Gun), and M1911A1.",
+    "summary": "Set V: USA I unlocks weapons from the United States.",
     "role": "Use it if you want a smaller USA set with a machine gun, rifle, shotgun variant, and sidearm.",
     "stats": {
       "price_robux": 199,
@@ -253,7 +253,7 @@
     "id": "set-i-france-i-pass",
     "name": "Set I: FRANCE I",
     "type": "gamepass",
-    "summary": "Set I: FRANCE I unlocks Lebel M1886/93, Berthier Carbine, Chauchat, RSC M1917, and M1892 Revolver.",
+    "summary": "Set I: FRANCE I unlocks a set of French weapons.",
     "role": "Use it if you want the French historical weapon set with rifles, automatic fire, and a revolver sidearm.",
     "stats": {
       "price_robux": 249,
@@ -277,7 +277,7 @@
     "id": "set-vi-russia-i-pass",
     "name": "Set VI: RUSSIA I",
     "type": "gamepass",
-    "summary": "Set VI: RUSSIA I unlocks Fedorov Avtomat, Mosin-Nagant M1891/30, and Nagant M1895.",
+    "summary": "Set VI: RUSSIA I unlocks a set of Russian weapons.",
     "role": "Use it if you want the smaller Russian pass with one automatic primary, one rifle, and one revolver.",
     "stats": {
       "price_robux": 198,
@@ -299,8 +299,8 @@
     "id": "set-vii-germany-i-pass",
     "name": "Set VII: GERMANY I",
     "type": "gamepass",
-    "summary": "Set VII: GERMANY I unlocks C96 Mauser, Gewehr 98, Luger P08, MP-18, and Selbstlader M1916.",
-    "role": "Use it if you want the earlier German set with rifle, sidearm, submachine gun, and self-loading options.",
+    "summary": "Set VII: GERMANY I unlocks a set of German weapons.",
+    "role": "Use this pass to get the earlier German set. The set has rifles, sidearms, submachine guns, and semiautomatic weapons.",
     "stats": {
       "price_robux": 249,
       "store_description": "Includes: C96 Mauser, Gewehr 98, Luger P08, MP-18, Selbstlader M1916",
@@ -324,7 +324,7 @@
     "name": "HAND CHARGE",
     "type": "gamepass",
     "summary": "HAND CHARGE unlocks the Hand Charge weapon.",
-    "role": "Use it if you want the standalone cannon-pistol style weapon without tying the unlock to a larger set.",
+    "role": "Use this pass to unlock the Hand Charge without a larger weapon set.",
     "stats": {
       "price_robux": 249,
       "store_description": "Remember, switching to your cannon pistol is always faster than reloading. Includes: Hand Charge",
@@ -334,7 +334,7 @@
       "hand-charge"
     ],
     "fun_facts": [
-      "This standalone pass was created on the same day as RPG-7 according to Roblox."
+      "Roblox shows the same creation date for the Hand Charge pass and the RPG-7 pass."
     ],
     "status": "live",
     "last_verified": "2026-05-05"
@@ -366,7 +366,7 @@
     "id": "set-viii-usa-i-pass",
     "name": "SET VIII: USA I",
     "type": "gamepass",
-    "summary": "SET VIII: USA I unlocks M1 Carbine, M1 Garand, Thompson M1928, and Winchester M1897.",
+    "summary": "SET VIII: USA I unlocks weapons from the United States.",
     "role": "Use it if you want the USA set built around classic rifle, shotgun, and submachine-gun options.",
     "stats": {
       "price_robux": 199,
@@ -389,7 +389,7 @@
     "id": "rallydrop-pass",
     "name": "RALLYDROP",
     "type": "gamepass",
-    "summary": "RALLYDROP unlocks base RallyDrop vehicle access beyond the free LTV-300 tier.",
+    "summary": "RALLYDROP unlocks more vehicles than the free LTV-300 access.",
     "role": "Use it if you want the main vehicle call-in experience with armored, unarmored, and support vehicle options.",
     "stats": {
       "price_robux": 398,

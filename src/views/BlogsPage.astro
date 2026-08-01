@@ -17,7 +17,6 @@ const localizedGames = Object.fromEntries(
     game.id,
     {
       name: game.name,
-      updateTag: game.updateTag,
       updateImageAlt: game.updateImageAlt,
     },
   ]),
@@ -29,29 +28,31 @@ const blogsScript = sanitizeInlineScript(
 
 <BaseLayout
   locale={locale}
-  title={getSiteTitle('Updates & Patch Notes')}
+  title={getSiteTitle('Updates')}
   description={page.description}
   currentPage="updates"
   routePath="updates"
   jsonLd={getBlogsJsonLd(locale)}
   extraScripts={[blogsScript]}
 >
-  <section class="hero">
-    <span class="kicker hero-enter" style="--enter-delay: 40ms">{page.kicker}</span>
-    <h1 class="hero-enter" style="--enter-delay: 120ms">{page.heading}</h1>
-    <p class="lead hero-enter" style="--enter-delay: 220ms">{page.lead}</p>
-  </section>
+  <div class="core-page core-page--updates">
+    <section class="core-intro">
+      <div>
+        <h1 class="hero-enter" style="--enter-delay: 100ms">{page.heading}</h1>
+      </div>
+    </section>
 
-  <div class="card" aria-label={page.chooseDevlogAriaLabel} data-reveal>
-    <h2>{page.gameDevlogsHeading}</h2>
-    <div class="game-devlog-buttons" id="devlog-game-buttons">
-      <p>{page.loadingGames}</p>
-    </div>
+    <section class="updates-workspace" aria-label={page.chooseDevlogAriaLabel}>
+      <div class="updates-selector" data-reveal>
+        <div class="game-devlog-buttons" id="devlog-game-buttons">
+          <p>{page.loadingGames}</p>
+        </div>
+      </div>
+
+      <div class="updates-reader devlog-viewer-card" id="devlog-viewer" aria-live="polite" data-reveal data-reveal-i="1">
+        <h2>{page.viewerHeading}</h2>
+        <p>{page.viewerFallback}</p>
+      </div>
+    </section>
   </div>
-
-  <div class="card devlog-viewer devlog-viewer-card" id="devlog-viewer" aria-live="polite" data-reveal data-reveal-i="1">
-    <h2>{page.viewerHeading}</h2>
-    <p>{page.viewerFallback}</p>
-  </div>
-
 </BaseLayout>

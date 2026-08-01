@@ -8,20 +8,28 @@ interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
-type ThemeName = 'light' | 'dark';
+type ThemeMode = 'light' | 'system' | 'dark';
 
 interface LqiThemeController {
-  get(): ThemeName;
-  set(theme: ThemeName): void;
-  toggle(): void;
+  get(): ThemeMode;
+  set(theme: ThemeMode): void;
   grantConsent(): void;
   hasConsent(): boolean;
-  syncToggleButton(): void;
+  syncThemeControl(): void;
 }
 
 interface LqiMotionController {
   replaceChildren(root: HTMLElement, children: Node[]): void;
   enter(root: HTMLElement): void;
+  reveal(element: HTMLElement): void;
+}
+
+type MotionMode = 'motion' | 'reduced' | 'none';
+
+interface LqiMotionPreferenceController {
+  get(): MotionMode;
+  set(mode: MotionMode): void;
+  syncMotionControl(): void;
 }
 
 interface LqiLoaderController {
@@ -31,6 +39,7 @@ interface LqiLoaderController {
 
 interface Window {
   __lqiMotion?: LqiMotionController;
+  __lqiMotionPreference?: LqiMotionPreferenceController;
   __lqiTheme?: LqiThemeController;
   __lqiLoader?: LqiLoaderController;
 }

@@ -16,8 +16,10 @@
       "connect": "Contact"
     },
     "theme": {
-      "toDark": "Schimbă pe modul întunecat",
-      "toLight": "Schimbă pe modul luminos"
+      "label": "Temă",
+      "day": "Zi",
+      "system": "Sistem",
+      "night": "Noapte"
     },
     "mobileNav": {
       "open": "Deschide meniul de navigare",
