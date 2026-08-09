@@ -1,25 +1,20 @@
+import { serializeInlineData } from './inline-data';
+
 interface LiveMessages {
   players: string;
 }
 
 interface LiveGame {
   id: string;
-  status: string;
   universeId: string;
 }
 
 export function getLiveScript(
   messages: LiveMessages,
   games: LiveGame[],
-  // when true the runtime hits /api/roblox-presence to update live
-  // player counts. only enable on hosts that actually expose that
-  // proxy (cloudflare pages / netlify edge with functions/_middleware.ts).
-  // off by default because github pages would 404 the call and pollute
-  // the console with errors that lighthouse picks up.
-  robloxPresenceEnabled: boolean,
 ) {
   return String.raw`(() => {
-  const CONFIG = ${JSON.stringify({ messages, games, robloxPresenceEnabled })};
+  const CONFIG = ${serializeInlineData({ messages, games })};
   const MESSAGES = CONFIG.messages;
   const GAMES = CONFIG.games;
 
@@ -42,21 +37,22 @@ export function getLiveScript(
   // surfaces the network failure regardless of try/catch). lighthouse
   // flagged this every audit.
   //
-  // we now hit a same-origin proxy at /api/roblox-presence?ids=...
-  // that path is served by functions/_middleware.ts on cloudflare
-  // pages / netlify edge. on github pages (current host) the path 404s
-  // and the catch swallows it silently - no CORS error, no console
-  // noise. live counts will simply stay hidden until we move hosts,
-  // which is the cleaner of the available trade-offs.
-  const allGames = GAMES.filter((g) => g.universeId);
-  if (allGames.length > 0 && CONFIG.robloxPresenceEnabled) {
-    const universeIds = allGames.map((g) => g.universeId).join(',');
-    // HEAD probe first so a 404 doesn't pollute the network panel with
-    // a noisy GET. content-type sniff filters out the github-pages
-    // 404 html that would otherwise json-parse-fail loudly.
-    fetch('/api/roblox-presence?ids=' + encodeURIComponent(universeIds), {
-      signal: AbortSignal.timeout(8000),
+  // The proxy owns the universe-id allowlist. The browser sends no ids,
+  // which leaves one canonical cache key and no attacker-controlled relay
+  // input. BaseLayout emits this script only on pages with count targets.
+  const allGames = GAMES.filter((game) => /^\d{1,20}$/.test(game.universeId));
+  const cardsByGameId = new Map();
+  document.querySelectorAll('[data-game-id]').forEach((card) => {
+    if (!(card instanceof HTMLElement) || !card.querySelector('.game-player-count')) return;
+    const gameId = card.dataset.gameId;
+    if (gameId) cardsByGameId.set(gameId, card);
+  });
+
+  if (allGames.length > 0 && cardsByGameId.size > 0) {
+    fetch('/api/roblox-presence', {
+      signal: AbortSignal.timeout(5000),
       headers: { Accept: 'application/json' },
+      credentials: 'same-origin',
     })
       .then((res) => {
         if (!res.ok) return null;
@@ -68,22 +64,22 @@ export function getLiveScript(
       .then((data) => {
         if (!data || !Array.isArray(data.data)) return;
 
-        const byUniverse = {};
+        const byUniverse = new Map();
         for (const entry of data.data) {
-          byUniverse[String(entry.id)] = entry;
+          if (!entry || (typeof entry.id !== 'number' && typeof entry.id !== 'string')) continue;
+          if (!Number.isSafeInteger(entry.playing) || entry.playing < 0) continue;
+          byUniverse.set(String(entry.id), entry.playing);
         }
 
         for (const game of allGames) {
-          const entry = byUniverse[game.universeId];
-          if (!entry) continue;
+          const playing = byUniverse.get(game.universeId);
+          if (playing === undefined) continue;
 
-          const card = document.querySelector('[data-game-id="' + game.id + '"]');
+          const card = cardsByGameId.get(game.id);
           if (!(card instanceof HTMLElement)) continue;
-
           const badge = card.querySelector('.game-player-count');
           if (!(badge instanceof HTMLElement)) continue;
 
-          const playing = typeof entry.playing === 'number' ? entry.playing : 0;
           badge.textContent = interpolate(MESSAGES.players, { n: formatCount(playing) });
           badge.hidden = false;
         }

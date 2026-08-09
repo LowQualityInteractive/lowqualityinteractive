@@ -1,40 +1,32 @@
+import { serializeInlineData } from './inline-data';
+
 interface MobileNavMessages {
   close: string;
   label: string;
   open: string;
 }
 
-interface LocaleSwitcherMessages {
-  ariaLabel: string;
-}
-
-interface LocaleOption {
-  nativeName: string;
-}
-
 interface SiteScriptMessages {
-  localeSwitcher: LocaleSwitcherMessages;
   mobileNav: MobileNavMessages;
 }
 
 export function getSiteScript(
   messages: SiteScriptMessages,
-  localeOptions: Record<string, LocaleOption>,
+  supportedLocales: readonly string[],
   isDefaultLocale: boolean,
   noLocaleRedirect: boolean = false,
 ) {
   return String.raw`(() => {
-  const CONFIG = ${JSON.stringify({
+  const CONFIG = ${serializeInlineData({
     isDefaultLocale,
     noLocaleRedirect,
-    localeOptions,
+    supportedLocales,
     messages,
     cookieKey: 'lqi-locale',
   })};
   const MOBILE_LABELS = CONFIG.messages.mobileNav;
-  const LOCALE_LABELS = CONFIG.messages.localeSwitcher;
   const DEFAULT_LOCALE = 'en';
-  const SUPPORTED_LOCALES = Object.keys(CONFIG.localeOptions);
+  const SUPPORTED_LOCALES = CONFIG.supportedLocales;
   const NON_DEFAULT_LOCALES = SUPPORTED_LOCALES.filter((locale) => locale !== DEFAULT_LOCALE);
   const LOCALE_COOKIE_KEY = CONFIG.cookieKey;
 
@@ -178,26 +170,27 @@ export function getSiteScript(
     localeListbox instanceof HTMLElement
   ) {
     const options = Array.from(localeListbox.querySelectorAll('[role="option"]'));
+    localeListbox.setAttribute('tabindex', '-1');
 
     let focusedIndex = -1;
 
-    const getOptions = () => options;
-
     const setFocused = (index) => {
-      getOptions().forEach((opt, i) => {
+      if (index === focusedIndex) return;
+      options.forEach((opt, i) => {
         opt.classList.toggle('is-focused', i === index);
       });
       focusedIndex = index;
-      if (index >= 0) (getOptions()[index]).scrollIntoView({ block: 'nearest' });
+      if (index >= 0) options[index]?.scrollIntoView({ block: 'nearest' });
     };
 
     const openListbox = () => {
       localeListbox.hidden = false;
       localeBtn.setAttribute('aria-expanded', 'true');
       const currentLocale = getCurrentLocale(window.location.pathname);
-      const selectedIndex = getOptions().findIndex((opt) => opt.getAttribute('data-locale') === currentLocale);
+      const selectedIndex = options.findIndex((opt) => opt.getAttribute('data-locale') === currentLocale);
       setFocused(selectedIndex >= 0 ? selectedIndex : 0);
       localeListbox.setAttribute('aria-activedescendant', '');
+      localeListbox.focus({ preventScroll: true });
     };
 
     const closeListbox = () => {
@@ -230,9 +223,9 @@ export function getSiteScript(
       if (opt) selectLocale(opt.getAttribute('data-locale'));
     });
 
-    localeListbox.addEventListener('mousemove', (e) => {
+    localeListbox.addEventListener('pointermove', (e) => {
       const opt = e.target instanceof Element ? e.target.closest('[role="option"]') : null;
-      if (opt) setFocused(getOptions().indexOf(opt));
+      if (opt) setFocused(options.indexOf(opt));
     });
 
     localeBtn.addEventListener('keydown', (e) => {
@@ -243,7 +236,7 @@ export function getSiteScript(
     });
 
     localeListbox.addEventListener('keydown', (e) => {
-      const opts = getOptions();
+      const opts = options;
       if (e.key === 'ArrowDown') {
         e.preventDefault();
         setFocused(Math.min(focusedIndex + 1, opts.length - 1));
@@ -277,14 +270,6 @@ export function getSiteScript(
         closeListbox();
       }
     });
-
-    // shift focus to the listbox when it opens so keypresses land here
-    // and not on whatever the user happened to click last.
-    const observer = new MutationObserver(() => {
-      if (!localeListbox.hidden) localeListbox.focus();
-    });
-    observer.observe(localeListbox, { attributeFilter: ['hidden'] });
-    localeListbox.setAttribute('tabindex', '-1');
 
     window.addEventListener('pageshow', () => {
       closeListbox();

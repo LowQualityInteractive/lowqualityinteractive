@@ -5,11 +5,12 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "postbuild": "node scripts/generate-sitemap.mjs",
+    "postbuild": "node scripts/generate-sitemap.mjs && node scripts/check-security.mjs",
     "preview": "astro preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "check": "astro check"
+    "check": "astro check",
+    "check:security": "node scripts/check-security.mjs"
   },
   "dependencies": {
     "astro": "^6.1.3",

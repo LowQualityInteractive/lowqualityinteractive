@@ -5,15 +5,15 @@
 // this file owns the obvious stuff:
 //   - hero entrance with stagger and a nice spring
 //   - reveal-on-scroll with displacement big enough to actually see
-//   - counter roll-ups (because watching numbers go brrr is fun)
 //   - image fade-in once they actually decode
-//   - magnetic buttons that follow the cursor like they want a hug
-//   - hero spotlight (just a soft halo following the pointer around)
 //
 // the inline motion script is still around for the head bootstrap
 // (the .js-motion class set before paint) and the header scroll state.
 
-import { animate, inView, stagger } from 'motion';
+// Every active animation targets DOM styles, so the WAAPI-only build is enough.
+// The hybrid build was 68 KB and its object-animation path had no live caller.
+import { animate } from 'motion/mini';
+import { inView, stagger } from 'motion';
 
 // tells the rest of the page that we're in charge now. css uses
 // .motion-active to switch off the static keyframe fallbacks. without
@@ -26,7 +26,6 @@ const systemReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)'
 const getMotionMode = () => root.getAttribute('data-motion-mode') || (systemReducedMotion.matches ? 'reduced' : 'motion');
 const shouldReduceMotion = () => getMotionMode() !== 'motion';
 const isNoMotion = () => getMotionMode() === 'none';
-const hoverable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const easeEnter = [0.16, 1, 0.3, 1] as const;
 const easeReveal = [0.22, 1, 0.36, 1] as const;
 
@@ -42,7 +41,11 @@ const releaseToCSS = (el: HTMLElement) => {
 
 const revealElement = (el: HTMLElement) => {
   if (!el.isConnected) {
-    requestAnimationFrame(() => revealElement(el));
+    // One retry covers callers that append on the next frame without leaving
+    // an unbounded rAF loop behind if the node is never connected.
+    requestAnimationFrame(() => {
+      if (el.isConnected) revealElement(el);
+    });
     return;
   }
 
@@ -216,19 +219,20 @@ if (reveals.length > 0) {
       el.style.opacity = '0';
       el.style.transform = '';
     });
-    reveals.forEach((el) => {
-      inView(
-        el,
-        () => {
-          el.classList.add('is-revealed');
-          animate(el, { opacity: [0, 1] }, { duration: 0.45, ease: easeEnter })
-            .finished.then(() => releaseToCSS(el))
-            .catch(() => releaseToCSS(el));
-          return undefined;
-        },
-        { margin: '0px 0px -10% 0px' },
-      );
-    });
+    // One observer handles the full set. Calling inView once per element
+    // creates one IntersectionObserver per node in Motion.
+    inView(
+      reveals,
+      (element) => {
+        const el = element as HTMLElement;
+        el.classList.add('is-revealed');
+        animate(el, { opacity: [0, 1] }, { duration: 0.45, ease: easeEnter })
+          .finished.then(() => releaseToCSS(el))
+          .catch(() => releaseToCSS(el));
+        return undefined;
+      },
+      { margin: '0px 0px -10% 0px' },
+    );
   } else {
     // pin the initial offset so the js-driven animation has somewhere
     // to come from. .motion-active gates the css fallback off so these
@@ -238,163 +242,38 @@ if (reveals.length > 0) {
       el.style.transform = 'translate3d(0, 26px, 0) scale(0.97)';
       el.style.willChange = 'opacity, transform';
     });
-    reveals.forEach((el) => {
-      inView(
-        el,
-        () => {
-          el.classList.add('is-revealed');
-          animate(
-            el,
-            {
-              opacity: [0, 1],
-              transform: [
-                'translate3d(0, 26px, 0) scale(0.97)',
-                'translate3d(0, 0, 0) scale(1)',
-              ],
-            },
-            {
-              duration: 0.62,
-              ease: easeReveal,
-            },
-          ).finished.then(() => {
-            // once revealed, give transform/opacity back to css so hover
-            // (.game-card:hover etc.) and the magnetic rule can apply.
-            // this is the surgical fix for the bug where every revealed
-            // card stayed pinned and quietly ignored every hover attempt.
-            releaseToCSS(el);
-          }).catch(() => {
-            // if the animation rejects, never leave the element invisible.
-            releaseToCSS(el);
-          });
-          // inView callbacks can return a cleanup that fires on leave.
-          // we don't replay, so undefined = once and done.
-          return undefined;
-        },
-        { margin: '0px 0px -10% 0px' },
-      );
-    });
-  }
-}
-
-// counter roll-up via motion one.
-const counters = Array.from(document.querySelectorAll<HTMLElement>('[data-counter]'));
-
-const formatCounter = (value: number, mode: string) => {
-  if (mode === 'auto') {
-    if (value >= 1_000_000) {
-      const v = value / 1_000_000;
-      return (v >= 10 ? v.toFixed(0) : v.toFixed(1).replace(/\.0$/, '')) + 'M';
-    }
-    if (value >= 1_000) {
-      const v = value / 1_000;
-      return (v >= 10 ? v.toFixed(0) : v.toFixed(1).replace(/\.0$/, '')) + 'k';
-    }
-    return String(Math.round(value));
-  }
-  if (mode === 'plus') return Math.round(value) + '+';
-  return String(Math.round(value));
-};
-
-counters.forEach((el) => {
-  const target = Number(el.getAttribute('data-counter'));
-  const mode = el.getAttribute('data-counter-format') || 'none';
-  if (!Number.isFinite(target) || target <= 0) {
-    el.textContent = el.getAttribute('data-counter-fallback') || '-';
-    return;
-  }
-  if (shouldReduceMotion()) {
-    el.textContent = formatCounter(target, mode);
-    return;
-  }
-  inView(
-    el,
-    () => {
-      const obj = { v: 0 };
-      animate(
-        obj,
-        { v: target },
-        {
-          duration: Math.min(1.8, 0.9 + Math.log10(target + 1) * 0.22),
-          ease: easeReveal,
-          onUpdate: (latest) => {
-            el.textContent = formatCounter(latest as number, mode);
-          },
-        },
-      ).finished.then(() => {
-        el.textContent = formatCounter(target, mode);
-        // landing flourish: a brief brand-tinted flash that fades in to
-        // the resting colour, instead of a scale bump. no transform, so
-        // nothing reflows and inner-element hovers keep working. we read
-        // the live brand + resting colour so it tracks the active theme.
-        const brand =
-          getComputedStyle(document.documentElement).getPropertyValue('--brand').trim() || '#b54343';
-        const rest = getComputedStyle(el).color;
+    inView(
+      reveals,
+      (element) => {
+        const el = element as HTMLElement;
+        el.classList.add('is-revealed');
         animate(
           el,
-          { color: [brand, rest], opacity: [0.5, 1] },
-          { duration: 0.5, ease: easeReveal },
+          {
+            opacity: [0, 1],
+            transform: [
+              'translate3d(0, 26px, 0) scale(0.97)',
+              'translate3d(0, 0, 0) scale(1)',
+            ],
+          },
+          {
+            duration: 0.62,
+            ease: easeReveal,
+          },
         ).finished.then(() => {
-          el.style.color = '';
-          el.style.opacity = '1';
+          // once revealed, give transform/opacity back to css so hover
+          // (.game-card:hover etc.) and the magnetic rule can apply.
+          releaseToCSS(el);
+        }).catch(() => {
+          // if the animation rejects, never leave the element invisible.
+          releaseToCSS(el);
         });
-      });
-      return undefined;
-    },
-    { margin: '0px 0px -20% 0px' },
-  );
-});
-
-// magnetic buttons (cursor pull).
-if (hoverable && !shouldReduceMotion()) {
-  const magnets = Array.from(document.querySelectorAll<HTMLElement>('[data-magnetic]'));
-  const STRENGTH = 0.28;
-  const MAX = 12;
-  magnets.forEach((el) => {
-    let raf = 0;
-    let tx = 0;
-    let ty = 0;
-    const apply = () => {
-      raf = 0;
-      el.style.setProperty('--mx', tx.toFixed(2) + 'px');
-      el.style.setProperty('--my', ty.toFixed(2) + 'px');
-    };
-    el.addEventListener('pointermove', (e) => {
-      const r = el.getBoundingClientRect();
-      const cx = r.left + r.width / 2;
-      const cy = r.top + r.height / 2;
-      const dx = (e.clientX - cx) * STRENGTH;
-      const dy = (e.clientY - cy) * STRENGTH;
-      tx = Math.max(-MAX, Math.min(MAX, dx));
-      ty = Math.max(-MAX, Math.min(MAX, dy));
-      if (!raf) raf = requestAnimationFrame(apply);
-    });
-    el.addEventListener('pointerleave', () => {
-      // crucial: cancel any pointermove rAF still queued. without this
-      // it would fire AFTER our spring-back starts, snap --mx/--my to
-      // the latest tx/ty (which we're about to zero anyway), and the
-      // animate() call below would have nothing left to animate from
-      // - the bigger ctas (PLAY) showed this clearly because they had
-      // bigger pre-animate offsets to fail to spring back from.
-      if (raf) {
-        cancelAnimationFrame(raf);
-        raf = 0;
-      }
-      tx = 0;
-      ty = 0;
-      // capture the live offsets as the start of the spring-back so the
-      // animation has something to interpolate from regardless of when
-      // the browser last committed the inline style.
-      const fromX = el.style.getPropertyValue('--mx') || '0px';
-      const fromY = el.style.getPropertyValue('--my') || '0px';
-      animate(
-        el,
-        { '--mx': [fromX, '0px'], '--my': [fromY, '0px'] },
-        { duration: 0.34, ease: easeEnter },
-      );
-    });
-  });
-
-  // (cursor spotlight intentionally removed - was decorative noise.)
+        // No cleanup callback means reveal once, then unobserve.
+        return undefined;
+      },
+      { margin: '0px 0px -10% 0px' },
+    );
+  }
 }
 
 // image fade-in on load.

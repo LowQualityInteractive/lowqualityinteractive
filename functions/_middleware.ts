@@ -44,7 +44,10 @@ function applySecurityHeaders(headers: Headers): void {
   setIfMissing('Strict-Transport-Security', 'max-age=15552000; includeSubDomains');
   setIfMissing('X-Frame-Options', 'DENY');
   setIfMissing('Cross-Origin-Opener-Policy', 'same-origin');
+  setIfMissing('Origin-Agent-Cluster', '?1');
   setIfMissing('X-Content-Type-Options', 'nosniff');
+  setIfMissing('X-Permitted-Cross-Domain-Policies', 'none');
+  setIfMissing('X-XSS-Protection', '0');
   setIfMissing('Referrer-Policy', 'strict-origin-when-cross-origin');
   setIfMissing(
     'Permissions-Policy',
@@ -56,6 +59,42 @@ function applySecurityHeaders(headers: Headers): void {
   if (!headers.has('Content-Security-Policy')) {
     headers.set('Content-Security-Policy', "frame-ancestors 'none'");
   }
+}
+
+function appendHeaderValue(headers: Headers, name: string, value: string): void {
+  const existing = headers.get(name);
+  if (!existing) {
+    headers.set(name, value);
+    return;
+  }
+  if (!existing.split(',').map((part) => part.trim()).includes(value)) {
+    headers.set(name, `${existing}, ${value}`);
+  }
+}
+
+function appendVary(headers: Headers, value: string): void {
+  const existing = headers.get('Vary');
+  const values = existing
+    ? existing.split(',').map((part) => part.trim().toLowerCase())
+    : [];
+  if (!values.includes(value.toLowerCase())) {
+    headers.set('Vary', existing ? `${existing}, ${value}` : value);
+  }
+}
+
+function acceptsMarkdown(accept: string): boolean {
+  return accept.split(',').some((range) => {
+    const [rawType, ...rawParameters] = range.split(';');
+    if (rawType.trim().toLowerCase() !== 'text/markdown') return false;
+
+    const qualityParameter = rawParameters
+      .map((parameter) => parameter.trim().toLowerCase())
+      .find((parameter) => parameter.startsWith('q='));
+    if (!qualityParameter) return true;
+
+    const quality = Number(qualityParameter.slice(2));
+    return Number.isFinite(quality) && quality > 0 && quality <= 1;
+  });
 }
 
 // true if this is a page (not a css/js/img/etc asset)
@@ -80,59 +119,141 @@ function logAiCrawlerHit(_request: Request, _surface: 'html' | 'markdown') {
 
 // roblox presence proxy. the public games endpoint is browser-blocked
 // by cors, so we relay it here from a same-origin path. live.ts hits
-// /api/roblox-presence?ids=<csv-of-universe-ids> when PUBLIC_ROBLOX_PROXY=1
-// is set at build time. response shape is the upstream payload as-is.
+// /api/roblox-presence when PUBLIC_ROBLOX_PROXY=1 is set at build time.
+// the endpoint owns its fixed universe-id allowlist and returns only id +
+// playing, the two fields used by the browser.
 //
 // security:
 // - GET only. anything else gets 405.
 // - Origin/Referer must be the same origin (or absent for non-browser
 //   clients) - prevents the endpoint being used as an open relay /
 //   anonymiser for arbitrary roblox api calls from third-party sites.
-// - strict ids validation. attacker-controlled query strings never get
-//   proxied through.
-// - response body capped to 64kb so a hostile upstream can't pin worker
-//   memory.
+// - no query input. the proxy can request only the universe ids owned by
+//   this site, so it cannot become a generic roblox relay or cache-busting
+//   request amplifier.
+// - the response stream is stopped at 64kb before it can pin worker memory.
+// - only the two fields used by the client are returned.
 // - upstream non-2xx is collapsed to 502 with no caching, so a transient
 //   roblox 5xx isn't cached for 30s and a 3xx redirect target isn't
 //   reflected to clients.
 const PROXY_BODY_CAP = 64 * 1024;
-async function handleRobloxPresence(request: Request, url: URL): Promise<Response> {
-  if (request.method !== 'GET' && request.method !== 'HEAD') {
-    return new Response(JSON.stringify({ error: 'method' }), {
-      status: 405,
-      headers: { 'Content-Type': 'application/json', Allow: 'GET, HEAD' },
-    });
+const ROBLOX_UNIVERSE_IDS = ['5788461409', '7915083902'] as const;
+const ROBLOX_UNIVERSE_ID_SET = new Set<string>(ROBLOX_UNIVERSE_IDS);
+
+function jsonResponse(
+  body: Record<string, unknown>,
+  status: number,
+  cacheControl = 'no-store',
+  extraHeaders?: Record<string, string>,
+): Response {
+  const headers = new Headers({
+    'Cache-Control': cacheControl,
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cross-Origin-Resource-Policy': 'same-origin',
+    ...extraHeaders,
+  });
+  applySecurityHeaders(headers);
+  return new Response(JSON.stringify(body), { status, headers });
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+async function readCappedText(response: Response, byteCap: number): Promise<string> {
+  const rawContentLength = response.headers.get('Content-Length');
+  if (rawContentLength !== null) {
+    const contentLength = Number(rawContentLength);
+    if (!Number.isSafeInteger(contentLength) || contentLength < 0 || contentLength > byteCap) {
+      throw new Error('upstream body too large');
+    }
   }
+
+  if (!response.body) return '';
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let byteLength = 0;
+  let body = '';
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    byteLength += value.byteLength;
+    if (byteLength > byteCap) {
+      await reader.cancel('upstream body too large').catch(() => undefined);
+      throw new Error('upstream body too large');
+    }
+    body += decoder.decode(value, { stream: true });
+  }
+
+  return body + decoder.decode();
+}
+
+function sanitizePresencePayload(rawBody: string): { data: { id: number; playing: number }[] } {
+  const parsed: unknown = JSON.parse(rawBody);
+  if (!isRecord(parsed) || !Array.isArray(parsed.data)) {
+    throw new Error('invalid upstream payload');
+  }
+
+  const playingByUniverse = new Map<string, number>();
+  for (const value of parsed.data) {
+    if (!isRecord(value)) continue;
+    const id = typeof value.id === 'number' || typeof value.id === 'string'
+      ? String(value.id)
+      : '';
+    const playing = value.playing;
+    if (
+      !ROBLOX_UNIVERSE_ID_SET.has(id)
+      || typeof playing !== 'number'
+      || !Number.isSafeInteger(playing)
+      || playing < 0
+    ) {
+      continue;
+    }
+    playingByUniverse.set(id, playing);
+  }
+
+  return {
+    data: ROBLOX_UNIVERSE_IDS.flatMap((id) => {
+      const playing = playingByUniverse.get(id);
+      return playing === undefined ? [] : [{ id: Number(id), playing }];
+    }),
+  };
+}
+
+async function handleRobloxPresence(request: Request, url: URL): Promise<Response> {
+  if (request.method !== 'GET') {
+    return jsonResponse({ error: 'method' }, 405, 'no-store', { Allow: 'GET' });
+  }
+  if (url.search !== '') {
+    return jsonResponse({ error: 'query' }, 400);
+  }
+
   const expectedOrigin = new URL(request.url).origin;
   const originHeader = request.headers.get('Origin');
   const refererHeader = request.headers.get('Referer');
+  const fetchSite = request.headers.get('Sec-Fetch-Site');
+  if (fetchSite === 'cross-site') {
+    return jsonResponse({ error: 'origin' }, 403);
+  }
   // browsers always send Origin on cross-origin requests. if either
   // header is present, it must match our origin. absence of both
   // (curl, server-to-server) is allowed - those clients can't be
   // hijacked by a malicious page anyway.
   if (originHeader && originHeader !== expectedOrigin) {
-    return new Response(JSON.stringify({ error: 'origin' }), { status: 403, headers: { 'Content-Type': 'application/json' } });
+    return jsonResponse({ error: 'origin' }, 403);
   }
-  if (!originHeader && refererHeader) {
+  if (refererHeader) {
     try {
       if (new URL(refererHeader).origin !== expectedOrigin) {
-        return new Response(JSON.stringify({ error: 'referer' }), { status: 403, headers: { 'Content-Type': 'application/json' } });
+        return jsonResponse({ error: 'referer' }, 403);
       }
     } catch {
-      return new Response(JSON.stringify({ error: 'referer' }), { status: 403, headers: { 'Content-Type': 'application/json' } });
+      return jsonResponse({ error: 'referer' }, 403);
     }
   }
-  const ids = url.searchParams.get('ids') ?? '';
-  // strict input validation: digits and commas only, max 10 ids,
-  // each up to 20 digits. anything else gets a 400 - never proxy
-  // attacker-controlled query strings to an upstream blindly.
-  if (!/^\d{1,20}(,\d{1,20}){0,9}$/.test(ids)) {
-    return new Response(JSON.stringify({ error: 'bad ids' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-  const upstream = `https://games.roblox.com/v1/games?universeIds=${ids}`;
+
+  const upstream = `https://games.roblox.com/v1/games?universeIds=${ROBLOX_UNIVERSE_IDS.join(',')}`;
   try {
     const res = await fetch(upstream, {
       headers: { Accept: 'application/json' },
@@ -141,35 +262,15 @@ async function handleRobloxPresence(request: Request, url: URL): Promise<Respons
     });
     const upstreamCt = (res.headers.get('Content-Type') ?? '').toLowerCase();
     if (!res.ok || !upstreamCt.includes('application/json')) {
-      return new Response(JSON.stringify({ error: 'upstream' }), {
-        status: 502,
-        headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-      });
+      return jsonResponse({ error: 'upstream' }, 502);
     }
-    const body = await res.text();
-    if (body.length > PROXY_BODY_CAP) {
-      return new Response(JSON.stringify({ error: 'too large' }), {
-        status: 502,
-        headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-      });
-    }
-    return new Response(body, {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        // short cache. presence is volatile but we still want repeat
-        // visitors within a tab session to skip the upstream hop.
-        'Cache-Control': 'public, max-age=30',
-        'Access-Control-Allow-Origin': expectedOrigin,
-        'Vary': 'Origin',
-        'X-Content-Type-Options': 'nosniff',
-      },
-    });
+    const body = await readCappedText(res, PROXY_BODY_CAP);
+    const payload = sanitizePresencePayload(body);
+    // One canonical endpoint and one cache variant. Presence is volatile,
+    // but the short stale window prevents bursts from reaching the upstream.
+    return jsonResponse(payload, 200, 'public, max-age=30, stale-while-revalidate=30');
   } catch {
-    return new Response(JSON.stringify({ error: 'upstream' }), {
-      status: 502,
-      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-    });
+    return jsonResponse({ error: 'upstream' }, 502);
   }
 }
 
@@ -194,7 +295,8 @@ export const onRequest = async (context: PagesContext): Promise<Response> => {
   // 1. Accept: text/markdown -> serve the .md body at this url
   // claude code and cursor already send this header
   const accept = request.headers.get('Accept') ?? '';
-  if (accept.toLowerCase().includes('text/markdown')) {
+  const negotiatesContent = request.method === 'GET' || request.method === 'HEAD';
+  if (negotiatesContent && acceptsMarkdown(accept)) {
     const mdRequest = new Request(new URL(markdownPath, url), request);
     const mdResponse = await next(mdRequest);
     // only relabel as markdown if the resolved body actually IS markdown.
@@ -205,9 +307,9 @@ export const onRequest = async (context: PagesContext): Promise<Response> => {
       logAiCrawlerHit(request, 'markdown');
       const headers = new Headers(mdResponse.headers);
       headers.set('Content-Type', 'text/markdown; charset=utf-8');
-      headers.set('Vary', 'Accept');
+      appendVary(headers, 'Accept');
       // self-link so a downstream proxy can still find the canonical .md
-      headers.append('Link', `<${markdownPath}>; rel="canonical"; type="text/markdown"`);
+      appendHeaderValue(headers, 'Link', `<${markdownPath}>; rel="canonical"; type="text/markdown"`);
       applySecurityHeaders(headers);
       return new Response(mdResponse.body, {
         status: 200,
@@ -224,20 +326,21 @@ export const onRequest = async (context: PagesContext): Promise<Response> => {
 
   const contentType = response.headers.get('Content-Type') ?? '';
   if (!contentType.toLowerCase().includes('text/html')) {
-    return response;
+    const headers = new Headers(response.headers);
+    applySecurityHeaders(headers);
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers,
+    });
   }
 
   logAiCrawlerHit(request, 'html');
 
   const newHeaders = new Headers(response.headers);
   const linkValue = `<${markdownPath}>; rel="alternate"; type="text/markdown"`;
-  const existingLink = newHeaders.get('Link');
-  newHeaders.set('Link', existingLink ? `${existingLink}, ${linkValue}` : linkValue);
-  // append, dont clobber a prior Vary
-  const existingVary = newHeaders.get('Vary');
-  if (!existingVary || !existingVary.split(',').map((v) => v.trim().toLowerCase()).includes('accept')) {
-    newHeaders.set('Vary', existingVary ? `${existingVary}, Accept` : 'Accept');
-  }
+  appendHeaderValue(newHeaders, 'Link', linkValue);
+  appendVary(newHeaders, 'Accept');
   applySecurityHeaders(newHeaders);
 
   return new Response(response.body, {

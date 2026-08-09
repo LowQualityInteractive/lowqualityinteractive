@@ -1,3 +1,5 @@
+import { serializeInlineData } from './inline-data';
+
 // iife that sets up window.__lqiTranslate. backend is lingva.ml (a foss
 // google-translate proxy that returns access-control-allow-origin: *,
 // so we can call it from the browser - google's own translate_a/single
@@ -15,8 +17,8 @@
 export function getTranslateBootstrap(locale: string, toastLabel: string) {
   return String.raw`(() => {
   if (window.__lqiTranslate) return;
-  const LOCALE = ${JSON.stringify(locale)};
-  const TOAST_LABEL = ${JSON.stringify(toastLabel)};
+  const LOCALE = ${serializeInlineData(locale)};
+  const TOAST_LABEL = ${serializeInlineData(toastLabel)};
   if (LOCALE === 'en') {
     window.__lqiTranslate = {
       enabled: false,
@@ -31,19 +33,64 @@ export function getTranslateBootstrap(locale: string, toastLabel: string) {
     ru: 'ru', de: 'de', it: 'it', fr: 'fr', ro: 'ro', el: 'el',
   };
   const target = MAP[LOCALE] || LOCALE;
+  const MAX_SOURCE_LENGTH = 1000;
+  const MAX_RESPONSE_BYTES = 16 * 1024;
+  const MAX_TRANSLATION_LENGTH = 8 * 1024;
   const hash = (s) => {
-    let h = 5381;
-    for (let i = 0; i < s.length; i++) h = ((h << 5) + h) ^ s.charCodeAt(i);
-    return (h >>> 0).toString(36);
+    let h1 = 5381;
+    let h2 = 2166136261;
+    for (let i = 0; i < s.length; i++) {
+      const code = s.charCodeAt(i);
+      h1 = ((h1 << 5) + h1) ^ code;
+      h2 = Math.imul(h2 ^ code, 16777619);
+    }
+    return (h1 >>> 0).toString(36) + (h2 >>> 0).toString(36);
   };
   // localStorage > sessionStorage so a returning visitor doesn't pay
   // for the same translations again. quotas are per-origin so we have
   // ~5MB to play with - more than enough for the strings we tag.
   const cacheGet = (k) => {
-    try { return localStorage.getItem(k); } catch { return null; }
+    try {
+      const value = localStorage.getItem(k);
+      return value !== null && value.length <= MAX_TRANSLATION_LENGTH ? value : null;
+    } catch { return null; }
   };
   const cacheSet = (k, v) => {
+    if (typeof v !== 'string' || v.length > MAX_TRANSLATION_LENGTH) return;
     try { localStorage.setItem(k, v); } catch {}
+  };
+  const readCappedText = async (response, byteCap) => {
+    const rawContentLength = response.headers.get('content-length');
+    if (rawContentLength !== null) {
+      const contentLength = Number(rawContentLength);
+      if (!Number.isSafeInteger(contentLength) || contentLength < 0 || contentLength > byteCap) {
+        throw new Error('lingva response too large');
+      }
+    }
+
+    if (!response.body) {
+      const text = await response.text();
+      if (text.length > byteCap || new TextEncoder().encode(text).byteLength > byteCap) {
+        throw new Error('lingva response too large');
+      }
+      return text;
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let byteLength = 0;
+    let text = '';
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      byteLength += value.byteLength;
+      if (byteLength > byteCap) {
+        await reader.cancel('lingva response too large').catch(() => {});
+        throw new Error('lingva response too large');
+      }
+      text += decoder.decode(value, { stream: true });
+    }
+    return text + decoder.decode();
   };
   // bottom-right toast that appears as soon as the first uncached
   // translation is in flight and disappears once everything settles.
@@ -53,6 +100,7 @@ export function getTranslateBootstrap(locale: string, toastLabel: string) {
   let toastEl = null;
   let toastBarEl = null;
   let toastHideTimer = 0;
+  let toastRemoveTimer = 0;
   let totalCalls = 0;
   let doneCalls = 0;
   const ensureToast = () => {
@@ -90,9 +138,11 @@ export function getTranslateBootstrap(locale: string, toastLabel: string) {
       // the meantime, cancel the timer and stay visible.
       if (toastHideTimer) clearTimeout(toastHideTimer);
       toastHideTimer = setTimeout(() => {
+        toastHideTimer = 0;
         if (toastEl && doneCalls >= totalCalls) {
           toastEl.classList.add('is-hiding');
-          setTimeout(() => {
+          toastRemoveTimer = setTimeout(() => {
+            toastRemoveTimer = 0;
             if (toastEl && toastEl.parentNode) toastEl.parentNode.removeChild(toastEl);
             toastEl = null;
             toastBarEl = null;
@@ -103,6 +153,7 @@ export function getTranslateBootstrap(locale: string, toastLabel: string) {
       }, 250);
     } else {
       if (toastHideTimer) { clearTimeout(toastHideTimer); toastHideTimer = 0; }
+      if (toastRemoveTimer) { clearTimeout(toastRemoveTimer); toastRemoveTimer = 0; }
       toastEl.classList.remove('is-hiding');
     }
   };
@@ -120,23 +171,42 @@ export function getTranslateBootstrap(locale: string, toastLabel: string) {
   const inflight = new Map();
   const one = (text) => {
     if (!text || !text.trim()) return Promise.resolve(text);
-    const key = 'lqi-tx-' + LOCALE + '-' + hash(text);
+    if (text.length > MAX_SOURCE_LENGTH) return Promise.resolve(text);
+    const key = 'lqi-tx-' + LOCALE + '-' + text.length + '-' + hash(text);
     const cached = cacheGet(key);
     if (cached !== null) return Promise.resolve(cached);
     if (inflight.has(key)) return inflight.get(key);
     const url = 'https://lingva.ml/api/v1/en/' + target + '/' + encodeURIComponent(text);
-    const p = fetch(url, { signal: AbortSignal.timeout(8000) })
-      .then((r) => { if (!r.ok) throw new Error('lingva ' + r.status); return r.json(); })
+    const p = fetch(url, {
+      signal: AbortSignal.timeout(8000),
+      headers: { Accept: 'application/json' },
+      credentials: 'omit',
+      mode: 'cors',
+      referrerPolicy: 'no-referrer',
+    })
+      .then(async (r) => {
+        if (!r.ok) throw new Error('lingva ' + r.status);
+        const contentType = (r.headers.get('content-type') || '').toLowerCase();
+        if (!contentType.includes('application/json')) throw new Error('lingva content type');
+        const raw = await readCappedText(r, MAX_RESPONSE_BYTES);
+        return JSON.parse(raw);
+      })
       .then((data) => {
-        const result = (data && data.translation) || text;
-        const out = (!result || !result.trim() || result === text) ? text : result;
+        const result = data && typeof data.translation === 'string' ? data.translation : text;
+        const out = (
+          !result.trim()
+          || result === text
+          || result.length > MAX_TRANSLATION_LENGTH
+          || result.length > text.length * 8 + 256
+        ) ? text : result;
         cacheSet(key, out);
         return out;
       })
       .catch(() => text);
-    inflight.set(key, p);
-    trackCall(p);
-    return p;
+    const tracked = p.finally(() => inflight.delete(key));
+    inflight.set(key, tracked);
+    trackCall(tracked);
+    return tracked;
   };
   // when the runtime rewrites a node's textContent, the MutationObserver
   // would otherwise fire for every change and bounce us back into

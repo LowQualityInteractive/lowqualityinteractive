@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import { getSiteTitle } from '../data/site';
-import { LOCALES, LOCALE_OPTIONS, cspScriptHash, getLocalePath, getMessages, sanitizeInlineScript } from '../i18n/messages';
+import { LOCALES, cspScriptHash, getLocalePath, getMessages, sanitizeInlineScript } from '../i18n/messages';
 import { getNotFoundScript } from '../scripts/notFound';
 import { getSiteScript } from '../scripts/site';
 import { getThemeScript } from '../scripts/theme';
@@ -16,9 +16,8 @@ const siteScript = sanitizeInlineScript(
   getSiteScript(
     {
       mobileNav: english.chrome.mobileNav,
-      localeSwitcher: english.chrome.localeSwitcher,
     },
-    LOCALE_OPTIONS,
+    LOCALES,
     false,
   ),
 );
@@ -52,17 +51,24 @@ const motionScript = sanitizeInlineScript(getMotionScript());
 
 const scripts404 = [cookiesBootstrap, themeScript, motionBootstrap, siteScript, notFoundScript, motionScript];
 const scriptHashes = scripts404.map(cspScriptHash).join(' ');
+const styleElementSources = import.meta.env.DEV ? "'self' 'unsafe-inline'" : "'self'";
 const csp404 = [
   "default-src 'self'",
   `script-src 'self' ${scriptHashes}`,
+  "script-src-attr 'none'",
   "style-src 'self' 'unsafe-inline'",
+  `style-src-elem ${styleElementSources}`,
+  "style-src-attr 'unsafe-inline'",
   "font-src 'self'",
-  "img-src 'self' data: https:",
+  "img-src 'self' data:",
   "connect-src 'self'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "frame-ancestors 'none'",
+  "base-uri 'none'",
+  "form-action 'none'",
+  "frame-src 'none'",
+  "media-src 'none'",
+  import.meta.env.DEV ? "worker-src 'self' blob:" : "worker-src 'none'",
   "object-src 'none'",
+  ...(!import.meta.env.DEV ? ["require-trusted-types-for 'script'", "trusted-types 'none'"] : []),
 ].join('; ');
 ---
 

@@ -2,7 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getConnectJsonLd } from '../data/games';
 import { CONTACT_EMAIL, SOCIAL_LINKS, getSiteTitle } from '../data/site';
-import { getMessages, type Locale } from '../i18n/messages';
+import { getMessages, sanitizeInlineScript, type Locale } from '../i18n/messages';
+import { getConnectScript } from '../scripts/connect';
 
 interface Props {
   locale: Locale;
@@ -12,6 +13,7 @@ const { locale } = Astro.props;
 const messages = getMessages(locale);
 const page = messages.pages.connect;
 const platformLabels = messages.chrome.platforms;
+const connectScript = sanitizeInlineScript(getConnectScript());
 
 ---
 
@@ -22,6 +24,7 @@ const platformLabels = messages.chrome.platforms;
   currentPage="connect"
   routePath="connect"
   jsonLd={getConnectJsonLd(locale)}
+  extraScripts={[connectScript]}
 >
   <div class="core-page core-page--connect">
     <section class="core-intro">
@@ -64,51 +67,3 @@ const platformLabels = messages.chrome.platforms;
     </section>
   </div>
 </BaseLayout>
-
-<script>
-  (() => {
-    const button = document.querySelector('[data-email-copy]');
-    if (!(button instanceof HTMLButtonElement)) return;
-
-    const email = button.dataset.email ?? '';
-    const copyLabel = button.dataset.copyLabel ?? 'Copy email address';
-    const copiedLabel = button.dataset.copiedLabel ?? 'Copied';
-    const businessLabel = button.dataset.businessLabel ?? copyLabel;
-    let resetTimer = 0;
-    const fallbackCopy = () => {
-      const input = document.createElement('textarea');
-      input.value = email;
-      input.setAttribute('readonly', '');
-      input.style.position = 'fixed';
-      input.style.opacity = '0';
-      document.body.appendChild(input);
-      input.select();
-      const copied = document.execCommand('copy');
-      input.remove();
-      return copied;
-    };
-
-    button.addEventListener('click', async () => {
-      let copied: boolean;
-      try {
-        if (navigator.clipboard?.writeText) {
-          await navigator.clipboard.writeText(email);
-          copied = true;
-        } else {
-          copied = fallbackCopy();
-        }
-      } catch {
-        copied = fallbackCopy();
-      }
-      window.clearTimeout(resetTimer);
-      button.classList.toggle('is-copied', copied);
-      button.title = copied ? copiedLabel : copyLabel;
-      button.setAttribute('aria-label', copied ? copiedLabel : copyLabel);
-      resetTimer = window.setTimeout(() => {
-        button.classList.remove('is-copied');
-        button.title = businessLabel;
-        button.setAttribute('aria-label', copyLabel);
-      }, 1800);
-    });
-  })();
-</script>

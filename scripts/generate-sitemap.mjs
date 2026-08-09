@@ -1,5 +1,5 @@
 import { execSync } from 'node:child_process';
-import { readFile, readdir, stat, writeFile } from 'node:fs/promises';
+import { readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -364,7 +364,7 @@ try {
   // inject under the default /* block. matches the indentation pattern
   // of the existing rules (two spaces).
   const patched = headers.replace(
-    /^\/\*\n((?:  [^\n]+\n)+)/m,
+    /^\/\*\n((?: {2}[^\n]+\n)+)/m,
     (_match, body) => `/*\n${body}  Last-Modified: ${lastModified}\n`,
   );
   if (patched !== headers) {

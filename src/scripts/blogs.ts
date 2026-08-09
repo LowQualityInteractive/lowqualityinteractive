@@ -1,3 +1,5 @@
+import { serializeInlineData } from './inline-data';
+
 interface BlogsViewerMessages {
   couldNotLoadGames: string;
   feedUnavailable: string;
@@ -25,7 +27,7 @@ export function getBlogsScript(
   locale: string,
 ) {
   return String.raw`(async function loadDevLogs() {
-  const CONFIG = ${JSON.stringify({ messages, localizedGames, locale })};
+  const CONFIG = ${serializeInlineData({ messages, localizedGames, locale })};
   const TEXT = CONFIG.messages;
   const LOCALIZED_GAMES = CONFIG.localizedGames;
   const LOCALE = CONFIG.locale;
@@ -43,13 +45,57 @@ export function getBlogsScript(
     month: 'short',
     timeZone: 'UTC',
   });
+  const COMPACT_DATE_FORMATTER = new Intl.DateTimeFormat(LOCALE, {
+    year: '2-digit',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
 
   const gameButtonsContainer = document.getElementById('devlog-game-buttons');
   const viewer = document.getElementById('devlog-viewer');
   if (!(gameButtonsContainer instanceof HTMLElement) || !(viewer instanceof HTMLElement)) return;
 
   const DEVLOGS_URL = '/data/public-devlogs.json';
+  const MAX_DEVLOG_BYTES = 512 * 1024;
+  const MAX_GAMES = 50;
+  const MAX_UPDATES_PER_GAME = 500;
   const CHANGELOG_SECTIONS = ['new', 'changes', 'bugs', 'removals', 'misc'];
+
+  const readCappedText = async (response, byteCap) => {
+    const rawContentLength = response.headers.get('content-length');
+    if (rawContentLength !== null) {
+      const contentLength = Number(rawContentLength);
+      if (!Number.isSafeInteger(contentLength) || contentLength < 0 || contentLength > byteCap) {
+        throw new Error('Feed too large');
+      }
+    }
+
+    if (!response.body) {
+      const text = await response.text();
+      if (text.length > byteCap || new TextEncoder().encode(text).byteLength > byteCap) {
+        throw new Error('Feed too large');
+      }
+      return text;
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    const chunks = [];
+    let byteLength = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      byteLength += value.byteLength;
+      if (byteLength > byteCap) {
+        await reader.cancel('Feed too large').catch(() => {});
+        throw new Error('Feed too large');
+      }
+      chunks.push(decoder.decode(value, { stream: true }));
+    }
+    chunks.push(decoder.decode());
+    return chunks.join('');
+  };
 
   const tx = window.__lqiTranslate;
   const TRANSLATE_ENABLED = !!(tx && tx.enabled);
@@ -116,7 +162,12 @@ export function getBlogsScript(
     const rawYear = Number(match[3]);
     const year = match[3].length === 2 ? 2000 + rawYear : rawYear;
     const date = new Date(Date.UTC(year, month - 1, day));
-    if (Number.isNaN(date.getTime())) return value;
+    if (
+      Number.isNaN(date.getTime())
+      || date.getUTCFullYear() !== year
+      || date.getUTCMonth() !== month - 1
+      || date.getUTCDate() !== day
+    ) return value;
     if (/^en(?:-|$)/i.test(LOCALE)) {
       const suffix = day % 100 >= 11 && day % 100 <= 13
         ? 'th'
@@ -136,7 +187,12 @@ export function getBlogsScript(
     const rawYear = Number(match[3]);
     const year = match[3].length === 2 ? 2000 + rawYear : rawYear;
     const date = new Date(Date.UTC(year, month - 1, day));
-    if (Number.isNaN(date.getTime())) return formatDate(value);
+    if (
+      Number.isNaN(date.getTime())
+      || date.getUTCFullYear() !== year
+      || date.getUTCMonth() !== month - 1
+      || date.getUTCDate() !== day
+    ) return formatDate(value);
 
     if (/^en(?:-|$)/i.test(LOCALE)) {
       const suffix = day % 100 >= 11 && day % 100 <= 13
@@ -144,12 +200,7 @@ export function getBlogsScript(
         : ({ 1: 'st', 2: 'nd', 3: 'rd' }[day % 10] || 'th');
       return ENGLISH_SHORT_MONTH_FORMATTER.format(date) + ' ' + String(day) + suffix + ", '" + String(year).slice(-2);
     }
-    return new Intl.DateTimeFormat(LOCALE, {
-      year: '2-digit',
-      month: 'short',
-      day: 'numeric',
-      timeZone: 'UTC',
-    }).format(date);
+    return COMPACT_DATE_FORMATTER.format(date);
   };
 
   const normalizeAssetPath = (assetPath) => {
@@ -157,8 +208,10 @@ export function getBlogsScript(
     const normalizedPath = assetPath.trim();
     if (!normalizedPath || /^(?:\/?assets\/)?null$/i.test(normalizedPath)) return '';
     if (/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(normalizedPath)) return '';
-    if (normalizedPath.includes('\\')) return '';
-    return '/' + normalizedPath.replace(/^\/+/, '');
+    if (normalizedPath.includes('\\') || normalizedPath.includes('\0')) return '';
+    const localPath = '/' + normalizedPath.replace(/^\/+/, '');
+    if (!localPath.startsWith('/assets/') || localPath.includes('..') || /[?#]/.test(localPath)) return '';
+    return localPath;
   };
 
   const normalizeUpdateContents = (update) => {
@@ -181,21 +234,25 @@ export function getBlogsScript(
   };
 
   const normalizeGames = (payload) => {
+    if (!payload || typeof payload !== 'object') return [];
     if (Array.isArray(payload.games)) {
-      return payload.games.map((game) => {
+      return payload.games.slice(0, MAX_GAMES).filter((game) => game && typeof game === 'object').map((game) => {
         const localized = LOCALIZED_GAMES[game.id] || {};
         return {
           ...game,
           name: localized.name || game.name,
           updates: Array.isArray(game.updates)
-            ? game.updates.map((update) => normalizeUpdateContents(update))
+            ? game.updates
+                .slice(0, MAX_UPDATES_PER_GAME)
+                .filter((update) => update && typeof update === 'object')
+                .map((update) => normalizeUpdateContents(update))
             : [],
         };
       });
     }
 
     if (!Array.isArray(payload.posts)) return [];
-    return payload.posts.map((post) => ({
+    return payload.posts.slice(0, MAX_UPDATES_PER_GAME).filter((post) => post && typeof post === 'object').map((post) => ({
       id: post.id,
       name: post.tag || post.title || TEXT.untitled,
       updates: [
@@ -271,12 +328,15 @@ export function getBlogsScript(
 
   try {
     const response = await fetch(DEVLOGS_URL, {
-      cache: 'no-store',
       signal: AbortSignal.timeout(8000),
+      headers: { Accept: 'application/json' },
+      credentials: 'same-origin',
     });
     if (!response.ok) throw new Error('Bad response');
-
-    const payload = await response.json();
+    const contentType = (response.headers.get('content-type') || '').toLowerCase();
+    if (!contentType.includes('application/json')) throw new Error('Bad content type');
+    const rawPayload = await readCappedText(response, MAX_DEVLOG_BYTES);
+    const payload = JSON.parse(rawPayload);
     const games = normalizeGames(payload).filter((game) => game.updates && game.updates.length > 0);
 
     if (games.length === 0) {
@@ -302,6 +362,7 @@ export function getBlogsScript(
     };
     let versionButtons = [];
     let renderedGameIndex = -1;
+    let renderToken = 0;
 
     const getHashTarget = () => {
       try {
@@ -431,8 +492,12 @@ export function getBlogsScript(
     };
 
     const render = async () => {
-      const game = games[state.currentGameIndex];
-      const update = await getTranslatedUpdate(game, state.currentUpdateIndex);
+      const token = ++renderToken;
+      const gameIndex = state.currentGameIndex;
+      const updateIndex = state.currentUpdateIndex;
+      const game = games[gameIndex];
+      const update = await getTranslatedUpdate(game, updateIndex);
+      if (token !== renderToken) return;
       const localizedGame = LOCALIZED_GAMES[game.id] || {};
 
       renderGameTabs();
@@ -447,6 +512,7 @@ export function getBlogsScript(
       if (update.image) {
         const image = createElement('img', { className: 'devlog-image' });
         image.loading = 'lazy';
+        image.decoding = 'async';
         image.src = update.image;
         image.alt = localizedGame.updateImageAlt || interpolate(TEXT.imageAlt, { game: game.name });
         bodyChildren.push(image);
@@ -454,14 +520,6 @@ export function getBlogsScript(
 
       bodyChildren.push(renderChangelog(update));
       replaceChildren(body, bodyChildren);
-
-      if (TRANSLATE_ENABLED) {
-        game.updates.forEach((_, i) => {
-          if (i !== state.currentUpdateIndex) {
-            getTranslatedUpdate(game, i);
-          }
-        });
-      }
     };
 
     selectFromHash();
@@ -472,7 +530,12 @@ export function getBlogsScript(
       if (!(button instanceof HTMLButtonElement)) return;
 
       const nextGameIndex = Number(button.dataset.gameIndex);
-      if (Number.isNaN(nextGameIndex) || nextGameIndex === state.currentGameIndex) return;
+      if (
+        !Number.isInteger(nextGameIndex)
+        || nextGameIndex < 0
+        || nextGameIndex >= games.length
+        || nextGameIndex === state.currentGameIndex
+      ) return;
 
       state.currentGameIndex = nextGameIndex;
       state.currentUpdateIndex = 0;
@@ -486,7 +549,12 @@ export function getBlogsScript(
       if (!(button instanceof HTMLButtonElement)) return;
 
       const nextUpdateIndex = Number(button.dataset.updateIndex);
-      if (Number.isNaN(nextUpdateIndex) || nextUpdateIndex === state.currentUpdateIndex) return;
+      if (
+        !Number.isInteger(nextUpdateIndex)
+        || nextUpdateIndex < 0
+        || nextUpdateIndex >= games[state.currentGameIndex].updates.length
+        || nextUpdateIndex === state.currentUpdateIndex
+      ) return;
 
       state.currentUpdateIndex = nextUpdateIndex;
       updateHash(games[state.currentGameIndex].updates[nextUpdateIndex].id);

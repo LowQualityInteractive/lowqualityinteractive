@@ -72,6 +72,7 @@ const AboutMarkdownContent = aboutMarkdown?.Content;
   description={game.pageDescription}
   currentPage="games"
   routePath={aboutRoutePath}
+  enableLivePresence
   jsonLd={getGameAboutJsonLd(locale, game, aboutData, gameFaqs)/* pass aboutData + gameFaqs explicitly so the json-ld generator reuses both rather than recomputing. faqs in particular are nontrivial - 7 template fills per game per render. */}
   ogImage={game.artwork.src}
   ogImageAlt={game.artwork.alt}

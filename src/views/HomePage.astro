@@ -110,29 +110,3 @@ const eradicationRobloxUrl = getGameBySlug(locale, 'eradication')?.robloxUrl ?? 
     </section>
   </div>
 </BaseLayout>
-
-<script>
-  // Temporary visual flag; re-enable when the cover treatment is ready.
-  const enableCoverScroll = false;
-
-  if (enableCoverScroll) {
-    const latestSection = document.querySelector<HTMLElement>('[data-latest-cover]');
-    const latestCover = latestSection?.dataset.latestCover;
-
-    if (latestSection && latestCover) {
-      document.documentElement.style.setProperty('--latest-cover', `url("${latestCover}")`);
-
-      const setCoverState = (active: boolean) => {
-        document.documentElement.classList.toggle('home-cover-active', active);
-      };
-
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(
-          ([entry]) => setCoverState(entry.isIntersecting),
-          { threshold: 0, rootMargin: '0px 0px -45% 0px' },
-        );
-        observer.observe(latestSection);
-      }
-    }
-  }
-</script>

@@ -14,7 +14,6 @@ import {
   getLocalePath,
   getMessages,
   LOCALES,
-  LOCALE_OPTIONS,
   sanitizeInlineScript,
   type Locale,
 } from '../i18n/messages';
@@ -42,6 +41,7 @@ interface Props {
   ogImageAlt?: string;
   routePath?: string;
   extraScripts?: string[];
+  enableLivePresence?: boolean;
   noAlternates?: boolean;
   noLocaleRedirect?: boolean;
 }
@@ -49,6 +49,7 @@ interface Props {
 const {
   locale, title, description, currentPage, jsonLd, ogImage, ogImageAlt,
   routePath = '', extraScripts = [],
+  enableLivePresence = false,
   noAlternates = false, noLocaleRedirect = false,
 } = Astro.props;
 const currentYear = new Date().getFullYear();
@@ -70,9 +71,8 @@ const siteScript = sanitizeInlineScript(
   getSiteScript(
     {
       mobileNav: messages.chrome.mobileNav,
-      localeSwitcher: messages.chrome.localeSwitcher,
     },
-    LOCALE_OPTIONS,
+    LOCALES,
     locale === 'en',
     noLocaleRedirect,
   ),
@@ -86,32 +86,27 @@ const footerWikiLinks = getGames(locale)
   .filter((g) => g.status !== 'in-development' && hasWiki(g.slug))
   .map((g) => ({ name: g.name, href: getWikiHubHref(locale, g.slug) }));
 
-const liveGamesForScript = getGames(locale).filter((g) => g.status !== 'in-development').map((g) => ({
-  id: g.id,
-  status: g.status,
-  universeId: g.universeId,
-}));
 // only enable the live-presence call on hosts that ship the proxy
-// (cloudflare pages / netlify edge). on github pages the proxy 404s
-// and the call would pollute the console + every lighthouse run.
+// and on page types that render a player-count target. this keeps the
+// script and request off every wiki, policy, connect, and updates page.
 const robloxPresenceEnabled = import.meta.env.PUBLIC_ROBLOX_PROXY === '1';
-const liveScript = sanitizeInlineScript(
-  getLiveScript(
-    messages.chrome.live,
-    liveGamesForScript,
-    robloxPresenceEnabled,
-  ),
-);
-const translateBootstrap = sanitizeInlineScript(
-  getTranslateBootstrap(
-    locale,
-    // chrome.translateToast.label is "Loading language" in en, translated
-    // per-locale by scripts/translate-locales.mjs. falls back to the
-    // english source if a locale json is missing the key.
-    (messages.chrome as { translateToast?: { label?: string } })?.translateToast?.label
-      ?? 'Loading language',
-  ),
-);
+const liveScript = enableLivePresence && robloxPresenceEnabled
+  ? sanitizeInlineScript(getLiveScript(
+      messages.chrome.live,
+      getGames(locale)
+        .filter((g) => g.status !== 'in-development' && g.universeId)
+        .map((g) => ({ id: g.id, universeId: g.universeId })),
+    ))
+  : undefined;
+const translateBootstrap = locale === 'en'
+  ? undefined
+  : sanitizeInlineScript(getTranslateBootstrap(
+      locale,
+      // chrome.translateToast.label is translated per-locale by the
+      // build pipeline and falls back to the English source.
+      (messages.chrome as { translateToast?: { label?: string } })?.translateToast?.label
+        ?? 'Loading language',
+    ));
 const motionBootstrap = sanitizeInlineScript(getMotionBootstrap());
 const motionScript = sanitizeInlineScript(getMotionScript());
 
@@ -141,10 +136,10 @@ const allInlineScripts = [
   motionPreferenceScript,
   motionBootstrap,
   ...(safeJsonLd ? [safeJsonLd] : []),
-  translateBootstrap,
+  ...(translateBootstrap ? [translateBootstrap] : []),
   siteScript,
   noticeScript,
-  liveScript,
+  ...(liveScript ? [liveScript] : []),
   motionScript,
   ...safeExtraScripts,
 ];
@@ -158,13 +153,18 @@ const connectSources = [
   // lingva.ml is the runtime translation backend (a foss google
   // translate proxy that returns CORS headers, unlike google's own
   // endpoint). used by src/scripts/translate.ts.
-  'https://lingva.ml',
-  'https://discord.com',
+  ...(locale === 'en' ? [] : ['https://lingva.ml']),
 ].filter(Boolean);
+// Vite injects component CSS into <style> elements during local development.
+// Production emits same-origin, content-hashed stylesheets instead.
+const styleElementSources = import.meta.env.DEV ? "'self' 'unsafe-inline'" : "'self'";
 const csp = [
   "default-src 'self'",
   `script-src 'self' ${scriptHashes}`,
+  "script-src-attr 'none'",
   "style-src 'self' 'unsafe-inline'",
+  `style-src-elem ${styleElementSources}`,
+  "style-src-attr 'unsafe-inline'",
   "font-src 'self'",
   // img-src: every image is local under /assets/ today. data: covers
   // tiny inline pixels (1x1 spacer placeholders, transparent webp).
@@ -174,8 +174,11 @@ const csp = [
   // entirely first-party.
   "img-src 'self' data:",
   `connect-src ${[...new Set(connectSources)].join(' ')}`,
-  "base-uri 'self'",
-  "form-action 'self'",
+  "base-uri 'none'",
+  "form-action 'none'",
+  "frame-src 'none'",
+  "media-src 'none'",
+  import.meta.env.DEV ? "worker-src 'self' blob:" : "worker-src 'none'",
   // frame-ancestors intentionally NOT included here: per the csp spec,
   // browsers ignore frame-ancestors when the policy is delivered via a
   // <meta> element, and lighthouse flags its presence as a warning.
@@ -186,6 +189,7 @@ const csp = [
   // sends (github pages currently doesn't set one, so embedding is
   // not blocked at the http layer until the host migrates).
   "object-src 'none'",
+  ...(!import.meta.env.DEV ? ["require-trusted-types-for 'script'", "trusted-types 'none'"] : []),
 ].join('; ');
 ---
 
@@ -460,10 +464,10 @@ const csp = [
     </div>
   </footer>
 
-  <script is:inline set:html={translateBootstrap}></script>
+  {translateBootstrap && <script is:inline set:html={translateBootstrap}></script>}
   <script is:inline set:html={siteScript}></script>
   <script is:inline set:html={noticeScript}></script>
-  <script is:inline set:html={liveScript}></script>
+  {liveScript && <script is:inline set:html={liveScript}></script>}
   <script is:inline set:html={motionScript}></script>
 
   {/* motion one runtime - astro bundles it into /_astro/, the existing

@@ -1,3 +1,5 @@
+import { serializeInlineData } from './inline-data';
+
 interface CookieNoticeMessages {
   accept: string;
   ariaLabel: string;
@@ -7,9 +9,9 @@ interface CookieNoticeMessages {
 
 export function getNoticeScript(messages: CookieNoticeMessages) {
   return String.raw`(function () {
-  if (document.cookie.includes('lqi-ok=')) return;
+  if (window.__lqiCookies.get('lqi-ok') === '1') return;
 
-  const TEXT = ${JSON.stringify(messages)};
+  const TEXT = ${serializeInlineData(messages)};
 
   // Keep the notice quiet and compact. It only appears until the user chooses
   // an option, then leaves without blocking the page.
@@ -41,7 +43,24 @@ export function getNoticeScript(messages: CookieNoticeMessages) {
   dismissButton.type = 'button';
   dismissButton.className = 'cookie-dismiss';
   dismissButton.setAttribute('aria-label', TEXT.dismiss);
-  dismissButton.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  const svgNamespace = 'http://www.w3.org/2000/svg';
+  const dismissIcon = document.createElementNS(svgNamespace, 'svg');
+  dismissIcon.setAttribute('viewBox', '0 0 24 24');
+  dismissIcon.setAttribute('fill', 'none');
+  dismissIcon.setAttribute('stroke', 'currentColor');
+  dismissIcon.setAttribute('stroke-width', '2.5');
+  dismissIcon.setAttribute('stroke-linecap', 'round');
+  dismissIcon.setAttribute('stroke-linejoin', 'round');
+  dismissIcon.setAttribute('aria-hidden', 'true');
+  for (const [x1, y1, x2, y2] of [['18', '6', '6', '18'], ['6', '6', '18', '18']]) {
+    const line = document.createElementNS(svgNamespace, 'line');
+    line.setAttribute('x1', x1);
+    line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2);
+    line.setAttribute('y2', y2);
+    dismissIcon.appendChild(line);
+  }
+  dismissButton.appendChild(dismissIcon);
 
   actions.append(acceptButton, dismissButton);
   inner.append(textWrap, actions);

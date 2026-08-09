@@ -5,34 +5,33 @@
 # Link response header and skip the html body. json-ld doesnt reach them, only
 # wire-level signals do
 #
-# activates on cloudflare pages and netlify. github pages ignores this file
-# entirely so today none of these rules actually fire. the html <link> tag and
-# the .md endpoints are doing the real work right now
-# easiest fix without leaving github pages: a cloudflare worker / transform
-# rule on the existing zone. or move to cloudflare pages and these activate
-# automatically
+# activates on hosts that support the _headers format. the html <link> tag and
+# the .md endpoints remain the portable discovery fallback.
 #
 # .md endpoints are emitted by src/pages/[...path].md.ts
 
-# default on every url, points at the studio-wide llms.txt + llms-full.txt
-# also carries the baseline security headers. github pages ignores _headers,
-# so these activate the moment we move to cloudflare pages / netlify (which
-# the rest of this file is already shaped for). HSTS is intentionally a
+# default security and cache policy. Link and Vary do not belong here: applying
+# them to every font, image, and script needlessly fragments caches and bloats
+# asset responses. page-specific Link headers are below, while runtime content
+# negotiation adds Vary: Accept only to URLs that can actually vary.
+# HSTS is intentionally a
 # conservative 6 months without preload until we've verified https only on
 # every subdomain - once verified, bump max-age to 31536000 and add preload.
 /*
-  Link: </llms.txt>; rel="alternate"; type="text/plain"; title="LLM pointer (crawl the site for content)", </llms-full.txt>; rel="alternate"; type="text/plain"; title="LLM pointer (crawl the site for content)"
-  Vary: Accept
+  Cache-Control: public, max-age=300, must-revalidate
   Strict-Transport-Security: max-age=15552000; includeSubDomains
   X-Frame-Options: DENY
   Content-Security-Policy: frame-ancestors 'none'
   Cross-Origin-Opener-Policy: same-origin
+  Origin-Agent-Cluster: ?1
   X-Content-Type-Options: nosniff
+  X-Permitted-Cross-Domain-Policies: none
+  X-XSS-Protection: 0
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=(), browsing-topics=()
 
 # per-route Link header pointing at the matching .md
-# matching rules combine, so the default above and the per-route rule below
+# matching rules combine, so the security/cache default and the per-route rule
 # both fire on the same request
 
 # en (unprefixed) home + sections + game-about
@@ -383,14 +382,13 @@
 # instead of rendering, plus llm clients that filter on Content-Type drop us
 /*.md
   Content-Type: text/markdown; charset=utf-8
-  Vary: Accept
 
 # cache-control. astro emits hashed filenames under /_astro/ so those are
 # safe to mark immutable for a year - they're content-addressed, the url
 # changes on every content change. html and other top-level files use a
-# short fresh window with a long stale-while-revalidate so users get
-# instant page loads from the cdn while we update the origin within
-# minutes of a deploy.
+# HTML must revalidate after the short fresh window. Astro asset filenames are
+# content-hashed, so stale HTML can otherwise point at assets removed by a new
+# atomic deployment and render an unstyled page.
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 /assets/*
@@ -399,7 +397,3 @@
 # font change rename the file (or append a ?v=) to bust caches.
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
-/*.html
-  Cache-Control: public, max-age=300, stale-while-revalidate=86400
-/
-  Cache-Control: public, max-age=300, stale-while-revalidate=86400

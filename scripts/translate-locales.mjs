@@ -27,7 +27,6 @@
 // usage: node scripts/translate-locales.mjs
 //        node scripts/translate-locales.mjs --force  (retranslate all)
 //        node scripts/translate-locales.mjs --skip-markdown
-//        node scripts/translate-locales.mjs --skip-wiki
 
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
@@ -37,10 +36,8 @@ import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const localesDir = path.resolve(here, '..', 'src', 'i18n', 'locales');
 const aboutDir = path.resolve(here, '..', 'src', 'data', 'about');
-const wikiDir = path.resolve(here, '..', 'src', 'data', 'wiki');
 const force = process.argv.includes('--force');
 const skipMarkdown = process.argv.includes('--skip-markdown');
-const skipWiki = process.argv.includes('--skip-wiki');
 
 // keys to translate, expressed as dotted paths into the locale json.
 // catalog entries iterate per game id; we expand them at run time.
@@ -307,7 +304,7 @@ async function translateOne(text, locale) {
     } else {
       try {
         raw = await translateLingva(shielded, locale);
-      } catch (err2) {
+      } catch {
         // both backends failed. surface the original error.
         throw lastErr;
       }

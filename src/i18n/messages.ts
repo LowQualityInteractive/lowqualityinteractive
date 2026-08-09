@@ -166,26 +166,13 @@ export function interpolate(
   });
 }
 
-// neutralise sequences that would let a string literal break out of an
-// inline <script> or json-ld block. covers:
-//   </script ...>      - the obvious script-end tag
-//   <!--               - html comment open. inside <script> this opens
-//                        a comment that ends only at -->, letting an
-//                        attacker hide subsequent code from the parser.
-//   <script            - nested script-start tags (relevant inside
-//                        json-ld <script type="application/ld+json">).
-//   --> / ]]>          - tokens that close cdata-style sections used by
-//                        some downstream renderers.
-// the replacements all preserve string semantics in javascript (the
-// extra backslash is a no-op inside a string literal) and in json
-// (the values become harmless visually-identical text).
+// An HTML parser ends a script's raw-text element at </script even when the
+// token occurs inside a JavaScript or JSON string. Escaping the slash is valid
+// in both grammars and prevents that close token. Build-time values embedded
+// in executable scripts receive the stronger serializeInlineData treatment
+// before this final boundary check.
 export function sanitizeInlineScript(script: string) {
-  return script
-    .replace(/<\/script/gi, '<\\/script')
-    .replace(/<script/gi, '<\\script')
-    .replace(/<!--/g, '<\\!--')
-    .replace(/-->/g, '--\\>')
-    .replace(/\]\]>/g, ']]\\>');
+  return script.replace(/<\/script/gi, '<\\/script');
 }
 
 // sha256 hash for the inline-script csp. has to match the exact body

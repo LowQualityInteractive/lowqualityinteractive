@@ -85,10 +85,6 @@ export const GET: APIRoute = ({ props }) => {
   return new Response(body, {
     headers: {
       'Content-Type': 'text/markdown; charset=utf-8',
-      // tells cdns the same url can serve different bodies based on
-      // the Accept header. middleware reuses this body for clients
-      // that ask for Accept: text/markdown on the html url.
-      Vary: 'Accept',
     },
   });
 };

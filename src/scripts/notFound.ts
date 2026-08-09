@@ -1,3 +1,5 @@
+import { serializeInlineData } from './inline-data';
+
 interface NotFoundLocaleContent {
   copy: string;
   description: string;
@@ -15,7 +17,7 @@ export function getNotFoundScript(
   contentByLocale: Record<string, NotFoundLocaleContent>,
 ) {
   return String.raw`(() => {
-  const CONTENT = ${JSON.stringify(contentByLocale)};
+  const CONTENT = ${serializeInlineData(contentByLocale)};
   const pathname = window.location.pathname.toLowerCase();
   const matchedLocale =
     Object.keys(CONTENT).find((locale) => {

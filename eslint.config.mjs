@@ -5,7 +5,7 @@ import globals from 'globals';
 
 export default [
   {
-    ignores: ['dist/**', '.astro/**', 'node_modules/**', 'functions/**'],
+    ignores: ['dist/**', '.astro/**', 'node_modules/**'],
   },
   {
     languageOptions: {
